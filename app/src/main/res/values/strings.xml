@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Panelist</string>
+    <string name="internet_setting">wifi setting</string>
+    <string name="data_setting">data setting</string>
+    <string name="no_internet_text">turn on internet</string>
+    <string name="warning">warning</string>
+    <string name="text_input_mobile">لطفا شماره موبایل خود را وارد کنید</string>
+    <string name="login_button_text">ارسال</string>
 </resources>

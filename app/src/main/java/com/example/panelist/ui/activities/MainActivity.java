@@ -4,8 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.panelist.R;
+import com.example.panelist.utilities.CustomBaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends CustomBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

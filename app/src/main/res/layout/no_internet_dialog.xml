@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/warning"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="16dp"/>
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/text_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/colorBlueText"
+        android:layout_marginTop="20dp"
+        android:text="@string/no_internet_text"
+        android:textSize="14sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/btn_data_dialog"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/data_setting" />
+
+        <TextView
+            android:id="@+id/btn_wifi_dialog"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_button"
+            android:gravity="center"
+            android:text="@string/internet_setting" />
+
+    </LinearLayout>
+
+</LinearLayout>
