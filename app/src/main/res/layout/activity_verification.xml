@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C5BFBF"
+    tools:context=".ui.activities.VerificationActivity">
+
+    <EditText
+        android:id="@+id/et_user_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:hint="@string/verification_hint"
+        android:inputType="phone"
+        android:maxLength="5"
+        android:padding="10dp"
+        android:textColorHint="@color/blue"
+        android:textDirection="rtl"
+        android:textSize="13sp" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl18"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/et_user_verify"
+        android:layout_marginTop="7dp"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true">
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/av_verify"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                app:indicatorName="BallPulseIndicator" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_verify"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/login_button_text"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_txt_user_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl18"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/edit_phone_icon"/>
+        <TextView
+            android:id="@+id/text_user_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:text="09372112652"
+            android:textColor="@color/white_gray"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_txt_user_mobile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="@string/verification_header"
+        android:textColor="@color/white_gray"
+        android:textSize="12sp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <LinearLayout
+                android:id="@+id/linear_recode"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/veriification_resend_code"
+                    android:textColor="@color/white_gray" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_refresh" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_recode_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal">
+
+                    <com.rahbarbazaar.poller.android.Utilities.CustomTextView
+                        android:id="@+id/text_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        tools:text="" />
+
+                    <com.rahbarbazaar.poller.android.Utilities.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:visibility="gone"
+                        android:textColor="@color/white_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <com.rahbarbazaar.poller.android.Utilities.CustomTextView
+                        android:id="@+id/text_sec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white_gray"
+                        android:textSize="@dimen/_14ssp"
+                        android:visibility="gone"
+                        android:textStyle="bold"
+                        tools:text="" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

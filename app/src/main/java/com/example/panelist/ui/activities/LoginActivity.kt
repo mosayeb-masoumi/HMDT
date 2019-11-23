@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
+import android.widget.Toast
 import com.example.panelist.R
+import com.example.panelist.models.api_error.ErrorUtils
 import com.example.panelist.models.login.LoginModel
 import com.example.panelist.network.ServiceProvider
 import com.example.panelist.utilities.App.context
@@ -20,11 +22,15 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsStatusCodes
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : CustomBaseActivity() {
 
@@ -153,21 +159,68 @@ class LoginActivity : CustomBaseActivity() {
     private fun requestLogin(phone: String) {
 
         val service = ServiceProvider(this).getmService()
-        disposable.add(service.login(phone)
-                .observeOn(AndroidSchedulers.mainThread() )
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(object  : DisposableSingleObserver<LoginModel>(){
-                    override fun onSuccess(result: LoginModel) {
-                       var a :String = result.data.toString()
-                        var b :String =a
+        val call = service.login(phone)
+
+        call.enqueue(object : Callback<LoginModel> {
+
+            override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
+                if (response.code() == 200) {
+
+                    startActivity(Intent(this@LoginActivity, VerificationActivity::class.java))
+                    var data = response.body()?.data
+                    Toast.makeText(context, "" + data, Toast.LENGTH_LONG).show()
+                    avi_login.hide()
+                    btn_submit_login.visibility = View.VISIBLE
+                    finish()
+
+                } else if (response.code() == 422) {
+
+                    avi_login.hide()
+                    btn_submit_login.visibility = View.VISIBLE
+
+                    val apiError = ErrorUtils.parseError(response)
+                    if (apiError.errors.mobile != null) {
+
+                        var builderMobile = StringBuilder()
+                        for (a in apiError.errors.mobile) {
+                            builderMobile.append("$a ")
+                        }
+                        Toast.makeText(context, "" + builderMobile, Toast.LENGTH_LONG).show()
                     }
 
-                    override fun onError(e: Throwable) {
-                        var b :String =""
-                    }
+                }else{
+                    Toast.makeText(context, "" + R.string.serverFaield, Toast.LENGTH_LONG).show()
+                    btn_submit_login.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onFailure(call: Call<LoginModel>, t: Throwable) {
+                Toast.makeText(context, "" + R.string.connectionFaield, Toast.LENGTH_LONG).show()
+                btn_submit_login.visibility = View.VISIBLE
+            }
 
 
-                }))
+        })
+
+
+//        disposable.add(service.login(phone)
+//                .observeOn(AndroidSchedulers.mainThread() )
+//                .subscribeOn(Schedulers.io())
+//                .subscribeWith(object  : DisposableSingleObserver<LoginModel>(){
+//                    override fun onSuccess(result: LoginModel) {
+//
+//                       var a :String = result.data.toString()
+//                        var b :String =a
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+////                        var a = 5
+//                        var a : Int =(e as HttpException).code()
+//                        if(a==422){
+//                            var b =a
+//                        }
+//                    }
+//                }))
     }
 
     override fun onResume() {

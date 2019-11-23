@@ -6,4 +6,13 @@
     <string name="warning">اخطار</string>
     <string name="text_input_mobile">لطفا شماره موبایل خود را وارد کنید</string>
     <string name="login_button_text">ارسال</string>
+    <string name="connectionFaield">خطا در برقراری ارتباط</string>
+    <string name="serverFaield">خطا در اطلاعات دریافتی از سرور</string>
+
+    <string name="verification_hint">کد تایید</string>
+    <string name="verification_header">کد تایید از طریق پیامک برای شما ارسال گردید.</string>
+    <string name="veriification_resend_code">ارسال مجدد</string>
+
+
+
 </resources>

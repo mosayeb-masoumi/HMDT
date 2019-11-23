@@ -44,6 +44,7 @@ public class ServiceProvider {
                 return chain.proceed(request);
             });
         }else{
+
             // for error handling in login request
             clientBuilder.addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
