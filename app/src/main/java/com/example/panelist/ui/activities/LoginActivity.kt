@@ -37,7 +37,6 @@ class LoginActivity : CustomBaseActivity() {
     private var connectivityReceiver: BroadcastReceiver? = null
     lateinit var disposable: CompositeDisposable
 
-    var phone: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +56,7 @@ class LoginActivity : CustomBaseActivity() {
         disposable = CompositeDisposable()
         btn_submit_login.setOnClickListener {
             submitRequest()
+
         }
 
     }
@@ -68,8 +68,7 @@ class LoginActivity : CustomBaseActivity() {
                 btn_submit_login.visibility = View.GONE
                 avi_login.visibility = View.VISIBLE
                 avi_login.show()
-                phone = edt_phone.text.toString()
-                requestLogin(phone)
+                requestLogin()
 
             } else {
                 displayLocationSettingsRequest(context, 123)
@@ -135,7 +134,7 @@ class LoginActivity : CustomBaseActivity() {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     if (checkGpsOn()) {
-                        requestLogin(phone)
+                        requestLogin()
                     } else {
                         displayLocationSettingsRequest(context, 123)
                     }
@@ -156,17 +155,25 @@ class LoginActivity : CustomBaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun requestLogin(phone: String) {
+    private fun requestLogin() {
+
+
+       var mobile = edt_phone.text.toString()
 
         val service = ServiceProvider(this).getmService()
-        val call = service.login(phone)
+        val call = service.login(mobile)
 
         call.enqueue(object : Callback<LoginModel> {
 
             override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
                 if (response.code() == 200) {
 
-                    startActivity(Intent(this@LoginActivity, VerificationActivity::class.java))
+//                    startActivity(Intent(this@LoginActivity, VerificationActivity::class.java))
+                    val intent = Intent(this@LoginActivity,VerificationActivity::class.java)
+                    intent.putExtra("mobile",mobile)
+                    startActivity(intent)
+
+
                     var data = response.body()?.data
                     Toast.makeText(context, "" + data, Toast.LENGTH_LONG).show()
                     avi_login.hide()
@@ -178,15 +185,15 @@ class LoginActivity : CustomBaseActivity() {
                     avi_login.hide()
                     btn_submit_login.visibility = View.VISIBLE
 
-                    val apiError = ErrorUtils.parseError(response)
-                    if (apiError.errors.mobile != null) {
-
-                        var builderMobile = StringBuilder()
-                        for (a in apiError.errors.mobile) {
-                            builderMobile.append("$a ")
-                        }
-                        Toast.makeText(context, "" + builderMobile, Toast.LENGTH_LONG).show()
-                    }
+//                    val apiError = ErrorUtils.parseError(response)
+//                    if (apiError.errors.mobile != null) {
+//
+//                        var builderMobile = StringBuilder()
+//                        for (a in apiError.errors.mobile) {
+//                            builderMobile.append("$a ")
+//                        }
+//                        Toast.makeText(context, "" + builderMobile, Toast.LENGTH_LONG).show()
+//                    }
 
                 }else{
                     Toast.makeText(context, "" + R.string.serverFaield, Toast.LENGTH_LONG).show()

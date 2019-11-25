@@ -4,20 +4,16 @@ package com.example.panelist.network;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.panelist.ui.activities.ErrorToastActivity;
 import com.example.panelist.utilities.App;
 import com.example.panelist.utilities.Cache;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Authenticator;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.Route;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -35,17 +31,17 @@ public class ServiceProvider {
         clientBuilder.cache(null);
 
 
-        if (!Cache.getString("token").equals("")) {
+        if (!Cache.getString("accessToken").equals("")) {
             clientBuilder.addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + Cache.getString("email"))
+                        .addHeader("Authorization", "Bearer " + Cache.getString("accessToken"))
                         .addHeader("Accept", "application/json")
                         .build();
                 return chain.proceed(request);
             });
-        }else{
+        } else {
 
-            // for error handling in login request
+            // for login request
             clientBuilder.addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
                         .addHeader("Accept", "application/json")
@@ -56,17 +52,22 @@ public class ServiceProvider {
 
 
         //error handlong
-        clientBuilder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                Response response = chain.proceed(request);
+        clientBuilder.addInterceptor(chain -> {
+            Request request = chain.request();
+            Response response = chain.proceed(request);
 
-//                int a = response.code();
-                return response;
+            int a = response.code();
+            if (response.code() == 422) {
+                ErrorToastActivity.response=response;
+                context.startActivity(new Intent(context,ErrorToastActivity.class));
+
+
             }
-        }).build();
 
+            return response;
+
+
+        }).build();
 
 
 //        // handle error 401
