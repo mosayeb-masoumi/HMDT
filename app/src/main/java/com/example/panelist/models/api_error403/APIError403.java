@@ -1,17 +1,14 @@
-package com.example.panelist.models.api_error;
+package com.example.panelist.models.api_error403;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class APIError {
-
+public class APIError403 {
     @SerializedName("message")
     @Expose
     public String message;
 
-    @SerializedName("errors")
+    @SerializedName("action")
     @Expose
-    public ErrorsMessage errors;
-
-
+    public String action;
 }

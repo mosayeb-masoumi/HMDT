@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.ErrorToastActivity"></activity>
+        <activity android:name=".ui.activities.AgreementActivity"></activity>
         <activity android:name=".ui.activities.VerificationActivity" />
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.SplashActivity" />

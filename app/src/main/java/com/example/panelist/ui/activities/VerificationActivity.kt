@@ -6,17 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.panelist.R
-import com.example.panelist.models.api_error.ErrorUtils
+import com.example.panelist.models.api_error.ErrorUtils422
+import com.example.panelist.models.dashboard.DashboardModel
 import com.example.panelist.models.login.LoginModel
 import com.example.panelist.models.verify.VerifyModel
-import com.example.panelist.network.Service
 import com.example.panelist.network.ServiceProvider
 import com.example.panelist.utilities.App
 import com.example.panelist.utilities.Cache
@@ -27,10 +26,8 @@ import kotlinx.android.synthetic.main.activity_verification.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.absoluteValue
 
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
-
 
     private var connectivityReceiver: BroadcastReceiver? = null
     lateinit var disposable: CompositeDisposable
@@ -47,15 +44,11 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onReceive(context: Context, intent: Intent) {
                 tools.doCheckNetwork(this@VerificationActivity, findViewById<View>(R.id.rl_root))
             }
-
         }
         disposable = CompositeDisposable()
 
-
-
         mobile = intent.getStringExtra("mobile")
         text_user_mobile.text = mobile
-
 
         reverseTimer(15, text_min)
 
@@ -86,12 +79,11 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         }.start()
     }
 
-
     override fun onClick(view: View) {
 
         when (view.id) {
             R.id.ll_txt_user_mobile -> {
-                startActivity(Intent(this@VerificationActivity, LoginActivity::class.java))
+                startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
                 finish()
             }
 
@@ -107,7 +99,6 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                 sendVerifyRequest()
             }
         }
-
     }
 
     private fun sendVerifyRequest() {
@@ -119,24 +110,22 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
             override fun onResponse(call: Call<VerifyModel>, response: Response<VerifyModel>) {
 
-                if(response.code()==200){
+                if (response.code() == 200) {
 
-                    var expireAt:Int
+                    var expireAt: Int
 
-                    var accessToken = response.body()?.accessToken
-                    var refreshToken = response.body()?.refreshToken
+                    var access_token = response.body()?.accessToken
+                    var refresh_token = response.body()?.refreshToken
                     expireAt = response.body()?.expireAt!!
 
-                    Cache.setString("accessToken",accessToken)
-                    Cache.setString("refreshToken",refreshToken)
-                    Cache.setInt("expireAt",expireAt)
+                    Cache.setString("access_token", access_token)
+                    Cache.setString("refresh_token", refresh_token)
+                    Cache.setInt("expireAt", expireAt)
 
-//                    startActivity(Intent(this@VerificationActivity,MainActivity::class.java))
-//                    finish()
+                    requestDashboardData()
 
-
-                }else if(response.code() ==422){
-                    val apiError = ErrorUtils.parseError(response)
+                } else if (response.code() == 422) {
+                    val apiError = ErrorUtils422.parseError(response)
                     if (apiError.errors.code != null) {
 
                         var builderMobile = StringBuilder()
@@ -146,19 +135,43 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                         Toast.makeText(App.context, "" + builderMobile, Toast.LENGTH_LONG).show()
                     }
 
-                }else{
-                    Toast.makeText(App.context, "" + R.string.serverFaield, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
-
-
-
             }
 
             override fun onFailure(call: Call<VerifyModel>, t: Throwable) {
-                Toast.makeText(App.context, "" + R.string.connectionFaield, Toast.LENGTH_LONG).show()
+                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun requestDashboardData() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.dashboardData
+        call.enqueue(object : Callback<DashboardModel> {
+
+            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>) {
+
+                if (response.code() == 200) {
+
+//                    var a :Boolean
+//                    a= response.body()?.data!!
+                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+
+                    finish()
+                } else if (response.code() == 403) {
+                    var a = 8
+                } else {
+                    var code :Int = response.code()
+                    var d = code
+                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
             }
 
-
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
+                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
         })
     }
 
@@ -174,27 +187,23 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     Toast.makeText(App.context, "" + data, Toast.LENGTH_LONG).show()
                 } else if (response.code() == 422) {
 
-//                    val apiError = ErrorUtils.parseError(response)
-//                    if (apiError.errors.mobile != null) {
-//
-//                        var builderMobile = StringBuilder()
-//                        for (a in apiError.errors.mobile) {
-//                            builderMobile.append("$a ")
-//                        }
-//                        Toast.makeText(App.context, "" + R.string.serverFaield, Toast.LENGTH_LONG).show()
-//                    }
+                    val apiError = ErrorUtils422.parseError(response)
+                    if (apiError.errors.mobile != null) {
+
+                        var builderMobile = StringBuilder()
+                        for (a in apiError.errors.mobile) {
+                            builderMobile.append("$a ")
+                        }
+                        Toast.makeText(App.context, "" + builderMobile, Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-
+                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
-
             }
 
             override fun onFailure(call: Call<LoginModel>, t: Throwable) {
-
-                Toast.makeText(App.context, "" + R.string.connectionFaield, Toast.LENGTH_LONG).show()
+                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
-
-
         })
     }
 

@@ -9,19 +9,19 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Response;
 
-public class ErrorUtils {
-    public static  APIError parseError(Response<?> response){
-        Converter<ResponseBody, APIError> converter=
+public class ErrorUtils422 {
+    public static APIError422 parseError(Response<?> response){
+        Converter<ResponseBody, APIError422> converter=
                 ErrorProvider
                         .retrofit.
-                        responseBodyConverter(APIError.class,new Annotation[0]);
-        APIError error;
+                        responseBodyConverter(APIError422.class,new Annotation[0]);
+        APIError422 error;
 
         try{
             error=converter.convert(response.errorBody());
 
         }catch (IOException e){
-            return  new APIError();
+            return  new APIError422();
         }
         return error;
     }

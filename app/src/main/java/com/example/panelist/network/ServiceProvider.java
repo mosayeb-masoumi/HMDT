@@ -2,18 +2,21 @@ package com.example.panelist.network;
 
 
 import android.content.Context;
-import android.content.Intent;
 
-import com.example.panelist.ui.activities.ErrorToastActivity;
+import com.example.panelist.models.refresh.RefreshTokenModel;
 import com.example.panelist.utilities.App;
 import com.example.panelist.utilities.Cache;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.Route;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -51,18 +54,56 @@ public class ServiceProvider {
         }
 
 
+
+
+
+
+        // handle error 401
+        clientBuilder.authenticator(new Authenticator() {
+
+            @Override
+            public Request authenticate(Route route, Response response) throws IOException {
+
+                String access_token = Cache.getString("access_token");
+                String refresh_token = Cache.getString("refresh_token");
+
+                Service service = new ServiceProvider(context).mService;
+                Call<RefreshTokenModel> call = service.refreshToken(access_token,refresh_token);
+                retrofit2.Response<RefreshTokenModel> tokenModelResponse = call.execute();
+                //sync request
+                if (tokenModelResponse.isSuccessful()) {
+                    //save token
+                    Cache.setString("access_token",tokenModelResponse.body().accessToken);
+                    Cache.setString("refresh_token",tokenModelResponse.body().refreshToken);
+                    Cache.setInt("expireAt",tokenModelResponse.body().expireAt);
+
+                    return response.request().newBuilder()
+                            .removeHeader("Authorization")
+                            .removeHeader("Accept")
+                            .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
+                            .addHeader("Accept", "application/json")
+
+                            .build();
+                } else {
+                    return null;
+                }
+
+
+            }
+        });
+
+
+
+
+
+
+
         //error handlong
         clientBuilder.addInterceptor(chain -> {
             Request request = chain.request();
             Response response = chain.proceed(request);
 
-            int a = response.code();
-            if (response.code() == 422) {
-                ErrorToastActivity.response=response;
-                context.startActivity(new Intent(context,ErrorToastActivity.class));
-
-
-            }
+//            int a = response.code();
 
             return response;
 
@@ -75,10 +116,6 @@ public class ServiceProvider {
 //
 //            @Override
 //            public Request authenticate(Route route, Response response) throws IOException {
-//                //check if there is mobilephone
-//
-////                String phone = PreferenceStorage.getInstance(context).retrivePhone();
-////                if (!phone.equals("0")) {
 //
 //                Service service = new ServiceProvider(context).mService;
 //                Call<RefreshToken> call = service.requsetRefreshToken(ClientConfig.API_V1);
@@ -97,9 +134,7 @@ public class ServiceProvider {
 //                    return null;
 //                }
 //
-////                } else {
-////                    return null;
-////                }
+//
 //            }
 //        });
 
