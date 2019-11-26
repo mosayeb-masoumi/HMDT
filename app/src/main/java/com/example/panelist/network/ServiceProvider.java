@@ -34,10 +34,10 @@ public class ServiceProvider {
         clientBuilder.cache(null);
 
 
-        if (!Cache.getString("accessToken").equals("")) {
+        if (!Cache.getString("access_token").equals("")) {
             clientBuilder.addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + Cache.getString("accessToken"))
+                        .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
                         .addHeader("Accept", "application/json")
                         .build();
                 return chain.proceed(request);
@@ -96,8 +96,6 @@ public class ServiceProvider {
 
 
 
-
-
         //error handlong
         clientBuilder.addInterceptor(chain -> {
             Request request = chain.request();
@@ -111,32 +109,6 @@ public class ServiceProvider {
         }).build();
 
 
-//        // handle error 401
-//        clientBuilder.authenticator(new Authenticator() {
-//
-//            @Override
-//            public Request authenticate(Route route, Response response) throws IOException {
-//
-//                Service service = new ServiceProvider(context).mService;
-//                Call<RefreshToken> call = service.requsetRefreshToken(ClientConfig.API_V1);
-//                retrofit2.Response<RefreshToken> tokenModelResponse = call.execute();
-//                //sync request
-//                if (tokenModelResponse.isSuccessful()) {
-//                    //save token
-//                    PreferenceStorage.getInstance(context).saveToken(tokenModelResponse.body().getToken());
-//                    return response.request().newBuilder()
-//                            .removeHeader("lang")
-//                            .removeHeader("token")
-//                            .addHeader("lang", storage.retriveLanguage())
-//                            .addHeader("token", PreferenceStorage.getInstance(context).retriveToken())
-//                            .build();
-//                } else {
-//                    return null;
-//                }
-//
-//
-//            }
-//        });
 
 
 //        Gson gson = new GsonBuilder()
