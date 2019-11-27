@@ -160,11 +160,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
 
                     finish()
-                } else if (response.code() == 403) {
-                    var a = 8
-                } else {
-                    var code :Int = response.code()
-                    var d = code
+                }else {
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
             }

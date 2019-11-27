@@ -42,7 +42,14 @@ class SplashActivity1 : CustomBaseActivity() {
         }
 
 
+        btn_reload.setOnClickListener {
+
+            reload()
+        }
+
     }
+
+
 
     private fun startAnim() {
         avi.show()
@@ -55,15 +62,6 @@ class SplashActivity1 : CustomBaseActivity() {
 
             requestDashboardData()
 
-//            if (checkGpsON()) {
-////                requestLoginData()
-//                requestDashboardData()
-//
-//            } else {
-//                displayLocationSettingsRequest(this, 125)
-//            }
-
-
         } else {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
@@ -74,52 +72,6 @@ class SplashActivity1 : CustomBaseActivity() {
             }, 2700)
         }
     }
-
-
-//    fun checkGpsON(): Boolean {
-//        val manager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-//    }
-//
-//    // turn on gps as google
-//    private fun displayLocationSettingsRequest(context: Context, requestCode: Int) {
-//        val googleApiClient = GoogleApiClient.Builder(context)
-//                .addApi(LocationServices.API).build()
-//        googleApiClient.connect()
-//
-//        val locationRequest = LocationRequest.create()
-//        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-//        locationRequest.interval = 10000
-//        locationRequest.fastestInterval = (10000 / 2).toLong()
-//
-//        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-//        builder.setAlwaysShow(true)
-//
-//        val result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build())
-//        result.setResultCallback { result1 ->
-//            val status = result1.status
-//            if (status.statusCode == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
-//                try {
-//                    status.startResolutionForResult(context as Activity, requestCode)
-//
-//                } catch (ignored: IntentSender.SendIntentException) {
-//                }
-//        }
-//    }
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == 125) {
-//
-//            val handler = Handler()
-//            handler.postDelayed({
-//                startActivity()
-//
-//            }, 2700)
-//            startActivity()
-//        }
-//        super.onActivityResult(requestCode, resultCode, data)
-//    }
-
 
     override fun onResume() {
         super.onResume()
@@ -133,11 +85,6 @@ class SplashActivity1 : CustomBaseActivity() {
         unregisterReceiver(connectivityReceiver)
     }
 
-
-//    private fun requestLoginData() {
-//        var a = 5;
-//        avi.hide()
-//    }
 
     private fun requestDashboardData() {
 
@@ -156,19 +103,35 @@ class SplashActivity1 : CustomBaseActivity() {
                 } else if (response.code() == 403) {
 
                     ShowMessage403.message(response, context)
+                    hideLoading()
 
                 } else if(response.code()==422) {
-                    var a = 5
+                    hideLoading()
                 }else{
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                    hideLoading()
                 }
             }
 
             override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
                 Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                hideLoading()
             }
 
         })
 
+    }
+
+    private fun hideLoading() {
+        avi.hide()
+        btn_reload.visibility=View.VISIBLE
+    }
+
+
+    private fun reload() {
+        avi.show()
+        btn_reload.visibility=View.GONE
+
+        startActivity(Intent(this@SplashActivity1,SplashActivity1::class.java))
     }
 }

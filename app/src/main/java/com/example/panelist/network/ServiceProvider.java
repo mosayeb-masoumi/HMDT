@@ -94,8 +94,6 @@ public class ServiceProvider {
 
 
 
-
-
         //error handlong
         clientBuilder.addInterceptor(chain -> {
             Request request = chain.request();

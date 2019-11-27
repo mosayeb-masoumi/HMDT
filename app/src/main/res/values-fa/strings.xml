@@ -12,7 +12,9 @@
     <string name="verification_hint">کد تایید</string>
     <string name="verification_header">کد تایید از طریق پیامک برای شما ارسال گردید.</string>
     <string name="veriification_resend_code">ارسال مجدد</string>
+    <string name="text_double_click_exit">برای خروج دوباره کلیک کنید</string>
 
-
+    <!--Bottom navigation tabs-->
+    <string name="home_tab">صفحه اصلی</string>
 
 </resources>
