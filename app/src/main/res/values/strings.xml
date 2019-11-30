@@ -17,8 +17,20 @@
 
     <!--Bottom navigation tabs-->
     <string name="home_tab">صفحه اصلی</string>
+    <string name="register_tab">ثبت خرید</string>
+    <string name="myaccount_tab">حساب من</string>
+    <string name="store_tab">بازارچه</string>
+    <string name="text_news">اخبار</string>
+    <string name="text_video">ویدئوها</string>
+    <string name="text_polls">خریدهای من</string>
+    <string name="text_leftday">روز مانده</string>
+    <string name="text_your_point">امتیاز</string>
+    <string name="text_balance">موجودی</string>
+    <string name="incomplete_purchase">خرید ناقص</string>
+    <string name="total_purchase">تعداد کل خرید</string>
+    <string name="registered_products">محصولات ثبت شده</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 
+import com.example.panelist.models.api_error.ErrorUtils;
 import com.example.panelist.ui.activities.LoginActivity;
 import com.example.panelist.utilities.App;
 
@@ -20,8 +21,8 @@ public class ShowMessage403 {
 //    }
 
     public static  void message(Response response, Context context) {
-        APIError403 apiError403 = ErrorUtils403.parseError(response);
-        context.startActivity(new Intent(context, LoginActivity.class));
+        APIError403 apiError403 = ErrorUtils.parseError403(response);
+//        context.startActivity(new Intent(context, LoginActivity.class));
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

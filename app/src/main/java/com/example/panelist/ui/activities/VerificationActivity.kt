@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.panelist.R
-import com.example.panelist.models.api_error.ErrorUtils422
+import com.example.panelist.models.api_error.ErrorUtils
 import com.example.panelist.models.dashboard.DashboardModel
 import com.example.panelist.models.login.LoginModel
 import com.example.panelist.models.verify.VerifyModel
@@ -125,7 +125,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     requestDashboardData()
 
                 } else if (response.code() == 422) {
-                    val apiError = ErrorUtils422.parseError(response)
+                    val apiError = ErrorUtils.parseError422(response)
                     if (apiError.errors.code != null) {
 
                         var builderMobile = StringBuilder()
@@ -183,7 +183,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     Toast.makeText(App.context, "" + data, Toast.LENGTH_LONG).show()
                 } else if (response.code() == 422) {
 
-                    val apiError = ErrorUtils422.parseError(response)
+                    val apiError = ErrorUtils.parseError422(response)
                     if (apiError.errors.mobile != null) {
 
                         var builderMobile = StringBuilder()

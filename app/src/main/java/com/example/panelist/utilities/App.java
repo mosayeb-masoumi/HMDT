@@ -11,7 +11,7 @@ import io.fabric.sdk.android.Fabric;
 public class App extends Application {
 
     public static Context context;
-    public static String ServerURL = "https://test.rahbarbazar.com/cp/api/v1/";
+
 
 
     private RefWatcher refWatcher;

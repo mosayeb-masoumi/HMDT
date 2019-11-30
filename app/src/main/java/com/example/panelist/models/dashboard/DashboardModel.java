@@ -6,5 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class DashboardModel {
     @SerializedName("data")
     @Expose
-    public Boolean data;
+    public DashboardData data;
+
+
 }

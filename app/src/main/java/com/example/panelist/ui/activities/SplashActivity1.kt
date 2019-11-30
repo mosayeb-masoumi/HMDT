@@ -96,8 +96,13 @@ class SplashActivity1 : CustomBaseActivity() {
 
                 if (response.code() == 200) {
 
-                    var a: Boolean
-                    a = response.body()?.data!!
+                    var dashboardModel:DashboardModel
+                    dashboardModel = response.body()!!
+                    RxBus.publish(dashboardModel)
+
+//                    response.body()?.let { RxBus.publish(it) }
+
+
                     startActivity(Intent(this@SplashActivity1, MainActivity::class.java))
                     finish()
                 } else if (response.code() == 403) {
@@ -105,9 +110,7 @@ class SplashActivity1 : CustomBaseActivity() {
                     ShowMessage403.message(response, context)
                     hideLoading()
 
-                } else if(response.code()==422) {
-                    hideLoading()
-                }else{
+                } else{
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     hideLoading()
                 }

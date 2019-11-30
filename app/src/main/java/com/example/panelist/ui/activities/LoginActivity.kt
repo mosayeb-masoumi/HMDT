@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.panelist.R
-import com.example.panelist.models.api_error.ErrorUtils422
-import com.example.panelist.models.api_error403.ShowMessage403
+import com.example.panelist.models.api_error.ErrorUtils
 import com.example.panelist.models.login.LoginModel
 import com.example.panelist.network.ServiceProvider
-import com.example.panelist.utilities.App
 import com.example.panelist.utilities.App.context
 import com.example.panelist.utilities.CustomBaseActivity
 import com.example.panelist.utilities.GeneralTools
-import es.dmoral.toasty.Toasty
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
@@ -87,7 +84,7 @@ class LoginActivity : CustomBaseActivity() {
                     avi_login.hide()
                     btn_submit_login.visibility = View.VISIBLE
 
-                    val apiError = ErrorUtils422.parseError(response)
+                    val apiError = ErrorUtils.parseError422(response)
                     if (apiError.errors.mobile != null) {
 
                         var builderMobile = StringBuilder()
@@ -113,7 +110,12 @@ class LoginActivity : CustomBaseActivity() {
         })
 
 
-//        disposable.add(service.login(phone)
+
+
+
+
+
+//        disposable.add(service.login(mobile)
 //                .observeOn(AndroidSchedulers.mainThread() )
 //                .subscribeOn(Schedulers.io())
 //                .subscribeWith(object  : DisposableSingleObserver<LoginModel>(){
@@ -124,13 +126,22 @@ class LoginActivity : CustomBaseActivity() {
 //                    }
 //
 //                    override fun onError(e: Throwable) {
-////                        var a = 5
+//
 //                        var a : Int =(e as HttpException).code()
+//
 //                        if(a==422){
 //                            var b =a
 //                        }
 //                    }
 //                }))
+
+
+
+
+
+
+
+
     }
 
     override fun onResume() {

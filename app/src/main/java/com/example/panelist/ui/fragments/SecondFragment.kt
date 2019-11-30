@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.panelist.R
+import kotlinx.android.synthetic.main.fragment_second.*
+import kotlinx.android.synthetic.main.fragment_second.view.*
 
 class SecondFragment : Fragment() {
 
@@ -23,7 +25,12 @@ class SecondFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_second, container, false)
 
+        view.txt.text="klsd"
 
         return view
+    }
+
+    private fun init2() {
+
     }
 }

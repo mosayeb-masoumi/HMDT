@@ -24,7 +24,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.panelist.R;
 import com.example.panelist.ui.fragments.SecondFragment;
-import com.example.panelist.ui.fragments.FirstFragment;
+import com.example.panelist.ui.fragments.HomeFragment;
 import com.example.panelist.ui.fragments.ThirdFragment;
 import com.example.panelist.ui.fragments.ForthFragment;
 import com.example.panelist.utilities.CustomBaseActivity;
@@ -136,9 +136,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private void initializeBottomNavigation() {
         // Create items
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home, 0);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("دوم", R.drawable.home, 0);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("سوم", R.drawable.home, 0);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("چهارم", R.drawable.home, 0);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.register_tab, R.drawable.home, 0);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.home, 0);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.home, 0);
 
         // Add items
         bottom_navigation.addItem(item1);
@@ -197,7 +197,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_left.setVisibility(View.GONE);
 
 
-            FirstFragment homeFragment = new FirstFragment();
+            HomeFragment homeFragment = new HomeFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.frame_layout, homeFragment, "tag").commit();
 

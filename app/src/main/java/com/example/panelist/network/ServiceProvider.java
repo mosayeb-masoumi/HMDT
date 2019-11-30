@@ -4,8 +4,8 @@ package com.example.panelist.network;
 import android.content.Context;
 
 import com.example.panelist.models.refresh.RefreshTokenModel;
-import com.example.panelist.utilities.App;
 import com.example.panelist.utilities.Cache;
+import com.example.panelist.utilities.ClientConfig;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
@@ -36,6 +36,10 @@ public class ServiceProvider {
 
         if (!Cache.getString("access_token").equals("")) {
             clientBuilder.addInterceptor(chain -> {
+
+                String a = Cache.getString("access_token");
+                String b = a ;
+
                 Request request = chain.request().newBuilder()
                         .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
                         .addHeader("Accept", "application/json")
@@ -72,10 +76,19 @@ public class ServiceProvider {
                 retrofit2.Response<RefreshTokenModel> tokenModelResponse = call.execute();
                 //sync request
                 if (tokenModelResponse.isSuccessful()) {
+
+
+
                     //save token
                     Cache.setString("access_token",tokenModelResponse.body().accessToken);
                     Cache.setString("refresh_token",tokenModelResponse.body().refreshToken);
                     Cache.setInt("expireAt",tokenModelResponse.body().expireAt);
+
+//                    String a = tokenModelResponse.body().accessToken;
+//                    String b = a ;
+//
+//                    String c = Cache.getString("access_token");
+//                    String v = c;
 
                     return response.request().newBuilder()
                             .removeHeader("Authorization")
@@ -113,7 +126,7 @@ public class ServiceProvider {
 //                .setLenient()
 //                .create();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(App.ServerURL).client(clientBuilder.build()).
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ClientConfig.ServerURL).client(clientBuilder.build()).
                 addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
 
         mService = retrofit.create(Service.class);
