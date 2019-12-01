@@ -2,8 +2,10 @@ package com.example.panelist.network;
 
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.panelist.models.refresh.RefreshTokenModel;
+import com.example.panelist.ui.activities.LoginActivity;
 import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.ClientConfig;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -98,9 +100,11 @@ public class ServiceProvider {
 
                             .build();
                 } else {
+                    // todo check it
+                    context.startActivity(new Intent(context, LoginActivity.class));
                     return null;
-                }
 
+                }
 
             }
         });

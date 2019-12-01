@@ -1,19 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activities.AgreementActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="100dp"
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitXY"
+        android:background="#009688"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+
+        <TextView
+            android:id="@+id/txtTermsConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:gravity="center"
+            android:text="@string/terms_conditions"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl5"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/rl7"
+        android:layout_above="@+id/llcheckbox"
+        android:layout_marginStart="12sp"
+        android:layout_marginEnd="12sp">
+
+        <WebView
+            android:id="@+id/webview_agreement"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="2dp"
+            android:scrollbarThumbVertical="@drawable/webview_scroll"
+            android:layout_height="match_parent" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/av_loading"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:padding="2dp"
+            app:indicatorColor="@color/colorPrimary"
+            app:indicatorName="BallPulseSyncIndicator" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llcheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_page_icon_rules"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:layout_centerInParent="true"
-        android:textSize="25dp"
-        android:id="@+id/txt"
-        android:text="قوانین"/>
+        android:visibility="visible"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/checkbox_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:buttonTint="@color/yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accept_terms_conditions"
+            android:textColor="@color/yellow" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_page_icon_rules"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp">
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:visibility="visible"
+            android:id="@+id/rl_login_dialog"
+            android:gravity="center"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/img_rules_enter_icon"
+                android:layout_width="120dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/rules_enter_icon" />
+
+            <TextView
+                android:id="@+id/btn_login_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/enter"
+                android:textColor="#0C0B0B"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/img_page_icon_rules"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/page_icon_rules"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

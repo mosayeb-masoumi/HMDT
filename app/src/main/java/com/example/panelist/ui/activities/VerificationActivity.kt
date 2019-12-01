@@ -17,10 +17,7 @@ import com.example.panelist.models.dashboard.DashboardModel
 import com.example.panelist.models.login.LoginModel
 import com.example.panelist.models.verify.VerifyModel
 import com.example.panelist.network.ServiceProvider
-import com.example.panelist.utilities.App
-import com.example.panelist.utilities.Cache
-import com.example.panelist.utilities.CustomBaseActivity
-import com.example.panelist.utilities.GeneralTools
+import com.example.panelist.utilities.*
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_verification.*
 import retrofit2.Call
@@ -84,7 +81,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         when (view.id) {
             R.id.ll_txt_user_mobile -> {
                 startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-                finish()
+                this@VerificationActivity.finish()
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+
             }
 
             R.id.linear_recode -> {
@@ -155,12 +154,13 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
                 if (response.code() == 200) {
 
-//                    var a :Boolean
-//                    a= response.body()?.data!!
+                    var dashboardModel: DashboardModel
+                    dashboardModel = response.body()!!
+                    RxBus.publish(dashboardModel)
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-
-                    finish()
-                }else {
+                    this@VerificationActivity.finish()
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                } else {
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
             }

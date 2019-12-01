@@ -18,16 +18,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.panelist.R;
-import com.example.panelist.ui.fragments.SecondFragment;
+import com.example.panelist.ui.fragments.ShopFragment;
 import com.example.panelist.ui.fragments.HomeFragment;
-import com.example.panelist.ui.fragments.ThirdFragment;
-import com.example.panelist.ui.fragments.ForthFragment;
+import com.example.panelist.ui.fragments.RegisterFragment;
+import com.example.panelist.ui.fragments.AccountFragment;
+import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.CustomBaseActivity;
+import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GeneralTools;
 
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener, AHBottomNavigation.OnTabSelectedListener {
@@ -41,7 +44,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_notify_drawer, linear_change_lang,
-            linear_support, linear_report_issue, linear_faq, linear_submenu, linear_lottery, ll_drawer;
+            linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
+
+     TextView txt_exit;
+    DialogFactory dialogFactory;
+
 
     RelativeLayout rl_notification, rl_curvedbottom;
     DrawerLayout drawer_layout_home;
@@ -55,6 +62,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Pushe.initialize(this,true);
+//        String pusheId = Pushe.getPusheId(MainActivity.this);
 
 
 
@@ -73,7 +82,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         
         initView();
 
-
+        //initial Dialog factory
+        dialogFactory = new DialogFactory(MainActivity.this);
 
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
             ll_drawer.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -101,34 +111,34 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_support = findViewById(R.id.linear_support);
         linear_report_issue = findViewById(R.id.linear_report_issue);
         linear_change_lang = findViewById(R.id.linear_change_lang);
-        linear_lottery = findViewById(R.id.linear_lottery);
+        linear_graph = findViewById(R.id.linear_graph);
         linear_faq = findViewById(R.id.linear_faq);
         linear_submenu = findViewById(R.id.linear_submenu);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
-
         rl_notification=findViewById(R.id.rl_notification);
         drawer_layout_home=findViewById(R.id.drawer_layout_home);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         drawer_rv = findViewById(R.id.drawer_rv);
 
+        txt_exit = findViewById(R.id.txt_exit);
+
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
         image_telegram.setOnClickListener(this);
-
         rl_notification.setOnClickListener(this);
-
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
         linear_faq.setOnClickListener(this);
-        linear_lottery.setOnClickListener(this);
+        linear_graph.setOnClickListener(this);
         linear_support.setOnClickListener(this);
         linear_change_lang.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
         linear_notify_drawer.setOnClickListener(this);
-        // Set bottom navigation listener
+        txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
+
 
     }
 
@@ -184,7 +194,42 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //                else
 //                    generateInviteLink();
                 break;
+
+            case R.id.txt_exit:
+                createConfirmExitDialog();
+                drawer_layout_home.openDrawer(Gravity.END);
+                break;
+
+            case R.id.linear_graph:
+                drawer_layout_home.closeDrawer(Gravity.END);
+                startActivity(new Intent(MainActivity.this,GraphActivity.class));
+                MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                break;
         }
+    }
+
+    private void createConfirmExitDialog() {
+
+        Context context = MainActivity.this;
+        dialogFactory.createConfirmExitDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+                drawer_layout_home.closeDrawers();
+
+                Cache.setString("access_token","");
+                Cache.setString("refresh_token","");
+                Cache.setString("expireAt","");
+
+                startActivity(new Intent(context, SplashActivity.class));
+                MainActivity.this.finish();
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+                drawer_layout_home.closeDrawers();
+            }
+        }, drawer_layout_home);
     }
 
     @Override
@@ -210,9 +255,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_left.setVisibility(View.GONE);
 
 
-            SecondFragment secondFragment = new SecondFragment();
+            RegisterFragment registerFragment = new RegisterFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.frame_layout, secondFragment, "tag").commit();
+            manager.beginTransaction().replace(R.id.frame_layout, registerFragment, "tag").commit();
 
 
 
@@ -224,9 +269,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
 
-            ThirdFragment thirdFragment = new ThirdFragment();
+            AccountFragment accountFragment = new AccountFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.frame_layout, thirdFragment, "tag").commit();
+            manager.beginTransaction().replace(R.id.frame_layout, accountFragment, "tag").commit();
 
 
         } else if (position == 0) {
@@ -236,9 +281,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_left.setVisibility(View.VISIBLE);
 
 
-            ForthFragment forthFragment = new ForthFragment();
+            ShopFragment shopFragment = new ShopFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.frame_layout, forthFragment, "tag").commit();
+            manager.beginTransaction().replace(R.id.frame_layout, shopFragment, "tag").commit();
 
         }
         return true;

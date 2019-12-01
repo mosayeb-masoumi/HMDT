@@ -30,7 +30,15 @@
     <string name="total_purchase">تعداد کل خرید</string>
     <string name="registered_products">محصولات ثبت شده</string>
 
+    <string name="retuen">بازگشت</string>
+    <string name="attention">اخطار!</string>
+    <string name="sure_text">بله،اطمینان دارم</string>
+    <string name="cancel_text">انصراف</string>
+    <string name="exit_profile_text_dialog">آیا اطمینان دارید که میخواهید از حساب کاربری خود خارج شوید؟</string>
 
+    <string name="terms_conditions">قوانین و مقررات</string>
+    <string name="enter">ورود</string>
+    <string name="accept_terms_conditions">قوانین و مقررات را مطالعه کرده و قبول دارم</string>
 
 
 </resources>

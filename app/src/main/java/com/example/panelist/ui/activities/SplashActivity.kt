@@ -10,13 +10,14 @@ import com.example.panelist.models.api_error403.ShowMessage403
 import com.example.panelist.models.dashboard.DashboardModel
 import com.example.panelist.network.ServiceProvider
 import com.example.panelist.utilities.*
-import kotlinx.android.synthetic.main.activity_splash1.*
+import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
-class SplashActivity1 : CustomBaseActivity() {
+
+class SplashActivity : CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
 //    private var gpsTracker: GpsTracker? = null
@@ -28,18 +29,19 @@ class SplashActivity1 : CustomBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash1)
+        setContentView(R.layout.activity_splash)
 
-        context = this@SplashActivity1
+        context = this@SplashActivity
 
         //check network broadcast reciever
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                tools.doCheckNetwork(this@SplashActivity1, findViewById<View>(R.id.rl_root))
+                tools.doCheckNetwork(this@SplashActivity, findViewById<View>(R.id.rl_root))
             }
 
         }
+
 
 
         btn_reload.setOnClickListener {
@@ -63,13 +65,16 @@ class SplashActivity1 : CustomBaseActivity() {
             requestDashboardData()
 
         } else {
+
             Timer().schedule(object : TimerTask() {
                 override fun run() {
-                    LocaleManager.setNewLocale(this@SplashActivity1, "fa")
-                    startActivity(Intent(this@SplashActivity1, LoginActivity::class.java))
-                    finish()
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    this@SplashActivity.finish()
+
                 }
             }, 2700)
+
         }
     }
 
@@ -99,12 +104,10 @@ class SplashActivity1 : CustomBaseActivity() {
                     var dashboardModel:DashboardModel
                     dashboardModel = response.body()!!
                     RxBus.publish(dashboardModel)
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    this@SplashActivity.finish()
 
-//                    response.body()?.let { RxBus.publish(it) }
-
-
-                    startActivity(Intent(this@SplashActivity1, MainActivity::class.java))
-                    finish()
                 } else if (response.code() == 403) {
 
                     ShowMessage403.message(response, context)
@@ -135,6 +138,6 @@ class SplashActivity1 : CustomBaseActivity() {
         avi.show()
         btn_reload.visibility=View.GONE
 
-        startActivity(Intent(this@SplashActivity1,SplashActivity1::class.java))
+        startActivity(Intent(this@SplashActivity,SplashActivity::class.java))
     }
 }

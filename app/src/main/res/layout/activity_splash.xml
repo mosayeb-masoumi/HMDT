@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_root"
     tools:context=".ui.activities.SplashActivity">
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="40dp"
+        android:id="@+id/avi"
+        android:layout_centerInParent="true"
+        app:indicatorColor="@color/colorAccent"
         android:layout_height="wrap_content"
-        android:text="اسپلش"
-        android:gravity="center"
-        android:textSize="20dp"/>
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        />
 
-</LinearLayout>
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="تلاش مجدد"
+        android:id="@+id/btn_reload"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        />
+
+</RelativeLayout>

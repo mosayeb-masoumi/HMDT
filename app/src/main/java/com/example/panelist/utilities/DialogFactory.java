@@ -68,4 +68,38 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+    public void createConfirmExitDialog(DialogFactoryInteraction listener, View view) {
+
+//        View customLayout = LayoutInflater.from(context).inflate(R.layout.confirm_exit_dialog, (ViewGroup) view, false);
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.confirm_exit_dialog2, (ViewGroup) view, false);
+        //define views inside of dialog
+        TextView btn_exit_dialog = customLayout.findViewById(R.id.btn_exit_dialog);
+        TextView btn_cancel_dialog = customLayout.findViewById(R.id.btn_cancel_dialog);
+        TextView text_body = customLayout.findViewById(R.id.text_body);
+
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_cancel_dialog.setOnClickListener(v -> {
+            dialog.dismiss();
+            listener.onDeniedButtonClicked(false);
+        });
+
+        btn_exit_dialog.setOnClickListener(v -> listener.onAcceptButtonClicked("")
+        );
+
+        dialog.show();
+    }
 }

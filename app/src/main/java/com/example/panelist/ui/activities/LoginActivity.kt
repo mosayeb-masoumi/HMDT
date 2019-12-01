@@ -69,6 +69,8 @@ class LoginActivity : CustomBaseActivity() {
                     val intent = Intent(this@LoginActivity,VerificationActivity::class.java)
                     intent.putExtra("mobile",mobile)
                     startActivity(intent)
+                    this@LoginActivity.finish()
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
 
 
                     var data = response.body()?.data
@@ -108,8 +110,6 @@ class LoginActivity : CustomBaseActivity() {
 
 
         })
-
-
 
 
 
