@@ -15,31 +15,24 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.panelist.R;
 import com.example.panelist.models.dashboard.DashboardModel;
+import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.ui.activities.HtmlLoaderActivity;
-import com.example.panelist.utilities.ClientConfig;
 import com.example.panelist.utilities.RxBus;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-
     Disposable disposable = new CompositeDisposable();
     DashboardModel dashboardModel;
-
     CardView crd_news, crd_video, crd_purchases;
     ImageView img_news, img_video, img_myshop;
     TextView txt_balance, txt_incomplete_purchase, txt_total_purchase, txt_registered_products;
@@ -52,9 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        disposable = RxBus.subscribe(result -> {
+        disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
             if (result instanceof DashboardModel) {
                 dashboardModel = (DashboardModel) result;
             }

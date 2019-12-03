@@ -39,6 +39,10 @@
     <string name="terms_conditions">قوانین و مقررات</string>
     <string name="enter">ورود</string>
     <string name="accept_terms_conditions">قوانین و مقررات را مطالعه کرده و قبول دارم</string>
+    <string name="shop">فروشگاه</string>
+    <string name="tottal_amount">مبلغ کل خرید</string>
+    <string name="discount">مبلغ تخفیف</string>
+    <string name="paid_amount">مبلغ پرداخت شده</string>
 
 
 </resources>
