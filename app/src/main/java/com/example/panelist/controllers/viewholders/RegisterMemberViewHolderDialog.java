@@ -5,9 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import com.example.panelist.R;
-import com.example.panelist.models.register.RegisterMemberModel;
+import com.example.panelist.models.register.Member;
+
 
 public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
 
@@ -20,11 +20,11 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
         checkbox=itemView.findViewById(R.id.checkbox);
     }
 
-    public void bindData(RegisterMemberModel model) {
-        txt_name.setText(model.txt_name);
+    public void bindData(Member model) {
+        txt_name.setText(model.name);
     }
 
-    public void setOnRegisterHolderListener(RegisterItemInteraction listener, RegisterMemberModel model) {
+    public void setOnRegisterHolderListener(RegisterItemInteraction listener, Member model) {
 
 //        itemView.setOnClickListener(v -> {
 //            if(checkbox.isChecked()){
@@ -40,10 +40,10 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
                     checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if(checkbox.isChecked()){
                             checkbox.setChecked(true);
-                            listener.onClicked(model.txt_name,true);
+                            listener.onClicked(model.name,model.id,true);
                         }else if(!checkbox.isChecked()){
                             checkbox.setChecked(false);
-                            listener.onClicked(model.txt_name,false);
+                            listener.onClicked(model.name,model.id,false);
                         }
                     });
 

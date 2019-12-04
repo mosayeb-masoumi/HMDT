@@ -5,9 +5,12 @@ import com.example.panelist.models.dashboard.DashboardModel;
 import com.example.panelist.models.login.LoginModel;
 import com.example.panelist.models.refresh.RefreshTokenModel;
 import com.example.panelist.models.register.RegisterModel;
+import com.example.panelist.models.register_newshop.NewShop;
+import com.example.panelist.models.register_newshop.NewShopSendData;
 import com.example.panelist.models.verify.VerifyModel;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -32,8 +35,10 @@ public interface Service {
     Call<RefreshTokenModel> refreshToken(@Query("access_token") String access_token,
                                          @Query("refresh_token") String refresh_token);
 
-
     @GET("Shopping/Form")
     Call<RegisterModel> getRegisterData();
+
+    @POST("Shopping/Create")
+    Call<NewShop> registerNewShop(@Body NewShopSendData newShopSendData);
 
 }

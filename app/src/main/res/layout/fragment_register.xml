@@ -1,161 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.fragments.RegisterFragment">
 
 
-   <Button
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="افزودن اعضای خانواده"
-       android:layout_margin="10dp"
-       android:id="@+id/add_member" />
-
-   <android.support.v7.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/recycler_edited_members">
-
-   </android.support.v7.widget.RecyclerView>
-
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="3dp"
-       android:layout_marginEnd="5dp"
-       android:layout_marginStart="5dp"
-       android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
 
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/shop"
-          android:textColor="@color/colorsecondarytext"
-          android:textSize="10sp"
-          android:textStyle="bold" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp">
 
 
-      <RelativeLayout
-          android:id="@+id/rl_spn_shop"
-          android:layout_width="match_parent"
-          android:layout_height="40dp"
-          android:layout_marginTop="2dp"
-          android:layout_marginBottom="3dp"
-          android:background="@drawable/spiner_background"
-          android:layoutDirection="rtl"
-          android:padding="3dp">
-
-         <Spinner
-             android:id="@+id/spn_shop"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:focusable="true"
-             android:layout_centerInParent="true"
-             android:focusableInTouchMode="true">
-            <requestFocus />
-         </Spinner>
-      </RelativeLayout>
-   </LinearLayout>
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:indicatorColor="@color/colorAccent" />
 
 
-   <EditText
-       android:id="@+id/edt_total_amount"
-       android:layout_width="match_parent"
-       android:layout_height="40dp"
-       android:layout_gravity="center"
-       android:background="@drawable/spiner_background"
-       android:gravity="center"
-       android:hint="@string/tottal_amount"
-       android:inputType="text"
-       android:layout_marginEnd="5dp"
-       android:layout_marginStart="5dp"
-       android:layout_marginTop="10dp"
-       android:padding="5sp"
-       android:textColor="@color/colorTextDark"
-       android:textColorHint="@color/colorText"
-       android:textDirection="rtl"
-       android:textSize="14sp" />
-
-   <EditText
-       android:id="@+id/edt_discount"
-       android:layout_width="match_parent"
-       android:layout_height="40dp"
-       android:layout_gravity="center"
-       android:background="@drawable/spiner_background"
-       android:gravity="center"
-       android:layout_marginTop="5dp"
-       android:hint="@string/discount"
-       android:inputType="text"
-       android:layout_marginEnd="5dp"
-       android:layout_marginStart="5dp"
-       android:padding="5sp"
-       android:textColor="@color/colorTextDark"
-       android:textColorHint="@color/colorText"
-       android:textDirection="rtl"
-       android:textSize="14sp" />
-
-   <EditText
-       android:id="@+id/edt_paid"
-       android:layout_width="match_parent"
-       android:layout_height="40dp"
-       android:layout_gravity="center"
-       android:background="@drawable/spiner_background"
-       android:gravity="center"
-       android:layout_marginTop="5dp"
-       android:hint="@string/paid_amount"
-       android:inputType="text"
-       android:layout_marginEnd="5dp"
-       android:layout_marginStart="5dp"
-       android:padding="5sp"
-       android:textColor="@color/colorTextDark"
-       android:textColorHint="@color/colorText"
-       android:textDirection="rtl"
-       android:textSize="14sp" />
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/register_new"
+                android:visibility="visible" />
 
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_gravity="bottom"
-       android:layout_height="match_parent">
+        </RelativeLayout>
 
-
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_alignParentBottom="true"
-          android:layout_marginBottom="10dp"
-          android:layout_marginEnd="10dp"
-          android:layout_marginStart="10dp"
-          android:layout_height="50dp">
-
-
-         <com.wang.avi.AVLoadingIndicatorView
-             android:layout_width="40dp"
-             android:id="@+id/avi"
-             android:layout_centerInParent="true"
-             app:indicatorColor="@color/colorAccent"
-             android:layout_height="wrap_content"
-             android:layout_centerHorizontal="true"
-             />
-
-
-         <Button
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:visibility="visible"
-             android:text="ثبت"
-            />
-
-
-
-
-      </RelativeLayout>
-
-   </RelativeLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

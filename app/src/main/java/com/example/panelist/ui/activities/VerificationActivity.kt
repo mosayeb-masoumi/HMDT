@@ -158,12 +158,12 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     var dashboardModel: DashboardModel
                     dashboardModel = response.body()!!
                     RxBus.DashboardModel.publishDashboardModel(dashboardModel)
-                    requestRegisterData()
+//                    requestRegisterData()
 
-//                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-//                    this@VerificationActivity.finish()
-//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-//                    finish()
+                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+                    this@VerificationActivity.finish()
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
                 } else {
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
@@ -175,34 +175,34 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         })
     }
 
-    private fun requestRegisterData() {
-        val service = ServiceProvider(this).getmService()
-        val call = service.registerData
-        call.enqueue(object : Callback<RegisterModel> {
-
-
-            override fun onResponse(call: Call<RegisterModel>, response: Response<RegisterModel>) {
-                if (response.code() == 200) {
-
-                    var registerModel: RegisterModel
-                    registerModel = response.body()!!
-//                    RxBusRegister.publishRegisterData(registerModel)
-                    RxBus.RegisterModel.publishRegisterModel(registerModel)
-
-                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    this@VerificationActivity.finish()
-
-                } else {
-                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<RegisterModel>, t: Throwable) {
-                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
+//    private fun requestRegisterData() {
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.registerData
+//        call.enqueue(object : Callback<RegisterModel> {
+//
+//
+//            override fun onResponse(call: Call<RegisterModel>, response: Response<RegisterModel>) {
+//                if (response.code() == 200) {
+//
+//                    var registerModel: RegisterModel
+//                    registerModel = response.body()!!
+////                    RxBusRegister.publishRegisterData(registerModel)
+//                    RxBus.RegisterModel.publishRegisterModel(registerModel)
+//
+//                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//                    this@VerificationActivity.finish()
+//
+//                } else {
+//                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RegisterModel>, t: Throwable) {
+//                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 
 
     private fun recodeRequest() {

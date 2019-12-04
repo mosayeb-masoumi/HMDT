@@ -1,58 +1,33 @@
 package com.example.panelist.ui.fragments;
 
-
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.panelist.R;
-import com.example.panelist.controllers.adapters.AdapterRegisterMemberDialog;
-import com.example.panelist.controllers.adapters.AdapterRegisterMemberEdit;
-import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
-import com.example.panelist.models.register.RegisterMemberEditModel;
-import com.example.panelist.models.register.RegisterMemberModel;
 import com.example.panelist.models.register.RegisterModel;
+import com.example.panelist.network.Service;
+import com.example.panelist.network.ServiceProvider;
+import com.example.panelist.ui.activities.NewRegisterActivity;
 import com.example.panelist.utilities.RxBus;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
+import com.wang.avi.AVLoadingIndicatorView;
+import java.util.Objects;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends Fragment implements View.OnClickListener,
-        RegisterItemInteraction  {
+public class RegisterFragment extends Fragment implements View.OnClickListener{
 
-
-    Disposable disposable = new CompositeDisposable();
-    RegisterModel registerModel;
-    Button btn_addMember;
-    AdapterRegisterMemberDialog adapter;
-    AdapterRegisterMemberEdit adapter_edited;
-    ArrayList<RegisterMemberModel> members = new ArrayList<>();
-
-    //    List<String> editMembers;
-    ArrayList<RegisterMemberEditModel> editMembers;
-
-    RecyclerView recyclerEditedMember;
-    RelativeLayout rl_spn_shop;
-    Spinner spn_shop;
-
+    Button btn_register;
+    AVLoadingIndicatorView avi;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -62,15 +37,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        disposable = RxBus.RegisterModel.subscribeRegisterModel(result -> {
-            if (result instanceof RegisterModel) {
-                registerModel = (RegisterModel) result;
-
-            }
-        });
     }
-
 
 
     @Override
@@ -81,63 +48,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener,
 
         initView(view);
 
-        setSpinner();
-
-//        recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-//        adapter = new AdapterRegisterMember(members,getContext());
-//
-//        adapter.setListener(this);  // important or else the app will crashed
-//
-//        recyclerview.setAdapter(adapter);
-//
-        sendData();
-
-
         return view;
     }
 
 
-
-    private void sendData() {
-
-        members.add(new RegisterMemberModel("reza"));
-        members.add(new RegisterMemberModel("ali"));
-        members.add(new RegisterMemberModel("milad"));
-        members.add(new RegisterMemberModel("df"));
-        members.add(new RegisterMemberModel("yu"));
-        members.add(new RegisterMemberModel("ol"));
-        members.add(new RegisterMemberModel("wrt"));
-        members.add(new RegisterMemberModel("o;p"));
-        members.add(new RegisterMemberModel("qa"));
-
-    }
-
-
-
     private void initView(View view) {
-        btn_addMember = view.findViewById(R.id.add_member);
-        recyclerEditedMember = view.findViewById(R.id.recycler_edited_members);
-        rl_spn_shop=view.findViewById(R.id.rl_spn_shop);
-        spn_shop=view.findViewById(R.id.spn_shop);
-//        chipGroup=view.findViewById(R.id.chip_group);
-        btn_addMember.setOnClickListener(this);
-    }
-
-
-    private void setSpinner() {
-
-        List<String> shopList = new ArrayList<>();
-        for (int i = 0; i < registerModel.data.shops.size(); i++) {
-//            shopList.add(App.provinceList.data.get(i).province);
-            for (int j = 0; j < registerModel.data.shops.get(i).size(); j++) {
-                shopList.add(registerModel.data.shops.get(i).get(j).title);
-            }
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, shopList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spn_shop.setAdapter(adapter);
-
+        btn_register=view.findViewById(R.id.btn_register);
+        avi=view.findViewById(R.id.avi);
+        btn_register.setOnClickListener(this);
     }
 
 
@@ -146,79 +64,51 @@ public class RegisterFragment extends Fragment implements View.OnClickListener,
 
         switch (view.getId()) {
 
-            case R.id.add_member:
-                showAddMemberDialog();
+            case R.id.btn_register:
+                getNewRegisterData();
                 break;
         }
     }
 
-    private void showAddMemberDialog() {
+    private void getNewRegisterData() {
 
-        editMembers = new ArrayList<>();
+        btn_register.setVisibility(View.GONE);
+        avi.setVisibility(View.VISIBLE);
 
-        final Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.inflate_register_members_dialog);
-        dialog.setTitle("Title...");
+        Service service = new ServiceProvider(getContext()).getmService();
+        Call<RegisterModel> call = service.getRegisterData();
+        call.enqueue(new Callback<RegisterModel>() {
+            @Override
+            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+                if(response.code()==200){
 
+                    RegisterModel registerModel;
+                    registerModel = response.body();
+                    RxBus.RegisterModel.publishRegisterModel(registerModel);
+                    Objects.requireNonNull(getContext()).startActivity(new Intent(getContext(),NewRegisterActivity.class));
+                    Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    hideLoading();
 
-
-//        List<String> members1 = new ArrayList<>();
-//        for (int i = 0; i < registerModel.data.members.size(); i++) {
-//            for (int j = 0; j < registerModel.data.members.get(i).size(); j++) {
-//                members1.add(registerModel.data.shops.get(i).get(j).title);
-//                int a = 5;
-//            }
-//        }
-
-
-
-        RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
-        recyclerview_members.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new AdapterRegisterMemberDialog(members, getContext());
-
-        adapter.setListener(this);  // important or else the app will crashed
-
-        recyclerview_members.setAdapter(adapter);
-
-
-        dialog.show();
-    }
-
-
-    // on click from recycler item view
-    @Override
-    public void onClicked(String name, Boolean chkbox) {
-        if (chkbox) {
-            editMembers.add(new RegisterMemberEditModel(name));
-//            updateEditMemberList(editMembers);
-        } else {
-
-            if (editMembers.size() > 0) {
-                for (int i = 0; i < editMembers.size(); i++) {
-                    if (editMembers.get(i).txt_name.equals(name)) {
-                        editMembers.remove(i);
-                    }
+                }else if(response.code()==204){
+                    Toast.makeText(getContext(), "" + getResources().getString(R.string.error204), Toast.LENGTH_SHORT).show();
+                    hideLoading();
+                }else{
+                    Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    String a =response.message();
+                    hideLoading();
                 }
             }
 
-        }
-        updateEditMemberList(editMembers);
+            @Override
+            public void onFailure(Call<RegisterModel> call, Throwable t) {
+                Toast.makeText(getContext(), "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                hideLoading();
+            }
+        });
     }
 
-    public void updateEditMemberList(ArrayList<RegisterMemberEditModel> editMembers) {
-
-        recyclerEditedMember.setLayoutManager(new GridLayoutManager(getContext(), 5));
-        adapter_edited = new AdapterRegisterMemberEdit(editMembers, getContext());
-        recyclerEditedMember.setAdapter(adapter_edited);
-
-
-        if (editMembers.size() > 0) {
-            btn_addMember.setText("ویرایش اعضای خانواده");
-        } else {
-            btn_addMember.setText("افزودن اعضای خانواده");
-        }
+    private void hideLoading() {
+        btn_register.setVisibility(View.VISIBLE);
+        avi.setVisibility(View.GONE);
     }
-
-
-
 }

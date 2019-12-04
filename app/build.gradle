@@ -81,6 +81,12 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
 
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
+    implementation 'com.github.samanzamani.persiandate:PersianDate:0.3' 
+
+
+
+
     //todo delete leakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'

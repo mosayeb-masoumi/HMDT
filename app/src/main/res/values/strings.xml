@@ -17,7 +17,7 @@
 
     <!--Bottom navigation tabs-->
     <string name="home_tab">صفحه اصلی</string>
-    <string name="register_tab">ثبت خرید</string>
+    <string name="register_tab">خریدها</string>
     <string name="myaccount_tab">حساب من</string>
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
@@ -43,6 +43,8 @@
     <string name="tottal_amount">مبلغ کل خرید</string>
     <string name="discount">مبلغ تخفیف</string>
     <string name="paid_amount">مبلغ پرداخت شده</string>
+    <string name="register_new">ثبت خرید جدید</string>
+    <string name="error204">اطلاعات مورد نظر دریافت نشد</string>
 
 
 </resources>

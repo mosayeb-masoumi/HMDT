@@ -6,10 +6,14 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class RegisterData {
-    @SerializedName("shops")
+
+    @SerializedName("shop")
     @Expose
-    public List<List<Shop>> shops = null;
-    @SerializedName("members")
+    public List<List<Shop>> shop = null;
+    @SerializedName("member")
     @Expose
-    public List<List<Member>> members = null;
+    public List<List<Member>> member = null;
+    @SerializedName("prize")
+    @Expose
+    public List<List<Prize>> prize = null;
 }

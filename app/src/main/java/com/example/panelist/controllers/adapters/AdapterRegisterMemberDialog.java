@@ -10,16 +10,18 @@ import android.view.ViewGroup;
 import com.example.panelist.R;
 import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
 import com.example.panelist.controllers.viewholders.RegisterMemberViewHolderDialog;
+import com.example.panelist.models.register.Member;
 import com.example.panelist.models.register.RegisterMemberModel;
 
 import java.util.List;
 
 public class AdapterRegisterMemberDialog extends RecyclerView.Adapter<RegisterMemberViewHolderDialog> {
 
-    public List<RegisterMemberModel> members;
+//    public List<RegisterMemberModel> members;
+    public List<Member> members;
     public Context context;
 
-    public AdapterRegisterMemberDialog(List<RegisterMemberModel> members, Context context) {
+    public AdapterRegisterMemberDialog(List<Member> members, Context context) {
         this.members = members;
         this.context = context;
     }
@@ -34,7 +36,7 @@ public class AdapterRegisterMemberDialog extends RecyclerView.Adapter<RegisterMe
     @Override
     public void onBindViewHolder(@NonNull RegisterMemberViewHolderDialog holder, int position) {
 
-        final RegisterMemberModel model = members.get(position);
+        final Member model = members.get(position);
         holder.bindData(model);
         holder.setOnRegisterHolderListener(listener,model);
     }

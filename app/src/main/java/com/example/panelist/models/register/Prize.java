@@ -3,17 +3,12 @@ package com.example.panelist.models.register;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Member {
-    @SerializedName("name")
+public class Prize {
+
+    @SerializedName("title")
     @Expose
-    public String name;
+    public String title;
     @SerializedName("id")
     @Expose
     public String id;
-
-
-    public Member(String name, String id) {
-        this.name = name;
-        this.id = id;
-    }
 }
