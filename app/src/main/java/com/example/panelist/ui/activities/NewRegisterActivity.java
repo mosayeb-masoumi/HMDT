@@ -14,23 +14,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.example.panelist.R;
+import com.example.panelist.controllers.adapters.AdapterEditPrize;
+import com.example.panelist.controllers.adapters.AdapterPrize;
 import com.example.panelist.controllers.adapters.AdapterRegisterMemberDialog;
 import com.example.panelist.controllers.adapters.AdapterRegisterMemberEdit;
+import com.example.panelist.controllers.viewholders.PrizeItemInteraction;
 import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
 import com.example.panelist.models.register.Member;
+import com.example.panelist.models.register.Prize;
 import com.example.panelist.models.register.RegisterMemberEditModel;
 import com.example.panelist.models.register.RegisterModel;
+import com.example.panelist.models.register.SendPrize;
+import com.example.panelist.models.register.SendRegisterTotalData;
 import com.example.panelist.models.register_newshop.NewShop;
 import com.example.panelist.models.register_newshop.NewShopSendData;
 import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
+import com.example.panelist.utilities.Cache;
+import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GeneralTools;
 import com.example.panelist.utilities.RxBus;
 import com.example.panelist.utilities.Time;
@@ -39,6 +52,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -48,23 +62,32 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewRegisterActivity extends AppCompatActivity
-        implements View.OnClickListener, RegisterItemInteraction {
+        implements View.OnClickListener, RegisterItemInteraction , PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
+    DialogFactory dialogFactory;
     RegisterModel registerModel;
-    Button btn_addMember,btn_register;
+    Button btn_addMember,btn_register,btn_prize;
     AVLoadingIndicatorView avi;
-    AdapterRegisterMemberDialog adapter;
+    AdapterRegisterMemberDialog adapter_member;
     AdapterRegisterMemberEdit adapter_edited;
+    AdapterPrize adapter_prize;
+    AdapterEditPrize adapterEditPrize;
+    List<SendPrize> sendPrizes ;
     ArrayList<RegisterMemberEditModel> editMembers;
-    RecyclerView recyclerEditedMember;
+    RecyclerView recyclerEditedMember,recycler_prize;
     RelativeLayout rl_spn_shop;
     Spinner spn_shop;
-    EditText edtDate;
+    EditText edtDate,edt_discount,edt_total_amount,edt_paid;
+    CheckBox checkBox_precentage,checkBox_amount;
     private PersianDatePickerDialog picker;
     String date="";
+    String str_spnItemId;
+    String checkbox_text;
+
+    LinearLayout layout_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,20 +112,37 @@ public class NewRegisterActivity extends AppCompatActivity
         });
 
         initView();
+        //initial Dialog factory
+        dialogFactory = new DialogFactory(NewRegisterActivity.this);
         setSpinner();
+
+        checkBox_precentage.setChecked(true);
+        edt_discount.setHint("درصد");
     }
 
     private void initView() {
         btn_addMember = findViewById(R.id.add_member);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
+        recycler_prize=findViewById(R.id.recycler_prize);
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
+        btn_prize=findViewById(R.id.btn_prize);
         avi=findViewById(R.id.avi_register);
         edtDate=findViewById(R.id.edtDate);
+        edt_discount=findViewById(R.id.edt_discount);
+        edt_total_amount=findViewById(R.id.edt_total_amount);
+        edt_paid=findViewById(R.id.edt_paid);
+        checkBox_precentage= findViewById(R.id.checkBox_precentage);
+        checkBox_amount=findViewById(R.id.checkBox_amount);
+        layout_register=findViewById(R.id.layout_register);
         btn_addMember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         edtDate.setOnClickListener(this);
+        btn_prize.setOnClickListener(this);
+
+        checkBox_precentage.setOnCheckedChangeListener(this);
+        checkBox_amount.setOnCheckedChangeListener(this);
 
 
         edtDate.setText(Time.getNowPersianDate());
@@ -123,6 +163,29 @@ public class NewRegisterActivity extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spn_shop.setAdapter(adapter);
 
+        spn_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                for (int i = 0; i < registerModel.data.shop.size(); i++) {
+                    for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+                        str_spnItemId = registerModel.data.shop.get(i).get(position).id;
+                    }
+                }
+
+
+//                str_spnItemId = String.valueOf(spn_shop.getSelectedItemId());
+//                String a = str_spnItemId;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
     }
 
     @Override
@@ -135,21 +198,31 @@ public class NewRegisterActivity extends AppCompatActivity
                 break;
 
             case R.id.btn_register:
-                sendData();
+
+
+
+                if((edt_total_amount.getText().toString().length()>0 || edt_paid.getText().toString().length()>0)
+                   || (edt_total_amount.getText().toString().length()>0 && edt_paid.getText().toString().length()>0)){
+
+                    sendData();
+                }
+
                 break;
 
             case R.id.edtDate:
                 showCalander();
                 break;
+
+            case R.id.btn_prize:
+                showPrizeDialog();
+                break;
         }
     }
+
 
     private void showCalander() {
         final InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(edtDate, InputMethodManager.SHOW_IMPLICIT);
-
-//        PersianCalendar initDate = new PersianCalendar();
-//        initDate.setPersianDate(1370, 3, 13);
 
         picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString("تایید")
@@ -158,18 +231,10 @@ public class NewRegisterActivity extends AppCompatActivity
                 .setTodayButtonVisible(true)
                 .setMinYear(1397)
                 .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-
-//                .setInitDate(initDate)
                 .setActionTextColor(Color.GRAY)
-//                .setTypeFace(typeface)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
-
-//                        date = persianCalendar.getPersianYear() + "/"
-//                                + persianCalendar.getPersianMonth() + "/"
-//                                + persianCalendar.getPersianDay();
-
                         date = persianCalendar.getPersianYear() + "/" +
                                 (String.valueOf(persianCalendar.getPersianMonth()).length() < 2 ? "0" + persianCalendar.getPersianMonth() : persianCalendar.getPersianMonth()) + "/" +
                                 (String.valueOf(persianCalendar.getPersianDay()).length() < 2 ? "0" + persianCalendar.getPersianDay() : persianCalendar.getPersianDay());
@@ -183,7 +248,6 @@ public class NewRegisterActivity extends AppCompatActivity
                 });
         picker.show();
     }
-
 
     private void showAddMemberDialog() {
 
@@ -206,9 +270,9 @@ public class NewRegisterActivity extends AppCompatActivity
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-        adapter = new AdapterRegisterMemberDialog(members, NewRegisterActivity.this);
-        adapter.setListener(this);  // important or else the app will crashed
-        recyclerview_members.setAdapter(adapter);
+        adapter_member = new AdapterRegisterMemberDialog(members, NewRegisterActivity.this);
+        adapter_member.setListener(this);  // important or else the app will crashed
+        recyclerview_members.setAdapter(adapter_member);
 
         // to select all members
         checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -227,6 +291,33 @@ public class NewRegisterActivity extends AppCompatActivity
 
         dialog.show();
     }
+
+
+    private void showPrizeDialog() {
+        sendPrizes = new ArrayList<>();
+        final Dialog dialog = new Dialog(NewRegisterActivity.this);
+        dialog.setContentView(R.layout.prize_dialog);
+        dialog.setTitle("Title...");
+
+        // to show list of member items
+        List<Prize> prizes = new ArrayList<>();
+        for (int i = 0; i < registerModel.data.prize.size(); i++) {
+            for (int j = 0; j < registerModel.data.prize.get(i).size(); j++) {
+                prizes.add(new Prize(registerModel.data.prize.get(i).get(j).title
+                        , registerModel.data.prize.get(i).get(j).id));
+            }
+        }
+
+        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
+        recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
+        adapter_prize = new AdapterPrize(prizes, NewRegisterActivity.this);
+        adapter_prize.setListener(this);  // important or else the app will crashed
+//        adapter_prize.setListener(this);  // important or else the app will crashed
+        recycler_prize.setAdapter(adapter_prize);
+
+        dialog.show();
+    }
+
 
     // to setCheck single checkbox and show in list
     @Override
@@ -263,33 +354,120 @@ public class NewRegisterActivity extends AppCompatActivity
         }
     }
 
-
     private void sendData() {
 
-        NewShopSendData newShopSendData=new NewShopSendData();
-        newShopSendData.setMemberEditedList(editMembers);
+        String total_amount = edt_total_amount.getText().toString();
+        String total_paid = edt_paid.getText().toString();
+        String discount_amount = edt_discount.getText().toString();
+        String date = edtDate.getText().toString();
 
+        SendRegisterTotalData sendData = new SendRegisterTotalData();
+        sendData.setMember(editMembers);
+        sendData.setPrize(sendPrizes);
+        sendData.setShop_id(str_spnItemId);
+        sendData.setCost(total_amount);
+        sendData.setPaid(total_paid);
+
+        String chechBox_type = checkbox_text;
+        if(chechBox_type.equals("مبلغی")){
+            sendData.setDiscount_type("amount");
+        }else {
+            sendData.setDiscount_type("percent");
+        }
+        sendData.setDiscount_amount(discount_amount);
+        sendData.setDate(date);
 
         Service service = new ServiceProvider(this).getmService();
-        Call<NewShop> call = service.registerNewShop(newShopSendData);
-        call.enqueue(new Callback<NewShop>() {
+        Call<Boolean> call = service.registerNewShop(sendData);
+        call.enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<NewShop> call, Response<NewShop> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.code()==200){
 
+                  int a = 5;
+
+                }else if(response.code()==422){
+
+                    int h = 5;
+                }else{
+                    Toast.makeText(NewRegisterActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<NewShop> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(NewRegisterActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
             }
         });
-
     }
 
+    @Override
+    public void prizeOnClicked(String title, String id, Boolean chkbox) {
+       if(chkbox){
+           createPrizeDetailDialog(title,id);
+       }else{
+           if (sendPrizes.size() > 0) {
+               for (int i = 0; i < sendPrizes.size(); i++) {
+                   if (sendPrizes.get(i).getId().equals(id)) {
+                       sendPrizes.remove(i);
+                   }
+               }
+               updateEditPrizeList(sendPrizes);
+           }
+       }
+    }
 
+    private void createPrizeDetailDialog(String title, String id) {
 
+        Context context = NewRegisterActivity.this;
+        dialogFactory.createPrizeDetailDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+                String desc= params[0];
+                String title= params[1];
+                String id= params[2];
+                sendPrizes.add(new SendPrize(desc,id));
+                updateEditPrizeList(sendPrizes);
+            }
 
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
 
+            }
+        },title,id,layout_register);
+    }
+
+    private void updateEditPrizeList(List<SendPrize> sendPrizes) {
+
+        recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this,3));
+        adapterEditPrize = new AdapterEditPrize(sendPrizes, NewRegisterActivity.this);
+        recycler_prize.setAdapter(adapterEditPrize);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+
+        switch (view.getId()) {
+            case R.id.checkBox_amount:
+                if(isChecked){
+                    Toast.makeText(this, "amount", Toast.LENGTH_SHORT).show();
+                    checkBox_precentage.setChecked(false);
+                    edt_discount.setHint("مبلغ");
+                    checkbox_text = "مبلغ";
+                }
+                break;
+
+            case R.id.checkBox_precentage:
+                if(isChecked){
+                    Toast.makeText(this, "precentage", Toast.LENGTH_SHORT).show();
+                    checkBox_amount.setChecked(false);
+                    edt_discount.setHint("درصد");
+                    checkbox_text = "درصد";
+                }
+                break;
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -301,5 +479,6 @@ public class NewRegisterActivity extends AppCompatActivity
     protected void onDestroy() {
         unregisterReceiver(connectivityReceiver);
         super.onDestroy();
+        disposable.dispose(); //very important  to avoid memory leak
     }
 }

@@ -7,7 +7,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.panelist.R;
 
@@ -72,14 +75,11 @@ public class DialogFactory {
 
     public void createConfirmExitDialog(DialogFactoryInteraction listener, View view) {
 
-//        View customLayout = LayoutInflater.from(context).inflate(R.layout.confirm_exit_dialog, (ViewGroup) view, false);
         View customLayout = LayoutInflater.from(context).inflate(R.layout.confirm_exit_dialog2, (ViewGroup) view, false);
         //define views inside of dialog
         TextView btn_exit_dialog = customLayout.findViewById(R.id.btn_exit_dialog);
         TextView btn_cancel_dialog = customLayout.findViewById(R.id.btn_cancel_dialog);
         TextView text_body = customLayout.findViewById(R.id.text_body);
-
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -91,7 +91,6 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         btn_cancel_dialog.setOnClickListener(v -> {
             dialog.dismiss();
             listener.onDeniedButtonClicked(false);
@@ -99,6 +98,46 @@ public class DialogFactory {
 
         btn_exit_dialog.setOnClickListener(v -> listener.onAcceptButtonClicked("")
         );
+
+        dialog.show();
+    }
+
+
+    public void createPrizeDetailDialog(DialogFactoryInteraction listener, String title, String id, View view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.prize_detail_dialog, (ViewGroup) view, false);
+        //define views inside of dialog
+
+        Button btn_register = customLayout.findViewById(R.id.btn_register_dialog);
+        Button btn_cancel = customLayout.findViewById(R.id.btn_exit_dialog);
+        EditText edt_description = customLayout.findViewById(R.id.edt_description);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        btn_register.setOnClickListener(v -> {
+
+            String desc = edt_description.getText().toString();
+            if(desc.trim().length()>0){
+                listener.onAcceptButtonClicked(desc,title,id);
+                dialog.dismiss();
+
+            }else{
+                Toast.makeText(context, ""+context.getResources().getString(R.string.add_description), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_cancel.setOnClickListener(v -> {
+              dialog.dismiss();
+        });
+
 
         dialog.show();
     }

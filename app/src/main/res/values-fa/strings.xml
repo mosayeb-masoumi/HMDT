@@ -43,5 +43,11 @@
     <string name="paid_amount">مبلغ پرداخت شده</string>
     <string name="register_new">ثبت خرید جدید</string>
     <string name="error204">اطلاعات مورد نظر دریافت نشد</string>
+    <string name="register">ثبت</string>
+    <string name="prize">جایزه</string>
+    <string name="add_description">لطفا توضیحات را وارد نمایید</string>
+    <string name="select_prize">انتخاب جوایز</string>
+    <string name="percentage">درصدی</string>
+    <string name="amount">مبلغی</string>
 
 </resources>

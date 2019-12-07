@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.fragments.RegisterFragment">
 
-
     <Button
+        android:id="@+id/add_member"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="افزودن اعضای خانواده"
         android:layout_margin="10dp"
-        android:id="@+id/add_member" />
+        android:text="افزودن اعضای خانواده" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_edited_members"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layoutDirection="rtl" />
 
+    <Button
+        android:id="@+id/btn_prize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/select_prize" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_edited_members"
-            android:layout_width="match_parent"
-            android:layout_marginStart="10dp"
-            android:layoutDirection="rtl"
-            android:layout_marginEnd="10dp"
-            android:layout_height="wrap_content">
-
-        </android.support.v7.widget.RecyclerView>
-
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_prize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layoutDirection="rtl" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
         android:orientation="vertical">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -61,45 +69,27 @@
                 android:id="@+id/spn_shop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusable="true"
                 android:layout_centerInParent="true"
+                android:focusable="true"
                 android:focusableInTouchMode="true">
+
                 <requestFocus />
             </Spinner>
         </RelativeLayout>
     </LinearLayout>
-
 
     <EditText
         android:id="@+id/edt_total_amount"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/spiner_background"
         android:gravity="center"
         android:hint="@string/tottal_amount"
-        android:inputType="text"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:padding="5sp"
-        android:textColor="@color/colorTextDark"
-        android:textColorHint="@color/colorText"
-        android:textDirection="rtl"
-        android:textSize="14sp" />
-
-    <EditText
-        android:id="@+id/edt_discount"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:background="@drawable/spiner_background"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:hint="@string/discount"
-        android:inputType="text"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:inputType="number"
         android:padding="5sp"
         android:textColor="@color/colorTextDark"
         android:textColorHint="@color/colorText"
@@ -110,14 +100,15 @@
         android:id="@+id/edt_paid"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/spiner_background"
         android:gravity="center"
-        android:layout_marginTop="5dp"
         android:hint="@string/paid_amount"
-        android:inputType="text"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:inputType="number"
         android:padding="5sp"
         android:textColor="@color/colorTextDark"
         android:textColorHint="@color/colorText"
@@ -126,67 +117,121 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="5sp"
         android:background="@drawable/spiner_background"
-        android:layout_marginTop="5dp">
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/edtDate"
-            android:drawableStart="@drawable/ic_calander"
-            android:gravity="center"
-            android:textSize="17sp"
-            android:textColor="#000"
-            android:inputType="date"
-            android:background="@null"
-            android:clickable="false"
-            android:focusable="false"
-            android:text=""
-            />
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="match_parent">
-
+        android:orientation="horizontal"
+        android:weightSum="4">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_height="50dp">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
 
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="40dp"
-                android:id="@+id/avi_register"
-                android:layout_centerInParent="true"
-                app:indicatorColor="@color/colorAccent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"/>
-
-
-            <Button
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/btn_register"
-                android:visibility="visible"
-                android:text="ثبت"/>
-
-
-
+                android:gravity="center"
+                android:id="@+id/edt_discount"
+                android:inputType="number" />
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="2dp"
+                android:layout_toStartOf="@+id/checkBox_amount"
+                android:text="@string/amount" />
+
+            <CheckBox
+                android:id="@+id/checkBox_amount"
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="2dp"
+                android:layout_toStartOf="@+id/checkBox_precentage"
+                android:text="@string/percentage" />
+
+            <CheckBox
+                android:id="@+id/checkBox_precentage"
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/spiner_background">
+
+        <EditText
+            android:id="@+id/edtDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:clickable="false"
+            android:drawableStart="@drawable/ic_calander"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="date"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp">
+
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:id="@+id/avi_register"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                app:indicatorColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="ثبت"
+                android:visibility="visible" />
+
+        </RelativeLayout>
     </RelativeLayout>
-
-
 </LinearLayout>

@@ -26,17 +26,6 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
 
     public void setOnRegisterHolderListener(RegisterItemInteraction listener, Member model) {
 
-//        itemView.setOnClickListener(v -> {
-//            if(checkbox.isChecked()){
-//                checkbox.setChecked(false);
-//                listener.onClicked(model.txt_name,checkbox,false);
-//            }else if(!checkbox.isChecked()){
-//                checkbox.setChecked(true);
-//                listener.onClicked(model.txt_name,checkbox,true);
-//            }
-//        });
-
-//                itemView.setOnClickListener(v -> {
                     checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                         if(checkbox.isChecked()){
                             checkbox.setChecked(true);
@@ -46,10 +35,5 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
                             listener.onClicked(model.name,model.id,false);
                         }
                     });
-
-//        });
-
-
-
     }
 }

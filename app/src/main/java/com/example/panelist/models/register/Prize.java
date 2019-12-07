@@ -11,4 +11,10 @@ public class Prize {
     @SerializedName("id")
     @Expose
     public String id;
+
+
+    public Prize(String title, String id) {
+        this.title = title;
+        this.id = id;
+    }
 }

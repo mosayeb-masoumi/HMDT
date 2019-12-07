@@ -5,6 +5,7 @@ import com.example.panelist.models.dashboard.DashboardModel;
 import com.example.panelist.models.login.LoginModel;
 import com.example.panelist.models.refresh.RefreshTokenModel;
 import com.example.panelist.models.register.RegisterModel;
+import com.example.panelist.models.register.SendRegisterTotalData;
 import com.example.panelist.models.register_newshop.NewShop;
 import com.example.panelist.models.register_newshop.NewShopSendData;
 import com.example.panelist.models.verify.VerifyModel;
@@ -39,6 +40,6 @@ public interface Service {
     Call<RegisterModel> getRegisterData();
 
     @POST("Shopping/Create")
-    Call<NewShop> registerNewShop(@Body NewShopSendData newShopSendData);
+    Call<Boolean> registerNewShop(@Body SendRegisterTotalData sendRegisterTotalData);
 
 }
