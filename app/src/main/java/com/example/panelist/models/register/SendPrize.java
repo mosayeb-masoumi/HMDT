@@ -2,20 +2,20 @@ package com.example.panelist.models.register;
 
 public class SendPrize {
 
-    private String descrition;
+    private String description;
     private String id;
 
-    public SendPrize(String descrition, String id) {
-        this.descrition = descrition;
+    public SendPrize(String description, String id) {
+        this.description = description;
         this.id = id;
     }
 
-    public String getDescrition() {
-        return descrition;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescrition(String descrition) {
-        this.descrition = descrition;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getId() {

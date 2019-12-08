@@ -32,17 +32,17 @@ import com.example.panelist.controllers.adapters.AdapterRegisterMemberDialog;
 import com.example.panelist.controllers.adapters.AdapterRegisterMemberEdit;
 import com.example.panelist.controllers.viewholders.PrizeItemInteraction;
 import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
+import com.example.panelist.models.api_error.APIError422;
+import com.example.panelist.models.api_error.ErrorUtils;
+import com.example.panelist.models.register.GetShopId;
 import com.example.panelist.models.register.Member;
 import com.example.panelist.models.register.Prize;
 import com.example.panelist.models.register.RegisterMemberEditModel;
 import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.models.register.SendPrize;
 import com.example.panelist.models.register.SendRegisterTotalData;
-import com.example.panelist.models.register_newshop.NewShop;
-import com.example.panelist.models.register_newshop.NewShopSendData;
 import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
-import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GeneralTools;
 import com.example.panelist.utilities.RxBus;
@@ -52,7 +52,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.dmoral.toasty.Toasty;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -62,39 +61,42 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewRegisterActivity extends AppCompatActivity
-        implements View.OnClickListener, RegisterItemInteraction , PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
+        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
     DialogFactory dialogFactory;
     RegisterModel registerModel;
-    Button btn_addMember,btn_register,btn_prize;
+    Button btn_addMember, btn_register, btn_prize;
     AVLoadingIndicatorView avi;
     AdapterRegisterMemberDialog adapter_member;
     AdapterRegisterMemberEdit adapter_edited;
     AdapterPrize adapter_prize;
     AdapterEditPrize adapterEditPrize;
-    List<SendPrize> sendPrizes ;
+    List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
-    RecyclerView recyclerEditedMember,recycler_prize;
+    RecyclerView recyclerEditedMember, recycler_prize;
     RelativeLayout rl_spn_shop;
     Spinner spn_shop;
-    EditText edtDate,edt_discount,edt_total_amount,edt_paid;
-    CheckBox checkBox_precentage,checkBox_amount;
+    EditText edtDate, edt_discount, edt_total_amount, edt_paid;
+    CheckBox checkBox_precentage, checkBox_amount;
     private PersianDatePickerDialog picker;
-    String date="";
+    String date = "";
     String str_spnItemId;
     String checkbox_text;
 
     LinearLayout layout_register;
+    // for handling422
+    private StringBuilder builderPaid, builderCost, builderDiscountAmount,
+            builderShopId, builderMember, builderDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_register);
 
-       // to check internet connection
+        // to check internet connection
         tools = GeneralTools.getInstance();
         connectivityReceiver = new BroadcastReceiver() {
             @Override
@@ -123,19 +125,19 @@ public class NewRegisterActivity extends AppCompatActivity
     private void initView() {
         btn_addMember = findViewById(R.id.add_member);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
-        recycler_prize=findViewById(R.id.recycler_prize);
+        recycler_prize = findViewById(R.id.recycler_prize);
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
-        btn_prize=findViewById(R.id.btn_prize);
-        avi=findViewById(R.id.avi_register);
-        edtDate=findViewById(R.id.edtDate);
-        edt_discount=findViewById(R.id.edt_discount);
-        edt_total_amount=findViewById(R.id.edt_total_amount);
-        edt_paid=findViewById(R.id.edt_paid);
-        checkBox_precentage= findViewById(R.id.checkBox_precentage);
-        checkBox_amount=findViewById(R.id.checkBox_amount);
-        layout_register=findViewById(R.id.layout_register);
+        btn_prize = findViewById(R.id.btn_prize);
+        avi = findViewById(R.id.avi_register);
+        edtDate = findViewById(R.id.edtDate);
+        edt_discount = findViewById(R.id.edt_discount);
+        edt_total_amount = findViewById(R.id.edt_total_amount);
+        edt_paid = findViewById(R.id.edt_paid);
+        checkBox_precentage = findViewById(R.id.checkBox_precentage);
+        checkBox_amount = findViewById(R.id.checkBox_amount);
+        layout_register = findViewById(R.id.layout_register);
         btn_addMember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         edtDate.setOnClickListener(this);
@@ -200,12 +202,11 @@ public class NewRegisterActivity extends AppCompatActivity
             case R.id.btn_register:
 
 
-
-                if((edt_total_amount.getText().toString().length()>0 || edt_paid.getText().toString().length()>0)
-                   || (edt_total_amount.getText().toString().length()>0 && edt_paid.getText().toString().length()>0)){
-
-                    sendData();
-                }
+                sendData();
+//                if((edt_total_amount.getText().toString().length()>0 || edt_paid.getText().toString().length()>0)
+//                   || (edt_total_amount.getText().toString().length()>0 && edt_paid.getText().toString().length()>0)){
+//
+//                }
 
                 break;
 
@@ -276,7 +277,7 @@ public class NewRegisterActivity extends AppCompatActivity
 
         // to select all members
         checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked){
+            if (isChecked) {
                 editMembers = new ArrayList<>();
                 for (int i = 0; i < registerModel.data.member.size(); i++) {
                     for (int j = 0; j < registerModel.data.member.get(i).size(); j++) {
@@ -343,7 +344,7 @@ public class NewRegisterActivity extends AppCompatActivity
     // initializing edited member list
     public void updateEditMemberList(ArrayList<RegisterMemberEditModel> editMembers) {
 
-        recyclerEditedMember.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this,3));
+        recyclerEditedMember.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
         adapter_edited = new AdapterRegisterMemberEdit(editMembers, NewRegisterActivity.this);
         recyclerEditedMember.setAdapter(adapter_edited);
 
@@ -369,53 +370,125 @@ public class NewRegisterActivity extends AppCompatActivity
         sendData.setPaid(total_paid);
 
         String chechBox_type = checkbox_text;
-        if(chechBox_type.equals("مبلغی")){
+        if (chechBox_type.equals("مبلغی")) {
             sendData.setDiscount_type("amount");
-        }else {
+        } else {
             sendData.setDiscount_type("percent");
         }
         sendData.setDiscount_amount(discount_amount);
         sendData.setDate(date);
 
         Service service = new ServiceProvider(this).getmService();
-        Call<Boolean> call = service.registerNewShop(sendData);
-        call.enqueue(new Callback<Boolean>() {
+        Call<GetShopId> call = service.registerNewShop(sendData);
+        call.enqueue(new Callback<GetShopId>() {
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.code()==200){
+            public void onResponse(Call<GetShopId> call, Response<GetShopId> response) {
+                if (response.code() == 200) {
 
-                  int a = 5;
+                    String shopping_id = response.body().data;
 
-                }else if(response.code()==422){
 
-                    int h = 5;
-                }else{
-                    Toast.makeText(NewRegisterActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 422) {
+
+                    builderMember = null;
+                    builderShopId = null;
+                    builderCost = null;
+                    builderPaid = null;
+                    builderDiscountAmount = null;
+                    builderDate = null;
+
+                    APIError422 apiError = ErrorUtils.parseError422(response);
+
+                    if (apiError.errors.member != null) {
+                        builderMember = new StringBuilder();
+                        for (String b : apiError.errors.member) {
+                            builderMember.append("").append(b).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.shopId != null) {
+                        builderShopId = new StringBuilder();
+                        for (String a : apiError.errors.shopId) {
+                            builderShopId.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.cost != null) {
+                        builderCost = new StringBuilder();
+                        for (String b : apiError.errors.cost) {
+                            builderCost.append("").append(b).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.paid != null) {
+                        builderPaid = new StringBuilder();
+                        for (String a : apiError.errors.paid) {
+                            builderPaid.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.discountAmount != null) {
+                        builderDiscountAmount = new StringBuilder();
+                        for (String c : apiError.errors.discountAmount) {
+                            builderDiscountAmount.append("").append(c).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.date != null) {
+                        builderDate = new StringBuilder();
+                        for (String c : apiError.errors.date) {
+                            builderDate.append("").append(c).append(" ");
+                        }
+                    }
+
+
+                    if (builderMember != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderMember, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderShopId != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderShopId, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderCost != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderPaid != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderPaid, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderDiscountAmount != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderDiscountAmount, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderDate != null) {
+                        Toast.makeText(NewRegisterActivity.this, "" + builderDate, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(NewRegisterActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
+            public void onFailure(Call<GetShopId> call, Throwable t) {
+                Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
     @Override
     public void prizeOnClicked(String title, String id, Boolean chkbox) {
-       if(chkbox){
-           createPrizeDetailDialog(title,id);
-       }else{
-           if (sendPrizes.size() > 0) {
-               for (int i = 0; i < sendPrizes.size(); i++) {
-                   if (sendPrizes.get(i).getId().equals(id)) {
-                       sendPrizes.remove(i);
-                   }
-               }
-               updateEditPrizeList(sendPrizes);
-           }
-       }
+        if (chkbox) {
+            createPrizeDetailDialog(title, id);
+        } else {
+            if (sendPrizes.size() > 0) {
+                for (int i = 0; i < sendPrizes.size(); i++) {
+                    if (sendPrizes.get(i).getId().equals(id)) {
+                        sendPrizes.remove(i);
+                    }
+                }
+                updateEditPrizeList(sendPrizes);
+            }
+        }
     }
 
     private void createPrizeDetailDialog(String title, String id) {
@@ -424,10 +497,10 @@ public class NewRegisterActivity extends AppCompatActivity
         dialogFactory.createPrizeDetailDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
-                String desc= params[0];
-                String title= params[1];
-                String id= params[2];
-                sendPrizes.add(new SendPrize(desc,id));
+                String desc = params[0];
+                String title = params[1];
+                String id = params[2];
+                sendPrizes.add(new SendPrize(desc, id));
                 updateEditPrizeList(sendPrizes);
             }
 
@@ -435,12 +508,12 @@ public class NewRegisterActivity extends AppCompatActivity
             public void onDeniedButtonClicked(boolean bool) {
 
             }
-        },title,id,layout_register);
+        }, title, id, layout_register);
     }
 
     private void updateEditPrizeList(List<SendPrize> sendPrizes) {
 
-        recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this,3));
+        recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
         adapterEditPrize = new AdapterEditPrize(sendPrizes, NewRegisterActivity.this);
         recycler_prize.setAdapter(adapterEditPrize);
     }
@@ -450,7 +523,7 @@ public class NewRegisterActivity extends AppCompatActivity
 
         switch (view.getId()) {
             case R.id.checkBox_amount:
-                if(isChecked){
+                if (isChecked) {
                     Toast.makeText(this, "amount", Toast.LENGTH_SHORT).show();
                     checkBox_precentage.setChecked(false);
                     edt_discount.setHint("مبلغ");
@@ -459,7 +532,7 @@ public class NewRegisterActivity extends AppCompatActivity
                 break;
 
             case R.id.checkBox_precentage:
-                if(isChecked){
+                if (isChecked) {
                     Toast.makeText(this, "precentage", Toast.LENGTH_SHORT).show();
                     checkBox_amount.setChecked(false);
                     edt_discount.setHint("درصد");

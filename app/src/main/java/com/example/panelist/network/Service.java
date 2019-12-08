@@ -1,13 +1,14 @@
 package com.example.panelist.network;
 
 
+import com.example.panelist.models.activelist.ActiveList;
+import com.example.panelist.models.activelist.ActiveListData;
 import com.example.panelist.models.dashboard.DashboardModel;
 import com.example.panelist.models.login.LoginModel;
 import com.example.panelist.models.refresh.RefreshTokenModel;
+import com.example.panelist.models.register.GetShopId;
 import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.models.register.SendRegisterTotalData;
-import com.example.panelist.models.register_newshop.NewShop;
-import com.example.panelist.models.register_newshop.NewShopSendData;
 import com.example.panelist.models.verify.VerifyModel;
 
 import retrofit2.Call;
@@ -28,7 +29,6 @@ public interface Service {
     Call<VerifyModel> verify(@Query("code") String code);
 
 
-
     @GET("Dashboard/Create")
     Call<DashboardModel> getDashboardData();
 
@@ -40,6 +40,9 @@ public interface Service {
     Call<RegisterModel> getRegisterData();
 
     @POST("Shopping/Create")
-    Call<Boolean> registerNewShop(@Body SendRegisterTotalData sendRegisterTotalData);
+    Call<GetShopId> registerNewShop(@Body SendRegisterTotalData sendRegisterTotalData);
+
+    @POST("Shopping/ActiveIndex")
+    Call<ActiveListData> getActiveList(@Query("page") Integer page);
 
 }

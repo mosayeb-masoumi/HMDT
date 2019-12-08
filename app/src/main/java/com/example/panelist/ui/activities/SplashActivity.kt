@@ -50,9 +50,7 @@ class SplashActivity : CustomBaseActivity() {
 
             reload()
         }
-
     }
-
 
     private fun startAnim() {
         avi.show()
@@ -102,7 +100,6 @@ class SplashActivity : CustomBaseActivity() {
 
                 if (response.code() == 200) {
 
-
                     var dashboardModel: DashboardModel
                     dashboardModel = response.body()!!
 //                    RxBus.publishDashboardData(dashboardModel)
@@ -128,9 +125,7 @@ class SplashActivity : CustomBaseActivity() {
                 Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()
             }
-
         })
-
     }
 
 //    private fun requestRegisterData() {
@@ -169,7 +164,6 @@ class SplashActivity : CustomBaseActivity() {
         avi.hide()
         btn_reload.visibility = View.VISIBLE
     }
-
 
     private fun reload() {
         avi.show()

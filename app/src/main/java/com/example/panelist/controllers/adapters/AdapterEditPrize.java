@@ -35,7 +35,7 @@ public class AdapterEditPrize extends RecyclerView.Adapter<AdapterEditPrize.View
     public void onBindViewHolder(@NonNull AdapterEditPrize.ViewHolder holoder, int position) {
         SendPrize model = sendPrizes.get(position);
 
-        holoder.txt_name.setText(model.getDescrition());
+        holoder.txt_name.setText(model.getDescription());
         holoder.img_delete.setOnClickListener(v -> {
             sendPrizes.remove(position);
             notifyItemRemoved(position);
