@@ -3,7 +3,7 @@
     <string name="internet_setting">wifi setting</string>
     <string name="data_setting">data setting</string>
     <string name="no_internet_text">turn on internet</string>
-    <string name="warning">warning</string>
+    <string name="warning">اخطار</string>
     <string name="text_input_mobile">لطفا شماره موبایل خود را وارد کنید</string>
     <string name="login_button_text">ارسال</string>
 
@@ -51,6 +51,12 @@
     <string name="select_prize">انتخاب جوایز</string>
     <string name="percentage">درصدی</string>
     <string name="amount">مبلغی</string>
+
+    <string name="outarea">شما خارج از محدوده ی مجاز برای ثبت خرید می باشید</string>
+    <string name="purchasetitle">عنوان خریدها</string>
+    <string name="purchaseedit">ویرایش خرید</string>
+    <string name="register_product">ثبت محصول</string>
+    <string name="productedit">ویرایش محصولات</string>
 
 
 </resources>

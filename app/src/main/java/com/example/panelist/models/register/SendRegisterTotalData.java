@@ -18,6 +18,9 @@ public class SendRegisterTotalData {
     private String discount_amount;
     private String discount_type;
     private String date;
+    private String lat;
+    private String lng;
+    private String validate_area;
 
 
     public List<SendPrize> getPrize() {
@@ -82,5 +85,29 @@ public class SendRegisterTotalData {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getValidate_area() {
+        return validate_area;
+    }
+
+    public void setValidate_area(String validate_area) {
+        this.validate_area = validate_area;
     }
 }

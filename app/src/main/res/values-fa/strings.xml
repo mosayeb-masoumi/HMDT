@@ -49,5 +49,10 @@
     <string name="select_prize">انتخاب جوایز</string>
     <string name="percentage">درصدی</string>
     <string name="amount">مبلغی</string>
+    <string name="outarea">شما خارج از محدوده ی مجاز برای ثبت خرید می باشید</string>
+    <string name="purchasetitle">عنوان خریدها</string>
+    <string name="purchaseedit">ویرایش خرید</string>
+    <string name="register_product">ثبت محصول</string>
+    <string name="productedit">ویرایش محصولات</string>
 
 </resources>

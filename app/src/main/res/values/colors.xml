@@ -12,7 +12,14 @@
     <color name="colorsecondarytext">#757575</color>
     <color name="colorBlueText">#003366</color>
 
-    <color name="blue">#264796</color>
+    <!--<color name="blue">#264796</color>-->
     <color name="white_gray">#f3f3f3</color>
     <color name="yellow">#fff200</color>
+    <color name="blue_dark">#025cd4</color>
+    <color name="blue">#029cda</color>
+    <color name="blue_light">#b4ebff</color>
+    <color name="pink_dark">#e70c8e</color>
+    <color name="pink_light">#ffacdc</color>
+
+
 </resources>

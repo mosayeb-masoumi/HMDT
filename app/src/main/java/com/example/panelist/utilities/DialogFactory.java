@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import com.example.panelist.R;
 public class DialogFactory {
 
     private Context context;
+
+
 
 
     public interface DialogFactoryInteraction{
@@ -141,4 +144,33 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+    public void createOutOfAreaDialog(DialogFactoryInteraction listener, View view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.out_area_dialog, (ViewGroup) view, false);
+        //define views inside of dialog
+
+        Button btn_exit = customLayout.findViewById(R.id.btn_exit_dialog);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_exit.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
+
+        dialog.show();
+    }
+
 }

@@ -89,7 +89,7 @@
         android:background="@drawable/spiner_background"
         android:gravity="center"
         android:hint="@string/tottal_amount"
-        android:inputType="number"
+        android:inputType="text"
         android:padding="5sp"
         android:textColor="@color/colorTextDark"
         android:textColorHint="@color/colorText"

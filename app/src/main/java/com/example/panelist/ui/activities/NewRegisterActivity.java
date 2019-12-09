@@ -43,6 +43,8 @@ import com.example.panelist.models.register.SendPrize;
 import com.example.panelist.models.register.SendRegisterTotalData;
 import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
+import com.example.panelist.utilities.Cache;
+import com.example.panelist.utilities.ConvertEnDigitToFa;
 import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GeneralTools;
 import com.example.panelist.utilities.RxBus;
@@ -147,7 +149,10 @@ public class NewRegisterActivity extends AppCompatActivity
         checkBox_amount.setOnCheckedChangeListener(this);
 
 
-        edtDate.setText(Time.getNowPersianDate());
+        String dateEn = Time.getNowPersianDate();
+        edtDate.setText(ConvertEnDigitToFa.convert(dateEn));
+        String a = "";
+
     }
 
 
@@ -368,6 +373,9 @@ public class NewRegisterActivity extends AppCompatActivity
         sendData.setShop_id(str_spnItemId);
         sendData.setCost(total_amount);
         sendData.setPaid(total_paid);
+        sendData.setLat(Cache.getString("lat"));
+        sendData.setLng(Cache.getString("lng"));
+        sendData.setValidate_area(Cache.getString("validate_area"));
 
         String chechBox_type = checkbox_text;
         if (chechBox_type.equals("مبلغی")) {
@@ -377,6 +385,13 @@ public class NewRegisterActivity extends AppCompatActivity
         }
         sendData.setDiscount_amount(discount_amount);
         sendData.setDate(date);
+//        sendData.setDate("١٠۹٣۹۸-٠۹۹٣۹-١٠۹٣۸");
+//        sendData.setDate("۴۵۶۹۸۷١٠٢٣");
+
+
+
+
+
 
         Service service = new ServiceProvider(this).getmService();
         Call<GetShopId> call = service.registerNewShop(sendData);
@@ -524,7 +539,6 @@ public class NewRegisterActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.checkBox_amount:
                 if (isChecked) {
-                    Toast.makeText(this, "amount", Toast.LENGTH_SHORT).show();
                     checkBox_precentage.setChecked(false);
                     edt_discount.setHint("مبلغ");
                     checkbox_text = "مبلغ";
@@ -533,7 +547,6 @@ public class NewRegisterActivity extends AppCompatActivity
 
             case R.id.checkBox_precentage:
                 if (isChecked) {
-                    Toast.makeText(this, "precentage", Toast.LENGTH_SHORT).show();
                     checkBox_amount.setChecked(false);
                     edt_discount.setHint("درصد");
                     checkbox_text = "درصد";

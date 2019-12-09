@@ -4,6 +4,7 @@ package com.example.panelist.network;
 import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.models.activelist.ActiveListData;
 import com.example.panelist.models.dashboard.DashboardModel;
+import com.example.panelist.models.latlng.LatLng;
 import com.example.panelist.models.login.LoginModel;
 import com.example.panelist.models.refresh.RefreshTokenModel;
 import com.example.panelist.models.register.GetShopId;
@@ -44,5 +45,10 @@ public interface Service {
 
     @POST("Shopping/ActiveIndex")
     Call<ActiveListData> getActiveList(@Query("page") Integer page);
+
+
+    @POST("Shopping/Latlng")
+    Call<LatLng> latLng(@Query("lat") String lat,
+                        @Query("lng") String lng);
 
 }

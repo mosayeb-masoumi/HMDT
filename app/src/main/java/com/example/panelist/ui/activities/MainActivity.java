@@ -145,10 +145,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     private void initializeBottomNavigation() {
         // Create items
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home, 0);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.register_tab, R.drawable.home, 0);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.home, 0);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.home, 0);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home_icon, 0);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.register_tab, R.drawable.purchase_icon, 0);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.transaction_icon, 0);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.shop_icon, 0);
 
         // Add items
         bottom_navigation.addItem(item1);
@@ -158,7 +158,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
 
-        bottom_navigation.setAccentColor(Color.parseColor("#fff200"));
+        bottom_navigation.setAccentColor(Color.parseColor("#212b5e"));
         bottom_navigation.setInactiveColor(Color.parseColor("#FFFFFF"));
 
         bottom_navigation.setDefaultBackgroundResource(R.drawable.bg_toolbar);
