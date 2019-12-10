@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#00f2fd</color>
     <color name="colorPrimaryDark">#005dd4</color>
-    <color name="colorAccent">#FFC107</color>
+    <!--<color name="colorAccent">#FFC107</color>-->
+    <color name="colorAccent">#029cda</color>
     <color name="white">#ffffff</color>
     <color name="colorTextLight">#FFFFFF</color>
     <color name="colorText">#757575</color>
@@ -20,6 +21,7 @@
     <color name="blue_light">#b4ebff</color>
     <color name="pink_dark">#e70c8e</color>
     <color name="pink_light">#ffacdc</color>
+    <color name="pink">#ff58ba</color>
 
 
 </resources>

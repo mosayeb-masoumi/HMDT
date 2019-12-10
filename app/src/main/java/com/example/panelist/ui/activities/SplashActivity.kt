@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.panelist.BuildConfig
 import com.example.panelist.R
 import com.example.panelist.models.api_error403.ShowMessage403
 import com.example.panelist.models.dashboard.DashboardModel
@@ -26,7 +27,6 @@ class SplashActivity : CustomBaseActivity() {
 //    var lng: String = ""
 
 
-
     private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class SplashActivity : CustomBaseActivity() {
         }
 
 
+        txtVersion.setText(BuildConfig.VERSION_NAME)
 
         btn_reload.setOnClickListener {
 

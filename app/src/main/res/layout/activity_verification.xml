@@ -7,38 +7,77 @@
     android:background="#C5BFBF"
     tools:context=".ui.activities.VerificationActivity">
 
-    <EditText
-        android:id="@+id/et_user_verify"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:hint="@string/verification_hint"
-        android:inputType="phone"
-        android:maxLength="5"
-        android:padding="10dp"
-        android:textColorHint="@color/blue"
-        android:textDirection="rtl"
-        android:textSize="13sp" />
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/bg_simple" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rl10"
+        android:layout_height="300dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/logo"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/splash_logo" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:id="@+id/rl5"
+        android:layout_marginTop="@dimen/_250sdp">
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:src="@drawable/bg_login_phone_blue" />
+
+        <EditText
+            android:id="@+id/et_user_verify"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="67dp"
+            android:layout_marginEnd="67dp"
+            android:background="@drawable/edtphone_shape"
+            android:gravity="center"
+            android:hint="@string/verification_hint"
+            android:inputType="phone"
+            android:maxLength="5"
+            android:padding="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:textColorHint="@color/blue"
+            android:textDirection="rtl"
+            android:textSize="@dimen/_13ssp" />
+    </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/rl18"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="110dp"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/et_user_verify"
+        android:layout_below="@+id/rl5"
         android:layout_marginTop="7dp"
         android:gravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/ll_av_verify"
+            android:visibility="gone"
+            android:background="@drawable/bg_phoneregister_shape"
             android:layout_centerHorizontal="true">
             <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/av_verify"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
@@ -51,10 +90,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:background="@drawable/bg_phoneregister_shape"
+            android:textColor="@color/white"
             android:text="@string/login_button_text"
             android:textSize="15sp" />
 
     </RelativeLayout>
+
 
 
     <LinearLayout
@@ -63,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl18"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -76,9 +118,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:layout_centerHorizontal="true"
             android:textColor="@color/white_gray"
-            android:textSize="13sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <TextView
@@ -95,23 +136,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/txt"
         android:layout_marginTop="10dp">
 
         <RelativeLayout
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:background="@drawable/bg_tryagain"
+            android:background="@drawable/bg_counter"
             android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:id="@+id/linear_recode"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:layoutDirection="ltr"
                 android:orientation="horizontal"
@@ -123,7 +163,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:text="@string/veriification_resend_code"
-                    android:textColor="@color/white_gray" />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -152,7 +192,7 @@
                         android:id="@+id/text_min"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white_gray"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         android:gravity="center_vertical"
                         android:textStyle="bold"
@@ -163,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:text=":"
                         android:visibility="gone"
-                        android:textColor="@color/white_gray"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
@@ -171,7 +211,7 @@
                         android:id="@+id/text_sec"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white_gray"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         android:visibility="gone"
                         android:textStyle="bold"
@@ -184,5 +224,14 @@
 
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/login_iconpage"  />
+
 
 </RelativeLayout>

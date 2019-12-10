@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:scaleType="fitXY"
-        android:background="#009688"/>
+        android:src="@drawable/bg_simple" />
 
 
     <RelativeLayout
@@ -23,18 +23,20 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:src="@drawable/splash_logo"
+            android:layout_height="300dp" />
 
 
         <TextView
             android:id="@+id/txtTermsConditions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="250dp"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="@string/terms_conditions"
             android:textColor="#fff"
-            android:textSize="15sp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
@@ -78,18 +80,16 @@
         android:visibility="visible"
         android:orientation="horizontal">
 
-
-        <CheckBox
-            android:id="@+id/checkbox_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:buttonTint="@color/yellow" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/accept_terms_conditions"
-            android:textColor="@color/yellow" />
+            android:textColor="@color/white" />
+        <CheckBox
+            android:id="@+id/checkbox_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:buttonTint="@color/white" />
 
     </LinearLayout>
 
@@ -125,7 +125,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="@string/enter"
-                android:textColor="#0C0B0B"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </RelativeLayout>
 

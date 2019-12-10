@@ -48,7 +48,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         mobile = intent.getStringExtra("mobile")
         text_user_mobile.text = mobile
 
-        reverseTimer(15, text_min)
+        reverseTimer(90, text_min)
 
         ll_txt_user_mobile.setOnClickListener(this)
         linear_recode.setOnClickListener(this)
@@ -81,10 +81,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
         when (view.id) {
             R.id.ll_txt_user_mobile -> {
-                startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+                startActivity(Intent(this@VerificationActivity, LoginActivity::class.java))
                 this@VerificationActivity.finish()
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-
             }
 
             R.id.linear_recode -> {
@@ -102,6 +101,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
     }
 
     private fun sendVerifyRequest() {
+
+        ll_av_verify.visibility = View.VISIBLE
+        button_verify.visibility = View.GONE
 
         var verifyCode = et_user_verify.text.toString().trim()
         val service = ServiceProvider(this).getmService()
@@ -128,6 +130,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     val apiError = ErrorUtils.parseError422(response)
                     if (apiError.errors.code != null) {
 
+                        ll_av_verify.visibility = View.GONE
+                        button_verify.visibility = View.VISIBLE
+
                         var builderMobile = StringBuilder()
                         for (a in apiError.errors.code) {
                             builderMobile.append("$a ")
@@ -136,11 +141,15 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     }
 
                 } else {
+                    ll_av_verify.visibility = View.GONE
+                    button_verify.visibility = View.VISIBLE
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<VerifyModel>, t: Throwable) {
+                ll_av_verify.visibility = View.GONE
+                button_verify.visibility = View.VISIBLE
                 Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
         })
@@ -165,44 +174,20 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     finish()
                 } else {
+                    ll_av_verify.visibility = View.GONE
+                    button_verify.visibility = View.VISIBLE
                     Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
+                ll_av_verify.visibility = View.GONE
+                button_verify.visibility = View.VISIBLE
                 Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-//    private fun requestRegisterData() {
-//        val service = ServiceProvider(this).getmService()
-//        val call = service.registerData
-//        call.enqueue(object : Callback<RegisterModel> {
-//
-//
-//            override fun onResponse(call: Call<RegisterModel>, response: Response<RegisterModel>) {
-//                if (response.code() == 200) {
-//
-//                    var registerModel: RegisterModel
-//                    registerModel = response.body()!!
-////                    RxBusRegister.publishRegisterData(registerModel)
-//                    RxBus.RegisterModel.publishRegisterModel(registerModel)
-//
-//                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-//                    this@VerificationActivity.finish()
-//
-//                } else {
-//                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RegisterModel>, t: Throwable) {
-//                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
 
 
     private fun recodeRequest() {

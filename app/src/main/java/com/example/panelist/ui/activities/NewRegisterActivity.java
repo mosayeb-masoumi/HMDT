@@ -45,6 +45,7 @@ import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
 import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.ConvertEnDigitToFa;
+import com.example.panelist.utilities.CustomBaseActivity;
 import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GeneralTools;
 import com.example.panelist.utilities.RxBus;
@@ -62,7 +63,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewRegisterActivity extends AppCompatActivity
+public class NewRegisterActivity extends CustomBaseActivity
         implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
 
     GeneralTools tools;
@@ -70,7 +71,7 @@ public class NewRegisterActivity extends AppCompatActivity
     Disposable disposable = new CompositeDisposable();
     DialogFactory dialogFactory;
     RegisterModel registerModel;
-    Button btn_addMember, btn_register, btn_prize;
+    Button btn_addMember, btn_register, btn_prize,btn_cancel_register;
     AVLoadingIndicatorView avi;
     AdapterRegisterMemberDialog adapter_member;
     AdapterRegisterMemberEdit adapter_edited;
@@ -79,7 +80,7 @@ public class NewRegisterActivity extends AppCompatActivity
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop;
+    RelativeLayout rl_spn_shop,rl_addmember,rl_prize,rl_calander;
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
@@ -125,13 +126,17 @@ public class NewRegisterActivity extends AppCompatActivity
     }
 
     private void initView() {
-        btn_addMember = findViewById(R.id.add_member);
+//        btn_addMember = findViewById(R.id.add_member);
+        rl_addmember = findViewById(R.id.rl_addmember);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
         recycler_prize = findViewById(R.id.recycler_prize);
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
-        btn_prize = findViewById(R.id.btn_prize);
+        btn_cancel_register = findViewById(R.id.btn_cancel_register);
+//        btn_prize = findViewById(R.id.btn_prize);
+        rl_prize = findViewById(R.id.rl_prize);
+        rl_calander = findViewById(R.id.rl_calander);
         avi = findViewById(R.id.avi_register);
         edtDate = findViewById(R.id.edtDate);
         edt_discount = findViewById(R.id.edt_discount);
@@ -140,10 +145,13 @@ public class NewRegisterActivity extends AppCompatActivity
         checkBox_precentage = findViewById(R.id.checkBox_precentage);
         checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_register);
-        btn_addMember.setOnClickListener(this);
+//        btn_addMember.setOnClickListener(this);
+        rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         edtDate.setOnClickListener(this);
-        btn_prize.setOnClickListener(this);
+        rl_prize.setOnClickListener(this);
+        rl_calander.setOnClickListener(this);
+        btn_cancel_register.setOnClickListener(this);
 
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
@@ -200,7 +208,7 @@ public class NewRegisterActivity extends AppCompatActivity
 
         switch (view.getId()) {
 
-            case R.id.add_member:
+            case R.id.rl_addmember:
                 showAddMemberDialog();
                 break;
 
@@ -215,12 +223,19 @@ public class NewRegisterActivity extends AppCompatActivity
 
                 break;
 
+            case R.id.rl_calander:
+                showCalander();
+                break;
             case R.id.edtDate:
                 showCalander();
                 break;
 
-            case R.id.btn_prize:
+            case R.id.rl_prize:
                 showPrizeDialog();
+                break;
+
+            case R.id.btn_cancel_register:
+                 finish();
                 break;
         }
     }
@@ -353,14 +368,18 @@ public class NewRegisterActivity extends AppCompatActivity
         adapter_edited = new AdapterRegisterMemberEdit(editMembers, NewRegisterActivity.this);
         recyclerEditedMember.setAdapter(adapter_edited);
 
-        if (editMembers.size() > 0) {
-            btn_addMember.setText("ویرایش اعضای خانواده");
-        } else {
-            btn_addMember.setText("افزودن اعضای خانواده");
-        }
+//        if (editMembers.size() > 0) {
+//            btn_addMember.setText("ویرایش اعضای خانواده");
+//        } else {
+//            btn_addMember.setText("افزودن اعضای خانواده");
+//        }
     }
 
     private void sendData() {
+
+        btn_register.setVisibility(View.GONE);
+        avi.setVisibility(View.VISIBLE);
+
 
         String total_amount = edt_total_amount.getText().toString();
         String total_paid = edt_paid.getText().toString();
@@ -375,7 +394,12 @@ public class NewRegisterActivity extends AppCompatActivity
         sendData.setPaid(total_paid);
         sendData.setLat(Cache.getString("lat"));
         sendData.setLng(Cache.getString("lng"));
-        sendData.setValidate_area(Cache.getString("validate_area"));
+
+        if(Cache.getString("validate_area").equals("true")){
+            sendData.setValidate_area("yes");
+        }else{
+            sendData.setValidate_area("no");
+        }
 
         String chechBox_type = checkbox_text;
         if (chechBox_type.equals("مبلغی")) {
@@ -389,10 +413,6 @@ public class NewRegisterActivity extends AppCompatActivity
 //        sendData.setDate("۴۵۶۹۸۷١٠٢٣");
 
 
-
-
-
-
         Service service = new ServiceProvider(this).getmService();
         Call<GetShopId> call = service.registerNewShop(sendData);
         call.enqueue(new Callback<GetShopId>() {
@@ -402,8 +422,14 @@ public class NewRegisterActivity extends AppCompatActivity
 
                     String shopping_id = response.body().data;
 
+                    btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
+
 
                 } else if (response.code() == 422) {
+
+                    btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
 
                     builderMember = null;
                     builderShopId = null;
@@ -479,12 +505,16 @@ public class NewRegisterActivity extends AppCompatActivity
 
                 } else {
                     Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<GetShopId> call, Throwable t) {
                 Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                btn_register.setVisibility(View.VISIBLE);
+                avi.setVisibility(View.GONE);
             }
         });
     }

@@ -8,12 +8,34 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.RegisterFragment">
 
-    <Button
-        android:id="@+id/add_member"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="افزودن اعضای خانواده" />
+        android:id="@+id/rl_addmember"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_button_add">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/img_member"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="@string/familymember" />
+    </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_edited_members"
@@ -23,12 +45,39 @@
         android:layout_marginEnd="10dp"
         android:layoutDirection="rtl" />
 
-    <Button
-        android:id="@+id/btn_prize"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/select_prize" />
+        android:id="@+id/rl_prize"
+        android:layout_height="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_btn_prize">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/img_prize"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="@string/prize_selection" />
+    </RelativeLayout>
+    <!--<Button-->
+        <!--android:id="@+id/btn_prize"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:text="@string/select_prize" />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_prize"
@@ -36,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:visibility="gone"
         android:layoutDirection="rtl" />
 
     <LinearLayout
@@ -58,10 +108,10 @@
         <RelativeLayout
             android:id="@+id/rl_spn_shop"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/spiner_background"
+            android:background="@drawable/bg_prize_item"
             android:layoutDirection="rtl"
             android:padding="3dp">
 
@@ -81,47 +131,47 @@
     <EditText
         android:id="@+id/edt_total_amount"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/spiner_background"
+        android:background="@drawable/bg_prize_item"
         android:gravity="center"
         android:hint="@string/tottal_amount"
         android:inputType="text"
+        android:cursorVisible="true"
         android:padding="5sp"
         android:textColor="@color/colorTextDark"
-        android:textColorHint="@color/colorText"
+        android:textColorHint="@color/blue"
         android:textDirection="rtl"
         android:textSize="14sp" />
 
     <EditText
         android:id="@+id/edt_paid"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/spiner_background"
+        android:background="@drawable/bg_prize_item"
         android:gravity="center"
         android:hint="@string/paid_amount"
         android:inputType="number"
         android:padding="5sp"
         android:textColor="@color/colorTextDark"
-        android:textColorHint="@color/colorText"
+        android:textColorHint="@color/blue"
         android:textDirection="rtl"
         android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5sp"
-        android:background="@drawable/spiner_background"
+        android:background="@drawable/bg_prize_item"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -131,11 +181,17 @@
             android:layout_weight="2">
 
             <EditText
+                android:id="@+id/edt_discount"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:gravity="center"
-                android:id="@+id/edt_discount"
-                android:inputType="number" />
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColorHint="@color/blue"
+                android:backgroundTint="@color/blue"
+                android:textColor="@color/blue"
+                android:textSize="15sp" />
 
         </RelativeLayout>
 
@@ -148,6 +204,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_marginEnd="2dp"
+                android:textColor="@color/blue_dark"
                 android:layout_toStartOf="@+id/checkBox_amount"
                 android:text="@string/amount" />
 
@@ -155,12 +212,14 @@
                 android:id="@+id/checkBox_amount"
                 android:layout_width="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:buttonTint="@color/blue"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1">
 
             <TextView
@@ -168,6 +227,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:layout_marginEnd="2dp"
+                android:textColor="@color/blue_dark"
                 android:layout_toStartOf="@+id/checkBox_precentage"
                 android:text="@string/percentage" />
 
@@ -175,63 +235,100 @@
                 android:id="@+id/checkBox_precentage"
                 android:layout_width="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:buttonTint="@color/blue"/>
 
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/spiner_background">
+        android:id="@+id/rl_calander"
+        android:background="@drawable/bg_prize_item">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="9dp"
+            android:paddingTop="9dp"
+            android:src="@drawable/img_calander"/>
         <EditText
             android:id="@+id/edtDate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
             android:clickable="false"
-            android:drawableStart="@drawable/ic_calander"
+            android:layout_alignParentEnd="true"
             android:focusable="false"
             android:gravity="center"
             android:inputType="date"
-            android:text=""
-            android:textColor="#000"
+            android:text="dghfh"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/blue_dark"
             android:textSize="17sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp">
+            android:background="@drawable/bg_toolbar">
 
-
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/avi_register"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                app:indicatorColor="@color/colorAccent" />
-
-            <Button
-                android:id="@+id/btn_register"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="ثبت"
-                android:visibility="visible" />
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_cancel_register"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/cancel_text"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_btn_prize"
+                    android:visibility="visible" />
+
+
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/btn_cancel_register"
+                    android:background="@drawable/bg_btn_prize"
+                    android:layout_height="50dp">
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/avi_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:visibility="visible"
+                        app:indicatorColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/register"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bg_btn_prize"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
         </RelativeLayout>
+
     </RelativeLayout>
 </LinearLayout>

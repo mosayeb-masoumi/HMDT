@@ -54,5 +54,9 @@
     <string name="purchaseedit">ویرایش خرید</string>
     <string name="register_product">ثبت محصول</string>
     <string name="productedit">ویرایش محصولات</string>
+    <string name="tryagain">تلاش مجدد</string>
+    <string name="powered_by">powered_by</string>
+    <string name="familymember">اعضای خانواده</string>
+    <string name="prize_selection">انتخاب جوایز</string>
 
 </resources>
