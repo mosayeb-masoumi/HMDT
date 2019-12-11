@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/bg_button"
+        android:background="@drawable/dialog_header_shape"
         android:gravity="center">
 
         <TextView

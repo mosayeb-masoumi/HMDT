@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +20,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.panelist.R;
 import com.example.panelist.controllers.adapters.AdapterEditPrize;
 import com.example.panelist.controllers.adapters.AdapterPrize;
@@ -51,10 +51,8 @@ import com.example.panelist.utilities.GeneralTools;
 import com.example.panelist.utilities.RxBus;
 import com.example.panelist.utilities.Time;
 import com.wang.avi.AVLoadingIndicatorView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -71,7 +69,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     Disposable disposable = new CompositeDisposable();
     DialogFactory dialogFactory;
     RegisterModel registerModel;
-    Button btn_addMember, btn_register, btn_prize,btn_cancel_register;
+    Button btn_register,btn_cancel_register;
     AVLoadingIndicatorView avi;
     AdapterRegisterMemberDialog adapter_member;
     AdapterRegisterMemberEdit adapter_edited;
@@ -126,7 +124,6 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
     private void initView() {
-//        btn_addMember = findViewById(R.id.add_member);
         rl_addmember = findViewById(R.id.rl_addmember);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
         recycler_prize = findViewById(R.id.recycler_prize);
@@ -134,7 +131,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
         btn_cancel_register = findViewById(R.id.btn_cancel_register);
-//        btn_prize = findViewById(R.id.btn_prize);
         rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
         avi = findViewById(R.id.avi_register);
@@ -145,22 +141,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         checkBox_precentage = findViewById(R.id.checkBox_precentage);
         checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_register);
-//        btn_addMember.setOnClickListener(this);
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         edtDate.setOnClickListener(this);
         rl_prize.setOnClickListener(this);
         rl_calander.setOnClickListener(this);
         btn_cancel_register.setOnClickListener(this);
-
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
-
-
         String dateEn = Time.getNowPersianDate();
         edtDate.setText(ConvertEnDigitToFa.convert(dateEn));
-        String a = "";
-
     }
 
 
@@ -168,59 +158,48 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         List<String> shopList = new ArrayList<>();
         for (int i = 0; i < registerModel.data.shop.size(); i++) {
-//            shopList.add(App.provinceList.data.get(i).province);
             for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
                 shopList.add(registerModel.data.shop.get(i).get(j).title);
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewRegisterActivity.this, android.R.layout.simple_spinner_item, shopList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewRegisterActivity.this,R.layout.custom_spinner, shopList);
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spn_shop.setAdapter(adapter);
 
         spn_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
                 for (int i = 0; i < registerModel.data.shop.size(); i++) {
                     for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
                         str_spnItemId = registerModel.data.shop.get(i).get(position).id;
                     }
                 }
-
-
-//                str_spnItemId = String.valueOf(spn_shop.getSelectedItemId());
-//                String a = str_spnItemId;
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
     }
 
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
-
             case R.id.rl_addmember:
                 showAddMemberDialog();
                 break;
 
             case R.id.btn_register:
 
-
                 sendData();
 //                if((edt_total_amount.getText().toString().length()>0 || edt_paid.getText().toString().length()>0)
 //                   || (edt_total_amount.getText().toString().length()>0 && edt_paid.getText().toString().length()>0)){
 //
 //                }
-
                 break;
 
             case R.id.rl_calander:
@@ -273,11 +252,12 @@ public class NewRegisterActivity extends CustomBaseActivity
     private void showAddMemberDialog() {
 
         editMembers = new ArrayList<>();
-
         final Dialog dialog = new Dialog(NewRegisterActivity.this);
         dialog.setContentView(R.layout.register_members_dialog);
-        dialog.setTitle("Title...");
 
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         // to show list of member items
         List<Member> members = new ArrayList<>();
@@ -290,6 +270,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
+        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
+        ImageView img_close =dialog.findViewById(R.id.img_close);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
         adapter_member = new AdapterRegisterMemberDialog(members, NewRegisterActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
@@ -310,6 +292,9 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         });
 
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
+
         dialog.show();
     }
 
@@ -318,7 +303,10 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendPrizes = new ArrayList<>();
         final Dialog dialog = new Dialog(NewRegisterActivity.this);
         dialog.setContentView(R.layout.prize_dialog);
-        dialog.setTitle("Title...");
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         // to show list of member items
         List<Prize> prizes = new ArrayList<>();
@@ -330,11 +318,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 
         RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
+        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
+        ImageView img_close =dialog.findViewById(R.id.img_close);
         recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
         adapter_prize = new AdapterPrize(prizes, NewRegisterActivity.this);
         adapter_prize.setListener(this);  // important or else the app will crashed
 //        adapter_prize.setListener(this);  // important or else the app will crashed
         recycler_prize.setAdapter(adapter_prize);
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
@@ -380,7 +373,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_register.setVisibility(View.GONE);
         avi.setVisibility(View.VISIBLE);
 
-
         String total_amount = edt_total_amount.getText().toString();
         String total_paid = edt_paid.getText().toString();
         String discount_amount = edt_discount.getText().toString();
@@ -409,9 +401,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
         sendData.setDiscount_amount(discount_amount);
         sendData.setDate(date);
-//        sendData.setDate("١٠۹٣۹۸-٠۹۹٣۹-١٠۹٣۸");
-//        sendData.setDate("۴۵۶۹۸۷١٠٢٣");
-
 
         Service service = new ServiceProvider(this).getmService();
         Call<GetShopId> call = service.registerNewShop(sendData);
@@ -424,7 +413,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                     btn_register.setVisibility(View.VISIBLE);
                     avi.setVisibility(View.GONE);
-
 
                 } else if (response.code() == 422) {
 

@@ -100,8 +100,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/shop"
-            android:textColor="@color/colorsecondarytext"
-            android:textSize="10sp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/blue_dark"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
 
@@ -120,6 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
+                android:backgroundTint="@color/blue_dark"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
@@ -213,7 +215,7 @@
                 android:layout_width="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_height="match_parent"
-                app:buttonTint="@color/blue"/>
+                app:buttonTint="@color/blue_dark"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -236,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_height="match_parent"
-                app:buttonTint="@color/blue"/>
+                app:buttonTint="@color/blue_dark"/>
 
         </RelativeLayout>
     </LinearLayout>

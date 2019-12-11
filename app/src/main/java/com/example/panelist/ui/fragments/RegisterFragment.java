@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.panelist.R;
@@ -70,7 +71,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     AdapterActiveList adapter;
     ActiveListData activeListData = new ActiveListData();
 
-    RelativeLayout rl_fr_register,rl_btn_register;
+    RelativeLayout rl_fr_register, rl_btn_register;
+    TextView txt_no_shop;
 
     //    private EndlessRecyclerOnScrollListener scrollListener;
     LinearLayoutManager linearLayoutManager;
@@ -114,7 +116,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         avi = view.findViewById(R.id.avi);
         recyclerView = view.findViewById(R.id.recyclere_register_fragment);
         rl_fr_register = view.findViewById(R.id.rl_fr_register);
-        rl_btn_register=view.findViewById(R.id.rl_btn_register);
+        rl_btn_register = view.findViewById(R.id.rl_btn_register);
+        txt_no_shop = view.findViewById(R.id.txt_no_shop);
         rl_btn_register.setOnClickListener(this);
 //        btn_register.setOnClickListener(this);
     }
@@ -128,18 +131,25 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ActiveListData> call, Response<ActiveListData> response) {
                 if (response.code() == 200) {
 
+                    txt_no_shop.setVisibility(View.GONE);
                     activeListData = response.body();
                     setRecyclerview(activeListData);
                 } else if (response.code() == 204) {
-//                    Toast.makeText(getContext(), "پایان لیست", Toast.LENGTH_SHORT).show();
+                    if (page == 0) {
+                        txt_no_shop.setVisibility(View.VISIBLE);
+                    } else {
+                        txt_no_shop.setVisibility(View.GONE);
+//                       Toast.makeText(getContext(), "پایان لیست", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
-                    Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ActiveListData> call, Throwable t) {
-                Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -148,6 +158,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setRecyclerview(ActiveListData activeListData) {
+
+
+        // todo check below clause
+        // to clear list ites of the fragment for first time
+        if (page == 0) {
+            activeList.clear();
+        }
 
 
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -228,34 +245,34 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         getLocation();
 
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<LatLng> call =service.latLng(strLat,strLng);
+        Call<LatLng> call = service.latLng(strLat, strLng);
         call.enqueue(new Callback<LatLng>() {
             @Override
             public void onResponse(Call<LatLng> call, Response<LatLng> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
                     Boolean validate = response.body().data;
                     String validate_area = String.valueOf(response.body().data);
 
 
-                    Cache.setString("lat",strLat);
-                    Cache.setString("lng",strLng);
-                    Cache.setString("validate_area",validate_area);
-                    if(validate){
+                    Cache.setString("lat", strLat);
+                    Cache.setString("lng", strLng);
+                    Cache.setString("validate_area", validate_area);
+                    if (validate) {
                         getNewRegisterData();
-                    }else{
-                      outOfAreaDialog();
+                    } else {
+                        outOfAreaDialog();
                         rl_btn_register.setVisibility(View.VISIBLE);
                         avi.setVisibility(View.GONE);
                     }
 
-                }else{
-                    Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LatLng> call, Throwable t) {
-                Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -263,7 +280,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private void outOfAreaDialog() {
         DialogFactory dialogFactory = new DialogFactory(getContext());
-        dialogFactory.createOutOfAreaDialog( new DialogFactory.DialogFactoryInteraction() {
+        dialogFactory.createOutOfAreaDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... strings) {
                 getNewRegisterData();
@@ -273,7 +290,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             public void onDeniedButtonClicked(boolean cancel_dialog) {
 
             }
-        },rl_fr_register);
+        }, rl_fr_register);
     }
 
 
@@ -292,8 +309,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     RegisterModel registerModel;
                     registerModel = response.body();
                     RxBus.RegisterModel.publishRegisterModel(registerModel);
-                    Objects.requireNonNull(getContext()).startActivity(new Intent(getContext(), NewRegisterActivity.class));
-                    Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));
+                    getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     hideLoading();
 
                 } else if (response.code() == 204) {
@@ -380,14 +397,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void getLocation(){
+    public void getLocation() {
         gpsTracker = new GpsTracker(getContext());
-        if(gpsTracker.canGetLocation()){
+        if (gpsTracker.canGetLocation()) {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
             strLat = (String.valueOf(latitude));
             strLng = (String.valueOf(longitude));
-        }else{
+        } else {
             gpsTracker.showSettingsAlert();
         }
     }

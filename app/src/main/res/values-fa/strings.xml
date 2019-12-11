@@ -58,5 +58,6 @@
     <string name="powered_by">powered_by</string>
     <string name="familymember">اعضای خانواده</string>
     <string name="prize_selection">انتخاب جوایز</string>
+    <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
 
 </resources>

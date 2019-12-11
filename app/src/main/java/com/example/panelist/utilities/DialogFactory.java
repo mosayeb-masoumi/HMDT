@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -113,6 +114,7 @@ public class DialogFactory {
 
         Button btn_register = customLayout.findViewById(R.id.btn_register_dialog);
         Button btn_cancel = customLayout.findViewById(R.id.btn_exit_dialog);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
         EditText edt_description = customLayout.findViewById(R.id.edt_description);
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -140,6 +142,8 @@ public class DialogFactory {
         btn_cancel.setOnClickListener(v -> {
               dialog.dismiss();
         });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
 
 
         dialog.show();

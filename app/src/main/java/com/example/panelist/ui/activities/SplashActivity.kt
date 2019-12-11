@@ -44,13 +44,12 @@ class SplashActivity : CustomBaseActivity() {
 
         }
 
-
         txtVersion.setText(BuildConfig.VERSION_NAME)
 
         btn_reload.setOnClickListener {
-
             reload()
         }
+
     }
 
     private fun startAnim() {
@@ -58,7 +57,7 @@ class SplashActivity : CustomBaseActivity() {
     }
 
     private fun startActivity() {
-        val accessToken = Cache.getString("access_token")
+         val accessToken = Cache.getString("access_token")
 
         if (accessToken != "") {
 
@@ -169,7 +168,6 @@ class SplashActivity : CustomBaseActivity() {
     private fun reload() {
         avi.show()
         btn_reload.visibility = View.GONE
-
         startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
     }
 }

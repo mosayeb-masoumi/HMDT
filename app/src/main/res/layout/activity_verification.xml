@@ -30,9 +30,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="50dp"
         android:id="@+id/rl5"
-        android:layout_marginTop="@dimen/_250sdp">
+        android:layout_marginTop="300dp">
 
 
         <ImageView
@@ -53,11 +53,11 @@
             android:hint="@string/verification_hint"
             android:inputType="phone"
             android:maxLength="5"
-            android:padding="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:padding="15dp"
+            android:paddingBottom="5dp"
             android:textColorHint="@color/blue"
             android:textDirection="rtl"
-            android:textSize="@dimen/_13ssp" />
+            android:textSize="13sp" />
     </RelativeLayout>
 
 
@@ -226,10 +226,10 @@
     </RelativeLayout>
 
     <ImageView
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
         android:src="@drawable/login_iconpage"  />
 

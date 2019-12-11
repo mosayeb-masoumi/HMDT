@@ -85,9 +85,9 @@ dependencies {
     implementation 'com.github.samanzamani.persiandate:PersianDate:0.3'
 
 
-    // extra
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
-    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+//    // extra
+//    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+//    implementation 'com.intuit.ssp:ssp-android:1.0.6'
 
 
 

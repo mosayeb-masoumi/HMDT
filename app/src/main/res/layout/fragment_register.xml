@@ -89,14 +89,33 @@
         </LinearLayout>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclere_register_fragment"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp" >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclere_register_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:id="@+id/txt_no_shop"
+                android:padding="17dp"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:background="@drawable/bg_no_purchase"
+                android:text="@string/no_register_shop"/>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 
