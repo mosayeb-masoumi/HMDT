@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:padding="15dp"
             android:src="@drawable/edit_product_icon"
+            android:id="@+id/img_edit_product"
             android:layout_weight="1"/>
 
         <ImageView
@@ -30,6 +31,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/register_icon"
             android:padding="15dp"
+            android:id="@+id/img_register"
             android:layout_weight="1"/>
 
         <ImageView
@@ -37,6 +39,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/edit_purchase_icon"
             android:padding="15dp"
+            android:id="@+id/img_edit_shop"
             android:layout_weight="1"/>
 
         <RelativeLayout

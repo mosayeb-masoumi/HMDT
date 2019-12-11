@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.panelist.R;
 import com.example.panelist.controllers.adapters.AdapterActiveList;
 import com.example.panelist.controllers.adapters.AdapterPrize;
+import com.example.panelist.controllers.viewholders.ActiveListItemInteraction;
 import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.models.activelist.ActiveListData;
 import com.example.panelist.models.latlng.LatLng;
@@ -61,7 +62,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends Fragment implements View.OnClickListener {
+public class RegisterFragment extends Fragment implements View.OnClickListener , ActiveListItemInteraction {
 
 
     private GpsTracker gpsTracker;
@@ -178,6 +179,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new AdapterActiveList(activeList, getContext());
         recyclerView.setAdapter(adapter);
+        adapter.setListener(this);  // important to set or else the app will crashed
         adapter.notifyDataSetChanged();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -413,5 +415,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         getActiveList(page);
+    }
+
+    @Override
+    public void activeListOnClicked(String title , String id,String action) {
+
+        if(action.equals("edit_shop")){
+//           editInfoRequest(id);
+        }else if(action.equals("register")){
+            Toast.makeText(getContext(), "register", Toast.LENGTH_SHORT).show();
+        }else if(action.equals("edit_product")){
+            Toast.makeText(getContext(), "edit_product", Toast.LENGTH_SHORT).show();
+        }
     }
 }
