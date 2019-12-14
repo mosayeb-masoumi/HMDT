@@ -19,26 +19,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.panelist.R;
 import com.example.panelist.controllers.adapters.AdapterActiveList;
-import com.example.panelist.controllers.adapters.AdapterPrize;
 import com.example.panelist.controllers.viewholders.ActiveListItemInteraction;
 import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.models.activelist.ActiveListData;
 import com.example.panelist.models.latlng.LatLng;
-import com.example.panelist.models.register.Prize;
 import com.example.panelist.models.register.RegisterModel;
+import com.example.panelist.models.shopping_edit.ShoppingEdit;
 import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
-import com.example.panelist.ui.activities.NewRegisterActivity;
+import com.example.panelist.ui.activities.NewRegisterActivity2;
 import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.DialogFactory;
-import com.example.panelist.utilities.EndlessRecyclerOnScrollListener;
 import com.example.panelist.utilities.GpsTracker;
 import com.example.panelist.utilities.RxBus;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -308,10 +304,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 if (response.code() == 200) {
 
+
+                    // publish null
+                    ShoppingEdit shoppingEdit = new ShoppingEdit();
+                    RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
+
+
                     RegisterModel registerModel;
                     registerModel = response.body();
                     RxBus.RegisterModel.publishRegisterModel(registerModel);
-                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));
+                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity2.class));
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     hideLoading();
 
@@ -411,21 +413,67 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActiveList(page);
-    }
 
     @Override
     public void activeListOnClicked(String title , String id,String action) {
 
         if(action.equals("edit_shop")){
-//           editInfoRequest(id);
+
+            getShoppingEditInfo(id);
+
         }else if(action.equals("register")){
             Toast.makeText(getContext(), "register", Toast.LENGTH_SHORT).show();
         }else if(action.equals("edit_product")){
             Toast.makeText(getContext(), "edit_product", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void getShoppingEditInfo(String id) {
+
+        Service service = new ServiceProvider(getContext()).getmService();
+        Call<ShoppingEdit> call = service.getShoppingEdit(id);
+        call.enqueue(new Callback<ShoppingEdit>() {
+            @Override
+            public void onResponse(Call<ShoppingEdit> call, Response<ShoppingEdit> response) {
+                if (response.code() == 200) {
+
+                    //publish null
+                    RegisterModel registerModel  =new RegisterModel();
+                    RxBus.RegisterModel.publishRegisterModel(registerModel);
+
+                    ShoppingEdit shoppingEdit;
+                    shoppingEdit = response.body();
+
+                    Cache.setString("shopping_id",id);
+
+                    RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
+                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity2.class));
+                    getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    hideLoading();
+
+                } else if (response.code() == 204) {
+                    Toast.makeText(getContext(), "" + getResources().getString(R.string.error204), Toast.LENGTH_SHORT).show();
+                    hideLoading();
+                } else {
+                    Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    String a = response.message();
+                    hideLoading();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ShoppingEdit> call, Throwable t) {
+                Toast.makeText(getContext(), "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                hideLoading();
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActiveList(page);
+    }
+
+
 }

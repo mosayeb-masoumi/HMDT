@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.NewRegisterActivity"></activity>
+        <activity android:name=".ui.activities.NewRegisterActivity2"/>
+        <activity android:name=".ui.activities.NewRegisterActivity" />
         <activity android:name=".ui.activities.PurchaseActivity" />
         <activity android:name=".ui.activities.GraphActivity" />
         <activity android:name=".ui.activities.HtmlLoaderActivity" />

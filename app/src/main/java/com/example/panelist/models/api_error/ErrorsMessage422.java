@@ -37,5 +37,9 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> date = null;
 
+    @SerializedName("prize")
+    @Expose
+    public List<String> prize = null;
+
 
 }

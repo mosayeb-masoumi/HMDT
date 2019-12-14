@@ -10,6 +10,8 @@ import com.example.panelist.models.refresh.RefreshTokenModel;
 import com.example.panelist.models.register.GetShopId;
 import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.models.register.SendRegisterTotalData;
+import com.example.panelist.models.shopping_edit.SendUpdateTotalData;
+import com.example.panelist.models.shopping_edit.ShoppingEdit;
 import com.example.panelist.models.verify.VerifyModel;
 
 import retrofit2.Call;
@@ -50,5 +52,12 @@ public interface Service {
     @POST("Shopping/Latlng")
     Call<LatLng> latLng(@Query("lat") String lat,
                         @Query("lng") String lng);
+
+    @POST("Shopping/Edit")
+    Call<ShoppingEdit> getShoppingEdit(@Query("shopping_id") String shopping_id);
+
+
+    @POST("Shopping/Update")
+    Call<GetShopId> update(@Body SendUpdateTotalData sendUpdateTotalData);
 
 }

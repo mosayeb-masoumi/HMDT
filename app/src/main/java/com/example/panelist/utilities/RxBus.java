@@ -41,5 +41,21 @@ public final class RxBus {
         }
     }
 
+    public static class ShoppingEdit {
+        //this how to create our bus
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeShoppingEdit(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        //use this method to send data
+        public static void publishShoppingEdit(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
+
 
 }
