@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.panelist.R;
+import com.example.panelist.models.barcodlist.Barcode;
 import com.example.panelist.models.dashboard.DashboardModel;
 import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.ui.activities.HtmlLoaderActivity;
@@ -33,6 +34,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Disposable disposable = new CompositeDisposable();
     DashboardModel dashboardModel;
+
+
+
     CardView crd_news, crd_video, crd_purchases;
     ImageView img_news, img_video, img_myshop;
     TextView txt_balance, txt_incomplete_purchase, txt_total_purchase, txt_registered_products;

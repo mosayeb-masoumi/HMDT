@@ -1,8 +1,8 @@
 package com.example.panelist.network;
 
 
-import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.models.activelist.ActiveListData;
+import com.example.panelist.models.barcodlist.Barcode;
 import com.example.panelist.models.dashboard.DashboardModel;
 import com.example.panelist.models.latlng.LatLng;
 import com.example.panelist.models.login.LoginModel;
@@ -60,4 +60,7 @@ public interface Service {
     @POST("Shopping/Update")
     Call<GetShopId> update(@Body SendUpdateTotalData sendUpdateTotalData);
 
+
+    @POST("Product/Barcode")
+    Call<Barcode> getBarcodeList(@Query("barcode") String barcode);
 }

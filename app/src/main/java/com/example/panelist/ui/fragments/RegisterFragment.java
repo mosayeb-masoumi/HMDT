@@ -32,7 +32,7 @@ import com.example.panelist.models.register.RegisterModel;
 import com.example.panelist.models.shopping_edit.ShoppingEdit;
 import com.example.panelist.network.Service;
 import com.example.panelist.network.ServiceProvider;
-import com.example.panelist.ui.activities.NewRegisterActivity2;
+import com.example.panelist.ui.activities.NewRegisterActivity;
 import com.example.panelist.utilities.Cache;
 import com.example.panelist.utilities.DialogFactory;
 import com.example.panelist.utilities.GpsTracker;
@@ -313,7 +313,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     RegisterModel registerModel;
                     registerModel = response.body();
                     RxBus.RegisterModel.publishRegisterModel(registerModel);
-                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity2.class));
+                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     hideLoading();
 
@@ -447,7 +447,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     Cache.setString("shopping_id",id);
 
                     RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
-                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity2.class));
+                    getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     hideLoading();
 

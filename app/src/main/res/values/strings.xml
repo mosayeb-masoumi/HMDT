@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Panelist</string>
-    <string name="internet_setting">wifi setting</string>
-    <string name="data_setting">data setting</string>
-    <string name="no_internet_text">turn on internet</string>
+    <string name="internet_setting">تنظیمات wifi</string>
+    <string name="data_setting">تنظیمات دیتا</string>
     <string name="warning">اخطار</string>
     <string name="text_input_mobile">لطفا شماره موبایل خود را وارد کنید</string>
     <string name="login_button_text">ارسال</string>
@@ -63,6 +62,15 @@
     <string name="prize_selection">انتخاب جوایز</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
     <string name="update">آپدیت</string>
+    <string name="update_done">بروز رسانی با موفقیت انجام شد</string>
+    <string name="scanner">اسکن بارکد</string>
+    <string name="search">جستجو</string>
+    <string name="search_product">جستجوی محصول</string>
+    <string name="barcode">بارکد</string>
+
+    <string name="no_internet_connection">برای استفاده از برنامه از اتصال به اینترنت مطمئن شوید و دوباره امتحان کنید</string>
+    <string name="detail">جزئیات</string>
+    <string name="choose">انتخاب</string>
 
 
 </resources>

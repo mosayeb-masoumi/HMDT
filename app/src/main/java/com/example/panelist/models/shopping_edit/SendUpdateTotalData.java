@@ -19,7 +19,7 @@ public class SendUpdateTotalData {
     private String discount_amount;
     private String discount_type;
     private String date;
-    private String id;
+    private String shopping_id;
 
     public List<SendPrize> getPrize() {
         return prize;
@@ -85,11 +85,11 @@ public class SendUpdateTotalData {
         this.date = date;
     }
 
-    public String getId() {
-        return id;
+    public String getShopping_id() {
+        return shopping_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setShopping_id(String shopping_id) {
+        this.shopping_id = shopping_id;
     }
 }

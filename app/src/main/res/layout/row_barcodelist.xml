@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/activelist_rv_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="2dp"
+            android:id="@+id/btn_detail_barcoselist_item"
+            android:text="@string/detail"
+            android:background="@drawable/bg_btn_prize"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/choose"
+            android:id="@+id/btn_choose_barcoselist_item"
+            android:background="@drawable/bg_btn_prize"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_barcoselist_item"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:text="fgdsg"
+                android:textColor="@color/blue_dark" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -56,37 +56,4 @@ public class AdapterPrize extends RecyclerView.Adapter<PrizeViewHolder> {
         return prizeList.size();
     }
 
-//    @NonNull
-//    @Override
-//    public PrizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_register_member, parent, false);
-//        return new PrizeViewHolder(view);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull AdapterPrize.ViewHolder holder, int position) {
-//
-//        Prize prizeModel = prizeList.get(position);
-//        holder.txt_title.setText(prizeModel.title);
-//
-//    }
-
-
-
-//    @Override
-//    public int getItemCount() {
-//        return prizeList.size();
-//    }
-//
-//    public class ViewHolder extends RecyclerView.ViewHolder {
-//        TextView txt_title;
-//        CheckBox checkBox;
-//
-//        public ViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            txt_title=itemView.findViewById(R.id.txt_name);
-//            checkBox=itemView.findViewById(R.id.checkbox);
-//        }
-//    }
 }

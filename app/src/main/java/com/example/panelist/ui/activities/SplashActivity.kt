@@ -22,10 +22,6 @@ import java.util.*
 class SplashActivity : CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
-//    private var gpsTracker: GpsTracker? = null
-//    var lat: String = ""
-//    var lng: String = ""
-
 
     private lateinit var context: Context
 
@@ -41,7 +37,6 @@ class SplashActivity : CustomBaseActivity() {
             override fun onReceive(context: Context, intent: Intent) {
                 tools.doCheckNetwork(this@SplashActivity, findViewById<View>(R.id.rl_root))
             }
-
         }
 
         txtVersion.setText(BuildConfig.VERSION_NAME)
@@ -49,7 +44,6 @@ class SplashActivity : CustomBaseActivity() {
         btn_reload.setOnClickListener {
             reload()
         }
-
     }
 
     private fun startAnim() {
@@ -73,7 +67,6 @@ class SplashActivity : CustomBaseActivity() {
 
                 }
             }, 2700)
-
         }
     }
 
@@ -128,37 +121,6 @@ class SplashActivity : CustomBaseActivity() {
         })
     }
 
-//    private fun requestRegisterData() {
-//        val service = ServiceProvider(this).getmService()
-//        val call = service.registerData
-//        call.enqueue(object : Callback<RegisterModel> {
-//
-//
-//            override fun onResponse(call: Call<RegisterModel>, response: Response<RegisterModel>) {
-//                if (response.code() == 200) {
-//
-//                    var registerModel: RegisterModel
-//                    registerModel = response.body()!!
-////                    RxBusRegister.publishRegisterData(registerModel)
-//                    RxBus.RegisterModel.publishRegisterModel(registerModel)
-//
-//                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-//                    this@SplashActivity.finish()
-//
-//                } else {
-//                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-//                    hideLoading()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RegisterModel>, t: Throwable) {
-//                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-//                hideLoading()
-//            }
-//
-//        })
-//    }
 
     private fun hideLoading() {
         avi.hide()

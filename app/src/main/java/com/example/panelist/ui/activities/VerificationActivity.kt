@@ -15,7 +15,6 @@ import com.example.panelist.R
 import com.example.panelist.models.api_error.ErrorUtils
 import com.example.panelist.models.dashboard.DashboardModel
 import com.example.panelist.models.login.LoginModel
-import com.example.panelist.models.register.RegisterModel
 import com.example.panelist.models.verify.VerifyModel
 import com.example.panelist.network.ServiceProvider
 import com.example.panelist.utilities.*
@@ -28,7 +27,7 @@ import retrofit2.Response
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
     private var connectivityReceiver: BroadcastReceiver? = null
-    lateinit var disposable: CompositeDisposable
+
 
     var mobile: String = ""
 
@@ -43,7 +42,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                 tools.doCheckNetwork(this@VerificationActivity, findViewById<View>(R.id.rl_root))
             }
         }
-        disposable = CompositeDisposable()
+
 
         mobile = intent.getStringExtra("mobile")
         text_user_mobile.text = mobile
@@ -230,5 +229,6 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(connectivityReceiver)
+
     }
 }

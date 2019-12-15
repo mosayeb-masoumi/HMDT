@@ -36,20 +36,21 @@ public class DialogFactory {
 
     public void createNoInternetDialog(DialogFactoryInteraction listener, View root) {
 
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.no_internet_dialog, (ViewGroup) root, false);
 //        View customLayout = LayoutInflater.from(context).inflate(R.layout.no_internet_dialog, (ViewGroup) root, false);
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) root, false);
 
-        //define views inside of dialog
-//        ImageView image_dialog = customLayout.findViewById(R.id.image_dialog);
-        TextView text_body = customLayout.findViewById(R.id.text_body);
-        TextView btn_wifi_dialog = customLayout.findViewById(R.id.btn_wifi_dialog);
-        TextView btn_data_dialog = customLayout.findViewById(R.id.btn_data_dialog);
 
-        //set default values of views
-//        text_body.setText(R.string.no_internet_text);
-//        btn_wifi_dialog.setText(R.string.internet_setting);
-//        btn_data_dialog.setText(R.string.data_setting);
-//        image_dialog.setImageResource(R.drawable.no_wifi);
+
+        Button btn_wifi_dialog = customLayout.findViewById(R.id.btn1);
+        Button btn_data_dialog = customLayout.findViewById(R.id.btn2);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        ImageView img_close  =customLayout.findViewById(R.id.img_close);
+
+        btn_wifi_dialog.setText(context.getResources().getString(R.string.internet_setting));
+        btn_data_dialog.setText(context.getResources().getString(R.string.data_setting));
+        txt_header.setText(context.getResources().getString(R.string.warning));
+        txt_description.setText(context.getResources().getString(R.string.no_internet_connection));
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -68,6 +69,7 @@ public class DialogFactory {
         //set click listener for views inside of dialog
         btn_wifi_dialog.setOnClickListener(view -> listener.onAcceptButtonClicked(""));
         btn_data_dialog.setOnClickListener(view -> listener.onDeniedButtonClicked(false));
+        img_close.setOnClickListener(v -> { dialog.dismiss();});
 
 
         //if dialog dismissed, this action will be called
@@ -167,12 +169,50 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         btn_exit.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
             dialog.dismiss();
         });
 
+        dialog.show();
+    }
+
+    public void createChooseScannerDialog(DialogFactoryInteraction listener, View view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
+        //define views inside of dialog
+
+
+        Button btn_scanner = customLayout.findViewById(R.id.btn1);
+        Button btn_search = customLayout.findViewById(R.id.btn2);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        ImageView img_close  =customLayout.findViewById(R.id.img_close);
+
+        btn_scanner.setText(context.getResources().getString(R.string.scanner));
+        btn_search.setText(context.getResources().getString(R.string.search_product));
+        txt_header.setText("ثبت بارکد");
+        txt_description.setText("یکی از روشهای زیر را انتخاب کنید");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        btn_scanner.setOnClickListener(v -> {
+              listener.onAcceptButtonClicked();
+        });
+
+        btn_search.setOnClickListener(v -> {
+            listener.onDeniedButtonClicked(false);
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

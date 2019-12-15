@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_register"
+    android:id="@+id/layout_new_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -66,7 +66,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/prize_selection"
             android:textColor="@color/white"
             android:textSize="14sp"
@@ -135,7 +136,7 @@
         android:cursorVisible="true"
         android:gravity="center"
         android:hint="@string/tottal_amount"
-        android:inputType="text"
+        android:inputType="number"
         android:padding="5sp"
         android:textColor="@color/blue_dark"
         android:textColorHint="@color/blue"
@@ -308,8 +309,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:indicatorColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/bg_btn_prize"
+                        android:text="@string/update"
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
 
                     <Button
                         android:id="@+id/btn_register"
@@ -319,7 +330,8 @@
                         android:background="@drawable/bg_btn_prize"
                         android:text="@string/register"
                         android:textColor="@color/white"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
+
 
                 </RelativeLayout>
 

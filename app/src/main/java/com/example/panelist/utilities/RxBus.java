@@ -11,7 +11,6 @@ public final class RxBus {
 
 
     public static class DashboardModel {
-
         //this how to create our bus
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
@@ -19,7 +18,6 @@ public final class RxBus {
         public static Disposable subscribeDashboardModel(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
-
         //use this method to send data
         public static void publishDashboardModel(@NonNull Object message) {
             behaviorSubject.onNext(message);
@@ -27,7 +25,6 @@ public final class RxBus {
     }
 
     public static class RegisterModel {
-        //this how to create our bus
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
 
@@ -35,14 +32,13 @@ public final class RxBus {
             return behaviorSubject.subscribe(action);
         }
 
-        //use this method to send data
         public static void publishRegisterModel(@NonNull Object message) {
             behaviorSubject.onNext(message);
         }
     }
 
     public static class ShoppingEdit {
-        //this how to create our bus
+
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
 
@@ -50,12 +46,23 @@ public final class RxBus {
             return behaviorSubject.subscribe(action);
         }
 
-        //use this method to send data
         public static void publishShoppingEdit(@NonNull Object message) {
             behaviorSubject.onNext(message);
         }
     }
 
+    public static class BarcodeList {
 
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeBarcodeList(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        public static void publishBarcodeList(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
 
 }
