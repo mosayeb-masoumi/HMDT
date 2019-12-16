@@ -6,17 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.example.panelist.R;
-import com.example.panelist.controllers.viewholders.PrizeItemInteraction;
+import com.example.panelist.controllers.interfaces.PrizeItemInteraction;
 import com.example.panelist.controllers.viewholders.PrizeViewHolder;
-import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
-import com.example.panelist.controllers.viewholders.RegisterMemberViewHolderDialog;
 import com.example.panelist.models.register.Prize;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

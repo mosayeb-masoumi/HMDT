@@ -1,7 +1,6 @@
 package com.example.panelist.ui.activities;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -37,8 +36,8 @@ import com.example.panelist.controllers.adapters.AdapterEditPrize;
 import com.example.panelist.controllers.adapters.AdapterPrize;
 import com.example.panelist.controllers.adapters.AdapterRegisterMemberDialog;
 import com.example.panelist.controllers.adapters.AdapterRegisterMemberEdit;
-import com.example.panelist.controllers.viewholders.PrizeItemInteraction;
-import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
+import com.example.panelist.controllers.interfaces.PrizeItemInteraction;
+import com.example.panelist.controllers.interfaces.RegisterItemInteraction;
 import com.example.panelist.models.api_error.APIError422;
 import com.example.panelist.models.api_error.ErrorUtils;
 import com.example.panelist.models.register.GetShopId;

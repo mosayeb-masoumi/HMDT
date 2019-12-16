@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.panelist.R;
-import com.example.panelist.controllers.viewholders.ActiveListItemInteraction;
+import com.example.panelist.controllers.interfaces.ActiveListItemInteraction;
 import com.example.panelist.controllers.viewholders.ActiveListViewHolder;
 import com.example.panelist.models.activelist.ActiveList;
 
@@ -39,7 +39,8 @@ public class AdapterActiveList extends RecyclerView.Adapter<ActiveListViewHolder
     }
 
     private ActiveListItemInteraction listener = null;
-    public void setListener(ActiveListItemInteraction listener) {
+    public void setListener(ActiveListItemInteraction listener)
+    {
         this.listener = listener;
     }
 

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.panelist.R;
+import com.example.panelist.controllers.interfaces.ActiveListItemInteraction;
 import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.utilities.ConvertEnDigitToFa;
 

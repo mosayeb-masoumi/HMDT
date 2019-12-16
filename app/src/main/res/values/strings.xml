@@ -71,6 +71,21 @@
     <string name="no_internet_connection">برای استفاده از برنامه از اتصال به اینترنت مطمئن شوید و دوباره امتحان کنید</string>
     <string name="detail">جزئیات</string>
     <string name="choose">انتخاب</string>
+    <string name="main">دسته :</string>
+    <string name="category">گروه :</string>
+    <string name="subcategory">زیرگروه :</string>
+    <string name="brand">برند :</string>
+    <string name="subbrand">زیر برند :</string>
+    <string name="owner">مالک :</string>
+    <string name="company">شرکت :</string>
+    <string name="country">کشور :</string>
+    <string name="packaging">بسته بندی :</string>
+    <string name="unit">واحد شمارش :</string>
+    <string name="price">قیمت :</string>
+    <string name="type">نوع :</string>
+    <string name="amount_">مقدار :</string>
+    <string name="description">شرح کالا :</string>
+    <string name="explanation">توضیحات</string>
 
 
 </resources>

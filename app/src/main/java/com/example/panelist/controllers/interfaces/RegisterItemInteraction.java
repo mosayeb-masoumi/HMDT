@@ -1,6 +1,6 @@
-package com.example.panelist.controllers.viewholders;
+package com.example.panelist.controllers.interfaces;
 
-import android.widget.CheckBox;
+
 
 public interface RegisterItemInteraction {
     void onClicked(String name,String id, Boolean chkbox);

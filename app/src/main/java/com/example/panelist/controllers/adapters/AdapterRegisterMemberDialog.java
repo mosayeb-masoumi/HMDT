@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.panelist.R;
-import com.example.panelist.controllers.viewholders.RegisterItemInteraction;
+import com.example.panelist.controllers.interfaces.RegisterItemInteraction;
 import com.example.panelist.controllers.viewholders.RegisterMemberViewHolderDialog;
 import com.example.panelist.models.register.Member;
-import com.example.panelist.models.register.RegisterMemberModel;
 
 import java.util.List;
 

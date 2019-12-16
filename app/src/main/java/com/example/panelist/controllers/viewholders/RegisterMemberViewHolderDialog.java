@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.panelist.R;
+import com.example.panelist.controllers.interfaces.RegisterItemInteraction;
 import com.example.panelist.models.register.Member;
 
 

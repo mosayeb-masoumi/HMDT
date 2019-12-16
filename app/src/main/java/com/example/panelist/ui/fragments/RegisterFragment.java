@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.panelist.R;
 import com.example.panelist.controllers.adapters.AdapterActiveList;
-import com.example.panelist.controllers.viewholders.ActiveListItemInteraction;
+import com.example.panelist.controllers.interfaces.ActiveListItemInteraction;
 import com.example.panelist.models.activelist.ActiveList;
 import com.example.panelist.models.activelist.ActiveListData;
 import com.example.panelist.models.latlng.LatLng;

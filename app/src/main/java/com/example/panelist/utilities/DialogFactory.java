@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.panelist.R;
+import com.example.panelist.models.barcodlist.BarcodeData;
 
 public class DialogFactory {
 
@@ -212,6 +214,76 @@ public class DialogFactory {
             listener.onDeniedButtonClicked(false);
         });
 
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    public void createbarcodeListDetailDialog(DialogFactoryInteraction listener, View view , BarcodeData model ) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcodelist_detaildialog, (ViewGroup) view, false);
+
+
+
+        //define views inside of dialog
+        TextView txt_main = customLayout.findViewById(R.id.txt_main);
+        TextView txt_category = customLayout.findViewById(R.id.txt_category);
+        TextView txt_subCategory = customLayout.findViewById(R.id.txt_subCategory);
+        TextView txt_brand = customLayout.findViewById(R.id.txt_brand);
+        TextView txt_subBrand = customLayout.findViewById(R.id.txt_subBrand);
+        TextView txt_owner = customLayout.findViewById(R.id.txt_owner);
+        TextView txt_company = customLayout.findViewById(R.id.txt_company);
+        TextView txt_country = customLayout.findViewById(R.id.txt_country);
+        TextView txt_packaging = customLayout.findViewById(R.id.txt_packaging);
+        TextView txt_unit = customLayout.findViewById(R.id.txt_unit);
+        TextView txt_price = customLayout.findViewById(R.id.txt_price);
+        TextView txt_type = customLayout.findViewById(R.id.txt_type);
+        TextView txt_amount = customLayout.findViewById(R.id.txt_amount);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        ImageView imageview = customLayout.findViewById(R.id.imageview);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+       //set textes
+        txt_main.setText(model.getMain());
+        txt_category.setText(model.getCategory());
+//        txt_subCategory.setText(model.getSubCategory());
+        txt_brand.setText(model.getBrand());
+//        txt_subBrand.setText(model.getSubBrand());
+        txt_owner.setText(model.getOwner());
+        txt_company.setText(model.getCompany());
+        txt_country.setText(model.getCountry());
+        txt_packaging.setText(model.getPackaging());
+        txt_unit.setText(model.getUnit());
+        txt_price.setText(model.getPrice());
+        txt_type.setText(model.getType());
+        txt_amount.setText(model.getAmount());
+        txt_description.setText(model.getDecription());
+
+
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+
+
+
+//        btn_scanner.setOnClickListener(v -> {
+//            listener.onAcceptButtonClicked();
+//        });
+//
+//        btn_search.setOnClickListener(v -> {
+//            listener.onDeniedButtonClicked(false);
+//        });
+//
         img_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
