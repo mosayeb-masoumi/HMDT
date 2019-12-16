@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.panelist">
+    package="com.rahbarbaazar.checkpanel">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".utilities.App"
+        android:name="com.rahbarbaazar.checkpanel.utilities.App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/app_icon"
@@ -19,18 +19,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.NewRegisterActivity"/>
-        <activity android:name=".ui.activities.GraphActivity" />
-        <activity android:name=".ui.activities.ScanActivity" />
-        <activity android:name=".ui.activities.QRcodeActivity" />
-        <activity android:name=".ui.activities.BarcodeListActivity" />
-        <activity android:name=".ui.activities.HtmlLoaderActivity" />
-        <activity android:name=".ui.activities.AgreementActivity" />
-        <activity android:name=".ui.activities.VerificationActivity" />
-        <activity android:name=".ui.activities.LoginActivity" />
-        <activity android:name=".ui.activities.LanguageActivity" />
-        <activity android:name=".ui.activities.MainActivity" />
-        <activity android:name=".ui.activities.SplashActivity">
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.NewRegisterActivity"/>
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.GraphActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.ScanActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.QRcodeActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.BarcodeListActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.PurchasedItemsActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.HtmlLoaderActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.AgreementActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.VerificationActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.LoginActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.LanguageActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.MainActivity" />
+        <activity android:name="com.rahbarbaazar.checkpanel.ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
