@@ -81,7 +81,6 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
         recyclerview.adapter = adapter
 //        adapter.notifyDataSetChanged()
 
-
     }
 
 
