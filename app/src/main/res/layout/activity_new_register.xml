@@ -183,6 +183,7 @@
                 android:layout_marginStart="20dp"
                 android:backgroundTint="@color/blue"
                 android:gravity="center"
+                android:hint="@string/percent_amount"
                 android:inputType="number"
                 android:padding="10dp"
                 android:textColor="@color/blue_dark"

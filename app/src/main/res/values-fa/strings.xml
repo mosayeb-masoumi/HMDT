@@ -82,6 +82,13 @@
     <string name="amount_">مقدار :</string>
     <string name="description">شرح کالا :</string>
     <string name="explanation">جزئیات</string>
+    <string name="consumer">مصرف کننده</string>
+    <string name="discount_amount">مقدار تخفیف</string>
+    <string name="price_">قیمت</string>
+    <string name="amount2">مقدار</string>
+    <string name="percent_amount">مبلغ/درصد</string>
+    <string name="percent">درصد</string>
+    <string name="amount2_">مبلغ</string>
 
 
 </resources>
