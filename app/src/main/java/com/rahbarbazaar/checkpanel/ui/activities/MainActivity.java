@@ -50,12 +50,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
      TextView txt_exit;
     DialogFactory dialogFactory;
 
-
     RelativeLayout rl_notification, rl_curvedbottom;
     DrawerLayout drawer_layout_home;
     RecyclerView drawer_rv;
     boolean doubleBackToExitPressedOnce = false;
-
 
 
     @Override
@@ -63,14 +61,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Pushe.initialize(this,true);
-
-//        Pushe.initialize(this,true);
-//        String pusheId = Pushe.getPusheId(MainActivity.this);
-
-
-
+        String pusheId = Pushe.getPusheId(MainActivity.this);
 
 
         //check network broadcast reciever
