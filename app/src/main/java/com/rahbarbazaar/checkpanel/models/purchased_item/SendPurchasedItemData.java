@@ -17,6 +17,7 @@ public class SendPurchasedItemData {
     private String paid;
     private String amount;
     private String product_id;
+    private String mygroup;
 
     public List<SendPrize> getPrize() {
         return prize;
@@ -88,5 +89,13 @@ public class SendPurchasedItemData {
 
     public void setProduct_id(String product_id) {
         this.product_id = product_id;
+    }
+
+    public String getMygroup() {
+        return mygroup;
+    }
+
+    public void setMygroup(String mygroup) {
+        this.mygroup = mygroup;
     }
 }

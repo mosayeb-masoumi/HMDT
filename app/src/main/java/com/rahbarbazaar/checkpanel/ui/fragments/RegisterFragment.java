@@ -243,14 +243,20 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                         rl_btn_register.setVisibility(View.VISIBLE);
                         avi.setVisibility(View.GONE);
                     }
+                    rl_btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
 
                 } else {
+                    rl_btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LatLng> call, Throwable t) {
+                rl_btn_register.setVisibility(View.VISIBLE);
+                avi.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
             }

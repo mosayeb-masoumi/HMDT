@@ -21,7 +21,7 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberDia
 import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberEdit
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction
-import com.rahbarbazaar.checkpanel.models.login.LoginModel
+import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData
 import com.rahbarbazaar.checkpanel.models.register.*
@@ -34,7 +34,8 @@ import kotlinx.android.synthetic.main.activity_purchased_items.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+
+//
 
 class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
@@ -50,8 +51,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private lateinit var adapter_prize: AdapterPrize
     private lateinit var adapterEditPrize: AdapterEditPrize
 
-    private lateinit var editMembers: ArrayList<RegisterMemberEditModel>
+//    private lateinit var sendPrizes: ArrayList<SendPrize>
     private lateinit var sendPrizes: ArrayList<SendPrize>
+    private lateinit var editMembers: ArrayList<RegisterMemberEditModel>
+//    private lateinit var sendPrizes: ArrayList<SendPrize>
     private lateinit var recyclerEditedMember: RecyclerView
     private lateinit var recycler_prize: RecyclerView
 
@@ -66,6 +69,15 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
     var shopping_id: String = ""
     var product_id: String = ""
+    var mygroup: String = ""
+
+    // for handling422
+    private var builderPaid: StringBuilder? = null
+    private var builderCost:StringBuilder? = null
+    private var builderDiscountAmount:StringBuilder? = null
+    private var builderMember:StringBuilder? = null
+    private var buliderPrize:StringBuilder? = null
+    private var buliderAmount:StringBuilder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,11 +104,18 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         //initial Dialog factory
         dialogFactory = DialogFactory(this@PurchasedItemsActivity)
 
+
+
+        // important to initialize lists in oncreate in kotlin
+        editMembers = ArrayList<RegisterMemberEditModel>()
+        sendPrizes = ArrayList<SendPrize>()
+
     }
 
     private fun initView() {
         val unit: String = intent.getStringExtra("unit")
         product_id = intent.getStringExtra("product_id")
+        mygroup = intent.getStringExtra("mygroup")
         shopping_id = Cache.getString("shopping_id")
         txt_unit.text = unit
 
@@ -160,6 +179,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         sendData.product_id = product_id
         sendData.member = editMembers
         sendData.prize = sendPrizes
+        sendData.mygroup = mygroup
 
         if (checkBox_precentage.isChecked) {
             sendData.discount_type = "percent"
@@ -168,6 +188,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             sendData.discount_type = "amount"
             sendData.discount_amount =edt_discount.text.toString()
         }
+
 
         val service = ServiceProvider(this).getmService()
         val call = service.getPurchaseItemResult(sendData)
@@ -179,6 +200,83 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code()==200){
                    var a :Boolean = response.body()!!.data
                     showNextScanDialog()
+                }else if(response.code()==422){
+
+                    builderMember = null
+                    builderCost = null
+                    builderPaid = null
+                    builderDiscountAmount = null
+                    buliderPrize = null
+                    buliderAmount = null
+
+                    val apiError = ErrorUtils.parseError422(response)
+
+                    if (apiError.errors.member != null) {
+                        builderMember = StringBuilder()
+                        for (b in apiError.errors.member) {
+                            builderMember!!.append("").append(b).append(" ")
+                        }
+                    }
+
+
+                    if (apiError.errors.cost != null) {
+                        builderCost = StringBuilder()
+                        for (b in apiError.errors.cost) {
+                            builderCost!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.paid != null) {
+                        builderPaid = StringBuilder()
+                        for (a in apiError.errors.paid) {
+                            builderPaid!!.append("").append(a).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.discountAmount != null) {
+                        builderDiscountAmount = StringBuilder()
+                        for (c in apiError.errors.discountAmount) {
+                            builderDiscountAmount!!.append("").append(c).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.prize != null) {
+                        buliderPrize = StringBuilder()
+                        for (b in apiError.errors.prize) {
+                            buliderPrize!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.amount != null) {
+                        buliderAmount = StringBuilder()
+                        for (b in apiError.errors.amount) {
+                            buliderAmount!!.append("").append(b).append(" ")
+                        }
+                    }
+
+
+                    if (builderMember != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + builderMember, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (builderCost != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + builderCost, Toast.LENGTH_SHORT).show()
+                    }
+                    if (builderPaid != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + builderPaid, Toast.LENGTH_SHORT).show()
+                    }
+                    if (builderDiscountAmount != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + builderDiscountAmount, Toast.LENGTH_SHORT).show()
+                    }
+                    if (buliderPrize != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderPrize, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (  buliderAmount != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" +   buliderAmount, Toast.LENGTH_SHORT).show()
+                    }
+
+
                 }else{
                     Toast.makeText(this@PurchasedItemsActivity,resources.getString(R.string.serverFaield),Toast.LENGTH_SHORT).show()
                 }
@@ -196,6 +294,17 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     }
 
     private fun showNextScanDialog() {
+
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createRescanDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg strings: String?) {
+            }
+
+            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+
+            }
+
+        },layout_purchase_item)
 
     }
 
@@ -294,7 +403,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
 
     private fun showPrizeDialog() {
-        sendPrizes = ArrayList()
+        sendPrizes = ArrayList<SendPrize>()
         val dialog = Dialog(this@PurchasedItemsActivity)
         dialog.setContentView(R.layout.prize_dialog)
 
@@ -318,7 +427,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         recycler_prize.layoutManager = LinearLayoutManager(this@PurchasedItemsActivity)
         adapter_prize = AdapterPrize(prizes, this@PurchasedItemsActivity)
         adapter_prize.setListener(this)  // important or else the app will crashed
-//        adapter_prize.setListener(this);  // important or else the app will crashed
         recycler_prize.adapter = adapter_prize
 
         img_close.setOnClickListener { v -> dialog.dismiss() }
@@ -343,7 +451,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         }
     }
 
-    private fun updateEditPrizeList(sendPrizes: MutableList<SendPrize>) {
+
+
+    private fun updateEditPrizeList(sendPrizes: ArrayList<SendPrize>) {
+
         recycler_prize.layoutManager = GridLayoutManager(this@PurchasedItemsActivity, 3)
         adapterEditPrize = AdapterEditPrize(sendPrizes, this@PurchasedItemsActivity)
         recycler_prize.adapter = adapterEditPrize

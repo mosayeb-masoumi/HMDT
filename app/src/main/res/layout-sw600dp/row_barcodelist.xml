@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="80dp"
     android:layout_marginBottom="5dp"
     android:background="@drawable/activelist_rv_bg"
     android:orientation="horizontal">
@@ -13,25 +13,51 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
-        <Button
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="2dp"
+            android:padding="5dp"
+            android:layout_weight="1">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/btn_detail_barcoselist_item"
             android:text="@string/detail"
+            android:padding="2dp"
             android:background="@drawable/bg_btn_prize"
             android:textColor="@color/white"
             android:layout_weight="1"/>
 
-        <Button
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/register"
-            android:id="@+id/btn_choose_barcoselist_item"
-            android:background="@drawable/bg_btn_prize"
-            android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:padding="5dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/register"
+                android:textSize="13sp"
+                android:padding="2dp"
+                android:id="@+id/btn_register_active"
+                android:background="@drawable/bg_btn_prize"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/deactive"
+                android:textSize="13sp"
+                android:padding="2dp"
+                android:id="@+id/btn_register_deactive"
+                android:background="@drawable/bg_btn_deactive"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"

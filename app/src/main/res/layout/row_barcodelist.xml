@@ -25,15 +25,32 @@
             android:textColor="@color/white"
             android:layout_weight="1"/>
 
-        <Button
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/register"
-            android:textSize="13sp"
-            android:id="@+id/btn_choose_barcoselist_item"
-            android:background="@drawable/bg_btn_prize"
-            android:textColor="@color/white"
-            android:layout_weight="1"/>
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/register"
+                android:textSize="13sp"
+                android:visibility="gone"
+                android:id="@+id/btn_register_active"
+                android:background="@drawable/bg_btn_prize"
+                android:textColor="@color/white" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/deactive"
+                android:textSize="13sp"
+                android:id="@+id/btn_register_deactive"
+                android:background="@drawable/bg_btn_deactive"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"

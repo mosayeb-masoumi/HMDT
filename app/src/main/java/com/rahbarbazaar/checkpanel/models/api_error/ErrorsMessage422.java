@@ -41,5 +41,8 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> prize = null;
 
+    @SerializedName("amount")
+    @Expose
+    public List<String> amount = null;
 
 }

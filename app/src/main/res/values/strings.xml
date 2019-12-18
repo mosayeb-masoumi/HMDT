@@ -93,6 +93,11 @@
     <string name="percent_amount">مبلغ/درصد</string>
     <string name="percent">درصد</string>
     <string name="amount2_">مبلغ</string>
-
+    <string name="system_message">پیام سیستمی</string>
+    <string name="register_product_successfully">کالا با موفقیت ثبت شد</string>
+    <string name="home">صفحه اصلی</string>
+    <string name="deactive">غیرفعال</string>
+    <string name="unallowable_registeration">ثبت محصول مجاز نمی باشد</string>
+    <string name="close">بستن</string>
 
 </resources>

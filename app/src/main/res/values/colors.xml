@@ -8,7 +8,7 @@
     <color name="colorTextLight">#FFFFFF</color>
     <color name="colorText">#757575</color>
     <color name="colorTextDark">#212121</color>
-    <color name="colorDivider">#BDBDBD</color>
+    <color name="grey">#BDBDBD</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorsecondarytext">#757575</color>
     <color name="colorBlueText">#003366</color>

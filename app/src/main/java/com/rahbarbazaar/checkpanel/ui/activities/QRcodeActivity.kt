@@ -69,8 +69,8 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         showAvi()
 
         val service = ServiceProvider(this).getmService()
-        val call = service.getBarcodeList(ResultScan)
-//        val call = service.getBarcodeList("1398")
+//        val call = service.getBarcodeList(ResultScan)
+        val call = service.getBarcodeList("1398")
         call.enqueue(object : Callback<Barcode> {
             override fun onResponse(call: Call<Barcode>, response: Response<Barcode>) {
               if(response.code()==200){

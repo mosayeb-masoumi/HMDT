@@ -15,6 +15,7 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterBarcodeList
 import com.rahbarbazaar.checkpanel.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData
+import com.rahbarbazaar.checkpanel.models.register.SendPrize
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
@@ -22,6 +23,7 @@ import com.rahbarbazaar.checkpanel.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_barcode_list.*
+import kotlinx.android.synthetic.main.activity_purchased_items.*
 
 
 class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
@@ -65,8 +67,8 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 ////                lists.removeAt(i)
 ////            }
             barcodeList.add(BarcodeData(barcode.data!![i].id,barcode.data!![i].mygroup, barcode.data!![i].decription ,barcode.data!![i].subCategory,
-                    barcode.data!![i].main,barcode.data!![i].category, barcode.data!![i].owner, barcode.data!![i].brand ,
-                    barcode.data!![i].subBrand, barcode.data!![i].company ,  barcode.data!![i].country , barcode.data!![i].unit ,
+                    barcode.data!![i].main,barcode.data!![i].category,barcode.data!![i].show, barcode.data!![i].owner, barcode.data!![i].brand ,
+                    barcode.data!![i].subBrand, barcode.data!![i].company , barcode.data!![i].country , barcode.data!![i].unit ,
                     barcode.data!![i].packaging, barcode.data!![i].price,barcode.data!![i].type ,barcode.data!![i].amount,
                     barcode.data!![i].image))
         }
@@ -100,15 +102,36 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
 
             }
-            "btnRegister" -> {
+            "btnRegisterActive" -> {
 
                 val intent = Intent(this,PurchasedItemsActivity::class.java)
                 intent.putExtra("unit",model.unit)
                 intent.putExtra("product_id",model.id)
+                intent.putExtra("mygroup",model.mygroup)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
+
+            "btnRegisterDeactive" -> {
+
+               showDeactiveActionDialog()
+            }
         }
+    }
+
+    private fun showDeactiveActionDialog() {
+
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createDeactiveActionDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg params: String) {
+
+            }
+
+            override fun onDeniedButtonClicked(bool: Boolean) {
+
+            }
+        }, rl_root_barcodelist)
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.rahbarbazaar.checkpanel.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
@@ -16,15 +17,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
+import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
+import com.rahbarbazaar.checkpanel.ui.activities.ScanActivity;
 
 import java.util.Objects;
 
 public class DialogFactory {
 
     private Context context;
-
-
-
 
     public interface DialogFactoryInteraction{
 
@@ -41,8 +41,6 @@ public class DialogFactory {
 
 //        View customLayout = LayoutInflater.from(context).inflate(R.layout.no_internet_dialog, (ViewGroup) root, false);
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) root, false);
-
-
 
         Button btn_wifi_dialog = customLayout.findViewById(R.id.btn1);
         Button btn_data_dialog = customLayout.findViewById(R.id.btn2);
@@ -73,7 +71,6 @@ public class DialogFactory {
         btn_wifi_dialog.setOnClickListener(view -> listener.onAcceptButtonClicked(""));
         btn_data_dialog.setOnClickListener(view -> listener.onDeniedButtonClicked(false));
         img_close.setOnClickListener(v -> { dialog.dismiss();});
-
 
         //if dialog dismissed, this action will be called
         dialog.setOnDismissListener(dialogInterface -> listener.onDeniedButtonClicked(true));
@@ -116,7 +113,6 @@ public class DialogFactory {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.prize_detail_dialog, (ViewGroup) view, false);
         //define views inside of dialog
-
         Button btn_register = customLayout.findViewById(R.id.btn_register_dialog);
         Button btn_cancel = customLayout.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
@@ -147,21 +143,15 @@ public class DialogFactory {
         btn_cancel.setOnClickListener(v -> {
               dialog.dismiss();
         });
-
         img_close.setOnClickListener(v -> dialog.dismiss());
-
-
         dialog.show();
     }
-
 
     public void createOutOfAreaDialog(DialogFactoryInteraction listener, View view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.out_area_dialog, (ViewGroup) view, false);
         //define views inside of dialog
-
         Button btn_exit = customLayout.findViewById(R.id.btn_exit_dialog);
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -184,8 +174,6 @@ public class DialogFactory {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
         //define views inside of dialog
-
-
         Button btn_scanner = customLayout.findViewById(R.id.btn1);
         Button btn_search = customLayout.findViewById(R.id.btn2);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
@@ -224,8 +212,6 @@ public class DialogFactory {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.barcodelist_detaildialog, (ViewGroup) view, false);
 
-
-
         //define views inside of dialog
         TextView txt_main = customLayout.findViewById(R.id.txt_main);
         TextView txt_category = customLayout.findViewById(R.id.txt_category);
@@ -247,9 +233,9 @@ public class DialogFactory {
        //set textes
         txt_main.setText(model.getMain());
         txt_category.setText(model.getCategory());
-//        txt_subCategory.setText(model.getSubCategory());
+        txt_subCategory.setText(model.getSubCategory());
         txt_brand.setText(model.getBrand());
-//        txt_subBrand.setText(model.getSubBrand());
+        txt_subBrand.setText(model.getSubBrand());
         txt_owner.setText(model.getOwner());
         txt_company.setText(model.getCompany());
         txt_country.setText(model.getCountry());
@@ -259,9 +245,6 @@ public class DialogFactory {
         txt_type.setText(model.getType());
         txt_amount.setText(model.getAmount());
         txt_description.setText(model.getDecription());
-
-
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -273,19 +256,66 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         Glide.with(Objects.requireNonNull(context)).load(model.getImage()).centerCrop().into(imageview);
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
 
 
+    public void createRescanDialog(DialogFactoryInteraction listener, View view ) {
 
-//        btn_scanner.setOnClickListener(v -> {
-//            listener.onAcceptButtonClicked();
-//        });
-//
-//        btn_search.setOnClickListener(v -> {
-//            listener.onDeniedButtonClicked(false);
-//        });
-//
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.rescan_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        Button btn_home = customLayout.findViewById(R.id.btn_home);
+        Button btn_search = customLayout.findViewById(R.id.btn_search);
+        Button btn_scan = customLayout.findViewById(R.id.btn_scan);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        btn_home.setOnClickListener(v -> context.startActivity(new Intent(context, MainActivity.class)));
+        btn_scan.setOnClickListener(v -> context.startActivity(new Intent(context, ScanActivity.class)));
+        btn_search.setOnClickListener(v -> { });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+
+    public void createDeactiveActionDialog(DialogFactoryInteraction listener, View view ) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        Button btn_close = customLayout.findViewById(R.id.btn);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+        btn_close.setText(context.getResources().getString(R.string.close));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        txt_header.setText(context.getResources().getString(R.string.system_message));
+        txt_description.setText(context.getResources().getString(R.string.unallowable_registeration));
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
