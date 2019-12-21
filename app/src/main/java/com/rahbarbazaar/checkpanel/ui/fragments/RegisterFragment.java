@@ -27,12 +27,16 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterActiveList;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ActiveListItemInteraction;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
+import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils;
+import com.rahbarbazaar.checkpanel.models.api_error206.APIError406;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
+import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
+import com.rahbarbazaar.checkpanel.ui.activities.SplashActivity;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GpsTracker;
@@ -233,9 +237,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     Boolean validate = response.body().data;
                     String validate_area = String.valueOf(response.body().data);
 
-                    Cache.setString("lat", strLat);
-                    Cache.setString("lng", strLng);
-                    Cache.setString("validate_area", validate_area);
+                    Cache.setString(getContext(),"lat", strLat);
+                    Cache.setString(getContext(),"lng", strLng);
+                    Cache.setString(getContext(),"validate_area", validate_area);
+
+
                     if (validate) {
                         getNewRegisterData();
                     } else {
@@ -302,8 +308,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     hideLoading();
 
-                } else if (response.code() == 204) {
-                    Toast.makeText(getContext(), "" + getResources().getString(R.string.error204), Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 406) {
+                    APIError406 apiError = ErrorUtils.parseError406(response);
+                    showError406Dialog(apiError.message);
+
                     hideLoading();
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -318,6 +326,24 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             }
         });
     }
+
+    private void showError406Dialog(String message) {
+        //initial Dialog factory
+        DialogFactory dialogFactory = new DialogFactory(getContext());
+        dialogFactory.createError406Dialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, rl_fr_register , message);
+    }
+
+
 
     private void hideLoading() {
         rl_btn_register.setVisibility(View.VISIBLE);
@@ -425,7 +451,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     ShoppingEdit shoppingEdit;
                     shoppingEdit = response.body();
 
-                    Cache.setString("shopping_id",id);
+//                    Cache.setString("shopping_id",id);
+                    Cache.setString(getContext(),"shopping_id",id);
 
                     RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
                     getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));

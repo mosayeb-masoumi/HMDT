@@ -79,7 +79,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
-    //    Disposable disposable = new CompositeDisposable();
     Disposable disposable = new CompositeDisposable();
     DialogFactory dialogFactory;
     RegisterModel registerModel;
@@ -451,7 +450,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         dialog.show();
     }
 
-
     // to setCheck single checkbox and show in list
     @Override
     public void onClicked(String name, String id, Boolean chkbox) {
@@ -496,10 +494,11 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setShop_id(str_spnItemId);
         sendData.setCost(total_amount);
         sendData.setPaid(total_paid);
-        sendData.setLat(Cache.getString("lat"));
-        sendData.setLng(Cache.getString("lng"));
+        sendData.setLat(Cache.getString(NewRegisterActivity.this,"lat"));
+        sendData.setLng(Cache.getString(NewRegisterActivity.this,"lng"));
 
-        if (Cache.getString("validate_area").equals("true")) {
+//        if (Cache.getString("validate_area").equals("true")) {
+        if (Cache.getString(NewRegisterActivity.this,"validate_area").equals("true")) {
             sendData.setValidate_area("yes");
         } else {
             sendData.setValidate_area("no");
@@ -524,7 +523,8 @@ public class NewRegisterActivity extends CustomBaseActivity
                 if (response.code() == 200) {
 
                     String shopping_id = response.body().data;
-                    Cache.setString("shopping_id",shopping_id);
+//                    Cache.setString("shopping_id",shopping_id);
+                    Cache.setString(NewRegisterActivity.this,"shopping_id",shopping_id);
 
                     createChooseScannerDialog();
 
@@ -677,7 +677,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setCost(total_amount);
         sendData.setPaid(total_paid);
 
-        sendData.setShopping_id(Cache.getString("shopping_id"));
+//        sendData.setShopping_id(Cache.getString("shopping_id"));
+        sendData.setShopping_id(Cache.getString(NewRegisterActivity.this,"shopping_id"));
 
         String chechBox_type = checkbox_text;
         if (chechBox_type.equals("مبلغی")) {

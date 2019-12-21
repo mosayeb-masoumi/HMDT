@@ -10,8 +10,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class App extends Application {
 
-    public static Context context;
-
+//    public static Context context;
 
 
     private RefWatcher refWatcher;
@@ -24,7 +23,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-        context = this;
+//        context = this;
 
 
 

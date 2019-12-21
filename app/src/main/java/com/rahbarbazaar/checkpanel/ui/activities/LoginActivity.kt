@@ -9,7 +9,6 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.login.LoginModel
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
-import com.rahbarbazaar.checkpanel.utilities.App.context
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import io.reactivex.disposables.CompositeDisposable
@@ -74,7 +73,7 @@ class LoginActivity : CustomBaseActivity() {
 
 
                     var data = response.body()?.data
-                    Toast.makeText(context, "" + data, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity, "" + data, Toast.LENGTH_LONG).show()
 //                    Toasty.success(context, ""+data, Toast.LENGTH_SHORT, true).show()
 
                     avi_login.hide()
@@ -93,18 +92,20 @@ class LoginActivity : CustomBaseActivity() {
                         for (a in apiError.errors.mobile) {
                             builderMobile.append("$a ")
                         }
-                        Toast.makeText(context, "" + builderMobile, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "" + builderMobile, Toast.LENGTH_SHORT).show()
                     }
 
 
                 }else{
-                    Toast.makeText(context, "" +resources.getString(R.string.serverFaield) , Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "" +resources.getString(R.string.serverFaield) , Toast.LENGTH_SHORT).show()
                     btn_submit_login.visibility = View.VISIBLE
+                    avi_login.hide()
                 }
             }
 
             override fun onFailure(call: Call<LoginModel>, t: Throwable) {
-                Toast.makeText(context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                avi_login.hide()
                 btn_submit_login.visibility = View.VISIBLE
             }
 

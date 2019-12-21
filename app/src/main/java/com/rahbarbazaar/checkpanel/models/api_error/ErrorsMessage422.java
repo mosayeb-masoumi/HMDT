@@ -45,4 +45,8 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> amount = null;
 
+    @SerializedName("type")
+    @Expose
+    public List<String> type = null;
+
 }

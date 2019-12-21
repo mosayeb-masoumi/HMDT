@@ -99,5 +99,15 @@
     <string name="deactive">غیرفعال</string>
     <string name="unallowable_registeration">ثبت محصول مجاز نمی باشد</string>
     <string name="close">بستن</string>
+    <string name="social_medias">در شبکه های اجتماعی ما را دنبال کنید</string>
+    <string name="exit_user_account">خروج از حساب</string>
+    <string name="profile">پروفایل</string>
+    <string name="family_info">مشخصات خانواده</string>
+    <string name="received_messages">پیامهای دریافتی</string>
+    <string name="support_center">مرکز پشتیبانی</string>
+    <string name="faq">سوالات متداول</string>
+    <string name="report_issue">گزارش مشکل</string>
+    <string name="share_poller">پولر را به اشتراک بگذارید</string>
+    <string name="system_error">خطای سیستمی</string>
 
 </resources>

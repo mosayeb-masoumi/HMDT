@@ -116,7 +116,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         val unit: String = intent.getStringExtra("unit")
         product_id = intent.getStringExtra("product_id")
         mygroup = intent.getStringExtra("mygroup")
-        shopping_id = Cache.getString("shopping_id")
+//        shopping_id = Cache.getString("shopping_id")
+        shopping_id = Cache.getString(this@PurchasedItemsActivity,"shopping_id")
         txt_unit.text = unit
 
         btn_register = findViewById(R.id.btn_register_purchased_items)
@@ -179,7 +180,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         sendData.product_id = product_id
         sendData.member = editMembers
         sendData.prize = sendPrizes
-        sendData.mygroup = mygroup
+        sendData.type = mygroup
 
         if (checkBox_precentage.isChecked) {
             sendData.discount_type = "percent"
@@ -279,6 +280,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
                 }else{
                     Toast.makeText(this@PurchasedItemsActivity,resources.getString(R.string.serverFaield),Toast.LENGTH_SHORT).show()
+                    hideLoading()
                 }
 
             }

@@ -17,7 +17,7 @@ public class SendPurchasedItemData {
     private String paid;
     private String amount;
     private String product_id;
-    private String mygroup;
+    private String type;
 
     public List<SendPrize> getPrize() {
         return prize;
@@ -91,11 +91,11 @@ public class SendPurchasedItemData {
         this.product_id = product_id;
     }
 
-    public String getMygroup() {
-        return mygroup;
+    public String getType() {
+        return type;
     }
 
-    public void setMygroup(String mygroup) {
-        this.mygroup = mygroup;
+    public void setType(String type) {
+        this.type = type;
     }
 }

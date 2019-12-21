@@ -36,14 +36,18 @@ public class ServiceProvider {
         clientBuilder.cache(null);
 
 
-        if (!Cache.getString("access_token").equals("")) {
+//        if (!Cache.getString("access_token").equals("")) {
+        if (!Cache.getString(context,"access_token").equals("")) {
             clientBuilder.addInterceptor(chain -> {
 
-                String a = Cache.getString("access_token");
+//                String a = Cache.getString("access_token");
+                String a = Cache.getString(context,"access_token");
                 String b = a ;
 
                 Request request = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
+//                        .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
+                        .addHeader("Authorization", "Bearer " + Cache.getString(context,"access_token"))
+                        .addHeader("language", "fa")
                         .addHeader("Accept", "application/json")
                         .build();
                 return chain.proceed(request);
@@ -54,6 +58,7 @@ public class ServiceProvider {
             clientBuilder.addInterceptor(chain -> {
                 Request request = chain.request().newBuilder()
                         .addHeader("Accept", "application/json")
+                        .addHeader("language", "fa")
                         .build();
                 return chain.proceed(request);
             });
@@ -70,8 +75,10 @@ public class ServiceProvider {
             @Override
             public Request authenticate(Route route, Response response) throws IOException {
 
-                String access_token = Cache.getString("access_token");
-                String refresh_token = Cache.getString("refresh_token");
+//                String access_token = Cache.getString("access_token");
+//                String refresh_token = Cache.getString("refresh_token");
+                String access_token = Cache.getString(context,"access_token");
+                String refresh_token = Cache.getString(context,"refresh_token");
 
                 Service service = new ServiceProvider(context).mService;
                 Call<RefreshTokenModel> call = service.refreshToken(access_token,refresh_token);
@@ -81,21 +88,22 @@ public class ServiceProvider {
 
 
 
-                    //save token
-                    Cache.setString("access_token",tokenModelResponse.body().accessToken);
-                    Cache.setString("refresh_token",tokenModelResponse.body().refreshToken);
-                    Cache.setInt("expireAt",tokenModelResponse.body().expireAt);
+//                    //save token
+//                    Cache.setString("access_token",tokenModelResponse.body().accessToken);
+//                    Cache.setString("refresh_token",tokenModelResponse.body().refreshToken);
+//                    Cache.setInt("expireAt",tokenModelResponse.body().expireAt);
 
-//                    String a = tokenModelResponse.body().accessToken;
-//                    String b = a ;
-//
-//                    String c = Cache.getString("access_token");
-//                    String v = c;
+                    //save token
+                    Cache.setString(context,"access_token",tokenModelResponse.body().accessToken);
+                    Cache.setString(context,"refresh_token",tokenModelResponse.body().refreshToken);
+                    Cache.setInt(context,"expireAt",tokenModelResponse.body().expireAt);
 
                     return response.request().newBuilder()
                             .removeHeader("Authorization")
                             .removeHeader("Accept")
-                            .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
+//                            .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
+                            .addHeader("Authorization", "Bearer " + Cache.getString(context,"access_token"))
+                            .addHeader("language", "fa")
                             .addHeader("Accept", "application/json")
 
                             .build();

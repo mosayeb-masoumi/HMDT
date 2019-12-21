@@ -7,10 +7,12 @@ import android.view.View
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.BuildConfig
 import com.rahbarbazaar.checkpanel.R
+import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.api_error403.ShowMessage403
 import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.*
+import kotlinx.android.synthetic.main.activity_purchased_items.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,10 +52,8 @@ class SplashActivity : CustomBaseActivity() {
     }
 
     private fun startActivity() {
-         val accessToken = Cache.getString("access_token")
-
+         val accessToken = Cache.getString(this@SplashActivity,"access_token")
         if (accessToken != "") {
-
             requestDashboardData()
 
         } else {
@@ -107,17 +107,40 @@ class SplashActivity : CustomBaseActivity() {
                     ShowMessage403.message(response, context)
                     hideLoading()
 
-                } else {
-                    Toast.makeText(App.context, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                } else if(response.code()==406){
+                    val apiError = ErrorUtils.parseError406(response)
+                    showError406Dialog(apiError.message)
+                    hideLoading()
+                }
+
+                else {
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     hideLoading()
                 }
             }
 
             override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
-                Toast.makeText(App.context, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()
             }
         })
+    }
+
+    private fun showError406Dialog(message: String?) {
+
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createError406Dialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg strings: String?) {
+                finish()
+                System.exit(0)
+            }
+
+            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+
+            }
+
+        },splash_root,message)
+
     }
 
 

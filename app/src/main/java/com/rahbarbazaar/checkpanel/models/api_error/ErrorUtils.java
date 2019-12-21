@@ -1,5 +1,6 @@
 package com.rahbarbazaar.checkpanel.models.api_error;
 
+import com.rahbarbazaar.checkpanel.models.api_error206.APIError406;
 import com.rahbarbazaar.checkpanel.models.api_error403.APIError403;
 import com.rahbarbazaar.checkpanel.network.ErrorProvider;
 
@@ -40,6 +41,22 @@ public class ErrorUtils {
 
         }catch (IOException e){
             return  new APIError403();
+        }
+        return error;
+    }
+
+    public static APIError406 parseError406(Response<?> response){
+        Converter<ResponseBody, APIError406> converter=
+                ErrorProvider
+                        .retrofit.
+                        responseBodyConverter(APIError406.class,new Annotation[0]);
+        APIError406 error;
+
+        try{
+            error=converter.convert(response.errorBody());
+
+        }catch (IOException e){
+            return  new APIError406();
         }
         return error;
     }

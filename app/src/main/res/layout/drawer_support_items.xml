@@ -16,17 +16,17 @@
 
 
         <ImageView
-            android:layout_width="34dp"
+            android:layout_width="40dp"
             android:layout_height="match_parent"
             android:padding="6dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/support_center_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="support_center"
-            android:textColor="#000"
+            android:text="@string/support_center"
+            android:textColor="@color/white_gray"
             android:textSize="13sp"/>
 
         <ImageView
@@ -58,14 +58,14 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="-"
-                android:textColor="#000"/>
+                android:textColor="@color/white_gray"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="faq"
-                android:textColor="#000"
+                android:text="@string/faq"
+                android:textColor="@color/white_gray"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -84,14 +84,14 @@
                 android:gravity="center"
                 android:padding="9dp"
                 android:text="-"
-                android:textColor="#000" />
+                android:textColor="@color/white_gray" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="report_issue"
-                android:textColor="#000"
+                android:text="@string/report_issue"
+                android:textColor="@color/white_gray"
                 android:textSize="13sp" />
 
         </LinearLayout>

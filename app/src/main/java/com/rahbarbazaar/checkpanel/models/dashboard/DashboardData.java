@@ -31,5 +31,8 @@ public class DashboardData {
     @SerializedName("myshop_image")
     @Expose
     public String myshop_image;
+    @SerializedName("drawer_menu")
+    @Expose
+    public DrawerMenu drawerMenu;
 
 }

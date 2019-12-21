@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +26,12 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.rahbarbazaar.checkpanel.R;
+import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterActiveList;
+import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterDrawer;
+import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
+import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
+import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
+import com.rahbarbazaar.checkpanel.models.dashboard.DrawerItems;
 import com.rahbarbazaar.checkpanel.ui.fragments.ShopFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.HomeFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.RegisterFragment;
@@ -32,9 +40,17 @@ import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools;
-import co.ronash.pushe.Pushe;
+import com.rahbarbazaar.checkpanel.utilities.RxBus;
 
-public class MainActivity extends CustomBaseActivity implements View.OnClickListener, AHBottomNavigation.OnTabSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
+
+import co.ronash.pushe.Pushe;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
+public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
+        AHBottomNavigation.OnTabSelectedListener , DrawerItemClicked {
 
 
     GeneralTools tools;
@@ -44,16 +60,27 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
-    LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_notify_drawer, linear_change_lang,
+    LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_notify_drawer,
             linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
 
-     TextView txt_exit;
+    TextView txt_exit;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification, rl_curvedbottom;
     DrawerLayout drawer_layout_home;
+
     RecyclerView drawer_rv;
+    AdapterDrawer adapter_drawer;
+    LinearLayoutManager linearLayoutManager;
+    List<DrawerItems> drawerItems ;
+
     boolean doubleBackToExitPressedOnce = false;
+    boolean isSupportLayoutClicked = false;
+
+    Disposable disposable = new CompositeDisposable();
+    DashboardModel dashboardModel;
+
+    String locale_name;
 
 
     @Override
@@ -61,9 +88,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Pushe.initialize(this,true);
+        Pushe.initialize(this, true);
         String pusheId = Pushe.getPusheId(MainActivity.this);
 
+
+        locale_name = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
 
         //check network broadcast reciever
         tools = GeneralTools.getInstance();
@@ -75,17 +104,53 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             }
         };
 
-        
+
         initView();
+
+        disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
+            if (result instanceof DashboardModel) {
+                dashboardModel = (DashboardModel) result;
+            }
+        });
 
         //initial Dialog factory
         dialogFactory = new DialogFactory(MainActivity.this);
 
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-            ll_drawer.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+        ll_drawer.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         initializeBottomNavigation();
 
+//        if (locale_name.equals("fa"))
+        img_arrow.setImageResource(R.drawable.arrow_left);
+//        else
+//            img_arrow.setImageResource(R.drawable.arrow_right);
+
+
+        setDrawerRecycler();
+
+
+    }
+
+    private void setDrawerRecycler() {
+
+        drawerItems = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        // to show list of member items
+//        List<ActiveList> activeList = new ArrayList<>();
+
+        drawerItems.addAll(dashboardModel.data.drawerMenu.data);
+
+//        for (int i = 0; i < activeListData.data.size(); i++) {
+//            activeList.add(new ActiveList(activeListData.data.get(i).id, activeListData.data.get(i).date
+//                    , activeListData.data.get(i).title));
+//        }
+
+        drawer_rv.setLayoutManager(linearLayoutManager);
+        adapter_drawer = new AdapterDrawer(drawerItems, MainActivity.this);
+        drawer_rv.setAdapter(adapter_drawer);
+        adapter_drawer.setListener(MainActivity.this);  // important to set or else the app will crashed
+        adapter_drawer.notifyDataSetChanged();
 
     }
 
@@ -106,14 +171,13 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_notify_drawer = findViewById(R.id.linear_notify_drawer);
         linear_support = findViewById(R.id.linear_support);
         linear_report_issue = findViewById(R.id.linear_report_issue);
-        linear_change_lang = findViewById(R.id.linear_change_lang);
-        linear_graph = findViewById(R.id.linear_graph);
+        linear_graph = findViewById(R.id.linear_graph_drawer);
         linear_faq = findViewById(R.id.linear_faq);
         linear_submenu = findViewById(R.id.linear_submenu);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
-        rl_notification=findViewById(R.id.rl_notification);
-        drawer_layout_home=findViewById(R.id.drawer_layout_home);
+        rl_notification = findViewById(R.id.rl_notification);
+        drawer_layout_home = findViewById(R.id.drawer_layout_home);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         drawer_rv = findViewById(R.id.drawer_rv);
 
@@ -128,7 +192,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_faq.setOnClickListener(this);
         linear_graph.setOnClickListener(this);
         linear_support.setOnClickListener(this);
-        linear_change_lang.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
         linear_notify_drawer.setOnClickListener(this);
@@ -153,7 +216,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         bottom_navigation.addItem(item4);
 
 
-
         bottom_navigation.setAccentColor(Color.parseColor("#212b5e"));
         bottom_navigation.setInactiveColor(Color.parseColor("#FFFFFF"));
 
@@ -175,7 +237,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.image_drawer:
                 drawer_layout_home.openDrawer(Gravity.END);
@@ -196,10 +258,28 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 drawer_layout_home.openDrawer(Gravity.END);
                 break;
 
-            case R.id.linear_graph:
+            case R.id.linear_graph_drawer:
                 drawer_layout_home.closeDrawer(Gravity.END);
-                startActivity(new Intent(MainActivity.this,GraphActivity.class));
+                startActivity(new Intent(MainActivity.this, GraphActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                break;
+
+            case R.id.linear_support:
+
+                if (!isSupportLayoutClicked) {
+                    tools.expand(linear_submenu);
+                    img_arrow.setImageResource(R.drawable.arrow_down);
+                } else {
+                    tools.collapse(linear_submenu);
+//                    if (locale_name.equals("fa"))
+                    img_arrow.setImageResource(R.drawable.arrow_left);
+//                    else
+//                        img_arrow.setImageResource(R.drawable.arrow_right);
+
+                }
+
+
+                isSupportLayoutClicked = !isSupportLayoutClicked;
                 break;
         }
     }
@@ -213,9 +293,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                 drawer_layout_home.closeDrawers();
 
-                Cache.setString("access_token","");
-                Cache.setString("refresh_token","");
-                Cache.setString("expireAt","");
+//                Cache.setString("access_token","");
+//                Cache.setString("refresh_token","");
+//                Cache.setString("expireAt","");
+
+                Cache.setString(MainActivity.this, "access_token", "");
+                Cache.setString(MainActivity.this, "refresh_token", "");
+                Cache.setString(MainActivity.this, "expireAt", "");
+
 
                 startActivity(new Intent(context, SplashActivity.class));
                 MainActivity.this.finish();
@@ -243,7 +328,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             manager.beginTransaction().replace(R.id.frame_layout, homeFragment, "tag").commit();
 
 
-
         } else if (position == 2) {
             img_backbtmbar_right.setVisibility(View.GONE);
             img_backbtmbar_centerleft.setVisibility(View.GONE);
@@ -256,13 +340,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             manager.beginTransaction().replace(R.id.frame_layout, registerFragment, "tag").commit();
 
 
-
         } else if (position == 1) {
             img_backbtmbar_right.setVisibility(View.GONE);
             img_backbtmbar_centerleft.setVisibility(View.VISIBLE);
             img_backbtmbar_centerright.setVisibility(View.GONE);
             img_backbtmbar_left.setVisibility(View.GONE);
-
 
 
             AccountFragment accountFragment = new AccountFragment();
@@ -296,6 +378,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     protected void onDestroy() {
         unregisterReceiver(connectivityReceiver);
         super.onDestroy();
+        disposable.dispose();
     }
 
 
@@ -305,7 +388,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         if (drawer_layout_home.isDrawerOpen(Gravity.END)) {
             drawer_layout_home.closeDrawers();
-        }else {
+        } else {
             if (doubleBackToExitPressedOnce) {
                 super.onBackPressed();
 
@@ -330,5 +413,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
         Process.killProcess(Process.myPid());
         super.finish();
+    }
+
+    @Override
+    public void drawerItemClicked(String url) {
+
     }
 }
