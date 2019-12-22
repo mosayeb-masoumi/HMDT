@@ -4,22 +4,31 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.rahbarbazaar.checkpanel.R
+import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel
+import com.rahbarbazaar.checkpanel.models.register.RegisterModel
 import com.rahbarbazaar.checkpanel.utilities.ClientConfig
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
+import com.rahbarbazaar.checkpanel.utilities.RxBus
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_agreement.*
 
 class AgreementActivity : CustomBaseActivity() {
 
     lateinit var connectivityReceiver: BroadcastReceiver
 
+    var disposable: Disposable = CompositeDisposable()
+    lateinit var dashboardModel: DashboardModel
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +46,17 @@ class AgreementActivity : CustomBaseActivity() {
         }
 
 
+
+        // get data from rxbus
+        disposable = CompositeDisposable()
+        disposable = RxBus.DashboardModel.subscribeDashboardModel { result ->
+            if (result is DashboardModel) {
+                dashboardModel = result
+            }
+        }
+
+
+
         //config web view setting for support multi action and java scripts
         webview_agreement.settings.javaScriptEnabled = true
         webview_agreement.settings.domStorageEnabled = true
@@ -52,12 +72,13 @@ class AgreementActivity : CustomBaseActivity() {
         webview_agreement.clearCache(true)
 
 
+        webview_agreement.loadUrl(dashboardModel.data.agreementPage)
 
 //        var locale_name = ConfigurationCompat.getLocales(resources.configuration).get(0).language
 //
 //        var a =locale_name
 //        if(locale_name.equals("fa")){
-            webview_agreement.loadUrl(ClientConfig.Html_URL+"content/agreement/fa")
+//            webview_agreement.loadUrl(ClientConfig.Html_URL+"content/agreement/fa")
 //        }else{
 //            webview_agreement.loadUrl(ClientConfig.Html_URL+"content/agreement/en")
 //        }
@@ -118,5 +139,16 @@ class AgreementActivity : CustomBaseActivity() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(connectivityReceiver)
+        disposable.dispose()
     }
 }

@@ -23,7 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.rahbarbazaar.checkpanel.R;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterActiveList;
+import com.rahbarbazaar.checkpanel.controllers.adapters.ActiveListAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ActiveListItemInteraction;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
@@ -34,9 +34,7 @@ import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
-import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
-import com.rahbarbazaar.checkpanel.ui.activities.SplashActivity;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GpsTracker;
@@ -66,7 +64,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     String strLat, strLng;
     AVLoadingIndicatorView avi;
     RecyclerView recyclerView;
-    AdapterActiveList adapter;
+    ActiveListAdapter adapter;
     ActiveListData activeListData = new ActiveListData();
 
     RelativeLayout rl_fr_register, rl_btn_register;
@@ -165,7 +163,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         }
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new AdapterActiveList(activeList, getContext());
+        adapter = new ActiveListAdapter(activeList, getContext());
         recyclerView.setAdapter(adapter);
         adapter.setListener(this);  // important to set or else the app will crashed
         adapter.notifyDataSetChanged();

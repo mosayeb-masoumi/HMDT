@@ -156,7 +156,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/linear_notify_drawer"
+                        android:id="@+id/linear_message_drawer"
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
                         android:foreground="?attr/selectableItemBackground"

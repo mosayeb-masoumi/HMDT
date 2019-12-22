@@ -32,10 +32,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.rahbarbazaar.checkpanel.R;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterEditPrize;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterPrize;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberDialog;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberEdit;
+import com.rahbarbazaar.checkpanel.controllers.adapters.EditPrizeAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.PrizeAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberDialogAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberEditAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction;
 import com.rahbarbazaar.checkpanel.models.api_error.APIError422;
@@ -85,10 +85,10 @@ public class NewRegisterActivity extends CustomBaseActivity
     ShoppingEdit shoppingEditModel;
     Button btn_register, btn_cancel_register, btn_update;
     AVLoadingIndicatorView avi;
-    AdapterRegisterMemberDialog adapter_member;
-    AdapterRegisterMemberEdit adapter_edited;
-    AdapterPrize adapter_prize;
-    AdapterEditPrize adapterEditPrize;
+    RegisterMemberDialogAdapter adapter_member;
+    RegisterMemberEditAdapter adapter_edited;
+    PrizeAdapter adapter_prize;
+    EditPrizeAdapter editPrizeAdapter;
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
@@ -371,7 +371,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-        adapter_member = new AdapterRegisterMemberDialog(members, NewRegisterActivity.this);
+        adapter_member = new RegisterMemberDialogAdapter(members, NewRegisterActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
 
@@ -439,7 +439,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
         recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-        adapter_prize = new AdapterPrize(prizes, NewRegisterActivity.this);
+        adapter_prize = new PrizeAdapter(prizes, NewRegisterActivity.this);
         adapter_prize.setListener(this);  // important or else the app will crashed
 //        adapter_prize.setListener(this);  // important or else the app will crashed
         recycler_prize.setAdapter(adapter_prize);
@@ -474,7 +474,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     public void updateEditMemberList(ArrayList<RegisterMemberEditModel> editMembers) {
 
         recyclerEditedMember.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
-        adapter_edited = new AdapterRegisterMemberEdit(editMembers, NewRegisterActivity.this);
+        adapter_edited = new RegisterMemberEditAdapter(editMembers, NewRegisterActivity.this);
         recyclerEditedMember.setAdapter(adapter_edited);
     }
 
@@ -841,8 +841,8 @@ public class NewRegisterActivity extends CustomBaseActivity
     private void updateEditPrizeList(List<SendPrize> sendPrizes) {
 
         recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
-        adapterEditPrize = new AdapterEditPrize(sendPrizes, NewRegisterActivity.this);
-        recycler_prize.setAdapter(adapterEditPrize);
+        editPrizeAdapter = new EditPrizeAdapter(sendPrizes, NewRegisterActivity.this);
+        recycler_prize.setAdapter(editPrizeAdapter);
     }
 
     @Override

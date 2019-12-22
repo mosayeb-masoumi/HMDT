@@ -11,11 +11,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import com.rahbarbazaar.checkpanel.R
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterBarcodeList
+import com.rahbarbazaar.checkpanel.controllers.adapters.BarcodeListAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData
-import com.rahbarbazaar.checkpanel.models.register.SendPrize
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
@@ -23,7 +22,6 @@ import com.rahbarbazaar.checkpanel.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_barcode_list.*
-import kotlinx.android.synthetic.main.activity_purchased_items.*
 
 
 class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
@@ -77,7 +75,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
         recyclerview.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        val adapter = AdapterBarcodeList(barcodeList, this@BarcodeListActivity)
+        val adapter = BarcodeListAdapter(barcodeList, this@BarcodeListActivity)
         adapter.setListener(this)  // important to set or else the app will crashed
         recyclerview.adapter = adapter
 //        adapter.notifyDataSetChanged()

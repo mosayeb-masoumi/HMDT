@@ -13,12 +13,12 @@ import com.rahbarbazaar.checkpanel.models.register.RegisterMemberEditModel;
 import java.util.List;
 
 
-public class AdapterRegisterMemberEdit extends RecyclerView.Adapter<AdapterRegisterMemberEdit.ViewHolderEdit> {
+public class RegisterMemberEditAdapter extends RecyclerView.Adapter<RegisterMemberEditAdapter.ViewHolderEdit> {
 
     List<RegisterMemberEditModel> editMemberList;
     Context context;
 
-    public AdapterRegisterMemberEdit(List<RegisterMemberEditModel> editMemberList, Context context) {
+    public RegisterMemberEditAdapter(List<RegisterMemberEditModel> editMemberList, Context context) {
         this.editMemberList = editMemberList;
         this.context = context;
     }

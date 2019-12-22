@@ -4,8 +4,10 @@ package com.rahbarbazaar.checkpanel.network;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
+import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.login.LoginModel;
+import com.rahbarbazaar.checkpanel.models.message.MessageList;
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData;
 import com.rahbarbazaar.checkpanel.models.refresh.RefreshTokenModel;
@@ -68,4 +70,13 @@ public interface Service {
 
     @POST("Bought/Create")
     Call<PurchaseItemResult> getPurchaseItemResult(@Body SendPurchasedItemData sendPurchasedItemData);
+
+
+    @POST("Issue/Create")
+    Call<ReportIssue> reportIssue(@Query("body") String body);
+
+    @POST("Message/Index")
+    Call<MessageList> getMessageList(@Query("page") Integer page);
+
+
 }

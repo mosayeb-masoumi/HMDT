@@ -15,10 +15,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.*
 import com.rahbarbazaar.checkpanel.R
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterEditPrize
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterPrize
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberDialog
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterRegisterMemberEdit
+import com.rahbarbazaar.checkpanel.controllers.adapters.EditPrizeAdapter
+import com.rahbarbazaar.checkpanel.controllers.adapters.PrizeAdapter
+import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberDialogAdapter
+import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberEditAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
@@ -46,10 +46,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     var disposable: Disposable = CompositeDisposable()
     lateinit var registerModel: RegisterModel
 
-    private lateinit var adapter_member: AdapterRegisterMemberDialog
-    private lateinit var adapter_edited: AdapterRegisterMemberEdit
-    private lateinit var adapter_prize: AdapterPrize
-    private lateinit var adapterEditPrize: AdapterEditPrize
+    private lateinit var _memberAdapter: RegisterMemberDialogAdapter
+    private lateinit var _editedAdapter: RegisterMemberEditAdapter
+    private lateinit var _prizeAdapter: PrizeAdapter
+    private lateinit var editPrizeAdapter: EditPrizeAdapter
 
 //    private lateinit var sendPrizes: ArrayList<SendPrize>
     private lateinit var sendPrizes: ArrayList<SendPrize>
@@ -347,9 +347,9 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         val btn_exit_dialog = dialog.findViewById<Button>(R.id.btn_exit_dialog)
         val img_close = dialog.findViewById<ImageView>(R.id.img_close)
         recyclerview_members.layoutManager = LinearLayoutManager(this@PurchasedItemsActivity)
-        adapter_member = AdapterRegisterMemberDialog(members, this@PurchasedItemsActivity)
-        adapter_member.setListener(this) // important or else the app will crashed
-        recyclerview_members.adapter = adapter_member
+        _memberAdapter = RegisterMemberDialogAdapter(members, this@PurchasedItemsActivity)
+        _memberAdapter.setListener(this) // important or else the app will crashed
+        recyclerview_members.adapter = _memberAdapter
 
 
         // to select all members
@@ -381,8 +381,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private fun updateEditMemberList(editMembers: ArrayList<RegisterMemberEditModel>) {
 
         recyclerEditedMember.layoutManager = GridLayoutManager(this@PurchasedItemsActivity, 3)
-        adapter_edited = AdapterRegisterMemberEdit(editMembers, this@PurchasedItemsActivity)
-        recyclerEditedMember.adapter = adapter_edited
+        _editedAdapter = RegisterMemberEditAdapter(editMembers, this@PurchasedItemsActivity)
+        recyclerEditedMember.adapter = _editedAdapter
     }
 
 
@@ -427,9 +427,9 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         val btn_exit_dialog = dialog.findViewById<Button>(R.id.btn_exit_dialog)
         val img_close = dialog.findViewById<ImageView>(R.id.img_close)
         recycler_prize.layoutManager = LinearLayoutManager(this@PurchasedItemsActivity)
-        adapter_prize = AdapterPrize(prizes, this@PurchasedItemsActivity)
-        adapter_prize.setListener(this)  // important or else the app will crashed
-        recycler_prize.adapter = adapter_prize
+        _prizeAdapter = PrizeAdapter(prizes, this@PurchasedItemsActivity)
+        _prizeAdapter.setListener(this)  // important or else the app will crashed
+        recycler_prize.adapter = _prizeAdapter
 
         img_close.setOnClickListener { v -> dialog.dismiss() }
         btn_exit_dialog.setOnClickListener { v -> dialog.dismiss() }
@@ -458,8 +458,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private fun updateEditPrizeList(sendPrizes: ArrayList<SendPrize>) {
 
         recycler_prize.layoutManager = GridLayoutManager(this@PurchasedItemsActivity, 3)
-        adapterEditPrize = AdapterEditPrize(sendPrizes, this@PurchasedItemsActivity)
-        recycler_prize.adapter = adapterEditPrize
+        editPrizeAdapter = EditPrizeAdapter(sendPrizes, this@PurchasedItemsActivity)
+        recycler_prize.adapter = editPrizeAdapter
     }
 
     private fun createPrizeDetailDialog(title: String?, id: String?) {

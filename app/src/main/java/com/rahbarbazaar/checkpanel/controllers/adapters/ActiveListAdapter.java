@@ -13,12 +13,12 @@ import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
 
 import java.util.List;
 
-public class AdapterActiveList extends RecyclerView.Adapter<ActiveListViewHolder> {
+public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder> {
 
     List<ActiveList> activeLists;
     Context context;
 
-    public AdapterActiveList(List<ActiveList> activeLists, Context context) {
+    public ActiveListAdapter(List<ActiveList> activeLists, Context context) {
         this.activeLists = activeLists;
         this.context = context;
     }

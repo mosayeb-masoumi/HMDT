@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AdapterDrawer extends RecyclerView.Adapter<DrawerViewHolder> {
+public class DrawerAdapter extends RecyclerView.Adapter<DrawerViewHolder> {
 
     private List<DrawerItems> drawerItems ;
     private Context context;
 
-    public AdapterDrawer(List<DrawerItems> drawerItems, Context context) {
+    public DrawerAdapter(List<DrawerItems> drawerItems, Context context) {
         this.drawerItems = drawerItems;
         this.context = context;
     }

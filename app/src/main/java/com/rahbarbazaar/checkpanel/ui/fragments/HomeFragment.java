@@ -92,7 +92,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setContentView() {
 
-        Glide.with(Objects.requireNonNull(getActivity())).load(dashboardModel.data.news_image).centerCrop().into(img_news);
+        Glide.with(getActivity()).load(dashboardModel.data.news_image).centerCrop().into(img_news);
         Glide.with(getActivity()).load(dashboardModel.data.video_image).centerCrop().into(img_video);
         Glide.with(getActivity()).load(dashboardModel.data.myshop_image).centerCrop().into(img_myshop);
         txt_balance.setText(String.valueOf(dashboardModel.data.one));

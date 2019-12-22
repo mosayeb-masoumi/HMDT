@@ -34,5 +34,11 @@ public class DashboardData {
     @SerializedName("drawer_menu")
     @Expose
     public DrawerMenu drawerMenu;
+    @SerializedName("faq_page")
+    @Expose
+    public String faqPage;
+    @SerializedName("agreement_page")
+    @Expose
+    public String agreementPage;
 
 }

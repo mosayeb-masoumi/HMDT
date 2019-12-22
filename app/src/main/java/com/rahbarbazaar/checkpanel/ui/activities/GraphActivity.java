@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.rahbarbazaar.checkpanel.R;
+import com.rahbarbazaar.checkpanel.models.message.Message;
 import com.rahbarbazaar.checkpanel.utilities.MyValueFormatter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;

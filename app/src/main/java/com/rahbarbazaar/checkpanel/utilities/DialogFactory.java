@@ -3,6 +3,7 @@ package com.rahbarbazaar.checkpanel.utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -366,6 +367,56 @@ public class DialogFactory {
 
         dialog.show();
 
+    }
+
+
+    public void createReportIssueDialog(DialogFactoryInteraction listener, View root) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) root, false);
+
+
+        //define views inside of dialog
+        EditText edt_description = customLayout.findViewById(R.id.edt_description);
+        Button btn_send = customLayout.findViewById(R.id.btn_send_dialog);
+        Button btn_cancel_dialog = customLayout.findViewById(R.id.btn_cancel_dialog);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+        txt_header.setText(context.getResources().getString(R.string.report_issue_title));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        //set click listener for views inside of dialog
+
+        btn_send.setOnClickListener(view -> {
+
+            listener.onAcceptButtonClicked(edt_description.getText().toString());
+
+            if (edt_description.getText().toString().equals("")) {
+
+            } else {
+                dialog.dismiss();
+            }
+
+        });
+
+
+        btn_cancel_dialog.setOnClickListener(view -> {
+            listener.onDeniedButtonClicked(false);
+            dialog.dismiss();
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
 }

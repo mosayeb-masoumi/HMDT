@@ -58,7 +58,7 @@
     <string name="productedit">ویرایش محصولات</string>
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">powered_by</string>
-    <string name="familymember">اعضای خانواده</string>
+    <string name="familymember">همراهان خرید</string>
     <string name="prize_selection">انتخاب جوایز</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
     <string name="update">آپدیت</string>
@@ -109,5 +109,11 @@
     <string name="report_issue">گزارش مشکل</string>
     <string name="share_poller">پولر را به اشتراک بگذارید</string>
     <string name="system_error">خطای سیستمی</string>
+    <string name="text_title">عنوان</string>
+    <string name="explanation2">توضیحات</string>
+    <string name="report_issue_title">لطفا مشکل خود را گزارش دهید</string>
+    <string name="empetyReportIssue">فیلد های اطلاعاتی را تکمیل نمایید!</string>
+    <string name="text_request_submitted">درخواست شما ثبت شد.</string>
+    <string name="no_message">پیامی برای نماش وجود ندارد</string>
 
 </resources>

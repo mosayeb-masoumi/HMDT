@@ -15,12 +15,12 @@ import com.rahbarbazaar.checkpanel.models.register.Prize;
 import java.util.List;
 
 
-public class AdapterPrize extends RecyclerView.Adapter<PrizeViewHolder> {
+public class PrizeAdapter extends RecyclerView.Adapter<PrizeViewHolder> {
 
     List<Prize> prizeList;
     Context context;
 
-    public AdapterPrize(List<Prize> prizeList, Context context) {
+    public PrizeAdapter(List<Prize> prizeList, Context context) {
         this.prizeList = prizeList;
         this.context = context;
     }

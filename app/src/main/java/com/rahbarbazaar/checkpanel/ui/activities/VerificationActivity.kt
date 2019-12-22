@@ -129,12 +129,12 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
 
 
-                    var n :String= Cache.getString(this@VerificationActivity,"refresh_token")
-                    var m:String = n
-
-
-                    var a :Int = Cache.getInt(this@VerificationActivity,"expireAt")
-                    var b:Int = a
+//                    var n :String= Cache.getString(this@VerificationActivity,"refresh_token")
+//                    var m:String = n
+//
+//
+//                    var a :Int = Cache.getInt(this@VerificationActivity,"expireAt")
+//                    var b:Int = a
 
                     requestDashboardData()
 

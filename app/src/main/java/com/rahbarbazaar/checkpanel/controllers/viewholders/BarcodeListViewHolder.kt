@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.rahbarbazaar.checkpanel.R
+import com.rahbarbazaar.checkpanel.controllers.adapters.BarcodeListAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData
 
@@ -30,8 +31,6 @@ class BarcodeListViewHolder (view: View, val context:Context) : RecyclerView.Vie
             btnRegisterActive.visibility = View.GONE
             btnRegisterDeactive.visibility = View.VISIBLE
         }
-
-        var a =5
 
     }
 

@@ -26,12 +26,13 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.rahbarbazaar.checkpanel.R;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterActiveList;
-import com.rahbarbazaar.checkpanel.controllers.adapters.AdapterDrawer;
+import com.rahbarbazaar.checkpanel.controllers.adapters.DrawerAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
-import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
 import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
 import com.rahbarbazaar.checkpanel.models.dashboard.DrawerItems;
+import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
+import com.rahbarbazaar.checkpanel.network.Service;
+import com.rahbarbazaar.checkpanel.network.ServiceProvider;
 import com.rahbarbazaar.checkpanel.ui.fragments.ShopFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.HomeFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.RegisterFragment;
@@ -48,9 +49,12 @@ import java.util.List;
 import co.ronash.pushe.Pushe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
-        AHBottomNavigation.OnTabSelectedListener , DrawerItemClicked {
+        AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
 
 
     GeneralTools tools;
@@ -60,7 +64,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
-    LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_notify_drawer,
+    LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
             linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
 
     TextView txt_exit;
@@ -70,9 +74,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     DrawerLayout drawer_layout_home;
 
     RecyclerView drawer_rv;
-    AdapterDrawer adapter_drawer;
+    DrawerAdapter adapter_drawer;
     LinearLayoutManager linearLayoutManager;
-    List<DrawerItems> drawerItems ;
+    List<DrawerItems> drawerItems;
 
     boolean doubleBackToExitPressedOnce = false;
     boolean isSupportLayoutClicked = false;
@@ -147,7 +151,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //        }
 
         drawer_rv.setLayoutManager(linearLayoutManager);
-        adapter_drawer = new AdapterDrawer(drawerItems, MainActivity.this);
+        adapter_drawer = new DrawerAdapter(drawerItems, MainActivity.this);
         drawer_rv.setAdapter(adapter_drawer);
         adapter_drawer.setListener(MainActivity.this);  // important to set or else the app will crashed
         adapter_drawer.notifyDataSetChanged();
@@ -168,7 +172,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         linear_invite_friend = findViewById(R.id.linear_invite_friend);
         linear_shopping = findViewById(R.id.linear_shopping);
-        linear_notify_drawer = findViewById(R.id.linear_notify_drawer);
+        linear_message_drawer = findViewById(R.id.linear_message_drawer);
         linear_support = findViewById(R.id.linear_support);
         linear_report_issue = findViewById(R.id.linear_report_issue);
         linear_graph = findViewById(R.id.linear_graph_drawer);
@@ -194,7 +198,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_support.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
-        linear_notify_drawer.setOnClickListener(this);
+        linear_message_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
 
@@ -278,11 +282,72 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                 }
 
-
                 isSupportLayoutClicked = !isSupportLayoutClicked;
+                break;
+
+
+            case R.id.linear_faq:
+                drawer_layout_home.closeDrawers();
+                goToHtmlActivity(dashboardModel.data.faqPage);
+                break;
+
+
+            case R.id.linear_report_issue:
+                drawer_layout_home.closeDrawers();
+                dialogFactory.createReportIssueDialog(new DialogFactory.DialogFactoryInteraction() {
+                    @Override
+                    public void onAcceptButtonClicked(String... params) {
+
+                        if(params[0].equals("")){
+                            Toast.makeText(MainActivity.this, R.string.empetyReportIssue, Toast.LENGTH_SHORT).show();
+                        }else{
+                            sendReportIssueRequest(params[0]);
+                            drawer_layout_home.closeDrawer(Gravity.END);
+                        }
+
+                    }
+
+                    @Override
+                    public void onDeniedButtonClicked(boolean cancel_dialog) {
+                        drawer_layout_home.closeDrawer(Gravity.END);
+                    }
+                }, drawer_layout_home);
+                break;
+
+            case R.id.linear_message_drawer:
+                startActivity(new Intent(MainActivity.this,MessageActivity.class));
+                MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
         }
     }
+
+    private void sendReportIssueRequest(String str_issue) {
+
+        Service service = new ServiceProvider(MainActivity.this).getmService();
+        Call<ReportIssue> call = service.reportIssue(str_issue);
+        call.enqueue(new Callback<ReportIssue>() {
+            @Override
+            public void onResponse(Call<ReportIssue> call, Response<ReportIssue> response) {
+                if(response.code()==200){
+
+//                    Boolean result = response.body().data;
+                    Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.text_request_submitted), Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportIssue> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     private void createConfirmExitDialog() {
 
@@ -367,6 +432,25 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         return true;
     }
 
+
+    @Override
+    public void onDrawerItemClicked(String url) {
+
+        goToHtmlActivity(url);
+
+    }
+
+    private void goToHtmlActivity(String url) {
+
+        Intent intent = new Intent(MainActivity.this, HtmlLoaderActivity.class);
+        intent.putExtra("url", url);
+//        intent.putExtra("surveyDetails", false);
+//        intent.putExtra("isShopping", shouldBeLoadUrl);
+        startActivity(intent);
+        MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -415,8 +499,5 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         super.finish();
     }
 
-    @Override
-    public void drawerItemClicked(String url) {
 
-    }
 }

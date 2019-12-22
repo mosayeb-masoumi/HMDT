@@ -9,7 +9,7 @@ import com.rahbarbazaar.checkpanel.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.checkpanel.controllers.viewholders.BarcodeListViewHolder
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData
 
-class AdapterBarcodeList (private val barcodeList: List<BarcodeData>, val context: Context) :
+class BarcodeListAdapter (private val barcodeList: List<BarcodeData>, val context: Context) :
         RecyclerView.Adapter<BarcodeListViewHolder>() {
 
 

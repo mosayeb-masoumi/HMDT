@@ -14,13 +14,13 @@ import com.rahbarbazaar.checkpanel.models.register.Member;
 
 import java.util.List;
 
-public class AdapterRegisterMemberDialog extends RecyclerView.Adapter<RegisterMemberViewHolderDialog> {
+public class RegisterMemberDialogAdapter extends RecyclerView.Adapter<RegisterMemberViewHolderDialog> {
 
 //    public List<RegisterMemberModel> members;
     public List<Member> members;
     public Context context;
 
-    public AdapterRegisterMemberDialog(List<Member> members, Context context) {
+    public RegisterMemberDialogAdapter(List<Member> members, Context context) {
         this.members = members;
         this.context = context;
     }
