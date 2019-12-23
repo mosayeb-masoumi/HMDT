@@ -9,10 +9,9 @@ import com.rahbarbazaar.checkpanel.BuildConfig
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.api_error403.ShowMessage403
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.*
-import kotlinx.android.synthetic.main.activity_purchased_items.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -86,16 +85,16 @@ class SplashActivity : CustomBaseActivity() {
 
         val service = ServiceProvider(this).getmService()
         val call = service.dashboardData
-        call.enqueue(object : Callback<DashboardModel> {
+        call.enqueue(object : Callback<DashboardCreateData> {
 
-            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>) {
+            override fun onResponse(call: Call<DashboardCreateData>, response: Response<DashboardCreateData>) {
 
                 if (response.code() == 200) {
 
-                    var dashboardModel: DashboardModel
-                    dashboardModel = response.body()!!
+                    var dashboardCreateData: DashboardCreateData
+                    dashboardCreateData = response.body()!!
 //                    RxBus.publishDashboardData(dashboardModel)
-                    RxBus.DashboardModel.publishDashboardModel(dashboardModel)
+                    RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
 
 //                    requestRegisterData()
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
@@ -119,7 +118,7 @@ class SplashActivity : CustomBaseActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
+            override fun onFailure(call: Call<DashboardCreateData>, t: Throwable) {
                 Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()
             }

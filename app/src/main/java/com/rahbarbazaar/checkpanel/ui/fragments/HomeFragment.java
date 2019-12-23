@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.ui.activities.HtmlLoaderActivity;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
 
@@ -31,8 +32,7 @@ import io.reactivex.disposables.Disposable;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     Disposable disposable = new CompositeDisposable();
-    DashboardModel dashboardModel;
-
+    DashboardCreateData dashboardCreateData;
 
 
     CardView crd_news, crd_video, crd_purchases;
@@ -47,11 +47,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
-            if (result instanceof DashboardModel) {
-                dashboardModel = (DashboardModel) result;
+            if (result instanceof DashboardCreateData) {
+                dashboardCreateData = (DashboardCreateData) result;
             }
         });
+
+
+
+
 
     }
 
@@ -63,6 +68,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
         initViews(view);
+
+
 
         setContentView();
 
@@ -92,13 +99,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setContentView() {
 
-        Glide.with(getActivity()).load(dashboardModel.data.news_image).centerCrop().into(img_news);
-        Glide.with(getActivity()).load(dashboardModel.data.video_image).centerCrop().into(img_video);
-        Glide.with(getActivity()).load(dashboardModel.data.myshop_image).centerCrop().into(img_myshop);
-        txt_balance.setText(String.valueOf(dashboardModel.data.one));
-        txt_incomplete_purchase.setText(String.valueOf(dashboardModel.data.two));
-        txt_total_purchase.setText(String.valueOf(dashboardModel.data.three));
-        txt_registered_products.setText(String.valueOf(dashboardModel.data.four));
+        Glide.with(getActivity()).load(dashboardCreateData.data.news_image).centerCrop().into(img_news);
+        Glide.with(getActivity()).load(dashboardCreateData.data.video_image).centerCrop().into(img_video);
+        Glide.with(getActivity()).load(dashboardCreateData.data.myshop_image).centerCrop().into(img_myshop);
+
+
+
+//        txt_balance.setText(String.valueOf(dashboardModel.data.one));
+//        txt_incomplete_purchase.setText(String.valueOf(dashboardModel.data.two));
+//        txt_total_purchase.setText(String.valueOf(dashboardModel.data.three));
+//        txt_registered_products.setText(String.valueOf(dashboardModel.data.four));
+
+
+
     }
 
 
@@ -108,11 +121,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
 
             case R.id.crd_news:
-                goToHtmlActivity(dashboardModel.data.news_content, true);
+                goToHtmlActivity(dashboardCreateData.data.news_content, true);
                 break;
 
             case R.id.crd_video:
-                goToHtmlActivity(dashboardModel.data.video_content, true);
+                goToHtmlActivity(dashboardCreateData.data.video_content, true);
                 break;
 
             case R.id.crd_purchases:

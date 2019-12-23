@@ -20,7 +20,6 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:padding="4dp"
             android:src="@drawable/drawer" />
 
 
@@ -35,7 +34,7 @@
 
         <RelativeLayout
             android:id="@+id/rl_notification"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="1dp"
@@ -50,27 +49,27 @@
                 android:src="@drawable/notify_badge" />
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_notify_count"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
+                android:background="@drawable/red_circle_shape"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
-                android:background="@drawable/red_circle_shape"
                 android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/text_notify_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                   android:layout_centerInParent="true"
                     android:textColor="@color/white"
                     android:textSize="11dp"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
     </RelativeLayout>

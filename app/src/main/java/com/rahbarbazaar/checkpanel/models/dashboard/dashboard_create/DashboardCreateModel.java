@@ -1,21 +1,9 @@
-package com.rahbarbazaar.checkpanel.models.dashboard;
+package com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DashboardData {
-    @SerializedName("one")
-    @Expose
-    public Integer one;
-    @SerializedName("two")
-    @Expose
-    public Integer two;
-    @SerializedName("three")
-    @Expose
-    public Integer three;
-    @SerializedName("four")
-    @Expose
-    public Integer four;
+public class DashboardCreateModel {
     @SerializedName("video_image")
     @Expose
     public String video_image;

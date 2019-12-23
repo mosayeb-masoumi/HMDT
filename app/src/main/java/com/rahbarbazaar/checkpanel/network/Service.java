@@ -3,11 +3,14 @@ package com.rahbarbazaar.checkpanel.network;
 
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.login.LoginModel;
 import com.rahbarbazaar.checkpanel.models.message.MessageList;
+import com.rahbarbazaar.checkpanel.models.message.MessageRead;
+import com.rahbarbazaar.checkpanel.models.message.MessageUnread;
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData;
 import com.rahbarbazaar.checkpanel.models.refresh.RefreshTokenModel;
@@ -37,7 +40,10 @@ public interface Service {
 
 
     @GET("Dashboard/Create")
-    Call<DashboardModel> getDashboardData();
+    Call<DashboardCreateData> getDashboardData();
+
+    @GET("Dashboard/Update")
+    Call<DashboardUpdateData> dashboardUpdateData();
 
     @POST("Login/Refresh")
     Call<RefreshTokenModel> refreshToken(@Query("access_token") String access_token,
@@ -78,5 +84,10 @@ public interface Service {
     @POST("Message/Index")
     Call<MessageList> getMessageList(@Query("page") Integer page);
 
+    @POST("Message/Read")
+    Call<MessageRead> getMessageRead(@Query("message_id") String message_id);
+
+    @POST("Message/Unread")
+    Call<MessageUnread> getMessageUnread();
 
 }

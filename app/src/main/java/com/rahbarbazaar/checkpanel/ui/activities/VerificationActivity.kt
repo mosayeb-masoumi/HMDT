@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.checkpanel.models.login.LoginModel
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
@@ -195,15 +195,15 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
     private fun requestDashboardData() {
         val service = ServiceProvider(this).getmService()
         val call = service.dashboardData
-        call.enqueue(object : Callback<DashboardModel> {
+        call.enqueue(object : Callback<DashboardCreateData> {
 
-            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>) {
+            override fun onResponse(call: Call<DashboardCreateData>, response: Response<DashboardCreateData>) {
 
                 if (response.code() == 200) {
 
-                    var dashboardModel: DashboardModel
-                    dashboardModel = response.body()!!
-                    RxBus.DashboardModel.publishDashboardModel(dashboardModel)
+                    var dashboardCreateData: DashboardCreateData
+                    dashboardCreateData = response.body()!!
+                    RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
 //                    requestRegisterData()
 
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
@@ -217,7 +217,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                 }
             }
 
-            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
+            override fun onFailure(call: Call<DashboardCreateData>, t: Throwable) {
                 ll_av_verify.visibility = View.GONE
                 button_verify.visibility = View.VISIBLE
                 Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()

@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
 import com.rahbarbazaar.checkpanel.controllers.viewholders.DrawerViewHolder;
-import com.rahbarbazaar.checkpanel.models.dashboard.DrawerItems;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DrawerItems;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

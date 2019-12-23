@@ -120,6 +120,14 @@
     </LinearLayout>
 
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/avi_loading_fr_register"
+        app:indicatorColor="@color/blue_dark"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
     <RelativeLayout
         android:id="@+id/rl_register"
         android:layout_width="match_parent"

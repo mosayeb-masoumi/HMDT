@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rahbarbazaar.checkpanel.R;
+import com.rahbarbazaar.checkpanel.controllers.adapters.ActiveListAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ActiveListItemInteraction;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
 import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa;
@@ -35,6 +36,7 @@ public class ActiveListViewHolder extends RecyclerView.ViewHolder {
 
         String convert = ConvertEnDigitToFa.convert(date);
         txt_date.setText(convert);
+
     }
 
     public void setOnActiveListHolderListener(ActiveListItemInteraction listener, ActiveList model, int position) {

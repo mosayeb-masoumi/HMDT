@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
-import com.rahbarbazaar.checkpanel.models.dashboard.DrawerItems;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DrawerItems;
 
 public class DrawerViewHolder extends RecyclerView.ViewHolder {
 

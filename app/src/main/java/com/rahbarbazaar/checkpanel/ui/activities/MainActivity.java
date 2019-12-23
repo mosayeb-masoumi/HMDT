@@ -28,8 +28,9 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.DrawerAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel;
-import com.rahbarbazaar.checkpanel.models.dashboard.DrawerItems;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DrawerItems;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
@@ -38,6 +39,7 @@ import com.rahbarbazaar.checkpanel.ui.fragments.HomeFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.RegisterFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.AccountFragment;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
+import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools;
@@ -66,8 +68,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
             linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
+    RelativeLayout ll_notify_count;
 
-    TextView txt_exit;
+    TextView txt_exit, text_notify_count;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification, rl_curvedbottom;
@@ -82,7 +85,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     boolean isSupportLayoutClicked = false;
 
     Disposable disposable = new CompositeDisposable();
-    DashboardModel dashboardModel;
+    DashboardCreateData dashboardCreateData;
 
     String locale_name;
 
@@ -112,8 +115,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         initView();
 
         disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
-            if (result instanceof DashboardModel) {
-                dashboardModel = (DashboardModel) result;
+            if (result instanceof DashboardCreateData) {
+                dashboardCreateData = (DashboardCreateData) result;
             }
         });
 
@@ -136,29 +139,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     }
 
-    private void setDrawerRecycler() {
-
-        drawerItems = new ArrayList<>();
-        linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-        // to show list of member items
-//        List<ActiveList> activeList = new ArrayList<>();
-
-        drawerItems.addAll(dashboardModel.data.drawerMenu.data);
-
-//        for (int i = 0; i < activeListData.data.size(); i++) {
-//            activeList.add(new ActiveList(activeListData.data.get(i).id, activeListData.data.get(i).date
-//                    , activeListData.data.get(i).title));
-//        }
-
-        drawer_rv.setLayoutManager(linearLayoutManager);
-        adapter_drawer = new DrawerAdapter(drawerItems, MainActivity.this);
-        drawer_rv.setAdapter(adapter_drawer);
-        adapter_drawer.setListener(MainActivity.this);  // important to set or else the app will crashed
-        adapter_drawer.notifyDataSetChanged();
-
-    }
-
-
     private void initView() {
 
         img_backbtmbar_left = findViewById(R.id.img_backbtmbar_left);
@@ -180,11 +160,12 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_submenu = findViewById(R.id.linear_submenu);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
+        ll_notify_count = findViewById(R.id.ll_notify_count);
         rl_notification = findViewById(R.id.rl_notification);
         drawer_layout_home = findViewById(R.id.drawer_layout_home);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         drawer_rv = findViewById(R.id.drawer_rv);
-
+        text_notify_count = findViewById(R.id.text_notify_count);
         txt_exit = findViewById(R.id.txt_exit);
 
         image_drawer.setOnClickListener(this);
@@ -202,6 +183,78 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
 
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        drawer_layout_home.closeDrawer(Gravity.END);
+        updateDashboard();
+
+
+    }
+
+    private void updateDashboard() {
+
+        Service service = new ServiceProvider(MainActivity.this).getmService();
+        Call<DashboardUpdateData> call = service.dashboardUpdateData();
+        call.enqueue(new Callback<DashboardUpdateData>() {
+            @Override
+            public void onResponse(Call<DashboardUpdateData> call, Response<DashboardUpdateData> response) {
+                if (response.code() == 200) {
+
+                    DashboardUpdateData updateData = response.body();
+                    setNotifyCount(updateData);
+
+                } else {
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DashboardUpdateData> call, Throwable t) {
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void setNotifyCount(DashboardUpdateData updateData) {
+
+        if (updateData.data.getUnread() > 0) {
+            ll_notify_count.setVisibility(View.VISIBLE);
+            if (updateData.data.getUnread() > 999) {
+                text_notify_count.setText("...");
+            } else {
+                String count = ConvertEnDigitToFa.convert(String.valueOf(updateData.data.getUnread()));
+                text_notify_count.setText(count);
+            }
+        }
+    }
+
+
+    private void setDrawerRecycler() {
+
+        drawerItems = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        // to show list of member items
+//        List<ActiveList> activeList = new ArrayList<>();
+
+        drawerItems.addAll(dashboardCreateData.data.drawerMenu.data);
+
+//        for (int i = 0; i < activeListData.data.size(); i++) {
+//            activeList.add(new ActiveList(activeListData.data.get(i).id, activeListData.data.get(i).date
+//                    , activeListData.data.get(i).title));
+//        }
+
+        drawer_rv.setLayoutManager(linearLayoutManager);
+        adapter_drawer = new DrawerAdapter(drawerItems, MainActivity.this);
+        drawer_rv.setAdapter(adapter_drawer);
+        adapter_drawer.setListener(MainActivity.this);  // important to set or else the app will crashed
+        adapter_drawer.notifyDataSetChanged();
 
     }
 
@@ -288,7 +341,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             case R.id.linear_faq:
                 drawer_layout_home.closeDrawers();
-                goToHtmlActivity(dashboardModel.data.faqPage);
+                goToHtmlActivity(dashboardCreateData.data.faqPage);
                 break;
 
 
@@ -298,9 +351,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     @Override
                     public void onAcceptButtonClicked(String... params) {
 
-                        if(params[0].equals("")){
+                        if (params[0].equals("")) {
                             Toast.makeText(MainActivity.this, R.string.empetyReportIssue, Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             sendReportIssueRequest(params[0]);
                             drawer_layout_home.closeDrawer(Gravity.END);
                         }
@@ -315,9 +368,15 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
             case R.id.linear_message_drawer:
-                startActivity(new Intent(MainActivity.this,MessageActivity.class));
+                startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
+            case R.id.rl_notification:
+                startActivity(new Intent(MainActivity.this, MessageActivity.class));
+                MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
                 break;
         }
     }
@@ -329,24 +388,23 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         call.enqueue(new Callback<ReportIssue>() {
             @Override
             public void onResponse(Call<ReportIssue> call, Response<ReportIssue> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
 
 //                    Boolean result = response.body().data;
-                    Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.text_request_submitted), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.text_request_submitted), Toast.LENGTH_SHORT).show();
 
-                }else{
-                    Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ReportIssue> call, Throwable t) {
 
-                Toast.makeText(MainActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
 
     private void createConfirmExitDialog() {
@@ -450,13 +508,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        drawer_layout_home.closeDrawer(Gravity.END);
-    }
 
     @Override
     protected void onDestroy() {

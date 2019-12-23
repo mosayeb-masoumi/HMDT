@@ -3,12 +3,10 @@ package com.rahbarbazaar.checkpanel.models.message
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class MessageList {
+class MessageRead {
 
-    @SerializedName("total")
-    @Expose
-    var total: Int? = null
     @SerializedName("data")
     @Expose
-    var data: List<Message>? = null
+    var data: Boolean? = null
+
 }

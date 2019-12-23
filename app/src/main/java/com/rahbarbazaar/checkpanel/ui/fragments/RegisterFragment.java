@@ -62,7 +62,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     private GpsTracker gpsTracker;
     String strLat, strLng;
-    AVLoadingIndicatorView avi;
+    AVLoadingIndicatorView avi,avi_load_list;
     RecyclerView recyclerView;
     ActiveListAdapter adapter;
     ActiveListData activeListData = new ActiveListData();
@@ -104,6 +104,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     private void initView(View view) {
 
         avi = view.findViewById(R.id.avi);
+        avi_load_list = view.findViewById(R.id.avi_loading_fr_register);
         recyclerView = view.findViewById(R.id.recyclere_register_fragment);
         rl_fr_register = view.findViewById(R.id.rl_fr_register);
         rl_btn_register = view.findViewById(R.id.rl_btn_register);
@@ -113,6 +114,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     private void getActiveList(int page) {
 
+        avi_load_list.setVisibility(View.VISIBLE);
+
         Service service = new ServiceProvider(getContext()).getmService();
         Call<ActiveListData> call = service.getActiveList(page);
         call.enqueue(new Callback<ActiveListData>() {
@@ -120,10 +123,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             public void onResponse(Call<ActiveListData> call, Response<ActiveListData> response) {
                 if (response.code() == 200) {
 
+                    avi_load_list.setVisibility(View.GONE);
                     txt_no_shop.setVisibility(View.GONE);
                     activeListData = response.body();
                     setRecyclerview(activeListData);
                 } else if (response.code() == 204) {
+                    avi_load_list.setVisibility(View.GONE);
                     if (page == 0) {
                         txt_no_shop.setVisibility(View.VISIBLE);
                     } else {
@@ -132,12 +137,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     }
 
                 } else {
+                    avi_load_list.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ActiveListData> call, Throwable t) {
+                avi_load_list.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
             }

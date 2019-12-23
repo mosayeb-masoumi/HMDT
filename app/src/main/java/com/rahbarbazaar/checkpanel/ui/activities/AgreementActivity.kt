@@ -13,9 +13,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.rahbarbazaar.checkpanel.R
-import com.rahbarbazaar.checkpanel.models.dashboard.DashboardModel
-import com.rahbarbazaar.checkpanel.models.register.RegisterModel
-import com.rahbarbazaar.checkpanel.utilities.ClientConfig
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import com.rahbarbazaar.checkpanel.utilities.RxBus
@@ -28,7 +26,7 @@ class AgreementActivity : CustomBaseActivity() {
     lateinit var connectivityReceiver: BroadcastReceiver
 
     var disposable: Disposable = CompositeDisposable()
-    lateinit var dashboardModel: DashboardModel
+    lateinit var dashboardCreateData: DashboardCreateData
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +48,8 @@ class AgreementActivity : CustomBaseActivity() {
         // get data from rxbus
         disposable = CompositeDisposable()
         disposable = RxBus.DashboardModel.subscribeDashboardModel { result ->
-            if (result is DashboardModel) {
-                dashboardModel = result
+            if (result is DashboardCreateData) {
+                dashboardCreateData = result
             }
         }
 
@@ -72,7 +70,7 @@ class AgreementActivity : CustomBaseActivity() {
         webview_agreement.clearCache(true)
 
 
-        webview_agreement.loadUrl(dashboardModel.data.agreementPage)
+        webview_agreement.loadUrl(dashboardCreateData.data.agreementPage)
 
 //        var locale_name = ConfigurationCompat.getLocales(resources.configuration).get(0).language
 //
