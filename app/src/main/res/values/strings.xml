@@ -21,7 +21,7 @@
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
     <string name="text_video">ویدئوها</string>
-    <string name="text_polls">خریدهای من</string>
+    <string name="my_shop">خریدهای من</string>
     <string name="text_leftday">روز مانده</string>
     <string name="text_your_point">امتیاز</string>
     <string name="text_balance">موجودی</string>
@@ -39,6 +39,7 @@
     <string name="enter">ورود</string>
     <string name="accept_terms_conditions">قوانین و مقررات را مطالعه کرده و قبول دارم</string>
     <string name="shop">فروشگاه</string>
+    <string name="shop2">فروشگاه:</string>
     <string name="tottal_amount">مبلغ کل خرید</string>
     <string name="discount">مبلغ تخفیف</string>
     <string name="paid_amount">مبلغ پرداخت شده</string>
@@ -115,5 +116,13 @@
     <string name="empetyReportIssue">فیلد های اطلاعاتی را تکمیل نمایید!</string>
     <string name="text_request_submitted">درخواست شما ثبت شد.</string>
     <string name="no_message">پیامی برای نماش وجود ندارد</string>
+    <string name="shopping_items">اقلام خرید</string>
+    <string name="purchase_date">تاریخ خرید:</string>
+    <string name="tottal_amount2">مبلغ کل خرید:</string>
+    <string name="paid_amount2">مبلغ پرداخت شده:</string>
+    <string name="discount2">مبلغ تخفیف:</string>
+    <string name="discount3">نوع تخفیف:</string>
+    <string name="familymember2">همراهان خرید:</string>
+    <string name="gifts">جوایز:</string>
 
 </resources>

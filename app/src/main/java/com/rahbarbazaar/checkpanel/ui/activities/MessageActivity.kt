@@ -79,11 +79,11 @@ class MessageActivity : CustomBaseActivity(), MessageItemInteraction {
                     avi_message.visibility = View.GONE
 
                 } else if (response.code() == 204) {
+                    avi_message.visibility = View.GONE
                     if (this@MessageActivity.page == 0) {
                         txt_no_message.visibility = View.VISIBLE
-                        avi_message.visibility = View.GONE
                     }else{
-                        avi_message.visibility = View.GONE
+                        txt_no_message.visibility = View.GONE
                     }
                 } else {
                     Toast.makeText(this@MessageActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -142,8 +142,11 @@ class MessageActivity : CustomBaseActivity(), MessageItemInteraction {
 
                     isScrolling = false
                     page++
-                    //data fetch
-                    getMessageList(page)
+
+                    if(page<=totalPages){
+                        getMessageList(page)
+                    }
+
                 }
             }
         })

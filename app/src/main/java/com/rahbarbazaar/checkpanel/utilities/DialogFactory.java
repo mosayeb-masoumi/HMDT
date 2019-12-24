@@ -3,27 +3,25 @@ package com.rahbarbazaar.checkpanel.utilities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
+import com.rahbarbazaar.checkpanel.models.history.History;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.ScanActivity;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -32,8 +30,7 @@ public class DialogFactory {
     private Context context;
 
 
-
-    public interface DialogFactoryInteraction{
+    public interface DialogFactoryInteraction {
 
         void onAcceptButtonClicked(String... strings);
 
@@ -53,7 +50,7 @@ public class DialogFactory {
         Button btn_data_dialog = customLayout.findViewById(R.id.btn2);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        ImageView img_close  =customLayout.findViewById(R.id.img_close);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
 
         btn_wifi_dialog.setText(context.getResources().getString(R.string.internet_setting));
         btn_data_dialog.setText(context.getResources().getString(R.string.data_setting));
@@ -77,7 +74,9 @@ public class DialogFactory {
         //set click listener for views inside of dialog
         btn_wifi_dialog.setOnClickListener(view -> listener.onAcceptButtonClicked(""));
         btn_data_dialog.setOnClickListener(view -> listener.onDeniedButtonClicked(false));
-        img_close.setOnClickListener(v -> { dialog.dismiss();});
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
 
         //if dialog dismissed, this action will be called
         dialog.setOnDismissListener(dialogInterface -> listener.onDeniedButtonClicked(true));
@@ -138,17 +137,17 @@ public class DialogFactory {
         btn_register.setOnClickListener(v -> {
 
             String desc = edt_description.getText().toString();
-            if(desc.trim().length()>0){
-                listener.onAcceptButtonClicked(desc,title,id);
+            if (desc.trim().length() > 0) {
+                listener.onAcceptButtonClicked(desc, title, id);
                 dialog.dismiss();
 
-            }else{
-                Toast.makeText(context, ""+context.getResources().getString(R.string.add_description), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "" + context.getResources().getString(R.string.add_description), Toast.LENGTH_SHORT).show();
             }
         });
 
         btn_cancel.setOnClickListener(v -> {
-              dialog.dismiss();
+            dialog.dismiss();
         });
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
@@ -185,7 +184,7 @@ public class DialogFactory {
         Button btn_search = customLayout.findViewById(R.id.btn2);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        ImageView img_close  =customLayout.findViewById(R.id.img_close);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
 
         btn_scanner.setText(context.getResources().getString(R.string.scanner));
         btn_search.setText(context.getResources().getString(R.string.search_product));
@@ -203,7 +202,7 @@ public class DialogFactory {
         }
 
         btn_scanner.setOnClickListener(v -> {
-              listener.onAcceptButtonClicked();
+            listener.onAcceptButtonClicked();
         });
 
         btn_search.setOnClickListener(v -> {
@@ -215,7 +214,7 @@ public class DialogFactory {
         dialog.show();
     }
 
-    public void createbarcodeListDetailDialog(DialogFactoryInteraction listener, View view , BarcodeData model ) {
+    public void createbarcodeListDetailDialog(DialogFactoryInteraction listener, View view, BarcodeData model) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.barcodelist_detaildialog, (ViewGroup) view, false);
 
@@ -237,7 +236,7 @@ public class DialogFactory {
         ImageView imageview = customLayout.findViewById(R.id.imageview);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
 
-       //set textes
+        //set textes
         txt_main.setText(model.getMain());
         txt_category.setText(model.getCategory());
         txt_subCategory.setText(model.getSubCategory());
@@ -270,7 +269,7 @@ public class DialogFactory {
     }
 
 
-    public void createRescanDialog(DialogFactoryInteraction listener, View view ) {
+    public void createRescanDialog(DialogFactoryInteraction listener, View view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.rescan_dialog, (ViewGroup) view, false);
 
@@ -291,14 +290,15 @@ public class DialogFactory {
 
         btn_home.setOnClickListener(v -> context.startActivity(new Intent(context, MainActivity.class)));
         btn_scan.setOnClickListener(v -> context.startActivity(new Intent(context, ScanActivity.class)));
-        btn_search.setOnClickListener(v -> { });
+        btn_search.setOnClickListener(v -> {
+        });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
 
 
-    public void createDeactiveActionDialog(DialogFactoryInteraction listener, View view ) {
+    public void createDeactiveActionDialog(DialogFactoryInteraction listener, View view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
 
@@ -329,7 +329,7 @@ public class DialogFactory {
     }
 
 
-    public void createError406Dialog(DialogFactoryInteraction listener, View view,String message) {
+    public void createError406Dialog(DialogFactoryInteraction listener, View view, String message) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
 
@@ -413,6 +413,114 @@ public class DialogFactory {
             listener.onDeniedButtonClicked(false);
             dialog.dismiss();
         });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+
+    public void createHistoryDetailDialog(DialogFactoryInteraction listener, View root, History model) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.history_detaildialog, (ViewGroup) root, false);
+
+
+        //define views inside of dialog
+
+//        Button btn_cancel_dialog = customLayout.findViewById(R.id.btn_cancel_dialog);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header_historydetail);
+        TextView txt_shop = customLayout.findViewById(R.id.txt_shop);
+        TextView txt_purchased_date = customLayout.findViewById(R.id.txt_purchased_date);
+        TextView txt_register_date = customLayout.findViewById(R.id.txt_register_date);
+        TextView txt_total_purchased_amount = customLayout.findViewById(R.id.txt_total_purchased_amount);
+        TextView txt_paid = customLayout.findViewById(R.id.txt_paid);
+        TextView txt_discount_amount = customLayout.findViewById(R.id.txt_discount_amount);
+        TextView txt_discount_type = customLayout.findViewById(R.id.txt_discount_type);
+        TextView txt_members = customLayout.findViewById(R.id.txt_members);
+        TextView txt_gifts = customLayout.findViewById(R.id.txt_gifts);
+        CardView cardview1 = customLayout.findViewById(R.id.cardview1);
+        CardView cardview2 = customLayout.findViewById(R.id.cardview2);
+        CardView cardview3 = customLayout.findViewById(R.id.cardview3);
+        CardView cardview4 = customLayout.findViewById(R.id.cardview4);
+        ImageView image1 = customLayout.findViewById(R.id.image1);
+        ImageView image2 = customLayout.findViewById(R.id.image2);
+        ImageView image3 = customLayout.findViewById(R.id.image3);
+        ImageView image4 = customLayout.findViewById(R.id.image4);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        LinearLayout ll_discount_amount = customLayout.findViewById(R.id.ll_discount_amount);
+
+        if (model.getDiscountType().equals("تخفیف ندارد")) {
+            ll_discount_amount.setVisibility(View.GONE);
+        }
+
+
+        txt_header.setText(context.getResources().getString(R.string.explanation2));
+        txt_shop.setText(model.getTitle());
+        txt_purchased_date.setText(model.getDate());
+        txt_register_date.setText(model.getCreatedAt());
+        txt_total_purchased_amount.setText(model.getCost());
+        txt_paid.setText(model.getPaid());
+
+        txt_discount_type.setText(model.getDiscountType());
+        txt_members.setText(model.getShoppingMember());
+        txt_gifts.setText(model.getShoppingPrize());
+
+
+        if (!model.getShoppingImage1().equals("")) {
+            cardview1.setVisibility(View.VISIBLE);
+            image1.setVisibility(View.VISIBLE);
+            Glide.with(Objects.requireNonNull(context)).load(model.getShoppingImage1()).centerCrop().into(image1);
+        } else {
+            cardview1.setVisibility(View.GONE);
+            image1.setVisibility(View.GONE);
+        }
+
+        if (!model.getShoppingImage2().equals("")) {
+            cardview2.setVisibility(View.VISIBLE);
+            image2.setVisibility(View.VISIBLE);
+            Glide.with(Objects.requireNonNull(context)).load(model.getShoppingImage2()).centerCrop().into(image2);
+        } else {
+            cardview2.setVisibility(View.GONE);
+            image2.setVisibility(View.GONE);
+        }
+
+        if (!model.getShoppingImage3().equals("")) {
+            cardview3.setVisibility(View.VISIBLE);
+            image3.setVisibility(View.VISIBLE);
+            Glide.with(Objects.requireNonNull(context)).load(model.getShoppingImage3()).centerCrop().into(image3);
+        } else {
+            cardview3.setVisibility(View.GONE);
+            image3.setVisibility(View.GONE);
+        }
+
+        if (!model.getShoppingImage4().equals("")) {
+            cardview4.setVisibility(View.VISIBLE);
+            image4.setVisibility(View.VISIBLE);
+            Glide.with(Objects.requireNonNull(context)).load(model.getShoppingImage4()).centerCrop().into(image4);
+        } else {
+            cardview4.setVisibility(View.GONE);
+            image4.setVisibility(View.GONE);
+        }
+
+
+        txt_discount_amount.setText(model.getDiscount());
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+//        //set click listener for views inside of dialog
+//        btn_cancel_dialog.setOnClickListener(view -> {
+//            listener.onDeniedButtonClicked(false);
+//            dialog.dismiss();
+//        });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
 

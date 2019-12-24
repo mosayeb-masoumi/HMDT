@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:background="@drawable/dialog_btn_shape"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/dialog_header_shape">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/explanation"
+            android:id="@+id/txt_header_historydetail"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_shop"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/shop2"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_purchased_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/purchase_date"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_register_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="تاریخ ثبت:"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_total_purchased_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/tottal_amount2"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_paid"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/paid_amount2"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_discount_type"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/discount3"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/ll_discount_amount"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_discount_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/discount2"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_members"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/familymember2"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_gifts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:padding="5sp"
+                    android:text="dgh"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_weight="0.5"
+                    android:padding="5sp"
+                    android:text="@string/gifts"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="2dp" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:id="@+id/cardview1"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="match_parent"
+                    android:src="@color/blue_dark"
+                    android:visibility="gone"
+                    android:layout_height="match_parent" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                android:id="@+id/cardview2"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:src="@color/blue_dark"
+                    android:visibility="gone"
+                    android:layout_height="match_parent" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:id="@+id/cardview3"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="match_parent"
+                    android:src="@color/blue_dark"
+                    android:visibility="gone"
+                    android:layout_height="match_parent" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:id="@+id/cardview4"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="match_parent"
+                    android:src="@color/blue_dark"
+                    android:visibility="gone"
+                    android:layout_height="match_parent" />
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

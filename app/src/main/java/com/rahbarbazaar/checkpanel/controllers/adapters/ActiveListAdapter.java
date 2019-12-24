@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ActiveListItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.viewholders.ActiveListViewHolder;
-import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
+import com.rahbarbazaar.checkpanel.models.activelist.ActiveListModel;
 
 import java.util.List;
 
 public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder> {
 
-    List<ActiveList> activeLists;
+    List<ActiveListModel> activeListModels;
     Context context;
 
-    public ActiveListAdapter(List<ActiveList> activeLists, Context context) {
-        this.activeLists = activeLists;
+    public ActiveListAdapter(List<ActiveListModel> activeListModels, Context context) {
+        this.activeListModels = activeListModels;
         this.context = context;
     }
 
@@ -32,7 +32,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ActiveListViewHolder holder, int position) {
-        ActiveList model = activeLists.get(position);
+        ActiveListModel model = activeListModels.get(position);
         holder.bindData(model , position);
         holder.setOnActiveListHolderListener(listener,model , position);
 
@@ -46,7 +46,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder
 
     @Override
     public int getItemCount() {
-        return activeLists.size();
+        return activeListModels.size();
     }
 
 

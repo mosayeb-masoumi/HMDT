@@ -3,7 +3,7 @@ package com.rahbarbazaar.checkpanel.models.activelist;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ActiveList {
+public class ActiveListModel {
 
     @SerializedName("id")
     @Expose
@@ -16,9 +16,9 @@ public class ActiveList {
     public String title;
 
 
-    public ActiveList(String id, String date, String title) {
-        this.id = id;
-        this.date = date;
-        this.title = title;
-    }
+//    public ActiveListModel(String id, String date, String title) {
+//        this.id = id;
+//        this.date = date;
+//        this.title = title;
+//    }
 }

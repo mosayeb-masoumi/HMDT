@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.ActiveListAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ActiveListItemInteraction;
-import com.rahbarbazaar.checkpanel.models.activelist.ActiveList;
+import com.rahbarbazaar.checkpanel.models.activelist.ActiveListModel;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils;
 import com.rahbarbazaar.checkpanel.models.api_error206.APIError406;
@@ -74,9 +74,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     LinearLayoutManager linearLayoutManager;
     Boolean isScrolling = false;
 
+    int totalPage = 0;
     int page = 0;
 
-    List<ActiveList> activeList = new ArrayList<>();
+    List<ActiveListModel> activeListModel ;
 
     //    private boolean loading = true;
     int currentItems, totalItems, scrollOutItems;
@@ -154,23 +155,29 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     private void setRecyclerview(ActiveListData activeListData) {
 
+
+        totalPage = activeListData.total;
+
         // todo check below clause
         // to clear list ites of the fragment for first time
         if (page == 0) {
-            activeList.clear();
+            activeListModel.clear();
         }
 
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         // to show list of member items
-//        List<ActiveList> activeList = new ArrayList<>();
-        for (int i = 0; i < activeListData.data.size(); i++) {
-            activeList.add(new ActiveList(activeListData.data.get(i).id, activeListData.data.get(i).date
-                    , activeListData.data.get(i).title));
-        }
+
+//        for (int i = 0; i < activeListData.data.size(); i++) {
+//            activeListModel.add(new ActiveListModel(activeListData.data.get(i).id, activeListData.data.get(i).date
+//                    , activeListData.data.get(i).title));
+//        }
+
+
+        activeListModel.addAll(activeListData.data);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ActiveListAdapter(activeList, getContext());
+        adapter = new ActiveListAdapter(activeListModel, getContext());
         recyclerView.setAdapter(adapter);
         adapter.setListener(this);  // important to set or else the app will crashed
         adapter.notifyDataSetChanged();
@@ -197,8 +204,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
                     isScrolling = false;
                     page++;
-                    //data fetch
-                    getActiveList(page);
+
+
+                    if(page<=totalPage){
+                        //data fetch
+                          getActiveList(page);
+                    }
+
                 }
             }
         });
@@ -485,6 +497,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     @Override
     public void onResume() {
         super.onResume();
+
+        activeListModel = new ArrayList<>();
         getActiveList(page);
     }
 

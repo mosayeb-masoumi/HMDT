@@ -4,7 +4,9 @@ package com.rahbarbazaar.checkpanel.network;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
+import com.rahbarbazaar.checkpanel.models.history.HistoryData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.login.LoginModel;
@@ -87,7 +89,14 @@ public interface Service {
     @POST("Message/Read")
     Call<MessageRead> getMessageRead(@Query("message_id") String message_id);
 
-    @POST("Message/Unread")
-    Call<MessageUnread> getMessageUnread();
+//    @GET("Dashboard/Home")
+//    Call<HomeData> getHomeData();
+
+
+    @POST("Shopping/Index")
+    Call<HistoryData> getHistoryList(@Query("page") Integer page);
+
+
+
 
 }

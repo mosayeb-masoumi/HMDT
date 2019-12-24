@@ -18,7 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:padding="2dp"
-        app:indicatorColor="@color/colorPrimary"
+        app:indicatorColor="@color/blue_dark"
         app:indicatorName="BallPulseSyncIndicator" />
 
     <LinearLayout

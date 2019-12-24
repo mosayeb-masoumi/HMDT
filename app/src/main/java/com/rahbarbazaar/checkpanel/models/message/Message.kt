@@ -24,7 +24,4 @@ class Message {
     @Expose
     var expanded: Boolean? = null
 
-
-
-
 }

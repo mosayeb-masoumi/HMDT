@@ -1,11 +1,13 @@
 package com.rahbarbazaar.checkpanel.ui.activities;
 
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -70,7 +72,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
     RelativeLayout ll_notify_count;
 
-    TextView txt_exit, text_notify_count;
+    TextView txt_exit, text_notify_count,text_follow_us;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification, rl_curvedbottom;
@@ -134,6 +136,33 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //            img_arrow.setImageResource(R.drawable.arrow_right);
 
 
+
+
+        if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
+            image_telegram.setVisibility(View.INVISIBLE);
+        }
+        if (tools.checkPackageInstalled("com.instagram.android", this)) {
+            image_instagram.setVisibility(View.INVISIBLE);
+        }
+
+
+        if (tools.checkPackageInstalled("org.telegram.messenger", this)) { //no telegram
+            if (tools.checkPackageInstalled("com.instagram.android", this)) { // no instagram
+                text_follow_us.setVisibility(View.INVISIBLE);
+            }
+        }
+        if (tools.checkPackageInstalled("com.instagram.android", this)) { //no instagram
+            if (tools.checkPackageInstalled("org.telegram.messenger", this)) { // no telegram
+                text_follow_us.setVisibility(View.INVISIBLE);
+            }
+        }
+
+
+
+
+
+
+
         setDrawerRecycler();
 
 
@@ -167,6 +196,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         drawer_rv = findViewById(R.id.drawer_rv);
         text_notify_count = findViewById(R.id.text_notify_count);
         txt_exit = findViewById(R.id.txt_exit);
+        text_follow_us =findViewById(R.id.text_follow_us);
 
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
@@ -376,6 +406,39 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             case R.id.rl_notification:
                 startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                break;
+
+
+            case R.id.image_instagram:
+
+                drawer_layout_home.closeDrawers();
+                Uri uriInstagram = Uri.parse("http://instagram.com/_u/poller.ir");
+                Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
+                intentInstagram.setPackage("com.instagram.android");
+
+                try {
+                    startActivity(intentInstagram);
+
+                } catch (ActivityNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.image_telegram:
+                drawer_layout_home.closeDrawers();
+                Uri uriTelegram = Uri.parse("https://t.me/Polleriran");
+                Intent intentTelegram = new Intent(Intent.ACTION_VIEW, uriTelegram);
+                intentTelegram.setPackage("org.telegram.messenger");
+
+                try {
+                    startActivity(intentTelegram);
+
+                } catch (ActivityNotFoundException e) {
+
+                    e.printStackTrace();
+                }
 
                 break;
         }

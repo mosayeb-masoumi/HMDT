@@ -31,7 +31,6 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
     var disposable: Disposable = CompositeDisposable()
     lateinit var barcode: Barcode
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_barcode_list)
@@ -64,10 +63,10 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 //            if (lists[i].name == "reza") {
 ////                lists.removeAt(i)
 ////            }
-            barcodeList.add(BarcodeData(barcode.data!![i].id,barcode.data!![i].mygroup, barcode.data!![i].decription ,barcode.data!![i].subCategory,
-                    barcode.data!![i].main,barcode.data!![i].category,barcode.data!![i].show, barcode.data!![i].owner, barcode.data!![i].brand ,
-                    barcode.data!![i].subBrand, barcode.data!![i].company , barcode.data!![i].country , barcode.data!![i].unit ,
-                    barcode.data!![i].packaging, barcode.data!![i].price,barcode.data!![i].type ,barcode.data!![i].amount,
+            barcodeList.add(BarcodeData(barcode.data!![i].id, barcode.data!![i].mygroup, barcode.data!![i].decription, barcode.data!![i].subCategory,
+                    barcode.data!![i].main, barcode.data!![i].category, barcode.data!![i].show, barcode.data!![i].owner, barcode.data!![i].brand,
+                    barcode.data!![i].subBrand, barcode.data!![i].company, barcode.data!![i].country, barcode.data!![i].unit,
+                    barcode.data!![i].packaging, barcode.data!![i].price, barcode.data!![i].type, barcode.data!![i].amount,
                     barcode.data!![i].image))
         }
 
@@ -96,23 +95,23 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
                     }
 
-                },rl_root_barcodelist,model)
+                }, rl_root_barcodelist, model)
 
 
             }
             "btnRegisterActive" -> {
 
-                val intent = Intent(this,PurchasedItemsActivity::class.java)
-                intent.putExtra("unit",model.unit)
-                intent.putExtra("product_id",model.id)
-                intent.putExtra("mygroup",model.mygroup)
+                val intent = Intent(this, PurchasedItemsActivity::class.java)
+                intent.putExtra("unit", model.unit)
+                intent.putExtra("product_id", model.id)
+                intent.putExtra("mygroup", model.mygroup)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
 
             "btnRegisterDeactive" -> {
 
-               showDeactiveActionDialog()
+                showDeactiveActionDialog()
             }
         }
     }
