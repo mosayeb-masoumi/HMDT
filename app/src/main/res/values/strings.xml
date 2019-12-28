@@ -124,5 +124,8 @@
     <string name="discount3">نوع تخفیف:</string>
     <string name="familymember2">همراهان خرید:</string>
     <string name="gifts">جوایز:</string>
+    <string name="delete">حذف</string>
+    <string name="edit">ویرایش</string>
+    <string name="no_edit_product">محصولی برای ویرایش وجود ندارد</string>
 
 </resources>

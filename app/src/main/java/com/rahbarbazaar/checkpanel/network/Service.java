@@ -6,6 +6,7 @@ import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
+import com.rahbarbazaar.checkpanel.models.edit_products.EditProductsData;
 import com.rahbarbazaar.checkpanel.models.history.HistoryData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
@@ -97,6 +98,9 @@ public interface Service {
     Call<HistoryData> getHistoryList(@Query("page") Integer page);
 
 
+    @POST("Bought/Index")
+    Call<EditProductsData> getEditProductsList(@Query("shopping_id") String shopping_id ,
+                                               @Query("page") Integer page );
 
 
 }

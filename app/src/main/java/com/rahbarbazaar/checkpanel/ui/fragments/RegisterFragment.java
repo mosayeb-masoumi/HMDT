@@ -34,6 +34,7 @@ import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
+import com.rahbarbazaar.checkpanel.ui.activities.EditProductsActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
@@ -446,9 +447,15 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             getShoppingEditInfo(id);
 
         }else if(action.equals("register")){
+
             Toast.makeText(getContext(), "register", Toast.LENGTH_SHORT).show();
+
         }else if(action.equals("edit_product")){
-            Toast.makeText(getContext(), "edit_product", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getContext(), EditProductsActivity.class);
+            intent.putExtra("shopping_id",id);
+            startActivity(intent);
+            getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
     }
 

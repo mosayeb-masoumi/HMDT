@@ -88,6 +88,9 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
               }else if(response.code()==422){
                   showbtn()
 
+              }else if(response.code()==204){
+                  Toast.makeText(this@QRcodeActivity, "محصول وجود ندارد", Toast.LENGTH_SHORT).show()
+                  showbtn()
               }else{
                   Toast.makeText(this@QRcodeActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                   showbtn()
