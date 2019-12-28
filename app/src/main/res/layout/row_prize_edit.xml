@@ -22,6 +22,8 @@
                 android:text="ghkfjdsfgfdgdhgdfghdfghdfhgdhgdghd"
                 android:gravity="center"
                 android:textSize="13sp"
+                android:paddingEnd="2dp"
+                android:paddingStart="2dp"
                 android:textColor="@color/blue_dark"
                 android:id="@+id/txt_name_edited"/>
         </RelativeLayout>

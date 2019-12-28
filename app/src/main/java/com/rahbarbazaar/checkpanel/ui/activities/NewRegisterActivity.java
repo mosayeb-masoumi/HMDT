@@ -100,7 +100,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     String date = "";
     String str_spnItemId;
     String checkbox_text = "";
-    LinearLayout layout_register;
+    RelativeLayout layout_register;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
