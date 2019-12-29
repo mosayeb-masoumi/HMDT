@@ -54,7 +54,7 @@ class LoginActivity : CustomBaseActivity() {
 
     private fun requestLogin() {
 
-       var mobile = edt_phone.text.toString()
+       val mobile = edt_phone.text.toString()
 
         val service = ServiceProvider(this).getmService()
         val call = service.login(mobile)
@@ -109,39 +109,7 @@ class LoginActivity : CustomBaseActivity() {
                 btn_submit_login.visibility = View.VISIBLE
             }
 
-
         })
-
-
-
-
-
-//        disposable.add(service.login(mobile)
-//                .observeOn(AndroidSchedulers.mainThread() )
-//                .subscribeOn(Schedulers.io())
-//                .subscribeWith(object  : DisposableSingleObserver<LoginModel>(){
-//                    override fun onSuccess(result: LoginModel) {
-//
-//                       var a :String = result.data.toString()
-//                        var b :String =a
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//
-//                        var a : Int =(e as HttpException).code()
-//
-//                        if(a==422){
-//                            var b =a
-//                        }
-//                    }
-//                }))
-
-
-
-
-
-
-
 
     }
 

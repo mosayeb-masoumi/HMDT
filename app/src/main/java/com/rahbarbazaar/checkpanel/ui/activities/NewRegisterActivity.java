@@ -64,12 +64,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 import java.util.ArrayList;
 import java.util.List;
 
-//import io.reactivex.disposables.CompositeDisposable;
-//import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -96,7 +92,6 @@ public class NewRegisterActivity extends CustomBaseActivity
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
-    private PersianDatePickerDialog picker;
     String date = "";
     String str_spnItemId;
     String checkbox_text = "";
@@ -155,11 +150,11 @@ public class NewRegisterActivity extends CustomBaseActivity
             btn_register.setVisibility(View.GONE);
             btn_update.setVisibility(View.VISIBLE);
 
-            if (shoppingEditModel.data.shopping.discountType.equals("percent")) {
+            if (shoppingEditModel.data.shopping.discount_type.equals("percent")) {
                 checkBox_precentage.setChecked(true);
                 checkBox_amount.setChecked(false);
 
-            } else if (shoppingEditModel.data.shopping.discountType.equals("amount")) {
+            } else if (shoppingEditModel.data.shopping.discount_type.equals("amount")) {
                 checkBox_precentage.setChecked(false);
                 checkBox_amount.setChecked(true);
             }
@@ -292,10 +287,12 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.rl_calander:
-                showCalander();
+//                showCalander();
+                showCalendarDialog();
                 break;
             case R.id.edtDate:
-                showCalander();
+//                showCalander();
+                showCalendarDialog();
                 break;
 
             case R.id.rl_prize:
@@ -308,34 +305,53 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
     }
 
-    private void showCalander() {
-        final InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(edtDate, InputMethodManager.SHOW_IMPLICIT);
+    private void showCalendarDialog() {
 
-        picker = new PersianDatePickerDialog(this)
-                .setPositiveButtonString("تایید")
-                .setNegativeButton("انصراف")
-                .setTodayButton("امروز")
-                .setTodayButtonVisible(true)
-                .setMinYear(1397)
-                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-                .setActionTextColor(Color.GRAY)
-                .setListener(new Listener() {
-                    @Override
-                    public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
-                        date = persianCalendar.getPersianYear() + "/" +
-                                (String.valueOf(persianCalendar.getPersianMonth()).length() < 2 ? "0" + persianCalendar.getPersianMonth() : persianCalendar.getPersianMonth()) + "/" +
-                                (String.valueOf(persianCalendar.getPersianDay()).length() < 2 ? "0" + persianCalendar.getPersianDay() : persianCalendar.getPersianDay());
+        dialogFactory.createCalendarDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
 
-                        edtDate.setText(date);
-                    }
+                String date = params[0];
+                edtDate.setText(date);
 
-                    @Override
-                    public void onDismissed() {
-                    }
-                });
-        picker.show();
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register);
+
     }
+
+//    private void showCalander() {
+//        final InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.showSoftInput(edtDate, InputMethodManager.SHOW_IMPLICIT);
+//
+//        picker = new PersianDatePickerDialog(this)
+//                .setPositiveButtonString("تایید")
+//                .setNegativeButton("انصراف")
+//                .setTodayButton("امروز")
+//                .setTodayButtonVisible(true)
+//                .setMinYear(1397)
+//                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+//                .setActionTextColor(Color.GRAY)
+//                .setListener(new Listener() {
+//                    @Override
+//                    public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+//                        date = persianCalendar.getPersianYear() + "/" +
+//                                (String.valueOf(persianCalendar.getPersianMonth()).length() < 2 ? "0" + persianCalendar.getPersianMonth() : persianCalendar.getPersianMonth()) + "/" +
+//                                (String.valueOf(persianCalendar.getPersianDay()).length() < 2 ? "0" + persianCalendar.getPersianDay() : persianCalendar.getPersianDay());
+//
+//                        edtDate.setText(date);
+//                    }
+//
+//                    @Override
+//                    public void onDismissed() {
+//                    }
+//                });
+//        picker.show();
+//    }
 
     private void showAddMemberDialog() {
 
@@ -481,6 +497,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     private void sendRegisterData() {
 
         btn_register.setVisibility(View.GONE);
+        btn_update.setVisibility(View.GONE);
         avi.setVisibility(View.VISIBLE);
 
         String total_amount = edt_total_amount.getText().toString();
@@ -494,11 +511,11 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setShop_id(str_spnItemId);
         sendData.setCost(total_amount);
         sendData.setPaid(total_paid);
-        sendData.setLat(Cache.getString(NewRegisterActivity.this,"lat"));
-        sendData.setLng(Cache.getString(NewRegisterActivity.this,"lng"));
+        sendData.setLat(Cache.getString(NewRegisterActivity.this, "lat"));
+        sendData.setLng(Cache.getString(NewRegisterActivity.this, "lng"));
 
 //        if (Cache.getString("validate_area").equals("true")) {
-        if (Cache.getString(NewRegisterActivity.this,"validate_area").equals("true")) {
+        if (Cache.getString(NewRegisterActivity.this, "validate_area").equals("true")) {
             sendData.setValidate_area("yes");
         } else {
             sendData.setValidate_area("no");
@@ -524,7 +541,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                     String shopping_id = response.body().data;
 //                    Cache.setString("shopping_id",shopping_id);
-                    Cache.setString(NewRegisterActivity.this,"shopping_id",shopping_id);
+                    Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
                     createChooseScannerDialog();
 
@@ -663,6 +680,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     private void sendUpdateData() {
         btn_update.setVisibility(View.GONE);
+        btn_register.setVisibility(View.GONE);
         avi.setVisibility(View.VISIBLE);
 
         String total_amount = edt_total_amount.getText().toString();
@@ -678,16 +696,24 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setPaid(total_paid);
 
 //        sendData.setShopping_id(Cache.getString("shopping_id"));
-        sendData.setShopping_id(Cache.getString(NewRegisterActivity.this,"shopping_id"));
+        sendData.setShopping_id(Cache.getString(NewRegisterActivity.this, "shopping_id"));
 
         String chechBox_type = checkbox_text;
-        if (chechBox_type.equals("مبلغی")) {
+        if(!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()){
+            chechBox_type = "";
+        }
+
+
+        if (chechBox_type.equals("مبلغ") || chechBox_type.equals("amount")) {
             sendData.setDiscount_type("amount");
             sendData.setDiscount_amount(discount_amount);
-        } else {
+        } else if(chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
             sendData.setDiscount_type("percent");
             sendData.setDiscount_amount(discount_amount);
+        }else {
+            sendData.setDiscount_type("not_set");
         }
+
         sendData.setDate(date);
 
         Service service = new ServiceProvider(this).getmService();
@@ -697,13 +723,18 @@ public class NewRegisterActivity extends CustomBaseActivity
             public void onResponse(Call<GetShopId> call, Response<GetShopId> response) {
                 if (response.code() == 200) {
 
+                    btn_update.setVisibility(View.VISIBLE);
+                    btn_register.setVisibility(View.GONE);
+                    avi.setVisibility(View.GONE);
+
                     String id = response.body().data;
                     Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.update_done), Toast.LENGTH_SHORT).show();
                     finish();
 
                 } else if (response.code() == 422) {
 
-                    btn_register.setVisibility(View.VISIBLE);
+                    btn_update.setVisibility(View.VISIBLE);
+                    btn_register.setVisibility(View.GONE);
                     avi.setVisibility(View.GONE);
                     builderMember = null;
                     builderShopId = null;
@@ -788,7 +819,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                 } else {
                     Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                    btn_register.setVisibility(View.VISIBLE);
+                    btn_update.setVisibility(View.VISIBLE);
+                    btn_register.setVisibility(View.GONE);
                     avi.setVisibility(View.GONE);
                 }
             }
@@ -797,6 +829,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             public void onFailure(Call<GetShopId> call, Throwable t) {
                 Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
                 btn_update.setVisibility(View.VISIBLE);
+                btn_register.setVisibility(View.GONE);
                 avi.setVisibility(View.GONE);
             }
         });

@@ -77,7 +77,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
 
-    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
+//    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
     implementation 'com.github.samanzamani.persiandate:PersianDate:0.3'
 
     //scanner

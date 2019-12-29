@@ -113,28 +113,17 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
                 if (response.code() == 200) {
 
-                    var expireAt: Int
+                    val expireAt: Int
 
-                    var access_token = response.body()?.accessToken
-                    var refresh_token = response.body()?.refreshToken
+                    val access_token = response.body()?.accessToken
+                    val refresh_token = response.body()?.refreshToken
                     expireAt = response.body()?.expireAt!!
 
-//                    Cache.setString("access_token", access_token)
-//                    Cache.setString("refresh_token", refresh_token)
-//                    Cache.setInt("expireAt", expireAt)
 
                     Cache.setString(this@VerificationActivity,"access_token",access_token)
                     Cache.setString(this@VerificationActivity,"refresh_token",refresh_token)
                     Cache.setInt(this@VerificationActivity,"expireAt",expireAt)
 
-
-
-//                    var n :String= Cache.getString(this@VerificationActivity,"refresh_token")
-//                    var m:String = n
-//
-//
-//                    var a :Int = Cache.getInt(this@VerificationActivity,"expireAt")
-//                    var b:Int = a
 
                     requestDashboardData()
 

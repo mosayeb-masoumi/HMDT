@@ -38,5 +38,4 @@ public class EditProducts {
     @SerializedName("bought_prize")
     @Expose
     public String boughtPrize;
-
 }

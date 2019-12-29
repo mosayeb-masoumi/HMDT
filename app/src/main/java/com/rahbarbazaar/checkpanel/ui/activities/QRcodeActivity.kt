@@ -68,8 +68,9 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
         showAvi()
 
+        val barcode = edt_barcode.text.toString()
         val service = ServiceProvider(this).getmService()
-        val call = service.getBarcodeList(ResultScan)
+        val call = service.getBarcodeList(barcode)
 //        val call = service.getBarcodeList("1398")
         call.enqueue(object : Callback<Barcode> {
             override fun onResponse(call: Call<Barcode>, response: Response<Barcode>) {

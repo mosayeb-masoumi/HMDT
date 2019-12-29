@@ -16,7 +16,7 @@ public class Shopping {
     public Integer paid;
     @SerializedName("discount_type")
     @Expose
-    public String discountType;
+    public String discount_type;
     @SerializedName("discount_amount")
     @Expose
     public Integer discount_amount;

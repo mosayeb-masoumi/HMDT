@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.NullPointerException
 import java.util.*
 
 
@@ -51,7 +52,13 @@ class SplashActivity : CustomBaseActivity() {
     }
 
     private fun startActivity() {
-         val accessToken = Cache.getString(this@SplashActivity,"access_token")
+         var accessToken = Cache.getString(this@SplashActivity,"access_token")
+        // add this condition to remove unwanted bug for clause
+        if(accessToken == null){
+            accessToken = ""
+        }
+
+
         if (accessToken != "") {
             requestDashboardData()
 

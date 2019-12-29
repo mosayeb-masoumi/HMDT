@@ -36,16 +36,17 @@ public class ServiceProvider {
         clientBuilder.cache(null);
 
 
-//        if (!Cache.getString("access_token").equals("")) {
-        if (!Cache.getString(context,"access_token").equals("")) {
+
+        String accessToken = Cache.getString(context,"access_token");
+         if(accessToken==null){
+             accessToken ="";
+         }
+
+        if (!accessToken.equals("")) {
             clientBuilder.addInterceptor(chain -> {
 
-//                String a = Cache.getString("access_token");
-                String a = Cache.getString(context,"access_token");
-                String b = a ;
 
                 Request request = chain.request().newBuilder()
-//                        .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
                         .addHeader("Authorization", "Bearer " + Cache.getString(context,"access_token"))
                         .addHeader("language", "fa")
                         .addHeader("Accept", "application/json")
@@ -63,8 +64,6 @@ public class ServiceProvider {
                 return chain.proceed(request);
             });
         }
-
-
 
 
 
@@ -87,11 +86,6 @@ public class ServiceProvider {
                 if (tokenModelResponse.isSuccessful()) {
 
 
-
-//                    //save token
-//                    Cache.setString("access_token",tokenModelResponse.body().accessToken);
-//                    Cache.setString("refresh_token",tokenModelResponse.body().refreshToken);
-//                    Cache.setInt("expireAt",tokenModelResponse.body().expireAt);
 
                     //save token
                     Cache.setString(context,"access_token",tokenModelResponse.body().accessToken);

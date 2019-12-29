@@ -1,11 +1,14 @@
 package com.rahbarbazaar.checkpanel.network;
 
 
+import android.provider.ContactsContract;
+
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
+import com.rahbarbazaar.checkpanel.models.edit_products.DeleteProduct;
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProductsData;
 import com.rahbarbazaar.checkpanel.models.history.HistoryData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
@@ -103,4 +106,6 @@ public interface Service {
                                                @Query("page") Integer page );
 
 
+    @POST("Bought/Delete")
+    Call<DeleteProduct> deleteEditProductItem(@Query("bought_id") String bought_id);
 }
