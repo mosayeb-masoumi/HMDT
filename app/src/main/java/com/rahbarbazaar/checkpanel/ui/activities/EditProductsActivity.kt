@@ -18,11 +18,12 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.EditProductsAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.EditProductsItemInteraction
 import com.rahbarbazaar.checkpanel.models.edit_products.DeleteProduct
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProductsData
+import com.rahbarbazaar.checkpanel.models.edit_products.TotalEditProductData
 
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
+import com.rahbarbazaar.checkpanel.utilities.RxBus
 import com.wang.avi.AVLoadingIndicatorView
 import kotlinx.android.synthetic.main.activity_edit_product.*
 import retrofit2.Call
@@ -37,7 +38,8 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
     var shopping_id: String = ""
 
-    lateinit var editProductsData: EditProductsData
+    //    lateinit var editProductsData: EditProductsData
+    lateinit var totalEditProductData: TotalEditProductData
     lateinit var editProducts: ArrayList<EditProducts>
     private lateinit var adapter: EditProductsAdapter
 
@@ -64,8 +66,8 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
 
         // todo return to dynamic mode
-//        shopping_id = getIntent().getStringExtra("shopping_id")
-        shopping_id = "2feb92aea0ce4986a5638f7d2f8b4ffa"
+        shopping_id = getIntent().getStringExtra("shopping_id")
+//        shopping_id = "2feb92aea0ce4986a5638f7d2f8b4ffa"
 
 
     }
@@ -76,15 +78,16 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
         avi_edit_products.visibility = View.VISIBLE
         val service = ServiceProvider(this@EditProductsActivity).getmService()
         val call = service.getEditProductsList(shopping_id, page)
-        call.enqueue(object : Callback<EditProductsData> {
+        call.enqueue(object : Callback<TotalEditProductData> {
 
-            override fun onResponse(call: Call<EditProductsData>, response: Response<EditProductsData>) {
+            override fun onResponse(call: Call<TotalEditProductData>, response: Response<TotalEditProductData>) {
 
                 avi_edit_products.visibility = View.GONE
                 if (response.code() == 200) {
 
-                    editProductsData = response.body()!!
-                    setRecyclerview(editProductsData)
+                    totalEditProductData = response.body()!!
+                    setRecyclerview(totalEditProductData)
+
 
                 } else if (response.code() == 204) {
 
@@ -99,7 +102,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
             }
 
-            override fun onFailure(call: Call<EditProductsData>, t: Throwable) {
+            override fun onFailure(call: Call<TotalEditProductData>, t: Throwable) {
                 Toast.makeText(this@EditProductsActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 avi_edit_products.visibility = View.GONE
             }
@@ -107,19 +110,19 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
         })
     }
 
-    private fun setRecyclerview(editProductsData: EditProductsData) {
+    private fun setRecyclerview(totalEditProductData: TotalEditProductData) {
 
-        totalPages = editProductsData.total!!
+        totalPages = totalEditProductData.data.total
         if (page == 0) {
             editProducts.clear()
 
             // repeat here because of local delete
-            if (editProductsData.data.size == 0) {
+            if (totalEditProductData.data.bought.data.size == 0) {
                 txt_no_edit_product.visibility = View.VISIBLE
             }
         }
 
-        editProducts.addAll(editProductsData.data)
+        editProducts.addAll(totalEditProductData.data.bought.data)
 
         linearLayoutManager = LinearLayoutManager(this@EditProductsActivity, LinearLayout.VERTICAL, false)
         val rv_edit_products: RecyclerView = findViewById(R.id.rv_edit_products)
@@ -167,10 +170,19 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
             avi.visibility = View.VISIBLE
             btn_delete.visibility = View.GONE
-            sendDeleteItemId(model.id  , avi ,btn_delete)
+            sendDeleteItemId(model.id, avi, btn_delete)
 
         } else if (status == "edit") {
-            Toast.makeText(this@EditProductsActivity, "edit", Toast.LENGTH_SHORT).show()
+
+
+            //to send data to EditProductsDetailActivity
+            RxBus.TotalEditProductData.publishTotalEditProductData(totalEditProductData)
+            val intent = Intent(this@EditProductsActivity, EditProductsDetailActivity::class.java)
+            intent.putExtra("position", position)
+            intent.putExtra("id_editProductItem",model.id)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+
         }
 
     }
@@ -195,7 +207,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
                     Toast.makeText(this@EditProductsActivity, resources.getString(R.string.product_deleted), Toast.LENGTH_SHORT).show()
 
                     //update list
-                    page=0
+                    page = 0
                     getEditList(page)
 
                 } else if (response.code() == 204) {

@@ -9,7 +9,10 @@ import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCr
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.edit_products.DeleteProduct;
+import com.rahbarbazaar.checkpanel.models.edit_products.EditProductDetailUpdateSendData;
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProductsData;
+import com.rahbarbazaar.checkpanel.models.edit_products.TotalEditProductData;
+import com.rahbarbazaar.checkpanel.models.edit_products.UpdateEditProductDetailResult;
 import com.rahbarbazaar.checkpanel.models.history.HistoryData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
 import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
@@ -102,10 +105,14 @@ public interface Service {
 
 
     @POST("Bought/Index")
-    Call<EditProductsData> getEditProductsList(@Query("shopping_id") String shopping_id ,
-                                               @Query("page") Integer page );
+    Call<TotalEditProductData> getEditProductsList(@Query("shopping_id") String shopping_id ,
+                                                   @Query("page") Integer page );
 
 
     @POST("Bought/Delete")
     Call<DeleteProduct> deleteEditProductItem(@Query("bought_id") String bought_id);
+
+
+    @POST("Bought/Update")
+    Call<UpdateEditProductDetailResult> updateEditProductDetail(@Body EditProductDetailUpdateSendData sendData);
 }

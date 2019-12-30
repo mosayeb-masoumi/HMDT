@@ -30,6 +30,7 @@
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.MessageActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.HistoryActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.EditProductsActivity" />
+        <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.EditProductsDetailActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.VerificationActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.LoginActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.LanguageActivity" />

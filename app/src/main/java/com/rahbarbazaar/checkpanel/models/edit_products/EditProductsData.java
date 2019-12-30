@@ -10,7 +10,13 @@ public class EditProductsData {
     @SerializedName("total")
     @Expose
     public Integer total;
-    @SerializedName("data")
+    @SerializedName("bought")
     @Expose
-    public List<EditProducts> data = null;
+    public Bought bought;
+    @SerializedName("member")
+    @Expose
+    public List<List<Member>> member = null;
+    @SerializedName("prize")
+    @Expose
+    public List<List<Prize>> prize = null;
 }

@@ -14,6 +14,9 @@ public class EditProducts {
     @SerializedName("amount")
     @Expose
     public String amount;
+    @SerializedName("unit")
+    @Expose
+    public String unit;
     @SerializedName("created_at")
     @Expose
     public String createdAt;
@@ -35,7 +38,13 @@ public class EditProducts {
     @SerializedName("bought_member")
     @Expose
     public String boughtMember;
+    @SerializedName("bought_member_data")
+    @Expose
+    public BoughtMemberData boughtMemberData;
     @SerializedName("bought_prize")
     @Expose
     public String boughtPrize;
+    @SerializedName("bought_prize_data")
+    @Expose
+    public BoughtPrizeData boughtPrizeData;
 }

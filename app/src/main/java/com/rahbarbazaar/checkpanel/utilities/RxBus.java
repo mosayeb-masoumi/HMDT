@@ -8,7 +8,6 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public final class RxBus {
 
-
     public static class DashboardModel {
         //this how to create our bus
         private static final BehaviorSubject<Object> behaviorSubject
@@ -23,19 +22,6 @@ public final class RxBus {
         }
     }
 
-//    public static class DashboardUpdateModel {
-//        //this how to create our bus
-//        private static final BehaviorSubject<Object> behaviorSubject
-//                = BehaviorSubject.create();
-//
-//        public static Disposable subscribeDashboardUpdateModel(@NonNull Consumer<Object> action) {
-//            return behaviorSubject.subscribe(action);
-//        }
-//        //use this method to send data
-//        public static void publishDashboardUpdateModel(@NonNull Object message) {
-//            behaviorSubject.onNext(message);
-//        }
-//    }
 
     public static class RegisterModel {
         private static final BehaviorSubject<Object> behaviorSubject
@@ -74,6 +60,21 @@ public final class RxBus {
         }
 
         public static void publishBarcodeList(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
+
+    public static class TotalEditProductData {
+
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeTotalEditProductData(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        public static void publishTotalEditProductData(@NonNull Object message) {
             behaviorSubject.onNext(message);
         }
     }
