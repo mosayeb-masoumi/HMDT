@@ -665,7 +665,11 @@ public class NewRegisterActivity extends CustomBaseActivity
 
             @Override
             public void onDeniedButtonClicked(boolean bool) {
-                Toast.makeText(NewRegisterActivity.this, "search clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(NewRegisterActivity.this, "search clicked", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(NewRegisterActivity.this, QRcodeActivity.class));
+                Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+                intent.putExtra("static_barcode","static_barcode");
+                startActivity(intent);
             }
         }, layout_register);
     }

@@ -43,7 +43,18 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         btn_choose_scanner.setOnClickListener(this)
         btn_choose_search.setOnClickListener(this)
         btn_register_barcode.setOnClickListener(this)
-        edt_barcode.setText(ResultScan)
+
+
+        // state can be null
+        val state:String? = intent.getStringExtra("static_barcode")
+        if(state=="static_barcode"){
+            edt_barcode.setText("")
+        }else{
+            edt_barcode.setText(ResultScan)
+        }
+
+
+
     }
 
     override fun onClick(view: View) {

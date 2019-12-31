@@ -22,7 +22,7 @@ public class App extends Application {
 
 
 
-//        //todo delete leakCanary
+      //todo delete leakCanary
 //        if (LeakCanary.isInAnalyzerProcess(this)) {
 //            return;
 //        }
