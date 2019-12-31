@@ -50,5 +50,8 @@ public class ScanActivity extends CustomBaseActivity implements ZXingScannerView
         super.onBackPressed();
 
         QRcodeActivity.ResultScan="";
+        startActivity(new Intent(ScanActivity.this,QRcodeActivity.class));
+        finish();
+
     }
 }
