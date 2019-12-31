@@ -13,7 +13,6 @@ import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData
 
 class BarcodeListViewHolder (view: View, val context:Context) : RecyclerView.ViewHolder(view){
 
-
     private val txtDescription: TextView = view.findViewById(R.id.txt_barcoselist_item)
     private val btnDetail: Button = view.findViewById(R.id.btn_detail_barcoselist_item)
     private val btnRegisterActive: Button = view.findViewById(R.id.btn_register_active)

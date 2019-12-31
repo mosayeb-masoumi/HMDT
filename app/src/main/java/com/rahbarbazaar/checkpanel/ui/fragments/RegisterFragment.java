@@ -71,17 +71,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     RelativeLayout rl_fr_register, rl_btn_register;
     TextView txt_no_shop;
 
-    //    private EndlessRecyclerOnScrollListener scrollListener;
     LinearLayoutManager linearLayoutManager;
     Boolean isScrolling = false;
-
     int totalPage = 0;
     int page = 0;
+    int currentItems, totalItems, scrollOutItems;
 
     List<ActiveListModel> activeListModel ;
-
-    //    private boolean loading = true;
-    int currentItems, totalItems, scrollOutItems;
 
     public RegisterFragment() {
         // Required empty public constructor

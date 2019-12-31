@@ -19,13 +19,13 @@ public class EditProducts {
     public String unit;
     @SerializedName("created_at")
     @Expose
-    public String createdAt;
+    public String created_at;
     @SerializedName("discount")
     @Expose
     public String discount;
     @SerializedName("discount_type")
     @Expose
-    public String discountType;
+    public String discount_type;
     @SerializedName("cost")
     @Expose
     public String cost;

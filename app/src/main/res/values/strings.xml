@@ -130,5 +130,6 @@
     <string name="product_deleted">محصول با موفقیت حذف شد</string>
     <string name="today">امروز</string>
     <string name="calendar">تقویم</string>
+    <string name="no_transaction">هیچ تراکنشی ثبت نشده است</string>
 
 </resources>

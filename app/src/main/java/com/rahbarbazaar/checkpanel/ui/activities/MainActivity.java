@@ -39,7 +39,7 @@ import com.rahbarbazaar.checkpanel.network.ServiceProvider;
 import com.rahbarbazaar.checkpanel.ui.fragments.ShopFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.HomeFragment;
 import com.rahbarbazaar.checkpanel.ui.fragments.RegisterFragment;
-import com.rahbarbazaar.checkpanel.ui.fragments.AccountFragment;
+import com.rahbarbazaar.checkpanel.ui.fragments.TransactionFragment;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
@@ -262,6 +262,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 String count = ConvertEnDigitToFa.convert(String.valueOf(updateData.data.getUnread()));
                 text_notify_count.setText(count);
             }
+        }else if(updateData.data.getUnread() ==0){
+            ll_notify_count.setVisibility(View.GONE);
         }
     }
 
@@ -533,9 +535,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_left.setVisibility(View.GONE);
 
 
-            AccountFragment accountFragment = new AccountFragment();
+            TransactionFragment transactionFragment = new TransactionFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.frame_layout, accountFragment, "tag").commit();
+            manager.beginTransaction().replace(R.id.frame_layout, transactionFragment, "tag").commit();
 
 
         } else if (position == 0) {

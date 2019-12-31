@@ -28,6 +28,7 @@ import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.register.SendRegisterTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
+import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel;
 
 import retrofit2.Call;
@@ -115,4 +116,7 @@ public interface Service {
 
     @POST("Bought/Update")
     Call<UpdateEditProductDetailResult> updateEditProductDetail(@Body EditProductDetailUpdateSendData sendData);
+
+    @POST("Wallet/Index")
+    Call<TransactionData> getTransactionList(@Query("page") Integer page);
 }

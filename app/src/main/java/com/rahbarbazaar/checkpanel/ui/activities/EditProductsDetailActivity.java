@@ -13,6 +13,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.EditPrizeAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.PrizeAdapter;
@@ -45,8 +48,10 @@ import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
@@ -78,7 +83,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_root;
     Button btn_register, btn_cancel;
     EditText edt_discount, edt_total_amount, edt_paid, edt_amount;
-    TextView txt_unit;
+    TextView txt_unit, txt_amount_title, txt_currency,txt_currency2;
 
     CheckBox checkBox_precentage, checkBox_amount;
 
@@ -125,17 +130,28 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         setEditPrizeRecycler(editProducts.boughtPrizeData.data);
 
 
-        edt_amount.setText(editProducts.amount);
-        edt_discount.setText(editProducts.discount);
-        edt_paid.setText(editProducts.paid);
-        edt_total_amount.setText(editProducts.cost);
-        txt_unit.setText(editProducts.unit);
+        if (editProducts.discount_type.equals("مبلغی")) {
+            checkBox_amount.setChecked(true);
+        } else if (editProducts.discount_type.equals("درصدی")) {
+            checkBox_precentage.setChecked(true);
+        }
 
 
         if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
             edt_discount.setHint(getResources().getString(R.string.percent_amount));
             edt_discount.setEnabled(false);
         }
+
+        txt_amount_title.setText(String.format("%s(%s)", getResources().getString(R.string.amount), editProducts.currency));
+        edt_amount.setText(editProducts.amount);
+        edt_discount.setText(editProducts.discount);
+        edt_paid.setText(editProducts.paid);
+        edt_total_amount.setText(editProducts.cost);
+        txt_unit.setText(editProducts.unit);
+        txt_currency.setText(String.format("(%s)", editProducts.currency));
+        txt_currency2.setText(String.format("(%s)", editProducts.currency));
+
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
 
     }
@@ -156,8 +172,11 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         edt_total_amount = findViewById(R.id.edt_total_amount);
         edt_paid = findViewById(R.id.edt_paid);
         edt_amount = findViewById(R.id.edt_amount);
+        txt_amount_title = findViewById(R.id.txt_amount_title);
+        txt_currency = findViewById(R.id.txt_currency);
+        txt_currency2= findViewById(R.id.txt_currency2);
 
-        txt_unit =findViewById(R.id.txt_unit);
+        txt_unit = findViewById(R.id.txt_unit);
         checkBox_precentage = findViewById(R.id.checkBox_precentage);
         checkBox_amount = findViewById(R.id.checkBox_amount);
 
@@ -432,7 +451,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         sendData.setBought_id(bought_id);
 
 
-
         if (checkBox_precentage.isChecked()) {
             sendData.setDiscount_type("percent");
             sendData.setDiscount_amount(edt_discount.getText().toString());
@@ -442,14 +460,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         }
 
 
-
-
         Service service = new ServiceProvider(this).getmService();
         Call<UpdateEditProductDetailResult> call = service.updateEditProductDetail(sendData);
         call.enqueue(new Callback<UpdateEditProductDetailResult>() {
             @Override
             public void onResponse(Call<UpdateEditProductDetailResult> call, Response<UpdateEditProductDetailResult> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
 
                     avi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
@@ -457,7 +473,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                     Toast.makeText(EditProductsDetailActivity.this, getResources().getString(R.string.update_done), Toast.LENGTH_SHORT).show();
                     finish();
 
-                }else{
+                } else {
                     avi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
                     Toast.makeText(EditProductsDetailActivity.this, getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();

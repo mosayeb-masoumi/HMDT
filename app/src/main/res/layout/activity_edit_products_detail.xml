@@ -5,18 +5,286 @@
     android:id="@+id/layout_edit_product_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
     tools:context=".ui.fragments.RegisterFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="ویرایش محصول"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_header"
         android:layout_marginBottom="80dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/amount2"
+                android:textColor="@color/blue_dark" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item">
+
+                <EditText
+
+                    android:id="@+id/edt_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:backgroundTint="@color/blue"
+                    android:gravity="center"
+                    android:hint="@string/amount2"
+                    android:inputType="number"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txt_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="2dp"
+                    android:layout_toStartOf="@+id/edt_amount"
+                    android:text="sddfs"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tottal_amount"
+                    android:id="@+id/header1"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/blue_dark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_dark"
+                    android:layout_toStartOf="@+id/header1"
+                    android:text="واحد"
+                    android:id="@+id/txt_currency"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item">
+
+                <EditText
+                    android:id="@+id/edt_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/tottal_amount"
+                    android:inputType="number"
+                    android:padding="5sp"
+                    android:backgroundTint="@color/blue"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/paid_amount"-->
+                <!--android:textColor="@color/blue_dark" />-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/paid_amount"
+                    android:id="@+id/header2"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/blue_dark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue_dark"
+                    android:layout_toStartOf="@+id/header2"
+                    android:text="واحد"
+                    android:id="@+id/txt_currency2"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item">
+
+                <EditText
+                    android:id="@+id/edt_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:backgroundTint="@color/blue"
+                    android:gravity="center"
+                    android:hint="@string/paid_amount"
+                    android:inputType="number"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/discount_amount"
+                android:textColor="@color/blue_dark" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <EditText
+                        android:id="@+id/edt_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:hint="@string/percent_amount"
+                        android:inputType="number"
+                        android:layout_centerInParent="true"
+                        android:padding="10dp"
+                        android:maxLength="12"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/blue_dark"
+                        android:textColorHint="@color/blue"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3">
+
+                    <TextView
+                        android:id="@+id/txt_amount_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toStartOf="@+id/checkBox_amount"
+                        android:gravity="center_vertical"
+
+                        android:textColor="@color/blue_dark" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        app:buttonTint="@color/blue_dark" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1.1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="2dp"
+                        android:layout_toStartOf="@+id/checkBox_precentage"
+                        android:gravity="center_vertical"
+                        android:text="@string/percentage"
+                        android:textColor="@color/blue_dark" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox_precentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        app:buttonTint="@color/blue_dark" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
 
             <RelativeLayout
                 android:id="@+id/rl_addmember"
@@ -88,192 +356,9 @@
                 android:id="@+id/recycler_prize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item">
-
-                <EditText
-                    android:id="@+id/edt_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:cursorVisible="true"
-                    android:hint="@string/amount2"
-                    android:inputType="number"
-                    android:padding="5sp"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/txt_unit"
-                    android:layout_marginEnd="2dp"
-                    android:layout_toStartOf="@+id/edt_amount"
-                    android:text="sddfs"
-                    android:textColor="@color/blue_dark"
-                    android:textSize="14sp" />
-
-            </RelativeLayout>
-
-
-            <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginStart="5dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginEnd="5dp"-->
-            <!--android:background="@drawable/bg_prize_item">-->
-
-            <!--<EditText-->
-            <!---->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:cursorVisible="true"-->
-            <!---->
-            <!--android:gravity="center"-->
-            <!--android:inputType="number"-->
-            <!--android:backgroundTint="@color/blue"-->
-            <!--android:padding="5sp"-->
-            <!--android:textColor="@color/blue_dark"-->
-            <!--android:textColorHint="@color/blue"-->
-            <!--android:textDirection="rtl"-->
-            <!--android:textSize="14sp" />-->
-            <!---->
-
-            <!--</RelativeLayout>-->
-
-
-            <EditText
-                android:id="@+id/edt_total_amount"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:cursorVisible="true"
-                android:gravity="center"
-                android:hint="@string/tottal_amount"
-                android:inputType="number"
-                android:padding="5sp"
-                android:textColor="@color/blue_dark"
-                android:textColorHint="@color/blue"
-                android:textDirection="rtl"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/edt_paid"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:gravity="center"
-                android:hint="@string/paid_amount"
-                android:inputType="number"
-                android:padding="5sp"
-                android:textColor="@color/blue_dark"
-                android:textColorHint="@color/blue"
-                android:textDirection="rtl"
-                android:textSize="14sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2">
-
-                    <EditText
-                        android:id="@+id/edt_discount"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:backgroundTint="@color/blue"
-                        android:gravity="center"
-                        android:hint="@string/percent_amount"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:textColor="@color/blue_dark"
-                        android:textColorHint="@color/blue"
-                        android:textSize="15sp" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:layout_toStartOf="@+id/checkBox_amount"
-                        android:gravity="center_vertical"
-                        android:text="@string/amount"
-                        android:textColor="@color/blue_dark" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        app:buttonTint="@color/blue_dark" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:layout_toStartOf="@+id/checkBox_precentage"
-                        android:gravity="center_vertical"
-                        android:text="@string/percentage"
-                        android:textColor="@color/blue_dark" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox_precentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        app:buttonTint="@color/blue_dark" />
-
-                </RelativeLayout>
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
