@@ -180,5 +180,7 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
     @Override
     public void transactionItemOnClicked(Transaction model, int position) {
 
+//        Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+
     }
 }

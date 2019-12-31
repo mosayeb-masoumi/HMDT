@@ -21,8 +21,8 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="15dp"
-            android:src="@drawable/edit_product_icon"
+            android:padding="7dp"
+            android:src="@drawable/info_icon"
             android:id="@+id/img_info_accountlist"
             android:layout_weight="0.5"/>
 
