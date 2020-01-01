@@ -20,7 +20,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity"/>
-        <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.GraphActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.ScanActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.QRcodeActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.BarcodeListActivity" />
@@ -31,6 +30,7 @@
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.HistoryActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.EditProductsActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.EditProductsDetailActivity" />
+        <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.ProfileActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.VerificationActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.LoginActivity" />
         <activity android:name="com.rahbarbazaar.checkpanel.ui.activities.LanguageActivity" />

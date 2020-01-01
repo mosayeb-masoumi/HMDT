@@ -1,16 +1,12 @@
 package com.rahbarbazaar.checkpanel.network;
 
 
-import android.provider.ContactsContract;
-
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
-import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.edit_products.DeleteProduct;
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProductDetailUpdateSendData;
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProductsData;
 import com.rahbarbazaar.checkpanel.models.edit_products.TotalEditProductData;
 import com.rahbarbazaar.checkpanel.models.edit_products.UpdateEditProductDetailResult;
 import com.rahbarbazaar.checkpanel.models.history.HistoryData;
@@ -19,13 +15,14 @@ import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.login.LoginModel;
 import com.rahbarbazaar.checkpanel.models.message.MessageList;
 import com.rahbarbazaar.checkpanel.models.message.MessageRead;
-import com.rahbarbazaar.checkpanel.models.message.MessageUnread;
+import com.rahbarbazaar.checkpanel.models.profile.ProfileData;
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData;
 import com.rahbarbazaar.checkpanel.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.checkpanel.models.register.GetShopId;
 import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.register.SendRegisterTotalData;
+import com.rahbarbazaar.checkpanel.models.shop.ShopCenter;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
@@ -119,4 +116,12 @@ public interface Service {
 
     @POST("Wallet/Index")
     Call<TransactionData> getTransactionList(@Query("page") Integer page);
+
+    @GET("Shopcenter/Index")
+    Call<ShopCenter> getShopcenter();
+
+
+    @GET("Profile/Index")
+    Call<ProfileData> getProfileList();
+
 }

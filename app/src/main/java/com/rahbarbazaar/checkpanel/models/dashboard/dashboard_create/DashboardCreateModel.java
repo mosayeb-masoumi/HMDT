@@ -2,6 +2,8 @@ package com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.rahbarbazaar.checkpanel.models.shop.ShopCenter;
+import com.rahbarbazaar.checkpanel.models.shop.ShopCenterModel;
 
 public class DashboardCreateModel {
 
@@ -41,5 +43,8 @@ public class DashboardCreateModel {
     @SerializedName("agreement_page")
     @Expose
     public String agreementPage;
+    @SerializedName("shopCenter")
+    @Expose
+    public ShopCenter shopCenter;
 
 }

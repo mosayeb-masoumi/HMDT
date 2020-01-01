@@ -69,10 +69,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_report_issue, linear_faq, linear_submenu, linear_graph, ll_drawer;
+            linear_support, linear_report_issue, linear_faq, linear_submenu, linear_profile_drawer, ll_drawer;
     RelativeLayout ll_notify_count;
 
-    TextView txt_exit, text_notify_count,text_follow_us;
+    TextView txt_exit, text_notify_count, text_follow_us;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification, rl_curvedbottom;
@@ -136,8 +136,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //            img_arrow.setImageResource(R.drawable.arrow_right);
 
 
-
-
         if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
             image_telegram.setVisibility(View.INVISIBLE);
         }
@@ -156,11 +154,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 text_follow_us.setVisibility(View.INVISIBLE);
             }
         }
-
-
-
-
-
 
 
         setDrawerRecycler();
@@ -184,7 +177,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_message_drawer = findViewById(R.id.linear_message_drawer);
         linear_support = findViewById(R.id.linear_support);
         linear_report_issue = findViewById(R.id.linear_report_issue);
-        linear_graph = findViewById(R.id.linear_graph_drawer);
+        linear_profile_drawer = findViewById(R.id.linear_profile_drawer);
+
         linear_faq = findViewById(R.id.linear_faq);
         linear_submenu = findViewById(R.id.linear_submenu);
         linear_exit = findViewById(R.id.linear_exit);
@@ -196,7 +190,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         drawer_rv = findViewById(R.id.drawer_rv);
         text_notify_count = findViewById(R.id.text_notify_count);
         txt_exit = findViewById(R.id.txt_exit);
-        text_follow_us =findViewById(R.id.text_follow_us);
+        text_follow_us = findViewById(R.id.text_follow_us);
 
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
@@ -205,11 +199,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
         linear_faq.setOnClickListener(this);
-        linear_graph.setOnClickListener(this);
         linear_support.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
         linear_message_drawer.setOnClickListener(this);
+        linear_profile_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
 
@@ -262,7 +256,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 String count = ConvertEnDigitToFa.convert(String.valueOf(updateData.data.getUnread()));
                 text_notify_count.setText(count);
             }
-        }else if(updateData.data.getUnread() ==0){
+        } else if (updateData.data.getUnread() == 0) {
             ll_notify_count.setVisibility(View.GONE);
         }
     }
@@ -347,11 +341,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 drawer_layout_home.openDrawer(Gravity.END);
                 break;
 
-            case R.id.linear_graph_drawer:
-                drawer_layout_home.closeDrawer(Gravity.END);
-                startActivity(new Intent(MainActivity.this, GraphActivity.class));
-                MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                break;
 
             case R.id.linear_support:
 
@@ -404,6 +393,13 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
+
+            case R.id.linear_profile_drawer:
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
 
             case R.id.rl_notification:
                 startActivity(new Intent(MainActivity.this, MessageActivity.class));
@@ -480,16 +476,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             public void onAcceptButtonClicked(String... params) {
 
                 drawer_layout_home.closeDrawers();
-
-//                Cache.setString("access_token","");
-//                Cache.setString("refresh_token","");
-//                Cache.setString("expireAt","");
-
                 Cache.setString(MainActivity.this, "access_token", "");
                 Cache.setString(MainActivity.this, "refresh_token", "");
                 Cache.setString(MainActivity.this, "expireAt", "");
-
-
                 startActivity(new Intent(context, SplashActivity.class));
                 MainActivity.this.finish();
             }
@@ -509,44 +498,33 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerleft.setVisibility(View.GONE);
             img_backbtmbar_centerright.setVisibility(View.GONE);
             img_backbtmbar_left.setVisibility(View.GONE);
-
-
             HomeFragment homeFragment = new HomeFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.frame_layout, homeFragment, "tag").commit();
-
 
         } else if (position == 2) {
             img_backbtmbar_right.setVisibility(View.GONE);
             img_backbtmbar_centerleft.setVisibility(View.GONE);
             img_backbtmbar_centerright.setVisibility(View.VISIBLE);
             img_backbtmbar_left.setVisibility(View.GONE);
-
-
             RegisterFragment registerFragment = new RegisterFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.frame_layout, registerFragment, "tag").commit();
-
 
         } else if (position == 1) {
             img_backbtmbar_right.setVisibility(View.GONE);
             img_backbtmbar_centerleft.setVisibility(View.VISIBLE);
             img_backbtmbar_centerright.setVisibility(View.GONE);
             img_backbtmbar_left.setVisibility(View.GONE);
-
-
             TransactionFragment transactionFragment = new TransactionFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.frame_layout, transactionFragment, "tag").commit();
-
 
         } else if (position == 0) {
             img_backbtmbar_right.setVisibility(View.GONE);
             img_backbtmbar_centerleft.setVisibility(View.GONE);
             img_backbtmbar_centerright.setVisibility(View.GONE);
             img_backbtmbar_left.setVisibility(View.VISIBLE);
-
-
             ShopFragment shopFragment = new ShopFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.frame_layout, shopFragment, "tag").commit();

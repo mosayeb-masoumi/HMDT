@@ -36,6 +36,7 @@ import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
 import com.rahbarbazaar.checkpanel.ui.activities.EditProductsActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
+import com.rahbarbazaar.checkpanel.ui.activities.QRcodeActivity;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GpsTracker;
@@ -444,7 +445,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
         }else if(action.equals("register")){
 
-            Toast.makeText(getContext(), "register", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getContext(), QRcodeActivity.class);
+//            intent.putExtra("shopping_id",id);
+            Cache.setString(getContext(),"shopping_id",id);
+            intent.putExtra("static_barcode","static_barcode");
+            startActivity(intent);
+            getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
         }else if(action.equals("edit_product")){
 

@@ -3,13 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.ShopFragment">
 
-    <TextView
+   <android.support.v7.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="10dp"
+       android:layout_marginTop="5dp"
+       android:layout_marginEnd="10dp"
+       android:layout_marginBottom="10dp"
+       android:id="@+id/rv_shopcenter">
+
+   </android.support.v7.widget.RecyclerView>
+
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi_loading_fr_shop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forth"
         android:layout_centerInParent="true"
-        android:textSize="30dp"/>
+        android:visibility="gone"
+        app:indicatorColor="@color/blue_dark" />
 
 </RelativeLayout>

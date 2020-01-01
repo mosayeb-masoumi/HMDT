@@ -543,7 +543,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 //                    Cache.setString("shopping_id",shopping_id);
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
-                    createChooseScannerDialog();
+//                    createChooseScannerDialog();
+
+                    Intent intent = new Intent(NewRegisterActivity.this,QRcodeActivity.class);
+                    intent.putExtra("static_barcode","static_barcode");
+                    startActivity(intent);
+                    NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
                     btn_register.setVisibility(View.VISIBLE);
                     avi.setVisibility(View.GONE);
@@ -650,37 +655,35 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
     }
 
-    private void createChooseScannerDialog() {
+//    private void createChooseScannerDialog() {
+//
+//        dialogFactory.createChooseScannerDialog(new DialogFactory.DialogFactoryInteraction() {
+//            @Override
+//            public void onAcceptButtonClicked(String... params) {
+//
+//                if (checkCameraPermission()) {
+//                    startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
+//                } else {
+//                    requestCameraPermission();
+//                }
+//            }
+//
+//            @Override
+//            public void onDeniedButtonClicked(boolean bool) {
+//                Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+//                intent.putExtra("static_barcode","static_barcode");
+//                startActivity(intent);
+//            }
+//        }, layout_register);
+//    }
 
-        dialogFactory.createChooseScannerDialog(new DialogFactory.DialogFactoryInteraction() {
-            @Override
-            public void onAcceptButtonClicked(String... params) {
-
-                if (checkCameraPermission()) {
-                    startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
-                } else {
-                    requestCameraPermission();
-                }
-            }
-
-            @Override
-            public void onDeniedButtonClicked(boolean bool) {
-//                Toast.makeText(NewRegisterActivity.this, "search clicked", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(NewRegisterActivity.this, QRcodeActivity.class));
-                Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
-                intent.putExtra("static_barcode","static_barcode");
-                startActivity(intent);
-            }
-        }, layout_register);
-    }
-
-    private boolean checkCameraPermission() {
-        return ContextCompat.checkSelfPermission(NewRegisterActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(NewRegisterActivity.this, new String[]{Manifest.permission.CAMERA}, 33);
-    }
+//    private boolean checkCameraPermission() {
+//        return ContextCompat.checkSelfPermission(NewRegisterActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+//    }
+//
+//    private void requestCameraPermission() {
+//        ActivityCompat.requestPermissions(NewRegisterActivity.this, new String[]{Manifest.permission.CAMERA}, 33);
+//    }
 
     private void sendUpdateData() {
         btn_update.setVisibility(View.GONE);
@@ -912,17 +915,17 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 33) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
-            } else {
-                Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == 33) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
+//            } else {
+//                Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//    }
 
     @Override
     protected void onResume() {

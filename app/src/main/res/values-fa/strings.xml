@@ -104,7 +104,7 @@
     <string name="support_center">مرکز پشتیبانی</string>
     <string name="faq">سوالات متداول</string>
     <string name="report_issue">گزارش مشکل</string>
-    <string name="share_poller">پولر را به اشتراک بگذارید</string>
+    <string name="share_poller">چک پنل را به اشتراک بگذارید</string>
     <string name="system_error">خطای سیستمی</string>
     <string name="text_title">عنوان</string>
     <string name="explanation2">توضیحات</string>
@@ -128,6 +128,8 @@
     <string name="calendar">تقویم</string>
     <string name="no_transaction">هیچ تراکنشی ثبت نشده است</string>
     <string name="transaction">تراکنش ها</string>
+    <string name="Shop">بازارچه</string>
+    <string name="personal_profile">پروفایل شخصی</string>
 
 
 </resources>

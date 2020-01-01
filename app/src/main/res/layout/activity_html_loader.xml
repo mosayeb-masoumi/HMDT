@@ -44,14 +44,15 @@
                 android:gravity="center"
                 android:text="@string/retuen"
                 android:textColor="@color/white_gray"
-                android:textSize="13sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/arrow_left"
-                android:tint="#000" />
+                android:padding="3dp"
+                android:tint="#FFF" />
 
         </LinearLayout>
     </LinearLayout>

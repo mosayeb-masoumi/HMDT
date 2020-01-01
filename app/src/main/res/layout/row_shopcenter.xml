@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_margin="3dp"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="15dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/image_shop_item"
+                android:scaleType="fitXY"
+                android:src="@color/blue" />
+
+
+            <TextView
+                android:id="@+id/text_shop_item"
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:padding="3dp"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white_gray"
+                android:textSize="14sp"
+                tools:text="خرید شارژ ایرانسل" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,11 +1,15 @@
 package com.rahbarbazaar.checkpanel.ui.activities
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
@@ -28,6 +32,8 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         lateinit var ResultScan: String
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
@@ -45,13 +51,16 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         btn_register_barcode.setOnClickListener(this)
 
 
+
         // state can be null
         val state:String? = intent.getStringExtra("static_barcode")
         if(state=="static_barcode"){
             edt_barcode.setText("")
-        }else{
-            edt_barcode.setText(ResultScan)
+        }else  {
+            edt_barcode?.setText(ResultScan)
         }
+
+
 
 
 
@@ -61,7 +70,13 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         when (view.id) {
 
             R.id.btn_choose_scanner -> {
-                startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+
+                if (checkCameraPermission()) {
+                    startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+                } else {
+                    requestCameraPermission()
+                }
+
 
             }
 
@@ -73,6 +88,14 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                 getListOfProducts()
             }
         }
+    }
+
+    private fun checkCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(this@QRcodeActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(this@QRcodeActivity, arrayOf(Manifest.permission.CAMERA), 33)
     }
 
     private fun getListOfProducts() {
@@ -114,6 +137,17 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                 showbtn()
             }
         })
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (requestCode == 33) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+            } else {
+                Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun showbtn() {

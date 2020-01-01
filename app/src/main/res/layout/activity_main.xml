@@ -101,59 +101,7 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linear_familyInfo_drawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/family_info" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/family_info"
-                            android:textColor="@color/white_gray"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/linear_graph_drawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/graph" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center_vertical"
-                            android:text="نمودار"
-                            android:textColor="@color/white_gray"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
-
                     <include layout="@layout/drawer_support_items" />
-
-
 
                     <LinearLayout
                         android:id="@+id/linear_message_drawer"
