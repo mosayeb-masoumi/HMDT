@@ -137,5 +137,10 @@
     <string name="request_profile_change">درخواست تغییرات پروفایل</string>
     <string name="family_code">کد خانواده:</string>
     <string name="family_member_info">مشخصات افراد خانواده</string>
+    <string name="fillup_profile_changes">لطفا تغییرات را وارد نمایید</string>
+    <string name="send">ارسال</string>
+    <string name="request_successfully">درخواست شما با موفقیت ثبت شد</string>
+    <string name="purchase_date2">تاریخ خرید</string>
+
 
 </resources>

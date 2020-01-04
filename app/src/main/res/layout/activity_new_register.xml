@@ -9,88 +9,33 @@
     tools:context=".ui.fragments.RegisterFragment">
 
 
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/register_new"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_header"
         android:layout_marginBottom="80dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RelativeLayout
-                android:id="@+id/rl_addmember"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_button_add">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/img_member" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/familymember"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_edited_members"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layoutDirection="rtl" />
-
-            <RelativeLayout
-                android:id="@+id/rl_prize"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_btn_prize">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/img_prize" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="@string/prize_selection"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_prize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layoutDirection="rtl" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,8 +48,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="@string/shop"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/blue_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -134,13 +81,23 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:text="@string/tottal_amount"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
             <EditText
                 android:id="@+id/edt_total_amount"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_prize_item"
                 android:cursorVisible="true"
@@ -153,6 +110,17 @@
                 android:textDirection="rtl"
                 android:textSize="14sp" />
 
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/paid_amount"
+                android:textColor="@color/blue_dark" />
             <EditText
                 android:id="@+id/edt_paid"
                 android:layout_width="match_parent"
@@ -170,6 +138,16 @@
                 android:textColorHint="@color/blue"
                 android:textDirection="rtl"
                 android:textSize="14sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/discount_amount"
+                android:textColor="@color/blue_dark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -249,6 +227,16 @@
                 </RelativeLayout>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/purchase_date2"
+                android:textColor="@color/blue_dark" />
             <RelativeLayout
                 android:id="@+id/rl_calander"
                 android:layout_width="match_parent"
@@ -280,6 +268,82 @@
                     android:textColor="@color/blue_dark"
                     android:textSize="17sp" />
             </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_addmember"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_button_add">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/img_member" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/familymember"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_edited_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layoutDirection="rtl" />
+
+            <RelativeLayout
+                android:id="@+id/rl_prize"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_btn_prize">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/img_prize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/prize_selection"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_prize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layoutDirection="rtl" />
+
         </LinearLayout>
 
     </ScrollView>

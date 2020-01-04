@@ -655,35 +655,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
     }
 
-//    private void createChooseScannerDialog() {
-//
-//        dialogFactory.createChooseScannerDialog(new DialogFactory.DialogFactoryInteraction() {
-//            @Override
-//            public void onAcceptButtonClicked(String... params) {
-//
-//                if (checkCameraPermission()) {
-//                    startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
-//                } else {
-//                    requestCameraPermission();
-//                }
-//            }
-//
-//            @Override
-//            public void onDeniedButtonClicked(boolean bool) {
-//                Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
-//                intent.putExtra("static_barcode","static_barcode");
-//                startActivity(intent);
-//            }
-//        }, layout_register);
-//    }
 
-//    private boolean checkCameraPermission() {
-//        return ContextCompat.checkSelfPermission(NewRegisterActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-//    }
-//
-//    private void requestCameraPermission() {
-//        ActivityCompat.requestPermissions(NewRegisterActivity.this, new String[]{Manifest.permission.CAMERA}, 33);
-//    }
 
     private void sendUpdateData() {
         btn_update.setVisibility(View.GONE);
@@ -880,7 +852,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     private void updateEditPrizeList(List<SendPrize> sendPrizes) {
 
-        recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
+        recycler_prize.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 2));
         editPrizeAdapter = new EditPrizeAdapter(sendPrizes, NewRegisterActivity.this);
         recycler_prize.setAdapter(editPrizeAdapter);
     }

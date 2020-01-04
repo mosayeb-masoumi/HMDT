@@ -668,4 +668,54 @@ public class DialogFactory {
 
     }
 
+    public void createChangeProfileDialog(@NotNull DialogFactoryInteraction listener,@Nullable View view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        Button btn_close = customLayout.findViewById(R.id.btn_cancel_dialog);
+        Button btn_send = customLayout.findViewById(R.id.btn_send_dialog);
+        EditText edt_body = customLayout.findViewById(R.id.edt_description);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_profile_member_detail);
+        txt_header.setText(context.getResources().getString(R.string.request_profile_change));
+        btn_close.setText(context.getResources().getString(R.string.close));
+        btn_send.setText(context.getResources().getString(R.string.send));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+
+        btn_send.setOnClickListener(v -> {
+            String body = edt_body.getText().toString();
+            if(body.length()==0){
+                Toast.makeText(context, context.getResources().getString(R.string.fillup_profile_changes), Toast.LENGTH_SHORT).show();
+            }else{
+                listener.onAcceptButtonClicked(body);
+                dialog.dismiss();
+            }
+
+        });
+
+
+
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+
+    }
+
+
+
 }

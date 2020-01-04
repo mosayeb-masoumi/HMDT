@@ -15,10 +15,7 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileFamilyAdapter
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ProfileMemberItemInteraction
-import com.rahbarbazaar.checkpanel.models.profile.Family
-import com.rahbarbazaar.checkpanel.models.profile.Member
-import com.rahbarbazaar.checkpanel.models.profile.MemberDetail
-import com.rahbarbazaar.checkpanel.models.profile.ProfileData
+import com.rahbarbazaar.checkpanel.models.profile.*
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
@@ -71,6 +68,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.plus_blue_dark))
         }
         rl_family_info.setOnClickListener(this)
+        btn_profile_change.setOnClickListener(this)
 
 
         linear_exit_profile.setOnClickListener {
@@ -173,8 +171,54 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
             }
 
+            R.id.btn_profile_change-> {
+                showChangeProfileDialog()
+            }
+
 
         }
+
+    }
+
+    private fun showChangeProfileDialog() {
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createChangeProfileDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg strings: String?) {
+
+                val body:String? = strings[0]
+                requestProfileChanges(body)
+            }
+
+            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+
+            }
+
+        }, profile_root)
+    }
+
+    private fun requestProfileChanges(body: String?) {
+        val service = ServiceProvider(this).getmService()
+        val call = service.profileChange(body)
+        call.enqueue(object : Callback<ProfileChange> {
+            override fun onResponse(call: Call<ProfileChange>, response: Response<ProfileChange>) {
+                if (response.code() == 200) {
+
+                    var profileChange = ProfileChange()
+                    profileChange = response.body()!!
+
+                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.request_successfully), Toast.LENGTH_SHORT).show()
+
+
+                } else {
+                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProfileChange>, t: Throwable) {
+                Toast.makeText(this@ProfileActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+
+            }
+        })
 
     }
 
@@ -191,65 +235,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
         }, profile_root ,member_detail)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//        val service = ServiceProvider(this).getmService()
-//        val call = service.getProfileMemberDetail(member_id)
-//        call.enqueue(object : Callback<List<MemberDetail>> {
-//            override fun onResponse(call: Call<List<MemberDetail>>, response: Response<List<MemberDetail>>) {
-//                if (response.code() == 200) {
-//
-//                    member_detail = response.body() as ArrayList<MemberDetail>
-//
-//                    showProfileMemberDetailDialog(member_detail)
-//
-//                    txt_wait_profile.visibility = View.GONE
-//                    linear_exit_profile.visibility = View.VISIBLE
-//
-//                } else {
-//                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-//                    txt_wait_profile.visibility = View.GONE
-//                    linear_exit_profile.visibility = View.VISIBLE
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<MemberDetail>>, t: Throwable) {
-//                Toast.makeText(this@ProfileActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-//                txt_wait_profile.visibility = View.GONE
-//                linear_exit_profile.visibility = View.VISIBLE
-//
-//            }
-//        })
-
     }
-
-//    private fun showProfileMemberDetailDialog(member_detail: ArrayList<MemberDetail>) {
-//
-//        val dialogFactory = DialogFactory(this)
-//        dialogFactory.createProfileMemberDetailDialog(object : DialogFactory.DialogFactoryInteraction {
-//            override fun onAcceptButtonClicked(vararg strings: String?) {
-//            }
-//
-//            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
-//
-//            }
-//
-//        }, profile_root ,member_detail)
-//    }
-
 
     override fun onResume() {
         super.onResume()
