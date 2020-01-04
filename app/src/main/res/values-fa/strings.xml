@@ -130,6 +130,9 @@
     <string name="transaction">تراکنش ها</string>
     <string name="Shop">بازارچه</string>
     <string name="personal_profile">پروفایل شخصی</string>
+    <string name="request_profile_change">درخواست تغییرات پروفایل</string>
+    <string name="family_code">کد خانواده:</string>
+    <string name="family_member_info">مشخصات افراد خانواده</string>
 
 
 </resources>

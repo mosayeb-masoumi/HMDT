@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class Data {
+
     @SerializedName("personal")
     @Expose
     var personal: Personal? = null
@@ -12,5 +13,6 @@ class Data {
     var family: List<Family>? = null
     @SerializedName("member")
     @Expose
-    var member: List<List<Member>>? = null
+    var member: Member? = null
+
 }

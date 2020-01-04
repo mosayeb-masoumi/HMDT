@@ -3,11 +3,8 @@ package com.rahbarbazaar.checkpanel.models.profile
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
-
-class Member {
-
+class ProfileChange {
     @SerializedName("data")
     @Expose
-    var data: List<MemberDetail>? = null
+    var data: Boolean? = null
 }

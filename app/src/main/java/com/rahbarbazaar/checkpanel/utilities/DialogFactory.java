@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +16,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
+import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberDetailAdapter;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.checkpanel.models.history.History;
+import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
+import com.rahbarbazaar.checkpanel.models.profile.MemberDetailObj;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.ScanActivity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DialogFactory {
 
     private Context context;
+
 
 
     public interface DialogFactoryInteraction {
@@ -528,12 +540,8 @@ public class DialogFactory {
         dialog.show();
     }
 
-
-
     public void createCalendarDialog(DialogFactoryInteraction listener, View view) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.calendar_dialog, (ViewGroup) view, false);
-
 
         //define views inside of dialog
         ImageView img_close = customLayout.findViewById(R.id.img_close);
@@ -542,7 +550,6 @@ public class DialogFactory {
         NumberPicker np_year = customLayout.findViewById(R.id.np_year);
         NumberPicker np_month = customLayout.findViewById(R.id.np_month);
         NumberPicker np_day = customLayout.findViewById(R.id.np_day);
-
 
         SolarCalendar calendar = new SolarCalendar();
 
@@ -554,7 +561,6 @@ public class DialogFactory {
         String currentYear = String.valueOf(currentYear_);
         String nextYear = String.valueOf(nextYear_);
 
-
         np_year.setDisplayedValues( new String[]{ ConvertEnDigitToFa.convert(lastYear)
                 ,ConvertEnDigitToFa.convert(currentYear) ,ConvertEnDigitToFa.convert(nextYear)} );
 
@@ -563,9 +569,6 @@ public class DialogFactory {
         np_day.setDisplayedValues( new String[]{ "۰۱", "۰۲","۰۳","۰۴", "۰۵","۰۶", "۰۷", "۰۸","۰۹","۱۰", "۱۱","۱۲",
                 "۱3", "۱۴","۱۵","۱۶", "۱۷","۱۸", "۱۹", "۲۰","۲۱","۲۲", "۲۳","۲۴",
                 "۲۵", "۲۶","۲۷","۲۸", "۲۹","۳۰", "۳۱"});
-
-
-
 
         int year = Integer.parseInt(calendar.getCurrentShamsiYear());
         int month = Integer.parseInt(calendar.getCurrentShamsiMonth());
@@ -586,7 +589,6 @@ public class DialogFactory {
         np_month.setValue(month);
         np_day.setValue(day);
 
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -595,8 +597,6 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
-
 
         btn_todayDate.setOnClickListener(v -> {
             //init set
@@ -620,9 +620,48 @@ public class DialogFactory {
             dialog.dismiss();
         });
 
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+
+    }
 
 
 
+    public void createProfileMemberDetailDialog(@NotNull DialogFactoryInteraction listener,
+                                                @Nullable View view, @NotNull MemberDetail member_detail) {
+
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.profile_member_detail_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_profile_member_detail);
+
+
+        btn_close.setText(context.getResources().getString(R.string.close));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        //set recyclerview
+        ProfileMemberDetailAdapter adapter;
+        List<MemberDetailObj> memberDetailObj = new ArrayList<>();
+        memberDetailObj.addAll(member_detail.getData());
+
+
+        adapter=new ProfileMemberDetailAdapter(memberDetailObj,view.getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(adapter);
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();

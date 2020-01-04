@@ -15,6 +15,8 @@ import com.rahbarbazaar.checkpanel.models.latlng.LatLng;
 import com.rahbarbazaar.checkpanel.models.login.LoginModel;
 import com.rahbarbazaar.checkpanel.models.message.MessageList;
 import com.rahbarbazaar.checkpanel.models.message.MessageRead;
+import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
+import com.rahbarbazaar.checkpanel.models.profile.ProfileChange;
 import com.rahbarbazaar.checkpanel.models.profile.ProfileData;
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData;
@@ -27,6 +29,8 @@ import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -124,4 +128,10 @@ public interface Service {
     @GET("Profile/Index")
     Call<ProfileData> getProfileList();
 
+    @POST("Profile/Detail")
+    Call<List<MemberDetail>> getProfileMemberDetail(@Query("member_id") String member_id);
+
+
+    @POST("Profile/Change")
+    Call<ProfileChange> profileChange(@Query("body") String body);
 }

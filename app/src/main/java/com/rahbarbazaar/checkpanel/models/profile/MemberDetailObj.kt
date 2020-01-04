@@ -5,9 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 
 
-class Member {
+class MemberDetailObj {
 
-    @SerializedName("data")
+    @SerializedName("label")
     @Expose
-    var data: List<MemberDetail>? = null
+    var label: String? = null
+    @SerializedName("value")
+    @Expose
+    var value: String? = null
 }

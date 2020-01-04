@@ -5,14 +5,18 @@ import com.google.gson.annotations.SerializedName
 
 
 
-class Personal {
-    @SerializedName("mobile")
+class MemberDetail {
+
+    @SerializedName("role")
     @Expose
-    var mobile: String? = null
+    var role: String? = null
     @SerializedName("name")
     @Expose
     var name: String? = null
-    @SerializedName("code")
+    @SerializedName("id")
     @Expose
-    var code: String? = null
+    var id: String? = null
+    @SerializedName("data")
+    @Expose
+    var data: List<MemberDetailObj>? = null
 }

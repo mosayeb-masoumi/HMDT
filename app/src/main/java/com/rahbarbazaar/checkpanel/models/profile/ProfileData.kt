@@ -7,4 +7,5 @@ class ProfileData {
     @SerializedName("data")
     @Expose
     var data: Data? = null
+
 }
