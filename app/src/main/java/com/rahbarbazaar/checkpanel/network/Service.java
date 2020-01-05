@@ -18,8 +18,10 @@ import com.rahbarbazaar.checkpanel.models.message.MessageRead;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
 import com.rahbarbazaar.checkpanel.models.profile.ProfileChange;
 import com.rahbarbazaar.checkpanel.models.profile.ProfileData;
+import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemNoProductResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemData;
+import com.rahbarbazaar.checkpanel.models.purchased_item.SendPurchasedItemNoProductData;
 import com.rahbarbazaar.checkpanel.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.checkpanel.models.register.GetShopId;
 import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
@@ -27,6 +29,7 @@ import com.rahbarbazaar.checkpanel.models.register.SendRegisterTotalData;
 import com.rahbarbazaar.checkpanel.models.shop.ShopCenter;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
+import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel;
 
@@ -134,4 +137,10 @@ public interface Service {
 
     @POST("Profile/Change")
     Call<ProfileChange> profileChange(@Query("body") String body);
+
+    @POST("Bought/New")
+    Call<PurchaseItemNoProductResult> getPurchaseItemNoProductResult(@Body SendPurchasedItemNoProductData sendPurchasedItemNoProductData);
+
+    @GET("Shopping/MemberPrize")
+    Call<MemberPrize> getMemberPrizeLists();
 }

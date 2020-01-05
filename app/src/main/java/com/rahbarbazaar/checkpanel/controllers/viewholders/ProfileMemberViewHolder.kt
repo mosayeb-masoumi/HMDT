@@ -19,8 +19,9 @@ class ProfileMemberViewHolder (view: View, val context: Context) : RecyclerView.
     @SuppressLint("SetTextI18n")
     fun bindUserData(model: MemberDetail) {
 
-        txt_name.text = model.name
-        txt_role.text=" "+"(" +model.role + ")"
+        txt_name.text = model.role+": "
+        txt_role.text=model.name
+//        txt_role.text=model.role
 
         imgview.setImageDrawable(itemView.context.resources.getDrawable(R.drawable.plus_blue_dark))
 

@@ -22,6 +22,8 @@ public class SolarCalendar {
         calcSolarCalendar(MiladiDate);
     }
 
+
+
     private void calcSolarCalendar(Date MiladiDate) {
 
         int ld;
@@ -264,5 +266,10 @@ public class SolarCalendar {
     public  String getCurrentShamsiMonth() {
 
         return getStrMonth();
+    }
+
+
+    public String getCurrentShamsiDate(){
+        return (getCurrentShamsiYear()+"/"+getCurrentShamsiMonth()+"/"+getCurrentShamsiDay());
     }
 }

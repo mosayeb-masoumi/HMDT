@@ -15,6 +15,7 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.checkpanel.models.login.LoginModel
+import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.*
@@ -196,9 +197,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 //                    requestRegisterData()
 
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-                    this@VerificationActivity.finish()
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    finish()
+                    requestInitMemberPrizeLists()
+
                 } else {
                     ll_av_verify.visibility = View.GONE
                     button_verify.visibility = View.VISIBLE
@@ -214,6 +215,30 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         })
     }
 
+    private fun requestInitMemberPrizeLists() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.memberPrizeLists
+        call.enqueue(object : Callback<MemberPrize> {
+
+            override fun onResponse(call: Call<MemberPrize>, response: Response<MemberPrize>) {
+
+                if (response.code() == 200) {
+
+                    var memberPrize = MemberPrize()
+                    memberPrize = response.body()!!
+                    RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
+                    this@VerificationActivity.finish()
+
+                } else {
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<MemberPrize>, t: Throwable) {
+                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
 
     private fun recodeRequest() {

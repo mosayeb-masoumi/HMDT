@@ -11,13 +11,17 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
+import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import com.rahbarbazaar.checkpanel.utilities.RxBus
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_qrcode.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +31,8 @@ import retrofit2.Response
 class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
     private var connectivityReceiver: BroadcastReceiver? = null
+    lateinit var initMemberPrizeLists: MemberPrize
+    var disposable: Disposable = CompositeDisposable()
 
     companion object {
         lateinit var ResultScan: String
@@ -46,6 +52,14 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
         }
 
+        initMemberPrizeLists = MemberPrize()
+        disposable = RxBus.MemberPrizeLists.subscribeMemberPrizeLists(){ result ->
+            if (result is MemberPrize) {
+                initMemberPrizeLists = result
+            }
+        }
+
+
         btn_choose_scanner.setOnClickListener(this)
         btn_choose_search.setOnClickListener(this)
         btn_register_barcode.setOnClickListener(this)
@@ -62,7 +76,12 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
 
 
+        txt_list_registable.text= initMemberPrizeLists.data.categories
+        linear_exit.setOnClickListener {
+            finish()
+        }
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
     }
 
@@ -124,7 +143,11 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                   showbtn()
 
               }else if(response.code()==204){
-                  Toast.makeText(this@QRcodeActivity, "محصول وجود ندارد", Toast.LENGTH_SHORT).show()
+                  val intent = Intent(this@QRcodeActivity,PurchasedItemsActivity::class.java)
+                  intent.putExtra("no_product","no_product")
+                  intent.putExtra("barcode",edt_barcode.text.toString())
+                  startActivity(intent)
+
                   showbtn()
               }else{
                   Toast.makeText(this@QRcodeActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -168,5 +191,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(connectivityReceiver)
+        disposable.dispose()
     }
 }

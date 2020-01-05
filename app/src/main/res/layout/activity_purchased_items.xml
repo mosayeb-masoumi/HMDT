@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="ویرایش محصول"
+            android:text="ثبت محصول"
+            android:id="@+id/purchased_item_header"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -30,10 +31,128 @@
         android:layout_below="@+id/rl_header"
         android:layout_marginBottom="80dp">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linear_no_product"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/goods_desc"
+                    android:textColor="@color/blue_dark" />
+                <EditText
+                    android:id="@+id/edt_desc_no_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/goods_desc"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/brand_"
+                    android:textColor="@color/blue_dark" />
+                <EditText
+                    android:id="@+id/edt_brand_no_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/brand_"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/size"
+                    android:textColor="@color/blue_dark" />
+                <EditText
+                    android:id="@+id/edt_size_no_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/size"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/unit_"
+                    android:textColor="@color/blue_dark" />
+
+                <EditText
+                    android:id="@+id/edt_unit_no_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/unit_"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+
 
 
             <TextView
@@ -50,7 +169,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_prize_item">
 
@@ -78,7 +197,7 @@
                     android:layout_toStartOf="@+id/edt_amount"
                     android:gravity="center"
                     android:padding="5sp"
-                    android:text="جعبه"
+                    android:text="-"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
@@ -102,7 +221,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/bg_prize_item"
                 android:cursorVisible="true"

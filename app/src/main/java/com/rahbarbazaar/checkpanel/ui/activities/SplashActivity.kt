@@ -10,6 +10,7 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.api_error403.ShowMessage403
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
+import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.*
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -52,9 +53,9 @@ class SplashActivity : CustomBaseActivity() {
     }
 
     private fun startActivity() {
-         var accessToken = Cache.getString(this@SplashActivity,"access_token")
+        var accessToken = Cache.getString(this@SplashActivity, "access_token")
         // add this condition to remove unwanted bug for clause
-        if(accessToken == null){
+        if (accessToken == null) {
             accessToken = ""
         }
 
@@ -106,26 +107,53 @@ class SplashActivity : CustomBaseActivity() {
 //                    requestRegisterData()
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    this@SplashActivity.finish()
+
+                    requestInitMemberPrizeLists()
+
 
                 } else if (response.code() == 403) {
 
                     ShowMessage403.message(response, context)
                     hideLoading()
 
-                } else if(response.code()==406){
+                } else if (response.code() == 406) {
                     val apiError = ErrorUtils.parseError406(response)
                     showError406Dialog(apiError.message)
                     hideLoading()
-                }
-
-                else {
+                } else {
                     Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     hideLoading()
                 }
             }
 
             override fun onFailure(call: Call<DashboardCreateData>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                hideLoading()
+            }
+        })
+    }
+
+    private fun requestInitMemberPrizeLists() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.memberPrizeLists
+        call.enqueue(object : Callback<MemberPrize> {
+
+            override fun onResponse(call: Call<MemberPrize>, response: Response<MemberPrize>) {
+
+                if (response.code() == 200) {
+
+                    var memberPrize = MemberPrize()
+                    memberPrize = response.body()!!
+                    RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
+                    this@SplashActivity.finish()
+
+                } else {
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                    hideLoading()
+                }
+            }
+
+            override fun onFailure(call: Call<MemberPrize>, t: Throwable) {
                 Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()
             }
@@ -145,7 +173,7 @@ class SplashActivity : CustomBaseActivity() {
 
             }
 
-        },splash_root,message)
+        }, splash_root, message)
 
     }
 

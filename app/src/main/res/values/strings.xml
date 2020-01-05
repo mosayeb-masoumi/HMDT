@@ -58,7 +58,7 @@
     <string name="register_product">ثبت محصول</string>
     <string name="productedit">ویرایش محصولات</string>
     <string name="tryagain">تلاش مجدد</string>
-    <string name="powered_by">powered_by</string>
+    <string name="powered_by">powered By</string>
     <string name="familymember">همراهان خرید</string>
     <string name="prize_selection">انتخاب جوایز</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
@@ -141,6 +141,12 @@
     <string name="send">ارسال</string>
     <string name="request_successfully">درخواست شما با موفقیت ثبت شد</string>
     <string name="purchase_date2">تاریخ خرید</string>
+    <string name="text_invite_from"> شما از طرف </string>
+    <string name="text_invite_friend"> برای عضویت در اپلیکیشن چک پنل پولر دعوت شده اید،درصورت تمایل از طریق لینک زیر اقدام نمایید.</string>
+    <string name="goods_desc">شرح کالا</string>
+    <string name="brand_">برند</string>
+    <string name="size">سایز</string>
+    <string name="unit_">واحد شمارش</string>
 
 
 </resources>

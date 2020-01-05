@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -327,13 +328,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
             case R.id.linear_invite_friend:
-
                 drawer_layout_home.closeDrawers();
-
-//                if (prefrence != null && prefrence.getType().equals("1")) //user guest state
-//                    dialogFactory.createNoRegisterDialog1(drawer_layout_home, MainActivity.this);
-//                else
-//                    generateInviteLink();
+                generateInviteLink();
                 break;
 
             case R.id.txt_exit:
@@ -440,6 +436,21 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                 break;
         }
+    }
+
+    private void generateInviteLink() {
+
+        String user_name = Cache.getString(MainActivity.this,"user_name");
+        String share_url = Cache.getString(MainActivity.this,"share_url");
+
+        ShareCompat.IntentBuilder
+                .from(MainActivity.this)
+                .setText(new StringBuilder().append(getString(R.string.text_invite_from)).append(" ").append(user_name).append(" ").
+                        append(getString(R.string.text_invite_friend))
+                        .append("\n").append(share_url))
+                .setType("text/plain")
+                .setChooserTitle(R.string.share_poller)
+                .startChooser();
     }
 
     private void sendReportIssueRequest(String str_issue) {

@@ -451,6 +451,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             intent.putExtra("static_barcode","static_barcode");
             startActivity(intent);
             getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//            getMemberPrizeLists();
+
 
         }else if(action.equals("edit_product")){
 
@@ -460,6 +462,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
     }
+
+//    private void getMemberPrizeLists() {
+//
+//        Intent intent = new Intent(getContext(), QRcodeActivity.class);
+////            intent.putExtra("shopping_id",id);
+//        Cache.setString(getContext(),"shopping_id",id);
+//        intent.putExtra("static_barcode","static_barcode");
+//        startActivity(intent);
+//        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//    }
 
     private void getShoppingEditInfo(String id) {
 

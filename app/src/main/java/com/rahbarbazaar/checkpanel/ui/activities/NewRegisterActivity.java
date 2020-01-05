@@ -1,24 +1,18 @@
 package com.rahbarbazaar.checkpanel.ui.activities;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,7 +20,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -58,7 +51,7 @@ import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
-import com.rahbarbazaar.checkpanel.utilities.Time;
+import com.rahbarbazaar.checkpanel.utilities.SolarCalendar;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -135,8 +128,10 @@ public class NewRegisterActivity extends CustomBaseActivity
         dialogFactory = new DialogFactory(NewRegisterActivity.this);
 
         if (registerModel.data != null) {
-            String dateEn = Time.getNowPersianDate();
-            edtDate.setText(ConvertEnDigitToFa.convert(dateEn));
+
+            SolarCalendar solarCalendar = new SolarCalendar();
+            String current_date = solarCalendar.getCurrentShamsiDate();
+            edtDate.setText(ConvertEnDigitToFa.convert(current_date));
 
             btn_register.setVisibility(View.VISIBLE);
             btn_update.setVisibility(View.GONE);

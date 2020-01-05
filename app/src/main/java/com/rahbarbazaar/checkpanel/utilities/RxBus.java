@@ -79,4 +79,19 @@ public final class RxBus {
         }
     }
 
+
+    public static class MemberPrizeLists {
+
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeMemberPrizeLists(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        public static void publishMemberPrizeLists(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
 }

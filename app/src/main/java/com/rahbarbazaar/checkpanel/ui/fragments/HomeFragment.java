@@ -17,6 +17,7 @@ import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCr
 import com.rahbarbazaar.checkpanel.ui.activities.HistoryActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.HtmlLoaderActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
+import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+
+        Cache.setString(getContext(),"user_name",dashboardCreateData.data.userName);
+        Cache.setString(getContext(),"share_url",dashboardCreateData.data.shareUrl);
 
         initViews(view);
         setContentView();
