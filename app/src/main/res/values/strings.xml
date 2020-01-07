@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Panelist</string>
+    <string name="app_name">CheckPanel</string>
     <string name="internet_setting">تنظیمات wifi</string>
     <string name="data_setting">تنظیمات دیتا</string>
     <string name="warning">اخطار</string>
@@ -62,7 +62,7 @@
     <string name="familymember">همراهان خرید</string>
     <string name="prize_selection">انتخاب جوایز</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
-    <string name="update">آپدیت</string>
+    <string name="update">ویرایش</string>
     <string name="update_done">بروز رسانی با موفقیت انجام شد</string>
     <string name="scanner">اسکن بارکد</string>
     <string name="search">جستجو</string>
@@ -147,6 +147,8 @@
     <string name="brand_">برند</string>
     <string name="size">سایز</string>
     <string name="unit_">واحد شمارش</string>
+    <string name="barcode_description">به کمک اسکن بارکد , بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد آنرا تایپ کنید و نهایتا دکمه ی ثبت را لمس کنید</string>
+
 
 
 </resources>

@@ -17,6 +17,7 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
 import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
+import com.rahbarbazaar.checkpanel.utilities.Cache
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import com.rahbarbazaar.checkpanel.utilities.RxBus
@@ -38,8 +39,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         lateinit var ResultScan: String
     }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_qrcode)
@@ -59,12 +58,11 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
         }
 
-
         btn_choose_scanner.setOnClickListener(this)
         btn_choose_search.setOnClickListener(this)
         btn_register_barcode.setOnClickListener(this)
-
-
+        rl_home_qrcode.setOnClickListener(this)
+        linear_return_qrcode.setOnClickListener(this)
 
         // state can be null
         val state:String? = intent.getStringExtra("static_barcode")
@@ -74,12 +72,8 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             edt_barcode?.setText(ResultScan)
         }
 
-
-
         txt_list_registable.text= initMemberPrizeLists.data.categories
-        linear_exit.setOnClickListener {
-            finish()
-        }
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
@@ -92,11 +86,10 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
                 if (checkCameraPermission()) {
                     startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+                    finish()
                 } else {
                     requestCameraPermission()
                 }
-
-
             }
 
             R.id.btn_choose_search -> {
@@ -106,6 +99,18 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             R.id.btn_register_barcode -> {
                 getListOfProducts()
             }
+
+            R.id.rl_home_qrcode -> {
+               startActivity(Intent(this@QRcodeActivity , MainActivity::class.java))
+                finish()
+            }
+
+            R.id.linear_return_qrcode -> {
+                finish()
+            }
+
+
+
         }
     }
 
@@ -124,7 +129,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         val barcode = edt_barcode.text.toString()
         val service = ServiceProvider(this).getmService()
         val call = service.getBarcodeList(barcode)
-//        val call = service.getBarcodeList("1398")
         call.enqueue(object : Callback<Barcode> {
             override fun onResponse(call: Call<Barcode>, response: Response<Barcode>) {
               if(response.code()==200){
@@ -135,12 +139,13 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                   RxBus.BarcodeList.publishBarcodeList(barcode)
                   startActivity(Intent(this@QRcodeActivity, BarcodeListActivity::class.java))
                   overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                  finish()
-
                   showbtn()
+                  finish()
 
               }else if(response.code()==422){
                   showbtn()
+
+
 
               }else if(response.code()==204){
                   val intent = Intent(this@QRcodeActivity,PurchasedItemsActivity::class.java)
@@ -186,6 +191,14 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+
+        // to delete BarcodeEditText while register successfully
+        val barcode_state:String? = Cache.getString(this@QRcodeActivity,"barcode_registered")
+        if(barcode_state =="barcode_registered"){
+            edt_barcode.setText("")
+            Cache.setString(this@QRcodeActivity,"barcode_registered","")
+        }
+
     }
 
     override fun onDestroy() {

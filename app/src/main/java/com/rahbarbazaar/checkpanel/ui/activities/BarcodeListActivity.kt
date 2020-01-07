@@ -104,6 +104,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
                 val intent = Intent(this, PurchasedItemsActivity::class.java)
                 intent.putExtra("unit", model.unit)
                 intent.putExtra("product_id", model.id)
+                intent.putExtra("barcodeListItemDesc", model.decription)
                 intent.putExtra("mygroup", model.mygroup)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)

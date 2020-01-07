@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rahbarbazaar.checkpanel.R;
@@ -89,6 +90,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     String str_spnItemId;
     String checkbox_text = "";
     RelativeLayout layout_register;
+    TextView txt_header;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -122,6 +124,9 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         });
 
+
+
+
         initView();
 
         //initial Dialog factory
@@ -129,6 +134,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         if (registerModel.data != null) {
 
+            txt_header.setText(getResources().getString(R.string.register_new));
             SolarCalendar solarCalendar = new SolarCalendar();
             String current_date = solarCalendar.getCurrentShamsiDate();
             edtDate.setText(ConvertEnDigitToFa.convert(current_date));
@@ -137,9 +143,10 @@ public class NewRegisterActivity extends CustomBaseActivity
             btn_update.setVisibility(View.GONE);
 
         } else if (shoppingEditModel.data != null) {
-            edt_total_amount.setText(String.valueOf(shoppingEditModel.data.shopping.cost));
-            edt_paid.setText(String.valueOf(shoppingEditModel.data.shopping.paid));
-            edt_discount.setText(String.valueOf(shoppingEditModel.data.shopping.discount_amount));
+            txt_header.setText(getResources().getString(R.string.update));
+            edt_total_amount.setText(shoppingEditModel.data.shopping.cost);
+            edt_paid.setText(shoppingEditModel.data.shopping.paid);
+            edt_discount.setText(shoppingEditModel.data.shopping.discount_amount);
             edtDate.setText(shoppingEditModel.data.shopping.date);
 
             btn_register.setVisibility(View.GONE);
@@ -199,6 +206,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         checkBox_precentage = findViewById(R.id.checkBox_precentage);
         checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_new_register);
+        txt_header = findViewById(R.id.header_new_register);
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_update.setOnClickListener(this);

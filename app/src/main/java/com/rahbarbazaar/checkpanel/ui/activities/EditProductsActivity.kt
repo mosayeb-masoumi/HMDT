@@ -64,11 +64,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
             }
         }
 
-
-        // todo return to dynamic mode
         shopping_id = getIntent().getStringExtra("shopping_id")
-//        shopping_id = "2feb92aea0ce4986a5638f7d2f8b4ffa"
-
 
     }
 
@@ -180,13 +176,11 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
             val intent = Intent(this@EditProductsActivity, EditProductsDetailActivity::class.java)
             intent.putExtra("position", position)
             intent.putExtra("id_editProductItem",model.id)
+            intent.putExtra("edit_product_description",model.description)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-
         }
-
     }
-
 
     private fun sendDeleteItemId(id: String?, avi: AVLoadingIndicatorView, btn_delete: Button) {
 

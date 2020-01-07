@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.annotation.MainThread
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -68,7 +69,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private lateinit var checkBox_amount: CheckBox
 
     private lateinit var btn_register: Button
-    private lateinit var btn_cancel: Button
     private lateinit var avi: AVLoadingIndicatorView
 
     var shopping_id: String? = ""
@@ -76,6 +76,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     var mygroup: String? = ""
     var type: String? = ""
     var barcode: String? = ""
+    var description: String? = ""
 
     // for handling422
     private var builderPaid: StringBuilder? = null
@@ -109,12 +110,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         }
 
         initMemberPrizeLists = MemberPrize()
-        disposable = RxBus.MemberPrizeLists.subscribeMemberPrizeLists(){ result ->
+        disposable = RxBus.MemberPrizeLists.subscribeMemberPrizeLists { result ->
             if (result is MemberPrize) {
                 initMemberPrizeLists = result
             }
         }
-
 
 
 
@@ -126,16 +126,21 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         editMembers = ArrayList<RegisterMemberEditModel>()
         sendPrizes = ArrayList<SendPrize>()
 
+
+        description = intent.getStringExtra("barcodeListItemDesc")
         barcode = intent.getStringExtra("barcode")
         type = intent.getStringExtra("no_product")
         if (type == "no_product") {
             linear_no_product.visibility = View.VISIBLE
             purchased_item_header.text = "ثبت محصول جدید"
+            ll_decs_purchased_item.visibility = View.GONE
         } else {
             purchased_item_header.text = "ثبت جدید"
             linear_no_product.visibility = View.GONE
         }
 
+        edt_barcode_no_product.setText(barcode)
+        txt_desc_purchased_item.setText(description)
 
         edt_unit_no_product.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -143,7 +148,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                txt_unit.setText(s)
+                txt_unit.text = s
             }
 
             override fun afterTextChanged(s: Editable) {
@@ -162,7 +167,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         txt_unit.text = unit
 
         btn_register = findViewById(R.id.btn_register_purchased_items)
-        btn_cancel = findViewById(R.id.btn_cancel_purchased_items)
         recyclerEditedMember = findViewById(R.id.recycler_edited_members)
         avi = findViewById(R.id.avi_register_purchased_items)
         recycler_prize = findViewById(R.id.recycler_prize)
@@ -174,9 +178,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         checkBox_amount.setOnCheckedChangeListener(this)
 
         btn_register.setOnClickListener(this)
-        btn_cancel.setOnClickListener(this)
 
 
+        linear_return_purchased_item.setOnClickListener(this)
+        rl_home_purchased_item.setOnClickListener(this)
 
         edt_discount.isEnabled = false
         edt_discount.setText("")
@@ -196,8 +201,9 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 showPrizeDialog()
             }
 
-            R.id.btn_cancel_purchased_items -> {
+            R.id.linear_return_purchased_item -> {
 
+                finish()
             }
 
             R.id.btn_register_purchased_items -> {
@@ -207,8 +213,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 } else {
                     sendData()
                 }
+            }
 
-
+            R.id.rl_home_purchased_item -> {
+                startActivity(Intent(this@PurchasedItemsActivity,MainActivity::class.java))
+                finish()
             }
 
         }
@@ -226,7 +235,12 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         sendData.paid = edt_paid.text.toString()
         sendData.product_id = product_id
         sendData.member = editMembers
-        sendData.prize = sendPrizes
+
+        if (sendPrizes.size != 0) {
+            sendData.prize = sendPrizes
+        }
+
+
         sendData.type = mygroup
 
         if (checkBox_precentage.isChecked) {
@@ -247,9 +261,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
                     var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    startActivity(Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java))
+                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
                     Toast.makeText(this@PurchasedItemsActivity,
-                            resources.getString(R.string.register_product_successfully),Toast.LENGTH_SHORT).show()
+                            resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
+                    Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
+
                     finish()
                 } else if (response.code() == 422) {
 
@@ -377,9 +393,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
                     var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    startActivity(Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java))
+                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
                     Toast.makeText(this@PurchasedItemsActivity,
-                            resources.getString(R.string.register_product_successfully),Toast.LENGTH_SHORT).show()
+                            resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
+                    Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
                     finish()
                 } else if (response.code() == 422) {
 
@@ -466,27 +483,9 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 Toast.makeText(this@PurchasedItemsActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()
             }
-
         })
-
-
-
     }
 
-//    private fun showNextScanDialog() {
-//
-//        val dialogFactory = DialogFactory(this)
-//        dialogFactory.createRescanDialog(object : DialogFactory.DialogFactoryInteraction {
-//            override fun onAcceptButtonClicked(vararg strings: String?) {
-//            }
-//
-//            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
-//
-//            }
-//
-//        }, layout_purchase_item)
-//
-//    }
 
     private fun hideLoading() {
         avi.hide()
@@ -540,12 +539,18 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             if (isChecked) {
                 editMembers = ArrayList<RegisterMemberEditModel>()
 
-                for (i in registerModel.data.member.indices) {
-                    for (j in 0 until registerModel.data.member[i].size) {
-                        editMembers.add(RegisterMemberEditModel(registerModel.data.member[i][j].name,
-                                registerModel.data.member[i][j].id))
+                for (i in initMemberPrizeLists.data.member.indices) {
+                    for (j in 0 until initMemberPrizeLists.data.member[i].size) {
+                        editMembers.add(RegisterMemberEditModel(initMemberPrizeLists.data.member[i][j].name,
+                                initMemberPrizeLists.data.member[i][j].id))
                     }
                 }
+//                for (i in registerModel.data.member.indices) {
+//                    for (j in 0 until registerModel.data.member[i].size) {
+//                        editMembers.add(RegisterMemberEditModel(registerModel.data.member[i][j].name,
+//                                registerModel.data.member[i][j].id))
+//                    }
+//                }
 
                 updateEditMemberList(editMembers)
                 dialog.dismiss()

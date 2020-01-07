@@ -58,10 +58,9 @@ class MessageActivity : CustomBaseActivity(), MessageItemInteraction {
         }
 
 
-//        // message must be initialize
-//        message = ArrayList<Message>()
-//        getMessageList()
-
+        ll_return_message.setOnClickListener {
+            finish()
+        }
 
     }
 

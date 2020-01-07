@@ -36,6 +36,33 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_decs_edit_product"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/goods_desc"
+                    android:textColor="@color/blue_dark" />
+
+                <com.codesgood.views.JustifiedTextView
+                    android:id="@+id/txt_desc_editProductDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:padding="10dp"
+                    android:text="لیمو,مداد"
+                    android:textColor="@color/blue_dark" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"

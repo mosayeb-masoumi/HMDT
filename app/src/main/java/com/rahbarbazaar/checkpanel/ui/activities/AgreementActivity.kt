@@ -105,11 +105,8 @@ class AgreementActivity : CustomBaseActivity() {
 
 
 //        btn_send.setOnClickListener(view -> {
-        rl_login_dialog.setOnClickListener { view ->
-
-
+        rl_login_dialog.setOnClickListener {
             if (checkbox_agreement.isChecked) {
-
                startActivity(Intent(this@AgreementActivity,MainActivity::class.java))
                 this@AgreementActivity.finish()
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)

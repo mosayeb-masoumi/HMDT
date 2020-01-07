@@ -567,7 +567,7 @@ public class DialogFactory {
         np_month.setDisplayedValues( new String[]{ "۰۱", "۰۲","۰۳","۰۴", "۰۵","۰۶", "۰۷", "۰۸","۰۹","۱۰", "۱۱","۱۲"} );
 
         np_day.setDisplayedValues( new String[]{ "۰۱", "۰۲","۰۳","۰۴", "۰۵","۰۶", "۰۷", "۰۸","۰۹","۱۰", "۱۱","۱۲",
-                "۱3", "۱۴","۱۵","۱۶", "۱۷","۱۸", "۱۹", "۲۰","۲۱","۲۲", "۲۳","۲۴",
+                "۱۳", "۱۴","۱۵","۱۶", "۱۷","۱۸", "۱۹", "۲۰","۲۱","۲۲", "۲۳","۲۴",
                 "۲۵", "۲۶","۲۷","۲۸", "۲۹","۳۰", "۳۱"});
 
         int year = Integer.parseInt(calendar.getCurrentShamsiYear());

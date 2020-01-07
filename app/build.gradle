@@ -71,6 +71,10 @@ dependencies {
     //scanner
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
     implementation 'co.ronash.android:pushe-base:1.6.3'
+
+    implementation 'com.codesgood:justifiedtextview:1.1.0'
+
+//    implementation 'me.biubiubiu.justifytext:library:1.1'
     
     //todo delete leakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'

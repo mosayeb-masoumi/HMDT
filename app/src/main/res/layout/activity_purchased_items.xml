@@ -15,11 +15,11 @@
         android:background="@drawable/bg_toolbar">
 
         <TextView
+            android:id="@+id/purchased_item_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="ثبت محصول"
-            android:id="@+id/purchased_item_header"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -37,12 +37,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linear_no_product"
-                android:visibility="visible"
+                android:id="@+id/ll_decs_purchased_item"
                 android:orientation="vertical">
 
                 <TextView
@@ -53,8 +51,41 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/goods_desc"
                     android:textColor="@color/blue_dark" />
+
+                <com.codesgood.views.JustifiedTextView
+
+                    android:id="@+id/txt_desc_purchased_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:padding="15dp"
+                    android:text="لیمو,مداد"
+                    android:textColor="@color/blue_dark" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linear_no_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/barcode"
+                    android:textColor="@color/blue_dark" />
+
                 <EditText
-                    android:id="@+id/edt_desc_no_product"
+                    android:id="@+id/edt_barcode_no_product"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -64,8 +95,39 @@
                     android:background="@drawable/bg_prize_item"
                     android:cursorVisible="true"
                     android:gravity="center"
-                    android:hint="@string/goods_desc"
+                    android:hint="@string/barcode"
                     android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/goods_desc"
+                    android:textColor="@color/blue_dark" />
+
+                <EditText
+                    android:id="@+id/edt_desc_no_product"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="@string/goods_desc"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
@@ -79,6 +141,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/brand_"
                     android:textColor="@color/blue_dark" />
+
                 <EditText
                     android:id="@+id/edt_brand_no_product"
                     android:layout_width="match_parent"
@@ -105,6 +168,7 @@
                     android:layout_marginEnd="10dp"
                     android:text="@string/size"
                     android:textColor="@color/blue_dark" />
+
                 <EditText
                     android:id="@+id/edt_size_no_product"
                     android:layout_width="match_parent"
@@ -120,6 +184,7 @@
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
+
                     android:textDirection="rtl"
                     android:textSize="14sp" />
 
@@ -153,8 +218,6 @@
             </LinearLayout>
 
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,7 +241,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="@color/blue_light"
                     android:cursorVisible="true"
                     android:gravity="center"
                     android:hint="@string/amount2"
@@ -290,13 +353,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="20dp"
-                        android:backgroundTint="@color/blue"
                         android:gravity="center"
                         android:hint="@string/percent_amount"
                         android:inputType="number"
                         android:padding="10dp"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
+                        android:backgroundTint="@color/blue"
                         android:textSize="15sp" />
 
                 </RelativeLayout>
@@ -438,28 +501,47 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_toolbar">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_cancel_purchased_items"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_btn_prize"
-                android:text="@string/cancel_text"
-                android:textColor="@color/white"
-                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/linear_return_purchased_item"
+                android:layout_width="0dp"
+                android:layout_weight="0.8"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:text="@string/retuen"
+                    android:textColor="@color/white_gray"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:src="@drawable/arrow_left"
+                    android:tint="#FFF" />
+
+            </LinearLayout>
 
 
             <RelativeLayout
-                android:layout_width="100dp"
+                android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/btn_cancel_purchased_items"
                 android:background="@drawable/bg_btn_prize">
 
                 <com.wang.avi.AVLoadingIndicatorView
@@ -482,9 +564,35 @@
 
             </RelativeLayout>
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight=".8"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/rl_home_purchased_item">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:paddingTop="3dp"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/home_purchased_item"
+                    android:src="@drawable/home_icon" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="13sp"
+                    android:layout_below="@+id/home_purchased_item"
+                    android:text="@string/home_tab"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
-    <!--</RelativeLayout>-->
 </RelativeLayout>

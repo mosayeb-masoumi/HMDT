@@ -10,16 +10,16 @@ public class Shopping {
     public String id;
     @SerializedName("cost")
     @Expose
-    public Integer cost;
+    public String cost;
     @SerializedName("paid")
     @Expose
-    public Integer paid;
+    public String paid;
     @SerializedName("discount_type")
     @Expose
     public String discount_type;
     @SerializedName("discount_amount")
     @Expose
-    public Integer discount_amount;
+    public String discount_amount;
     @SerializedName("shop")
     @Expose
     public String shop;

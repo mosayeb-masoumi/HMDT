@@ -24,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.codesgood.views.JustifiedTextView;
+import com.codesgood.views.JustifiedTextView;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.EditPrizeAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.PrizeAdapter;
@@ -84,12 +86,15 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     Button btn_register, btn_cancel;
     EditText edt_discount, edt_total_amount, edt_paid, edt_amount;
     TextView txt_unit, txt_amount_title, txt_currency,txt_currency2;
+    JustifiedTextView txt_desc;
 
     CheckBox checkBox_precentage, checkBox_amount;
 
     AVLoadingIndicatorView avi;
     String bought_id;
     String checkbox_text = "";
+    String description ;
+
 
 
     @Override
@@ -116,6 +121,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
 
         bought_id = getIntent().getStringExtra("id_editProductItem");
+        description = getIntent().getStringExtra("edit_product_description");
         int position = getIntent().getIntExtra("position", 555);
         editProducts = totalEditProductData.data.bought.data.get(position);
 
@@ -151,6 +157,8 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         txt_currency.setText(String.format("(%s)", editProducts.currency));
         txt_currency2.setText(String.format("(%s)", editProducts.currency));
 
+        txt_desc.setText(description);
+
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
 
@@ -175,6 +183,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         txt_amount_title = findViewById(R.id.txt_amount_title);
         txt_currency = findViewById(R.id.txt_currency);
         txt_currency2= findViewById(R.id.txt_currency2);
+        txt_desc = findViewById(R.id.txt_desc_editProductDetail);
 
         txt_unit = findViewById(R.id.txt_unit);
         checkBox_precentage = findViewById(R.id.checkBox_precentage);
@@ -228,7 +237,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         recycler_prize.setAdapter(editPrizeAdapter);
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -251,7 +259,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         }
     }
 
-
     private void showAddMemberDialog() {
         editMembers = new ArrayList<>();
         final Dialog dialog = new Dialog(EditProductsDetailActivity.this);
@@ -264,14 +271,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         // to show list of member items
         List<Member> members = new ArrayList<>();
 
-
         for (int i = 0; i < totalEditProductData.data.member.size(); i++) {
             for (int j = 0; j < totalEditProductData.data.member.get(i).size(); j++) {
                 members.add(new Member(totalEditProductData.data.member.get(i).get(j).name
                         , totalEditProductData.data.member.get(i).get(j).id));
             }
         }
-
 
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
@@ -293,7 +298,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                                 totalEditProductData.data.member.get(i).get(j).id));
                     }
                 }
-
 
                 updateEditMemberList(editMembers);
                 dialog.dismiss();
@@ -325,7 +329,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             }
         }
 
-
         RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
@@ -344,13 +347,11 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
         if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
             edt_discount.setHint(getResources().getString(R.string.percent_amount));
             edt_discount.setEnabled(false);
             edt_discount.setText("");
         }
-
 
         switch (buttonView.getId()) {
             case R.id.checkBox_amount:
@@ -363,7 +364,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 }
                 break;
 
-
             case R.id.checkBox_precentage:
 
                 if (isChecked) {
@@ -374,12 +374,8 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                     edt_discount.setEnabled(true);
                 }
                 break;
-
         }
-
-
     }
-
 
     @Override
     public void prizeOnClicked(String title, String id, Boolean chkbox) {
@@ -435,7 +431,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         }
         updateEditMemberList(editMembers);
     }
-
 
     private void sendRegisterData() {
 
