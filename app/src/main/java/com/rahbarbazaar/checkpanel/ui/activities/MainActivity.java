@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
@@ -625,6 +626,21 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         startActivity(intent);
         MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case 444:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new DownloadManager().DownloadUpdateApp(MainActivity.this);
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
 
     @Override
