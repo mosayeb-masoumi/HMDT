@@ -10,6 +10,12 @@ public class DashboardCreateModel {
     @SerializedName("one")
     @Expose
     public Integer one;
+    @SerializedName("min_version_code")
+    @Expose
+    public String minVersionCode;
+    @SerializedName("current_version_code")
+    @Expose
+    public String currentVersionCode;
     @SerializedName("two")
     @Expose
     public Integer two;

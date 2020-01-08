@@ -6,14 +6,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.wifi.WifiManager
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.format.Formatter
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.rahbarbazaar.checkpanel.BuildConfig
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_history.DashboardHistory
 import com.rahbarbazaar.checkpanel.models.login.LoginModel
 import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel
@@ -121,9 +126,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     expireAt = response.body()?.expireAt!!
 
 
-                    Cache.setString(this@VerificationActivity,"access_token",access_token)
-                    Cache.setString(this@VerificationActivity,"refresh_token",refresh_token)
-                    Cache.setInt(this@VerificationActivity,"expireAt",expireAt)
+                    Cache.setString(this@VerificationActivity, "access_token", access_token)
+                    Cache.setString(this@VerificationActivity, "refresh_token", refresh_token)
+                    Cache.setInt(this@VerificationActivity, "expireAt", expireAt)
 
 
                     requestDashboardData()
@@ -142,15 +147,12 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                         Toast.makeText(this@VerificationActivity, "" + builderMobile, Toast.LENGTH_LONG).show()
                     }
 
-                }  else if(response.code()==406){
+                } else if (response.code() == 406) {
                     val apiError = ErrorUtils.parseError406(response)
                     showError406Dialog(apiError.message)
                     ll_av_verify.visibility = View.GONE
                     button_verify.visibility = View.VISIBLE
-                }
-
-
-                else {
+                } else {
                     ll_av_verify.visibility = View.GONE
                     button_verify.visibility = View.VISIBLE
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -179,9 +181,10 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
             }
 
-        },splash_root,message)
+        }, splash_root, message)
 
     }
+
     private fun requestDashboardData() {
         val service = ServiceProvider(this).getmService()
         val call = service.dashboardData
@@ -194,10 +197,11 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     var dashboardCreateData: DashboardCreateData
                     dashboardCreateData = response.body()!!
                     RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
-//                    requestRegisterData()
+//                    ClientConfig.Update_URL = dashboardCreateData.data.updateUrl
+                    Cache.setString(this@VerificationActivity,"Update_URL",dashboardCreateData.data.updateUrl)
+                    Cache.setString(this@VerificationActivity,"minVersionCode",dashboardCreateData.data.minVersionCode)
+                    Cache.setString(this@VerificationActivity,"currentVersionCode",dashboardCreateData.data.currentVersionCode)
 
-                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     requestInitMemberPrizeLists()
 
                 } else {
@@ -227,7 +231,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     var memberPrize = MemberPrize()
                     memberPrize = response.body()!!
                     RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
-                    this@VerificationActivity.finish()
+
+                    sendDeviceInfo()
+
 
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -235,6 +241,54 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<MemberPrize>, t: Throwable) {
+                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun sendDeviceInfo() {
+
+        val wm = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+        @Suppress("DEPRECATION")
+        val ip = Formatter.formatIpAddress(wm.connectionInfo.ipAddress)
+
+        val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val info = cm.activeNetworkInfo
+
+        val network_type:String?
+        @Suppress("DEPRECATION")
+        if(info.typeName == "MOBILE"){
+            network_type = info.extraInfo
+        }else{
+            network_type = info.typeName
+        }
+
+        val sdk = Build.VERSION.SDK_INT
+        val os_type = "Android"
+        val os_version = sdk.toString()
+        val device_brand = Build.BRAND
+        val device_model = Build.MODEL
+        val version_code = BuildConfig.VERSION_CODE.toString()
+        val version_name = BuildConfig.VERSION_NAME
+
+        val service = ServiceProvider(this).getmService()
+        val call = service.sendDeviceInfo(device_brand,device_model,os_type,os_version,version_code,version_name,ip,network_type)
+        call.enqueue(object : Callback<DashboardHistory> {
+
+            override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
+
+                if (response.code() == 200) {
+
+                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    finish()
+
+                } else {
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardHistory>, t: Throwable) {
                 Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
         })

@@ -49,4 +49,24 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> type = null;
 
+    @SerializedName("size")
+    @Expose
+    public List<String> size = null;
+
+    @SerializedName("brand")
+    @Expose
+    public List<String> brand = null;
+
+    @SerializedName("unit")
+    @Expose
+    public List<String> unit = null;
+
+    @SerializedName("barcode")
+    @Expose
+    public List<String> barcode = null;
+
+    @SerializedName("description")
+    @Expose
+    public List<String> description = null;
+
 }

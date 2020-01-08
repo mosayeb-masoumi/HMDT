@@ -86,6 +86,17 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private var buliderPrize: StringBuilder? = null
     private var buliderAmount: StringBuilder? = null
 
+
+
+    private var buliderBarcode: StringBuilder? = null
+    private var buliderDescription: StringBuilder? = null
+    private var buliderBrand: StringBuilder? = null
+    private var buliderSize: StringBuilder? = null
+    private var buliderUnit: StringBuilder? = null
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_purchased_items)
@@ -406,6 +417,12 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                     builderDiscountAmount = null
                     buliderPrize = null
                     buliderAmount = null
+                    buliderBarcode = null
+                    buliderDescription = null
+                    buliderBrand = null
+                    buliderSize = null
+                    buliderUnit = null
+
 
                     val apiError = ErrorUtils.parseError422(response)
 
@@ -451,6 +468,43 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                         }
                     }
 
+
+                    if (apiError.errors.barcode != null) {
+                        buliderBarcode = StringBuilder()
+                        for (b in apiError.errors.barcode) {
+                            buliderBarcode!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.description != null) {
+                        buliderDescription = StringBuilder()
+                        for (b in apiError.errors.description) {
+                            buliderDescription!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.brand != null) {
+                        buliderBrand = StringBuilder()
+                        for (b in apiError.errors.brand) {
+                            buliderBrand!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.size != null) {
+                        buliderSize = StringBuilder()
+                        for (b in apiError.errors.size) {
+                            buliderSize!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.unit != null) {
+                        buliderUnit = StringBuilder()
+                        for (b in apiError.errors.unit) {
+                            buliderUnit!!.append("").append(b).append(" ")
+                        }
+                    }
+
+
                     if (builderMember != null) {
                         Toast.makeText(this@PurchasedItemsActivity, "" + builderMember, Toast.LENGTH_SHORT).show()
                     }
@@ -470,6 +524,26 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
                     if (buliderAmount != null) {
                         Toast.makeText(this@PurchasedItemsActivity, "" + buliderAmount, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (buliderBarcode != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderBarcode, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (buliderDescription != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderDescription, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (buliderBrand != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderBrand, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (buliderSize != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderSize, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (buliderUnit != null) {
+                        Toast.makeText(this@PurchasedItemsActivity, "" + buliderUnit, Toast.LENGTH_SHORT).show()
                     }
 
                 } else {

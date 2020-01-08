@@ -1,10 +1,13 @@
 package com.rahbarbazaar.checkpanel.ui.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -12,8 +15,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.os.ConfigurationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +33,7 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.rahbarbazaar.checkpanel.BuildConfig;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.DrawerAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.DrawerItemClicked;
@@ -45,11 +51,13 @@ import com.rahbarbazaar.checkpanel.utilities.Cache;
 import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory;
+import com.rahbarbazaar.checkpanel.utilities.DownloadManager;
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import co.ronash.pushe.Pushe;
 import io.reactivex.disposables.CompositeDisposable;
@@ -156,11 +164,67 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             }
         }
 
+        checkUpdate();
 
         setDrawerRecycler();
 
 
     }
+
+    private void checkUpdate() {
+        int device_version = BuildConfig.VERSION_CODE;
+        int minVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "minVersionCode"));
+        int currentVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "currentVersionCode"));
+
+
+        // force update
+        if (device_version < minVersionCode) {
+            String update_type = "force_update";
+            showUpdateDialog(update_type);
+        }
+
+        // optional update
+        if (device_version >= minVersionCode && device_version < currentVersionCode) {
+            String update_type = "optional_update";
+            showUpdateDialog(update_type);
+        }
+
+
+
+    }
+
+    private void showUpdateDialog(String update_type) {
+
+        dialogFactory.createUpdateDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+
+
+                if(checkStoragePermissionGranted()){
+                    new DownloadManager().DownloadUpdateApp(MainActivity.this);
+                }else{
+                    askStoragePermission();
+                }
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        },drawer_layout_home,update_type);
+
+    }
+
+    private boolean checkStoragePermissionGranted() {
+        return ContextCompat.checkSelfPermission((MainActivity.this), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+
+    }
+
+    private void askStoragePermission() {
+        ActivityCompat.requestPermissions((MainActivity.this)
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 444);
+    }
+
 
     private void initView() {
 
@@ -440,8 +504,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     private void generateInviteLink() {
 
-        String user_name = Cache.getString(MainActivity.this,"user_name");
-        String share_url = Cache.getString(MainActivity.this,"share_url");
+        String user_name = Cache.getString(MainActivity.this, "user_name");
+        String share_url = Cache.getString(MainActivity.this, "share_url");
 
         ShareCompat.IntentBuilder
                 .from(MainActivity.this)

@@ -387,42 +387,15 @@
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
 
-        </LinearLayout>
-    </ScrollView>
-
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bg_toolbar">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btn_cancel_editProductDetail"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_btn_prize"
-                android:text="@string/cancel_text"
-                android:textColor="@color/white"
-                android:visibility="visible" />
 
 
             <RelativeLayout
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/btn_cancel_editProductDetail"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_btn_prize">
 
                 <com.wang.avi.AVLoadingIndicatorView
@@ -445,9 +418,72 @@
 
             </RelativeLayout>
 
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_toolbar">
+
+        <LinearLayout
+            android:id="@+id/linear_return_editProductDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/retuen"
+                android:textColor="@color/white_gray"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/arrow_left"
+                android:tint="#FFF" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/rl_home_edit_product_detail">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:paddingTop="3dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/home_purchased_item"
+                android:src="@drawable/home_icon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:textSize="13sp"
+                android:layout_below="@+id/home_purchased_item"
+                android:text="@string/home_tab"/>
         </RelativeLayout>
 
     </RelativeLayout>
-
-    <!--</RelativeLayout>-->
 </RelativeLayout>

@@ -6,9 +6,28 @@
     android:layout_height="match_parent">
 
 
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="ثبت بارکد"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_above="@+id/rl_bottom_qrcode"
+        android:layout_below="@+id/rl_header"
+        android:layout_height="match_parent">
 
 
         <LinearLayout
@@ -17,21 +36,6 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:id="@+id/rl_header"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="@drawable/bg_toolbar">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="ثبت بارکد"
-                    android:textColor="@color/white"
-                    android:textSize="17sp" />
-
-            </RelativeLayout>
 
 
             <RelativeLayout
@@ -49,16 +53,6 @@
                     android:textColor="@color/blue_dark"
                     android:textSize="16sp" />
 
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:textSize="16sp"-->
-                <!--android:padding="10dp"-->
-                <!--android:layout_marginStart="20dp"-->
-                <!--android:textColor="@color/blue_dark"-->
-                <!--android:id="@+id/txt_desc_barcode"-->
-                <!--android:text="به کمک اسکن بارکد , بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد انرا تایپ کنید و نهایتا دکمه ی ثبت را لمس کنید."/>-->
 
             </RelativeLayout>
 
@@ -165,6 +159,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:id="@+id/rl_bottom_qrcode"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_toolbar">
 

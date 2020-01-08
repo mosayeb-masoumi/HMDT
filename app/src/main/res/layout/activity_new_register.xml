@@ -278,7 +278,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_button_add">
 
                 <ImageView
@@ -315,7 +315,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_btn_prize">
 
                 <ImageView
@@ -345,6 +345,49 @@
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="10dp"
+                android:layout_toEndOf="@+id/btn_cancel_register"
+                android:background="@drawable/bg_btn_prize">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="@string/update"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+
+            </RelativeLayout>
+
+
         </LinearLayout>
 
     </ScrollView>
@@ -363,62 +406,34 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg_toolbar">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_cancel_register"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/bg_btn_prize"
-                    android:text="@string/cancel_text"
-                    android:textColor="@color/white"
-                    android:visibility="visible" />
 
 
-                <RelativeLayout
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/btn_cancel_register"
-                    android:background="@drawable/bg_btn_prize">
+                <LinearLayout
+                    android:id="@+id/linear_return_new_register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:layoutDirection="rtl"
+                    android:orientation="horizontal">
 
-                    <com.wang.avi.AVLoadingIndicatorView
-                        android:id="@+id/avi_register"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:visibility="gone"
-                        app:indicatorColor="@color/white" />
+                        android:layout_marginTop="2dp"
+                        android:gravity="center"
+                        android:text="@string/retuen"
+                        android:textColor="@color/white_gray"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/btn_update"
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:layout_width="30dp"
                         android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/bg_btn_prize"
-                        android:text="@string/update"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
+                        android:padding="3dp"
+                        android:src="@drawable/arrow_left"
+                        android:tint="#FFF" />
 
-                    <Button
-                        android:id="@+id/btn_register"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/bg_btn_prize"
-                        android:text="@string/register"
-                        android:textColor="@color/white"
-                        android:visibility="gone" />
-
-
-                </RelativeLayout>
-
-            </RelativeLayout>
+                </LinearLayout>
 
         </RelativeLayout>
 

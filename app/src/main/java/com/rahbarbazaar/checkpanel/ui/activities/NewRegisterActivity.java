@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,7 +74,8 @@ public class NewRegisterActivity extends CustomBaseActivity
     DialogFactory dialogFactory;
     RegisterModel registerModel;
     ShoppingEdit shoppingEditModel;
-    Button btn_register, btn_cancel_register, btn_update;
+    Button btn_register, btn_update;
+    LinearLayout linear_return_new_register;
     AVLoadingIndicatorView avi;
     RegisterMemberDialogAdapter adapter_member;
     RegisterMemberEditAdapter adapter_edited;
@@ -195,7 +197,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
         btn_update = findViewById(R.id.btn_update);
-        btn_cancel_register = findViewById(R.id.btn_cancel_register);
         rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
         avi = findViewById(R.id.avi_register);
@@ -207,16 +208,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_new_register);
         txt_header = findViewById(R.id.header_new_register);
+        linear_return_new_register =findViewById(R.id.linear_return_new_register);
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_update.setOnClickListener(this);
         edtDate.setOnClickListener(this);
         rl_prize.setOnClickListener(this);
         rl_calander.setOnClickListener(this);
-        btn_cancel_register.setOnClickListener(this);
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
-
+        linear_return_new_register.setOnClickListener(this);
         edt_discount.setEnabled(false);
         edt_discount.setText("");
     }
@@ -302,7 +303,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showPrizeDialog();
                 break;
 
-            case R.id.btn_cancel_register:
+            case R.id.linear_return_new_register:
                 finish();
                 break;
         }

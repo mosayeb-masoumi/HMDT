@@ -2,7 +2,6 @@ package com.rahbarbazaar.checkpanel.utilities;
 
 public class ConvertEnDigitToFa {
 
-
     public static String convert(String enDigit){
         enDigit = enDigit
 
@@ -19,7 +18,4 @@ public class ConvertEnDigitToFa {
 
         return enDigit;
     }
-
-
-
 }

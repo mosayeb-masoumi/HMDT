@@ -418,7 +418,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_button_add">
 
                 <ImageView
@@ -455,7 +455,7 @@
                 android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_btn_prize">
 
                 <ImageView
@@ -487,6 +487,37 @@
                 android:cursorVisible="true"
                 android:layoutDirection="rtl" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_btn_prize">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi_register_purchased_items"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_register_purchased_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="@string/register"
+                    android:textColor="@color/white" />
+
+
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -501,16 +532,10 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_toolbar">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
 
             <LinearLayout
                 android:id="@+id/linear_return_purchased_item"
-                android:layout_width="0dp"
-                android:layout_weight="0.8"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="end"
                 android:layoutDirection="rtl"
@@ -537,38 +562,11 @@
 
 
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/bg_btn_prize">
-
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/avi_register_purchased_items"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone"
-                    app:indicatorColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btn_register_purchased_items"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_btn_prize"
-                    android:text="@string/register"
-                    android:textColor="@color/white" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight=".8"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_marginEnd="5dp"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/rl_home_purchased_item">
 
                 <ImageView
@@ -591,7 +589,7 @@
             </RelativeLayout>
 
 
-        </LinearLayout>
+
 
     </RelativeLayout>
 

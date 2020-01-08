@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,10 +84,13 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
 
     RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_root;
-    Button btn_register, btn_cancel;
+    Button btn_register;
     EditText edt_discount, edt_total_amount, edt_paid, edt_amount;
     TextView txt_unit, txt_amount_title, txt_currency,txt_currency2;
     JustifiedTextView txt_desc;
+
+    LinearLayout ll_return;
+    RelativeLayout rl_home;
 
     CheckBox checkBox_precentage, checkBox_amount;
 
@@ -172,9 +176,11 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
         rl_prize = findViewById(R.id.rl_prize);
         rl_root = findViewById(R.id.layout_edit_product_detail);
+        rl_home = findViewById(R.id.rl_home_edit_product_detail);
+        ll_return = findViewById(R.id.linear_return_editProductDetail);
 
         btn_register = findViewById(R.id.btn_register_edit_product_detail);
-        btn_cancel = findViewById(R.id.btn_cancel_editProductDetail);
+
         avi = findViewById(R.id.avi_edit_product_detail);
         edt_discount = findViewById(R.id.edt_discount);
         edt_total_amount = findViewById(R.id.edt_total_amount);
@@ -194,10 +200,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
         btn_register.setOnClickListener(this);
-        btn_cancel.setOnClickListener(this);
-//        rl_calander.setOnClickListener(this);
-//        btn_register.setOnClickListener(this);
-//        btn_cancel_register.setOnClickListener(this);
+        ll_return.setOnClickListener(this);
+        rl_home.setOnClickListener(this);
+
 
     }
 
@@ -232,7 +237,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     }
 
     private void updateEditPrizeList(List<SendPrize> sendPrizes) {
-        recycler_prize.setLayoutManager(new GridLayoutManager(EditProductsDetailActivity.this, 3));
+        recycler_prize.setLayoutManager(new GridLayoutManager(EditProductsDetailActivity.this, 2));
         editPrizeAdapter = new EditPrizeAdapter(sendPrizes, EditProductsDetailActivity.this);
         recycler_prize.setAdapter(editPrizeAdapter);
     }
@@ -253,7 +258,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 showPrizeDialog();
                 break;
 
-            case R.id.btn_cancel_editProductDetail:
+            case R.id.linear_return_editProductDetail:
+                finish();
+                break;
+
+            case R.id.rl_home_edit_product_detail:
+                startActivity(new Intent(EditProductsDetailActivity.this,MainActivity.class));
                 finish();
                 break;
         }

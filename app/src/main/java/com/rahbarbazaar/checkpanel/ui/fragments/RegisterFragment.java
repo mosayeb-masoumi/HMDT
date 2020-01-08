@@ -264,8 +264,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                         rl_btn_register.setVisibility(View.VISIBLE);
                         avi.setVisibility(View.GONE);
                     }
-                    rl_btn_register.setVisibility(View.VISIBLE);
-                    avi.setVisibility(View.GONE);
+
 
                 } else {
                     rl_btn_register.setVisibility(View.VISIBLE);
@@ -301,8 +300,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     private void getNewRegisterData() {
 
-        rl_btn_register.setVisibility(View.GONE);
-        avi.setVisibility(View.VISIBLE);
+
 
         Service service = new ServiceProvider(getContext()).getmService();
         Call<RegisterModel> call = service.getRegisterData();
@@ -310,7 +308,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 if (response.code() == 200) {
-
 
                     // publish null
                     ShoppingEdit shoppingEdit = new ShoppingEdit();

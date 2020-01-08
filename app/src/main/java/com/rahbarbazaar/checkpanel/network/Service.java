@@ -4,6 +4,7 @@ package com.rahbarbazaar.checkpanel.network;
 import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_history.DashboardHistory;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.edit_products.DeleteProduct;
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProductDetailUpdateSendData;
@@ -51,7 +52,6 @@ public interface Service {
 
     @POST("Login/Verify")
     Call<VerifyModel> verify(@Query("code") String code);
-
 
     @GET("Dashboard/Create")
     Call<DashboardCreateData> getDashboardData();
@@ -143,4 +143,14 @@ public interface Service {
 
     @GET("Shopping/MemberPrize")
     Call<MemberPrize> getMemberPrizeLists();
+
+    @POST("Dashboard/History")
+    Call<DashboardHistory> sendDeviceInfo(@Query("device_brand") String device_brand,
+                                          @Query("device_model") String device_model,
+                                          @Query("os_type") String os_type,
+                                          @Query("os_version") String os_version,
+                                          @Query("version_code") String version_code,
+                                          @Query("version_name") String version_name,
+                                          @Query("ip") String ip,
+                                          @Query("network_type") String network_type);
 }
