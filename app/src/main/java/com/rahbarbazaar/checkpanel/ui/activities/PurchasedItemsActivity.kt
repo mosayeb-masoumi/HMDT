@@ -1,5 +1,6 @@
 package com.rahbarbazaar.checkpanel.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -41,11 +42,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//
-
 class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
-
 
     private var connectivityReceiver: BroadcastReceiver? = null
 
@@ -85,16 +83,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private var builderMember: StringBuilder? = null
     private var buliderPrize: StringBuilder? = null
     private var buliderAmount: StringBuilder? = null
-
-
-
     private var buliderBarcode: StringBuilder? = null
     private var buliderDescription: StringBuilder? = null
     private var buliderBrand: StringBuilder? = null
     private var buliderSize: StringBuilder? = null
     private var buliderUnit: StringBuilder? = null
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,7 +121,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         }
 
 
-
         initView()
         //initial Dialog factory
         dialogFactory = DialogFactory(this@PurchasedItemsActivity)
@@ -143,15 +135,15 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         type = intent.getStringExtra("no_product")
         if (type == "no_product") {
             linear_no_product.visibility = View.VISIBLE
-            purchased_item_header.text = "ثبت محصول جدید"
+            purchased_item_header.text = "ثبت مشخصات و کالای خریداری شده"
             ll_decs_purchased_item.visibility = View.GONE
         } else {
-            purchased_item_header.text = "ثبت جدید"
+            purchased_item_header.text = "ثبت کالای خریداری شده"
             linear_no_product.visibility = View.GONE
         }
 
         edt_barcode_no_product.setText(barcode)
-        txt_desc_purchased_item.setText(description)
+        txt_desc_purchased_item.text = description
 
         edt_unit_no_product.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -166,6 +158,18 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
             }
         })
+
+
+        txt_total_amount_title_purchased_item.text = (resources.getString(R.string.tottal_amount) +" "+"("+"ریال"+")")
+
+        txt_paid_title_purchased_item.text = (resources.getString(R.string.paid_amount) +" "+"("+"ریال"+")")
+
+
+        txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount) +" "+"("+"ریال"+")")
+//        txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount)) + " "+"("+"در صورت تخفیف داشتن کالا"+")"
+
+//        txt_discount_title_purchased_item.text = String.format("%s(در صورت تخفیف داشتن کالا)",
+//                resources.getString(R.string.discount_amount))
 
     }
 
@@ -631,8 +635,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             }
         }
 
-
-
         img_close.setOnClickListener { v -> dialog.dismiss() }
         btn_exit_dialog.setOnClickListener { v -> dialog.dismiss() }
 
@@ -754,7 +756,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             edt_discount.setText("")
         }
 
-        when (view!!.getId()) {
+        when (view!!.id) {
             R.id.checkBox_amount -> if (isChecked) {
                 checkBox_precentage.isChecked = false
                 edt_discount.hint = resources.getString(R.string.amount2_)

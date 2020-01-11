@@ -137,7 +137,12 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                   barcode = response.body()!!
 
                   RxBus.BarcodeList.publishBarcodeList(barcode)
-                  startActivity(Intent(this@QRcodeActivity, BarcodeListActivity::class.java))
+//                  startActivity(Intent(this@QRcodeActivity, BarcodeListActivity::class.java))
+                  val intent = Intent(this@QRcodeActivity,BarcodeListActivity::class.java)
+                  intent.putExtra("barcode",edt_barcode.text.toString())
+                  startActivity(intent)
+                  overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+
                   overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                   showbtn()
                   finish()
@@ -152,6 +157,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                   intent.putExtra("no_product","no_product")
                   intent.putExtra("barcode",edt_barcode.text.toString())
                   startActivity(intent)
+                  overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
 
                   showbtn()
               }else{

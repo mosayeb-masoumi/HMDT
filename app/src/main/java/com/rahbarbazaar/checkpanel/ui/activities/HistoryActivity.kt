@@ -57,6 +57,11 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
             }
         }
 
+
+        linear_exit_history_list.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun getHistoryList(page: Int) {

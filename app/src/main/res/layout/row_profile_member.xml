@@ -4,18 +4,28 @@
     android:layout_height="wrap_content"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    android:paddingBottom="10dp">
+    android:layout_marginBottom="10dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/img_plus_profile_member"
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
+            android:layout_height="match_parent"
+            android:layout_weight="0.2" >
+
+            <ImageView
+                android:id="@+id/img_plus_profile_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@color/blue_dark2" />
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -27,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
                 android:text="نام"
                 android:textColor="@color/blue_dark"
                 android:textSize="15sp" />

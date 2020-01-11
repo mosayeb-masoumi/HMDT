@@ -1,9 +1,12 @@
 package com.rahbarbazaar.checkpanel.ui.activities
 
+import android.app.Activity
 import android.content.*
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
@@ -16,12 +19,11 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class LoginActivity : CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
-    lateinit var disposable: CompositeDisposable
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +37,24 @@ class LoginActivity : CustomBaseActivity() {
             }
         }
 
-        disposable = CompositeDisposable()
-        btn_submit_login.setOnClickListener {
-            submitRequest()
+        btn_submit_login.setOnClickListener {submitRequest()}
 
+        // event on done keyboard
+        edt_phone.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submitRequest()
+                closeKeyboard()
+                return@setOnEditorActionListener true
+            }
+            false
         }
+
+    }
+
+    private fun closeKeyboard() {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+                (currentFocus).windowToken, 0)
     }
 
     private fun submitRequest() {
@@ -55,7 +70,6 @@ class LoginActivity : CustomBaseActivity() {
     private fun requestLogin() {
 
        val mobile = edt_phone.text.toString()
-
         val service = ServiceProvider(this).getmService()
         val call = service.login(mobile)
 
@@ -63,8 +77,6 @@ class LoginActivity : CustomBaseActivity() {
 
             override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
                 if (response.code() == 200) {
-
-//                    startActivity(Intent(this@LoginActivity, VerificationActivity::class.java))
                     val intent = Intent(this@LoginActivity,VerificationActivity::class.java)
                     intent.putExtra("mobile",mobile)
                     startActivity(intent)

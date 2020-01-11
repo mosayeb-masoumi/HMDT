@@ -105,18 +105,13 @@ class SplashActivity : CustomBaseActivity() {
 
                     val dashboardCreateData: DashboardCreateData
                     dashboardCreateData = response.body()!!
-//                    RxBus.publishDashboardData(dashboardModel)
                     RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
-//                    ClientConfig.Update_URL = dashboardCreateData.data.updateUrl
+
                     Cache.setString(this@SplashActivity,"Update_URL",dashboardCreateData.data.updateUrl)
                     Cache.setString(this@SplashActivity,"minVersionCode",dashboardCreateData.data.minVersionCode)
                     Cache.setString(this@SplashActivity,"currentVersionCode",dashboardCreateData.data.currentVersionCode)
 
-//                    requestRegisterData()
-
-
                     requestInitMemberPrizeLists()
-
 
                 } else if (response.code() == 403) {
 

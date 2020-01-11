@@ -22,6 +22,7 @@ import com.rahbarbazaar.checkpanel.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_barcode_list.*
+import kotlinx.android.synthetic.main.activity_qrcode.*
 
 
 class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
@@ -30,6 +31,8 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
     var disposable: Disposable = CompositeDisposable()
     lateinit var barcode: Barcode
+
+    var getBarcode: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,20 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
         }
 
         setRecyclerView()
+
+        getBarcode = intent.getStringExtra("barcode")
+
+        linear_exit_barcode_list.setOnClickListener {
+            finish()
+        }
+
+        rl_register_barcodeList.setOnClickListener {
+            val intent = Intent(this@BarcodeListActivity,PurchasedItemsActivity::class.java)
+            intent.putExtra("no_product","no_product")
+            intent.putExtra("barcode",getBarcode)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+        }
     }
 
 

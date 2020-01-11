@@ -272,6 +272,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_total_amount_title_purchased_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -300,6 +301,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_paid_title_purchased_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -327,6 +329,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/txt_discount_title_purchased_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -415,9 +418,9 @@
                 android:id="@+id/rl_addmember"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_button_add">
 
@@ -452,9 +455,9 @@
                 android:id="@+id/rl_prize"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/bg_btn_prize">
 
@@ -492,9 +495,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_btn_prize">
 

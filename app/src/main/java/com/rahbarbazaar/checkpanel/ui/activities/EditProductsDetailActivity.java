@@ -86,7 +86,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_root;
     Button btn_register;
     EditText edt_discount, edt_total_amount, edt_paid, edt_amount;
-    TextView txt_unit, txt_amount_title, txt_currency,txt_currency2;
+    TextView txt_unit, txt_amount_title_chkbox,txt_total_amount_title_edit,txt_paid_edit_product,txt_discount_edit_product_detail;
     JustifiedTextView txt_desc;
 
     LinearLayout ll_return;
@@ -152,14 +152,20 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             edt_discount.setEnabled(false);
         }
 
-        txt_amount_title.setText(String.format("%s(%s)", getResources().getString(R.string.amount), editProducts.currency));
+//        txt_amount_title.setText(String.format("%s(%s) ", getResources().getString(R.string.amount), editProducts.currency));
+        txt_amount_title_chkbox.setText(String.format("%s (%s)", getResources().getString(R.string.amount), editProducts.currency));
+
         edt_amount.setText(editProducts.amount);
         edt_discount.setText(editProducts.discount);
         edt_paid.setText(editProducts.paid);
         edt_total_amount.setText(editProducts.cost);
         txt_unit.setText(editProducts.unit);
-        txt_currency.setText(String.format("(%s)", editProducts.currency));
-        txt_currency2.setText(String.format("(%s)", editProducts.currency));
+
+
+        txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.tottal_amount), editProducts.currency));
+        txt_paid_edit_product.setText(String.format("%s (%s)", getResources().getString(R.string.paid_amount), editProducts.currency));
+
+        txt_discount_edit_product_detail.setText(String.format("%s (در صورت تخفیف داشتن کالا)", getResources().getString(R.string.discount_amount)));
 
         txt_desc.setText(description);
 
@@ -186,10 +192,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         edt_total_amount = findViewById(R.id.edt_total_amount);
         edt_paid = findViewById(R.id.edt_paid);
         edt_amount = findViewById(R.id.edt_amount);
-        txt_amount_title = findViewById(R.id.txt_amount_title);
-        txt_currency = findViewById(R.id.txt_currency);
-        txt_currency2= findViewById(R.id.txt_currency2);
+        txt_amount_title_chkbox = findViewById(R.id.txt_amount_title_chkbox);
+        txt_paid_edit_product = findViewById(R.id.txt_paid_edit_product);
+        txt_discount_edit_product_detail=findViewById(R.id.txt_discount_edit_product_detail);
+
         txt_desc = findViewById(R.id.txt_desc_editProductDetail);
+        txt_total_amount_title_edit = findViewById(R.id.txt_total_amount_title_edit);
 
         txt_unit = findViewById(R.id.txt_unit);
         checkBox_precentage = findViewById(R.id.checkBox_precentage);

@@ -23,7 +23,7 @@ class ProfileMemberViewHolder (view: View, val context: Context) : RecyclerView.
         txt_role.text=model.name
 //        txt_role.text=model.role
 
-        imgview.setImageDrawable(itemView.context.resources.getDrawable(R.drawable.plus_blue_dark))
+        imgview.setImageDrawable(itemView.context.resources.getDrawable(R.drawable.info_icon))
 
     }
 

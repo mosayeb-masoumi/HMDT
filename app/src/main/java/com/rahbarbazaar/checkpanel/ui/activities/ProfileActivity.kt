@@ -15,11 +15,15 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileFamilyAdapter
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ProfileMemberItemInteraction
+import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
 import com.rahbarbazaar.checkpanel.models.profile.*
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
+import com.rahbarbazaar.checkpanel.utilities.RxBus
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +34,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
 
     private var connectivityReceiver: BroadcastReceiver? = null
+    var disposable: Disposable = CompositeDisposable()
 
     lateinit var profileData: ProfileData
     private lateinit var adapter_family: ProfileFamilyAdapter
@@ -55,13 +60,26 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             }
         }
 
-        getProfileData()
+
+
+        // get data from rxbus
+        disposable = CompositeDisposable()
+        disposable = RxBus.ProfileInfo.subscribeProfileInfo{ result ->
+            if (result is ProfileData) {
+                profileData = result
+            }
+        }
+
+
+
+
+
+//        getProfileData()
 
         // message must be initialize
         family = ArrayList<Family>()
         member = ArrayList<Member>()
-//        member_detail = ArrayList<MemberDetail>()
-//        memberDetail = MemberDetail()
+
 
         familyListVisibility = "unseen"
         if (familyListVisibility.equals("unseen")) {
@@ -75,33 +93,39 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             finish()
         }
 
+
+
+        setPersonalProfile(profileData)
+        setRecyclerviewFamily(profileData)
+        setRecyclerviewMember(profileData)
+
     }
 
-    private fun getProfileData() {
-
-        val service = ServiceProvider(this).getmService()
-        val call = service.profileList
-        call.enqueue(object : Callback<ProfileData> {
-            override fun onResponse(call: Call<ProfileData>, response: Response<ProfileData>) {
-                if (response.code() == 200) {
-
-                    profileData = response.body()!!
-
-                    setPersonalProfile(profileData)
-                    setRecyclerviewFamily(profileData)
-                    setRecyclerviewMember(profileData)
-
-                } else {
-                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<ProfileData>, t: Throwable) {
-                Toast.makeText(this@ProfileActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-
-            }
-        })
-    }
+//    private fun getProfileData() {
+//
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.profileList
+//        call.enqueue(object : Callback<ProfileData> {
+//            override fun onResponse(call: Call<ProfileData>, response: Response<ProfileData>) {
+//                if (response.code() == 200) {
+//
+//                    profileData = response.body()!!
+//
+//                    setPersonalProfile(profileData)
+//                    setRecyclerviewFamily(profileData)
+//                    setRecyclerviewMember(profileData)
+//
+//                } else {
+//                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ProfileData>, t: Throwable) {
+//                Toast.makeText(this@ProfileActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//
+//            }
+//        })
+//    }
 
     private fun setPersonalProfile(profileData: ProfileData) {
         txt_name_title_profile.text = "نام:"
@@ -245,5 +269,6 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(connectivityReceiver)
+        disposable.dispose()
     }
 }

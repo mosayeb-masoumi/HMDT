@@ -1,6 +1,7 @@
 package com.rahbarbazaar.checkpanel.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,8 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.format.Formatter
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.BuildConfig
@@ -24,6 +27,7 @@ import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.android.synthetic.main.activity_verification.*
 import retrofit2.Call
@@ -58,6 +62,24 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         ll_txt_user_mobile.setOnClickListener(this)
         linear_recode.setOnClickListener(this)
         button_verify.setOnClickListener(this)
+
+
+
+        // event on done keyboard
+        et_user_verify.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                sendVerifyRequest()
+                closeKeyboard()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+    }
+
+    private fun closeKeyboard() {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+                (currentFocus).windowToken, 0)
     }
 
     private fun reverseTimer(Seconds: Int, text_min: TextView?) {

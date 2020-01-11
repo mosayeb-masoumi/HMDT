@@ -40,8 +40,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="15dp"
                 android:text="@string/personal_profile"
-                android:textSize="15sp"
-                android:textColor="@color/blue_dark" />
+                android:textColor="@color/blue_dark"
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,12 +142,13 @@
 
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="7dp"
                     android:layout_marginStart="7dp"
                     android:layout_marginEnd="7dp"
+                    android:layout_marginBottom="7dp"
                     android:orientation="horizontal">
 
                     <RelativeLayout
@@ -197,6 +198,47 @@
                 android:background="@drawable/bg_prize_item"
                 android:orientation="vertical">
 
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="0.2" >-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/img_plus_profile_family_info"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:src="@color/blue_dark2" />-->
+                <!--</RelativeLayout>-->
+
+
+                <!--<RelativeLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1">-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/txt_name_profile_member_item"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/family_info"-->
+                <!--android:textColor="@color/blue_dark"-->
+                <!--android:textSize="15sp" />-->
+
+
+                <!--</RelativeLayout>-->
+
+
+                <!--</LinearLayout>-->
                 <RelativeLayout
                     android:id="@+id/rl_family_info"
                     android:layout_width="match_parent"
@@ -207,18 +249,60 @@
                     android:layout_marginBottom="10dp"
                     android:padding="5dp">
 
-                    <TextView
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/family_info"
-                        android:textColor="@color/blue_dark"
-                        android:textSize="15sp" />
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true">
 
-                    <ImageView
-                        android:id="@+id/img_plus_profile_family_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp" />
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2">
+
+                            <ImageView
+                                android:id="@+id/img_plus_profile_family_info"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:src="@color/blue_dark2" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt_name_profile_member_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:text="@string/family_info"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                    <!--<TextView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/family_info"-->
+                    <!--android:textColor="@color/blue_dark"-->
+                    <!--android:textSize="15sp" />-->
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/img_plus_profile_family_info"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="10dp" />-->
 
                 </RelativeLayout>
 
@@ -243,8 +327,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:text="@string/family_member_info"
-                android:textSize="15sp"
-                android:textColor="@color/blue_dark" />
+                android:textColor="@color/blue_dark"
+                android:textSize="15sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -260,9 +344,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="5dp">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -284,9 +368,9 @@
             android:id="@+id/btn_profile_change"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginEnd="60dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_button_add"
             android:text="@string/request_profile_change"

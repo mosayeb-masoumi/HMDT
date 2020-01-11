@@ -42,6 +42,7 @@ import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCr
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DrawerItems;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.checkpanel.models.issue.ReportIssue;
+import com.rahbarbazaar.checkpanel.models.profile.ProfileData;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
 import com.rahbarbazaar.checkpanel.ui.fragments.ShopFragment;
@@ -98,6 +99,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     Disposable disposable = new CompositeDisposable();
     DashboardCreateData dashboardCreateData;
+
+    ProfileData profileData;
 
     String locale_name;
 
@@ -167,10 +170,38 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         checkUpdate();
 
+        getProfileInfo();
+
         setDrawerRecycler();
 
 
     }
+
+    private void getProfileInfo() {
+
+        Service service = new ServiceProvider(MainActivity.this).getmService();
+        Call<ProfileData> call = service.getProfileList();
+        call.enqueue(new Callback<ProfileData>() {
+            @Override
+            public void onResponse(Call<ProfileData> call, Response<ProfileData> response) {
+                if (response.code() == 200) {
+
+                    profileData = response.body();
+                    RxBus.ProfileInfo.publishProfileInfo(profileData);
+
+                } else {
+
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileData> call, Throwable t) {
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void checkUpdate() {
         int device_version = BuildConfig.VERSION_CODE;
@@ -191,7 +222,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
 
 
-
     }
 
     private void showUpdateDialog(String update_type) {
@@ -201,9 +231,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             public void onAcceptButtonClicked(String... strings) {
 
 
-                if(checkStoragePermissionGranted()){
+                if (checkStoragePermissionGranted()) {
                     new DownloadManager().DownloadUpdateApp(MainActivity.this);
-                }else{
+                } else {
                     askStoragePermission();
                 }
             }
@@ -212,7 +242,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             public void onDeniedButtonClicked(boolean cancel_dialog) {
 
             }
-        },drawer_layout_home,update_type);
+        }, drawer_layout_home, update_type);
 
     }
 
@@ -628,7 +658,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     }
 
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -640,7 +669,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
 
 
     @Override

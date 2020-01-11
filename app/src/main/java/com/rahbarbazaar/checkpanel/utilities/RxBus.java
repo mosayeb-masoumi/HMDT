@@ -94,4 +94,19 @@ public final class RxBus {
         }
     }
 
+
+    public static class ProfileInfo {
+
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeProfileInfo(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        public static void publishProfileInfo(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
 }

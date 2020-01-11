@@ -92,7 +92,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     String str_spnItemId;
     String checkbox_text = "";
     RelativeLayout layout_register;
-    TextView txt_header;
+    TextView txt_header,txt_total_amount_title,txt_paid_title,txt_discount_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -167,6 +167,11 @@ public class NewRegisterActivity extends CustomBaseActivity
             setEditPrizeRecycler(shoppingEditModel.data);
         }
         setSpinner();
+
+        txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
+        txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
+        txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
+                getResources().getString(R.string.discount_amount)));
     }
 
     private void setEditMemberRecyclere(Data shoppingEditModel) {
@@ -209,6 +214,11 @@ public class NewRegisterActivity extends CustomBaseActivity
         layout_register = findViewById(R.id.layout_new_register);
         txt_header = findViewById(R.id.header_new_register);
         linear_return_new_register =findViewById(R.id.linear_return_new_register);
+        txt_total_amount_title=findViewById(R.id.txt_total_amount_title);
+
+        txt_paid_title = findViewById(R.id.txt_paid_title);
+        txt_discount_title =findViewById(R.id.txt_discount_title);
+
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
         btn_update.setOnClickListener(this);
