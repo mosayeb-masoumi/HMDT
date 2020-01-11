@@ -11,7 +11,7 @@ import io.fabric.sdk.android.Fabric;
 public class App extends Application {
 
 
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
 
     @Override
@@ -23,15 +23,15 @@ public class App extends Application {
 
 
 //      //todo delete leakCanary
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        refWatcher = LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        refWatcher = LeakCanary.install(this);
     }
 
 
-    public static RefWatcher getRefWatcher(Context context) {
-        App application = (App) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//    public static RefWatcher getRefWatcher(Context context) {
+//        App application = (App) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 }

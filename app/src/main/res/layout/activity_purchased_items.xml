@@ -38,42 +38,27 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ll_decs_purchased_item"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="@string/goods_desc"
-                    android:textColor="@color/blue_dark" />
-
-                <com.codesgood.views.JustifiedTextView
-
-                    android:id="@+id/txt_desc_purchased_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/bg_prize_item"
-                    android:padding="15dp"
-                    android:text="لیمو,مداد"
-                    android:textColor="@color/blue_dark" />
-            </LinearLayout>
-
-
-            <LinearLayout
                 android:id="@+id/linear_no_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="start"
+                    android:text="@string/no_goods_warning"
+                    android:padding="5sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -217,6 +202,35 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_decs_purchased_item"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/goods_desc"
+                    android:textColor="@color/blue_dark" />
+
+                <com.codesgood.views.JustifiedTextView
+
+                    android:id="@+id/txt_desc_purchased_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/bg_prize_item"
+                    android:padding="15dp"
+                    android:text="لیمو,مداد"
+                    android:textColor="@color/blue_dark" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
