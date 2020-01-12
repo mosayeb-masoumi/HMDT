@@ -9,7 +9,6 @@
     tools:context=".ui.fragments.RegisterFragment">
 
 
-
     <RelativeLayout
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
@@ -17,11 +16,11 @@
         android:background="@drawable/bg_toolbar">
 
         <TextView
+            android:id="@+id/header_new_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/register_new"
-            android:id="@+id/header_new_register"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -49,10 +48,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:text="@string/shop"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/shop"
                     android:textColor="@color/blue_dark"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -83,16 +82,17 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txt_total_amount_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:id="@+id/txt_total_amount_title"
                 android:layout_marginStart="10dp"
-                android:text="@string/tottal_amount"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/tottal_amount"
                 android:textColor="@color/blue_dark"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/edt_total_amount"
                 android:layout_width="match_parent"
@@ -114,16 +114,17 @@
 
 
             <TextView
+                android:id="@+id/txt_paid_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_paid_title"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 android:text="@string/paid_amount"
-                android:textColor="@color/blue_dark" />
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/edt_paid"
                 android:layout_width="match_parent"
@@ -141,17 +142,18 @@
                 android:textColorHint="@color/blue"
                 android:textDirection="rtl"
                 android:textSize="14sp" />
+
             <TextView
+                android:id="@+id/txt_discount_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:id="@+id/txt_discount_title"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 android:text="@string/discount_amount"
-                android:textColor="@color/blue_dark" />
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -237,10 +239,11 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:textSize="14sp"
-                android:textStyle="bold"
                 android:text="@string/purchase_date2"
-                android:textColor="@color/blue_dark" />
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
             <RelativeLayout
                 android:id="@+id/rl_calander"
                 android:layout_width="match_parent"
@@ -275,31 +278,66 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_addmember"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_button_add">
+                android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:layout_width="50dp"
+                <RelativeLayout
+                    android:id="@+id/rl_addmember"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/img_member" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_centerInParent="true"
-                    android:text="@string/familymember"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:background="@drawable/bg_button_add">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/img_member" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/familymember"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/bg_info_btn"
+                    android:layout_marginEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/img_info_member_new_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_info_btn" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2"
+                        />
+
+                </RelativeLayout>
+
+
             </RelativeLayout>
 
 
@@ -332,8 +370,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="@string/prize_selection"
                     android:textColor="@color/white"
                     android:textSize="14sp"
@@ -396,49 +434,45 @@
     </ScrollView>
 
 
-
-
-
     <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_toolbar">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_toolbar">
 
 
+        <LinearLayout
+            android:id="@+id/linear_return_new_register"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/linear_return_new_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="end"
-                    android:layoutDirection="rtl"
-                    android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/retuen"
+                android:textColor="@color/white_gray"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:gravity="center"
-                        android:text="@string/retuen"
-                        android:textColor="@color/white_gray"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/arrow_left"
+                android:tint="#FFF" />
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:padding="3dp"
-                        android:src="@drawable/arrow_left"
-                        android:tint="#FFF" />
+        </LinearLayout>
 
-                </LinearLayout>
-
-        </RelativeLayout>
+    </RelativeLayout>
 
     <!--</RelativeLayout>-->
 

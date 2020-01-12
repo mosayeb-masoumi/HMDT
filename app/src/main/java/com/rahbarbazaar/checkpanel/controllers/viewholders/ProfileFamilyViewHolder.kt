@@ -10,8 +10,11 @@ import com.rahbarbazaar.checkpanel.models.profile.Family
 
 class ProfileFamilyViewHolder (view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
-    private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable_profile_family_item)
-    private val txt_value: TextView = itemView.findViewById(R.id.txt_value_profile_family_item)
+//    private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable_profile_family_item)
+//    private val txt_value: TextView = itemView.findViewById(R.id.txt_value_profile_family_item)
+
+    private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable)
+    private val txt_value: TextView = itemView.findViewById(R.id.txt_value)
 
     @SuppressLint("SetTextI18n")
     fun bindUserData(model: Family) {

@@ -22,7 +22,6 @@ import com.rahbarbazaar.checkpanel.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_barcode_list.*
-import kotlinx.android.synthetic.main.activity_qrcode.*
 
 
 class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
@@ -63,9 +62,9 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
         }
 
         rl_register_barcodeList.setOnClickListener {
-            val intent = Intent(this@BarcodeListActivity,PurchasedItemsActivity::class.java)
-            intent.putExtra("no_product","no_product")
-            intent.putExtra("barcode",getBarcode)
+            val intent = Intent(this@BarcodeListActivity, PurchasedItemsActivity::class.java)
+            intent.putExtra("no_product", "no_product")
+            intent.putExtra("barcode", getBarcode)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
@@ -80,11 +79,8 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 //            if (lists[i].name == "reza") {
 ////                lists.removeAt(i)
 ////            }
-            barcodeList.add(BarcodeData(barcode.data!![i].id, barcode.data!![i].mygroup, barcode.data!![i].decription, barcode.data!![i].subCategory,
-                    barcode.data!![i].main, barcode.data!![i].category, barcode.data!![i].show, barcode.data!![i].owner, barcode.data!![i].brand,
-                    barcode.data!![i].subBrand, barcode.data!![i].company, barcode.data!![i].country, barcode.data!![i].unit,
-                    barcode.data!![i].packaging, barcode.data!![i].price, barcode.data!![i].type, barcode.data!![i].amount,
-                    barcode.data!![i].image))
+            barcodeList.add(BarcodeData(barcode.data!![i].id, barcode.data!![i].mygroup, barcode.data!![i].show, barcode.data!![i].decription,
+                    barcode.data!![i].barcodeDetail))
         }
 
         val recyclerview: RecyclerView = findViewById(R.id.recycler_barcodelist)
@@ -119,7 +115,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
             "btnRegisterActive" -> {
 
                 val intent = Intent(this, PurchasedItemsActivity::class.java)
-                intent.putExtra("unit", model.unit)
+//                intent.putExtra("unit", model.unit)
                 intent.putExtra("product_id", model.id)
                 intent.putExtra("barcodeListItemDesc", model.decription)
                 intent.putExtra("mygroup", model.mygroup)

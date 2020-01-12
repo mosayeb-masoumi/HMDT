@@ -66,6 +66,10 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
         shopping_id = getIntent().getStringExtra("shopping_id")
 
+        linear_exit_edit_product.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun getEditList(page: Int) {

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
     android:background="@drawable/activelist_rv_bg"
-    android:layout_height="wrap_content">
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -16,90 +15,98 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"/>
+            android:layout_weight="0.2" />
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:padding="15dp"
-            android:src="@drawable/edit_product_icon"
             android:id="@+id/img_edit_product"
-            android:layout_weight="1"/>
-
-        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/register_icon"
+            android:layout_weight="0.7"
             android:padding="15dp"
+            android:src="@drawable/edit_product_icon" />
+
+        <ImageView
             android:id="@+id/img_register"
-            android:layout_weight="1"/>
-
-        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/edit_purchase_icon"
+            android:layout_weight="0.7"
             android:padding="15dp"
+            android:src="@drawable/register_icon" />
+
+        <ImageView
             android:id="@+id/img_edit_shop"
-            android:layout_weight="1"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:padding="15dp"
+            android:src="@drawable/edit_purchase_icon" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-           android:gravity="center_vertical"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
                 android:id="@+id/txt_title_activelist"
-                android:textSize="15sp"
-                android:text="jkljkjk"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:textSize="15sp"
-                android:layout_below="@+id/txt_title_activelist"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginTop="2dp"
+                android:text="یبلیبل"
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/txt_date_activelist"
-                android:text="jkljkjk"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_title_activelist"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:text="jkljkjk"
+                android:textColor="@color/blue_dark"
+                android:textSize="14sp" />
 
         </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="5dp">
+        android:layout_height="5dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"/>
+            android:layout_weight="0.2" />
 
         <ImageView
             android:id="@+id/img_activelist_under1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:src="@color/blue_dark" />
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@color/blue"
-            android:layout_weight="1"/>
+            android:layout_weight="0.7"
+            android:src="@color/blue" />
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@color/pink_dark"
-            android:layout_weight="1"/>
+            android:layout_weight="0.7"
+            android:src="@color/pink_dark" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
 
 
     </LinearLayout>

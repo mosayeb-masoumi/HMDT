@@ -14,6 +14,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
+import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
 import com.rahbarbazaar.checkpanel.models.barcodlist.Barcode
 import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
@@ -109,8 +110,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                 finish()
             }
 
-
-
         }
     }
 
@@ -149,7 +148,16 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
               }else if(response.code()==422){
                   showbtn()
+                  val apiError = ErrorUtils.parseError422(response)
+                  if (apiError.errors.barcode != null) {
 
+                      var builderBarcode = StringBuilder()
+                      for (a in apiError.errors.barcode) {
+                          builderBarcode.append("$a ")
+                      }
+                      Toast.makeText(this@QRcodeActivity, "" + builderBarcode, Toast.LENGTH_SHORT).show()
+
+                  }
 
 
               }else if(response.code()==204){

@@ -1,0 +1,65 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingBottom="5dp"
+    android:padding="10dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/bg_list_detail">
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_weight="1">-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/rl_lable">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_value"
+            android:textSize="15sp"
+            android:layout_marginStart="10dp"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/blue_dark"
+            android:text="مقدار"/>
+
+    </RelativeLayout>
+
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:layout_weight="0.5">-->
+
+    <RelativeLayout
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_lable"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_lable"
+            android:textSize="15sp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/blue_dark"
+            android:text="لیبل"/>
+    </RelativeLayout>
+
+    <!--</RelativeLayout>-->
+
+
+</RelativeLayout>

@@ -582,12 +582,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                     APIError422 apiError = ErrorUtils.parseError422(response);
 
-                    if (apiError.errors.member != null) {
-                        builderMember = new StringBuilder();
-                        for (String b : apiError.errors.member) {
-                            builderMember.append("").append(b).append(" ");
-                        }
-                    }
 
                     if (apiError.errors.shopId != null) {
                         builderShopId = new StringBuilder();
@@ -607,6 +601,13 @@ public class NewRegisterActivity extends CustomBaseActivity
                         builderPaid = new StringBuilder();
                         for (String a : apiError.errors.paid) {
                             builderPaid.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.member != null) {
+                        builderMember = new StringBuilder();
+                        for (String b : apiError.errors.member) {
+                            builderMember.append("").append(b).append(" ");
                         }
                     }
 
