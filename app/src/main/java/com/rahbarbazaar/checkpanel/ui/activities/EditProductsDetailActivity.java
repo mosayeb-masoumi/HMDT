@@ -69,35 +69,26 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
     DialogFactory dialogFactory;
-
     TotalEditProductData totalEditProductData;
     EditProducts editProducts;
     RecyclerView recyclerEditedMember, recycler_prize;
-
     ArrayList<RegisterMemberEditModel> editMembers;
     RegisterMemberEditAdapter adapter_edited;
     RegisterMemberDialogAdapter adapter_member;
-
     List<SendPrize> sendPrizes;
     EditPrizeAdapter editPrizeAdapter;
     PrizeAdapter adapter_prize;
-
-
     RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_root;
     Button btn_register;
     EditText edt_discount, edt_total_amount, edt_paid, edt_amount;
     TextView txt_unit, txt_amount_title_chkbox,txt_total_amount_title_edit,txt_paid_edit_product,txt_discount_edit_product_detail;
     JustifiedTextView txt_desc;
-
     LinearLayout ll_return;
-    RelativeLayout rl_home;
-
+    RelativeLayout rl_home,rl_member_info,rl_prize_info;
     CheckBox checkBox_precentage, checkBox_amount;
-
     AVLoadingIndicatorView avi;
-    String bought_id;
-    String checkbox_text = "";
-    String description ;
+    String checkbox_text = "" , info_type,description,bought_id;
+
 
 
 
@@ -183,6 +174,8 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         rl_prize = findViewById(R.id.rl_prize);
         rl_root = findViewById(R.id.layout_edit_product_detail);
         rl_home = findViewById(R.id.rl_home_edit_product_detail);
+        rl_member_info = findViewById(R.id.rl_info_member_edit_detail);
+        rl_prize_info = findViewById(R.id.rl_info_prize_edit_detail);
         ll_return = findViewById(R.id.linear_return_editProductDetail);
 
         btn_register = findViewById(R.id.btn_register_edit_product_detail);
@@ -205,6 +198,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
         rl_addmember.setOnClickListener(this);
         rl_prize.setOnClickListener(this);
+        rl_member_info.setOnClickListener(this);
+        rl_prize_info.setOnClickListener(this);
+
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
         btn_register.setOnClickListener(this);
@@ -274,7 +270,32 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 startActivity(new Intent(EditProductsDetailActivity.this,MainActivity.class));
                 finish();
                 break;
+
+            case R.id.rl_info_member_edit_detail:
+                info_type = "member_info_edit_product_detail";
+                showInfoDialog(info_type);
+                break;
+
+            case R.id.rl_info_prize_edit_detail:
+                info_type = "prize_info_edit_product_detail";
+                showInfoDialog(info_type);
+                break;
+
         }
+    }
+    private void showInfoDialog(String info_type) {
+        dialogFactory.createInfoMemberPrizeDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, rl_root ,info_type);
     }
 
     private void showAddMemberDialog() {

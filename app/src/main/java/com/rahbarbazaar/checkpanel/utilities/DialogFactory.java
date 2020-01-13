@@ -248,8 +248,6 @@ public class DialogFactory {
         recyclerView.setAdapter(adapter);
 
 
-
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -725,9 +723,9 @@ public class DialogFactory {
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
-        if(update_type.equals("force_update")){
+        if (update_type.equals("force_update")) {
             builder.setCancelable(false);
-        }else if (update_type.equals("optional_update")) {
+        } else if (update_type.equals("optional_update")) {
             builder.setCancelable(true);
         }
 
@@ -740,8 +738,8 @@ public class DialogFactory {
 
 
         btn_send.setOnClickListener(v -> {
-                listener.onAcceptButtonClicked();
-                dialog.dismiss();
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
 
         });
 
@@ -749,6 +747,58 @@ public class DialogFactory {
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
 
+    }
+
+
+    public void createInfoMemberPrizeDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view, String info_type) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        Button btn_cancel = customLayout.findViewById(R.id.btn);
+        TextView txt_body = customLayout.findViewById(R.id.txt_description);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+
+        btn_cancel.setText(context.getResources().getString(R.string.close));
+        txt_header.setText("اطلاعات");
+
+        switch (info_type) {
+            case "member_info_new_register":
+                txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
+                break;
+            case "prize_info_new_register":
+                txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
+                break;
+            case "member_info_edit_product_detail":
+                txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
+                break;
+            case "prize_info_edit_product_detail":
+                txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
+                break;
+            case "member_info_purchased_item":
+                txt_body.setText("کسانی که در خانواده از این کالا استفاده می کنند.");
+                break;
+            case "prize_info_purchased_item":
+                txt_body.setText("جوایزی که برای این کالا در نظر گرفته شده است");
+                break;
+        }
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        btn_cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
 

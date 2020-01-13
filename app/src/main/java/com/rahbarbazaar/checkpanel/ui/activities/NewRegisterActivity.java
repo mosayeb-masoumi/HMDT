@@ -84,15 +84,14 @@ public class NewRegisterActivity extends CustomBaseActivity
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander;
+    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info;
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
-    String date = "";
-    String str_spnItemId;
-    String checkbox_text = "";
-    RelativeLayout layout_register;
-    TextView txt_header,txt_total_amount_title,txt_paid_title,txt_discount_title;
+
+    String str_spnItemId, info_type, checkbox_text = "", date = "";
+
+    TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -125,8 +124,6 @@ public class NewRegisterActivity extends CustomBaseActivity
                 shoppingEditModel = (ShoppingEdit) result;
             }
         });
-
-
 
 
         initView();
@@ -204,6 +201,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_update = findViewById(R.id.btn_update);
         rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
+        rl_member_info = findViewById(R.id.rl_info_member_new_register);
+        rl_prize_info = findViewById(R.id.rl_info_prize_new_register);
         avi = findViewById(R.id.avi_register);
         edtDate = findViewById(R.id.edtDate);
         edt_discount = findViewById(R.id.edt_discount);
@@ -213,11 +212,11 @@ public class NewRegisterActivity extends CustomBaseActivity
         checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_new_register);
         txt_header = findViewById(R.id.header_new_register);
-        linear_return_new_register =findViewById(R.id.linear_return_new_register);
-        txt_total_amount_title=findViewById(R.id.txt_total_amount_title);
+        linear_return_new_register = findViewById(R.id.linear_return_new_register);
+        txt_total_amount_title = findViewById(R.id.txt_total_amount_title);
 
         txt_paid_title = findViewById(R.id.txt_paid_title);
-        txt_discount_title =findViewById(R.id.txt_discount_title);
+        txt_discount_title = findViewById(R.id.txt_discount_title);
 
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
@@ -228,6 +227,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
         linear_return_new_register.setOnClickListener(this);
+        rl_member_info.setOnClickListener(this);
+        rl_prize_info.setOnClickListener(this);
         edt_discount.setEnabled(false);
         edt_discount.setText("");
     }
@@ -316,7 +317,33 @@ public class NewRegisterActivity extends CustomBaseActivity
             case R.id.linear_return_new_register:
                 finish();
                 break;
+
+            case R.id.rl_info_member_new_register:
+                info_type = "member_info_new_register";
+                showInfoDialog(info_type);
+                break;
+
+            case R.id.rl_info_prize_new_register:
+                info_type = "prize_info_new_register";
+                showInfoDialog(info_type);
+                break;
+
         }
+    }
+
+    private void showInfoDialog(String info_type) {
+        dialogFactory.createInfoMemberPrizeDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register ,info_type);
     }
 
     private void showCalendarDialog() {
@@ -559,8 +586,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
 //                    createChooseScannerDialog();
 
-                    Intent intent = new Intent(NewRegisterActivity.this,QRcodeActivity.class);
-                    intent.putExtra("static_barcode","static_barcode");
+                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+                    intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
@@ -671,7 +698,6 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
 
-
     private void sendUpdateData() {
         btn_update.setVisibility(View.GONE);
         btn_register.setVisibility(View.GONE);
@@ -693,7 +719,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setShopping_id(Cache.getString(NewRegisterActivity.this, "shopping_id"));
 
         String chechBox_type = checkbox_text;
-        if(!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()){
+        if (!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()) {
             chechBox_type = "";
         }
 
@@ -701,10 +727,10 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (chechBox_type.equals("مبلغ") || chechBox_type.equals("amount")) {
             sendData.setDiscount_type("amount");
             sendData.setDiscount_amount(discount_amount);
-        } else if(chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
+        } else if (chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
             sendData.setDiscount_type("percent");
             sendData.setDiscount_amount(discount_amount);
-        }else {
+        } else {
             sendData.setDiscount_type("not_set");
         }
 

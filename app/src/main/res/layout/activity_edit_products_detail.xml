@@ -37,9 +37,9 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_decs_edit_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_decs_edit_product"
                 android:orientation="vertical">
 
                 <TextView
@@ -119,11 +119,11 @@
                 android:layout_marginEnd="10dp">
 
                 <TextView
+                    android:id="@+id/txt_total_amount_title_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tottal_amount"
-                    android:id="@+id/txt_total_amount_title_edit"
                     android:layout_alignParentEnd="true"
+                    android:text="@string/tottal_amount"
                     android:textColor="@color/blue_dark" />
 
 
@@ -142,12 +142,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_centerInParent="true"
+                    android:backgroundTint="@color/blue"
                     android:cursorVisible="true"
                     android:gravity="center"
                     android:hint="@string/tottal_amount"
                     android:inputType="number"
                     android:padding="5sp"
-                    android:backgroundTint="@color/blue"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
@@ -158,13 +158,13 @@
 
 
             <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="5dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:text="@string/paid_amount"-->
-                <!--android:textColor="@color/blue_dark" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="5dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginEnd="10dp"-->
+            <!--android:text="@string/paid_amount"-->
+            <!--android:textColor="@color/blue_dark" />-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -173,11 +173,11 @@
                 android:layout_marginEnd="10dp">
 
                 <TextView
+                    android:id="@+id/txt_paid_edit_product"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/paid_amount"
-                    android:id="@+id/txt_paid_edit_product"
                     android:layout_alignParentEnd="true"
+                    android:text="@string/paid_amount"
                     android:textColor="@color/blue_dark" />
 
 
@@ -210,14 +210,15 @@
 
 
             <TextView
+                android:id="@+id/txt_discount_edit_product_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:id="@+id/txt_discount_edit_product_detail"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/discount_amount"
                 android:textColor="@color/blue_dark" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -236,13 +237,13 @@
                         android:id="@+id/edt_discount"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:backgroundTint="@color/blue"
                         android:gravity="center"
                         android:hint="@string/percent_amount"
                         android:inputType="number"
-                        android:layout_centerInParent="true"
-                        android:padding="10dp"
                         android:maxLength="12"
-                        android:backgroundTint="@color/blue"
+                        android:padding="10dp"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
                         android:textSize="15sp" />
@@ -300,69 +301,133 @@
 
 
             <RelativeLayout
-                android:id="@+id/rl_addmember"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_button_add">
+                android:layout_marginBottom="5dp">
 
-                <ImageView
-                    android:layout_width="50dp"
+                <RelativeLayout
+                    android:id="@+id/rl_addmember"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/img_member" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@string/consumer"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/bg_button_add">
 
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/img_member" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/consumer"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_info_member_edit_detail"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/bg_info_btn">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_info_btn" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_edited_members"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:visibility="gone"
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
 
+
             <RelativeLayout
-                android:id="@+id/rl_prize"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="80dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_btn_prize">
+                android:layout_marginBottom="5dp">
 
-                <ImageView
-                    android:layout_width="50dp"
+                <RelativeLayout
+                    android:id="@+id/rl_prize"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/img_prize" />
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/bg_btn_prize">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/img_prize" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/prize_selection"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/rl_info_prize_edit_detail"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/prize_selection"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/bg_info_btn">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_info_btn_prize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2" />
+
+                </RelativeLayout>
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -372,7 +437,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
-
 
 
             <RelativeLayout
@@ -406,8 +470,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
 
 
     <RelativeLayout
@@ -445,30 +507,31 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_home_edit_product_detail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginEnd="5dp"
             android:layout_alignParentEnd="true"
-            android:id="@+id/rl_home_edit_product_detail">
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/home_purchased_item"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:paddingTop="3dp"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/home_purchased_item"
+                android:paddingStart="3dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="3dp"
                 android:src="@drawable/home_icon" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
-                android:textSize="13sp"
                 android:layout_below="@+id/home_purchased_item"
-                android:text="@string/home_tab"/>
+                android:layout_centerHorizontal="true"
+                android:text="@string/home_tab"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
         </RelativeLayout>
 
     </RelativeLayout>

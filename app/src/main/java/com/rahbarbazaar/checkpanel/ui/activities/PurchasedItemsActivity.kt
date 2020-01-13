@@ -75,6 +75,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     var type: String? = ""
     var barcode: String? = ""
     var description: String? = ""
+    var info_type: String? = ""
+
 
     // for handling422
     private var builderPaid: StringBuilder? = null
@@ -166,10 +168,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
 
         txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount) +" "+"("+"ریال"+")")
-//        txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount)) + " "+"("+"در صورت تخفیف داشتن کالا"+")"
 
-//        txt_discount_title_purchased_item.text = String.format("%s(در صورت تخفیف داشتن کالا)",
-//                resources.getString(R.string.discount_amount))
 
     }
 
@@ -197,6 +196,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
         linear_return_purchased_item.setOnClickListener(this)
         rl_home_purchased_item.setOnClickListener(this)
+        rl_info_member_purchased_item.setOnClickListener(this)
+        rl_info_prize_purchased_item.setOnClickListener(this)
 
         edt_discount.isEnabled = false
         edt_discount.setText("")
@@ -235,7 +236,29 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 finish()
             }
 
+            R.id.rl_info_member_purchased_item -> {
+                info_type = "member_info_purchased_item"
+                showInfoDialog(info_type!!)
+            }
+            R.id.rl_info_prize_purchased_item -> {
+                info_type = "prize_info_purchased_item"
+                showInfoDialog(info_type!!)
+            }
+
         }
+    }
+
+    private fun showInfoDialog(info_type: String) {
+        dialogFactory.createInfoMemberPrizeDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg params: String) {
+
+
+            }
+
+            override fun onDeniedButtonClicked(bool: Boolean) {
+
+            }
+        }, layout_purchase_item, info_type)
     }
 
 
