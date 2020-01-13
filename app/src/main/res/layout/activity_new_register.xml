@@ -71,13 +71,33 @@
                         android:id="@+id/spn_shop"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:visibility="gone"
                         android:layout_centerInParent="true"
                         android:backgroundTint="@color/blue_dark"
                         android:focusable="true"
                         android:focusableInTouchMode="true">
-
                         <requestFocus />
                     </Spinner>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select"
+                        android:id="@+id/txt_spinner_title_new_register"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/blue_dark"
+                        android:textSize="14sp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/arrow_drop_down"/>
+
                 </RelativeLayout>
             </LinearLayout>
 

@@ -1,16 +1,23 @@
 package com.rahbarbazaar.checkpanel.utilities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,12 +31,15 @@ import com.bumptech.glide.Glide;
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.BarcodeListDetailAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberDetailAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeDetail;
 import com.rahbarbazaar.checkpanel.models.history.History;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetailObj;
+import com.rahbarbazaar.checkpanel.models.searchable.SearchModel;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
+import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.ScanActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -798,6 +808,68 @@ public class DialogFactory {
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+
+    @SuppressLint("ClickableViewAccessibility")
+    public void  createSearchableDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view,
+                                        List<SearchModel> searchList, NewRegisterActivity newRegisterActivity) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.searchable_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_searchable);
+        SearchView searchView = customLayout.findViewById(R.id.searchView);
+
+
+
+
+        EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.WHITE);
+
+
+        searchEditText.setHintTextColor(context.getResources().getColor(R.color.colorText));
+        ImageView imvClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        imvClose.setImageResource(R.drawable.ic_close);
+
+        // delete icon search
+        searchView.setIconifiedByDefault(false);
+
+
+
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+//        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
+        //set recyclerview
+//        SearchAdapter adapter;
+
+//        adapter = new SearchAdapter(searchList, view.getContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        SearchAdapter adapter =new SearchAdapter(searchList,view.getContext(),dialog);
+        adapter.setListener(newRegisterActivity);
+        recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
+
         dialog.show();
     }
 

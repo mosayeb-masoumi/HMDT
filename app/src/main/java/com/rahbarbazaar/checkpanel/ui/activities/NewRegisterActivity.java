@@ -1,5 +1,6 @@
 package com.rahbarbazaar.checkpanel.ui.activities;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,8 +33,10 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.EditPrizeAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.PrizeAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberDialogAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberEditAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction;
+import com.rahbarbazaar.checkpanel.controllers.interfaces.SearchItemInteraction;
 import com.rahbarbazaar.checkpanel.models.api_error.APIError422;
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils;
 import com.rahbarbazaar.checkpanel.models.register.GetShopId;
@@ -42,6 +46,7 @@ import com.rahbarbazaar.checkpanel.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.checkpanel.models.register.RegisterModel;
 import com.rahbarbazaar.checkpanel.models.register.SendPrize;
 import com.rahbarbazaar.checkpanel.models.register.SendRegisterTotalData;
+import com.rahbarbazaar.checkpanel.models.searchable.SearchModel;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.Data;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
@@ -56,6 +61,8 @@ import com.rahbarbazaar.checkpanel.utilities.RxBus;
 import com.rahbarbazaar.checkpanel.utilities.SolarCalendar;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +73,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewRegisterActivity extends CustomBaseActivity
-        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
+        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction,
+        CompoundButton.OnCheckedChangeListener, SearchItemInteraction {
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -90,8 +98,9 @@ public class NewRegisterActivity extends CustomBaseActivity
     CheckBox checkBox_precentage, checkBox_amount;
 
     String str_spnItemId, info_type, checkbox_text = "", date = "";
+    Context context;
 
-    TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title;
+    TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title,txt_spinner_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -125,6 +134,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         });
 
+        context = this;
 
         initView();
 
@@ -163,7 +173,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             setEditMemberRecyclere(shoppingEditModel.data);
             setEditPrizeRecycler(shoppingEditModel.data);
         }
-        setSpinner();
+//        setSpinner();
 
         txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
         txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
@@ -214,6 +224,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_header = findViewById(R.id.header_new_register);
         linear_return_new_register = findViewById(R.id.linear_return_new_register);
         txt_total_amount_title = findViewById(R.id.txt_total_amount_title);
+        txt_spinner_title=findViewById(R.id.txt_spinner_title_new_register);
 
         txt_paid_title = findViewById(R.id.txt_paid_title);
         txt_discount_title = findViewById(R.id.txt_discount_title);
@@ -229,55 +240,61 @@ public class NewRegisterActivity extends CustomBaseActivity
         linear_return_new_register.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
         rl_prize_info.setOnClickListener(this);
+        rl_spn_shop.setOnClickListener(this);
         edt_discount.setEnabled(false);
         edt_discount.setText("");
     }
 
-    private void setSpinner() {
 
-        List<String> shopList = new ArrayList<>();
-        if (registerModel.data != null) {
-            for (int i = 0; i < registerModel.data.shop.size(); i++) {
-                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
-                    shopList.add(registerModel.data.shop.get(i).get(j).title);
-                }
-            }
-        } else if (shoppingEditModel.data != null) {
-            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
-                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-                    shopList.add(shoppingEditModel.data.shop.get(i).get(j).title);
-                }
-            }
-        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewRegisterActivity.this, R.layout.custom_spinner, shopList);
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
-        spn_shop.setAdapter(adapter);
+//    private void setSpinner() {
+//
+//        List<String> shopList = new ArrayList<>();
+//        if (registerModel.data != null) {
+//            for (int i = 0; i < registerModel.data.shop.size(); i++) {
+//                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+//                    shopList.add(registerModel.data.shop.get(i).get(j).title);
+//                }
+//            }
+//        } else if (shoppingEditModel.data != null) {
+//            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+//                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+//                    shopList.add(shoppingEditModel.data.shop.get(i).get(j).title);
+//                }
+//            }
+//        }
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewRegisterActivity.this, R.layout.custom_spinner, shopList);
+//        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+//        spn_shop.setAdapter(adapter);
+//
+//        spn_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if (registerModel.data != null) {
+//                    for (int i = 0; i < registerModel.data.shop.size(); i++) {
+//                        for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+//                            str_spnItemId = registerModel.data.shop.get(i).get(position).id;
+//                        }
+//                    }
+//                } else if (shoppingEditModel.data != null) {
+//                    for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+//                        for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+//                            str_spnItemId = shoppingEditModel.data.shop.get(i).get(position).id;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//    }
 
-        spn_shop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (registerModel.data != null) {
-                    for (int i = 0; i < registerModel.data.shop.size(); i++) {
-                        for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
-                            str_spnItemId = registerModel.data.shop.get(i).get(position).id;
-                        }
-                    }
-                } else if (shoppingEditModel.data != null) {
-                    for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
-                        for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-                            str_spnItemId = shoppingEditModel.data.shop.get(i).get(position).id;
-                        }
-                    }
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
 
     @Override
     public void onClick(View view) {
@@ -328,8 +345,47 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showInfoDialog(info_type);
                 break;
 
+            case R.id.rl_spn_shop:
+
+                showSearchableDialog();
+
+                break;
         }
     }
+
+    private void showSearchableDialog() {
+
+        List<SearchModel> searchList = new ArrayList<>();
+                if (registerModel.data != null) {
+            for (int i = 0; i < registerModel.data.shop.size(); i++) {
+                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+                    searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
+                            registerModel.data.shop.get(i).get(j).id));
+                }
+            }
+        } else if (shoppingEditModel.data != null) {
+            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+                    searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
+                            registerModel.data.shop.get(i).get(j).id));
+                }
+            }
+        }
+
+        dialogFactory.createSearchableDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register,searchList,this);
+    }
+
 
     private void showInfoDialog(String info_type) {
         dialogFactory.createInfoMemberPrizeDialog(new DialogFactory.DialogFactoryInteraction() {
@@ -365,34 +421,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     }
 
-//    private void showCalander() {
-//        final InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-//        imm.showSoftInput(edtDate, InputMethodManager.SHOW_IMPLICIT);
-//
-//        picker = new PersianDatePickerDialog(this)
-//                .setPositiveButtonString("تایید")
-//                .setNegativeButton("انصراف")
-//                .setTodayButton("امروز")
-//                .setTodayButtonVisible(true)
-//                .setMinYear(1397)
-//                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
-//                .setActionTextColor(Color.GRAY)
-//                .setListener(new Listener() {
-//                    @Override
-//                    public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
-//                        date = persianCalendar.getPersianYear() + "/" +
-//                                (String.valueOf(persianCalendar.getPersianMonth()).length() < 2 ? "0" + persianCalendar.getPersianMonth() : persianCalendar.getPersianMonth()) + "/" +
-//                                (String.valueOf(persianCalendar.getPersianDay()).length() < 2 ? "0" + persianCalendar.getPersianDay() : persianCalendar.getPersianDay());
-//
-//                        edtDate.setText(date);
-//                    }
-//
-//                    @Override
-//                    public void onDismissed() {
-//                    }
-//                });
-//        picker.show();
-//    }
+
 
     private void showAddMemberDialog() {
 
@@ -928,17 +957,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if (requestCode == 33) {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                startActivity(new Intent(NewRegisterActivity.this, ScanActivity.class));
-//            } else {
-//                Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//    }
+
 
     @Override
     protected void onResume() {
@@ -952,6 +971,15 @@ public class NewRegisterActivity extends CustomBaseActivity
         super.onDestroy();
         disposable.dispose(); //very important  to avoid memory leak
 
+    }
+
+
+    @Override
+    public void searchListItemOnClick(SearchModel model, AlertDialog dialog) {
+//        Toast.makeText(context, ""+model.getTitle(), Toast.LENGTH_SHORT).show();
+        txt_spinner_title.setText(model.getTitle());
+
+        dialog.dismiss();
     }
 }
 
