@@ -363,7 +363,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_weight="1.6">
 
                     <EditText
                         android:id="@+id/edt_discount"
@@ -377,21 +377,23 @@
                         android:padding="10dp"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1.4">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:id="@+id/ckbox_amount_text"
                         android:layout_marginEnd="2dp"
                         android:layout_toStartOf="@+id/checkBox_amount"
                         android:gravity="center_vertical"
+                        android:textSize="13sp"
                         android:text="@string/amount"
                         android:textColor="@color/blue_dark" />
 
@@ -406,7 +408,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="3dp"
                     android:layout_weight="1">
 
                     <TextView
@@ -415,6 +417,7 @@
                         android:layout_marginEnd="2dp"
                         android:layout_toStartOf="@+id/checkBox_precentage"
                         android:gravity="center_vertical"
+                        android:textSize="13sp"
                         android:text="@string/percentage"
                         android:textColor="@color/blue_dark" />
 

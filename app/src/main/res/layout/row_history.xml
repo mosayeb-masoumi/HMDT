@@ -25,8 +25,14 @@
             android:textColor="@color/white"
             android:layout_weight="1.1"/>
 
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn_prize"
+            android:layout_weight="1.1">
+
             <Button
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.1"
                 android:text="@string/shopping_items"
@@ -34,6 +40,16 @@
                 android:id="@+id/btn_history_shopitem"
                 android:background="@drawable/bg_btn_prize"
                 android:textColor="@color/white" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/avi_history_shopitem"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"

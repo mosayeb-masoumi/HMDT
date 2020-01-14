@@ -5,19 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,6 +29,7 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberDetailAdapt
 import com.rahbarbazaar.checkpanel.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeDetail;
+import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts;
 import com.rahbarbazaar.checkpanel.models.history.History;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetailObj;
@@ -771,26 +767,33 @@ public class DialogFactory {
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
 
         btn_cancel.setText(context.getResources().getString(R.string.close));
-        txt_header.setText("اطلاعات");
+
 
         switch (info_type) {
             case "member_info_new_register":
                 txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
+                txt_header.setText(context.getResources().getString(R.string.familymember));
                 break;
             case "prize_info_new_register":
                 txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
+                txt_header.setText(context.getResources().getString(R.string.prize_selection));
                 break;
             case "member_info_edit_product_detail":
                 txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
+                txt_header.setText(context.getResources().getString(R.string.familymember));
                 break;
             case "prize_info_edit_product_detail":
                 txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
+                txt_header.setText(context.getResources().getString(R.string.prize_selection));
                 break;
             case "member_info_purchased_item":
                 txt_body.setText("کسانی که در خانواده از این کالا استفاده می کنند.");
+                txt_header.setText(context.getResources().getString(R.string.consumer));
+
                 break;
             case "prize_info_purchased_item":
                 txt_body.setText("جوایزی که برای این کالا در نظر گرفته شده است");
+                txt_header.setText(context.getResources().getString(R.string.prize_selection));
                 break;
         }
 
@@ -849,13 +852,11 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-//        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
 
 
         //set recyclerview
-//        SearchAdapter adapter;
-
-//        adapter = new SearchAdapter(searchList, view.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         SearchAdapter adapter =new SearchAdapter(searchList,view.getContext(),dialog);
         adapter.setListener(newRegisterActivity);
@@ -863,15 +864,48 @@ public class DialogFactory {
 
 
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                //FILTER AS YOU TYPE
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
 
 
 
+        dialog.show();
+    }
+
+
+
+    public void  createShoppingProductDetailDialog(DialogFactoryInteraction param, RelativeLayout view, EditProducts model) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.searchable_dialog, (ViewGroup) view, false);
+
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
 
 
 
         dialog.show();
     }
+
 
 
 }

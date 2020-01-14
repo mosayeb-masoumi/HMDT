@@ -21,7 +21,7 @@
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
     <string name="text_video">ویدئوها</string>
-    <string name="my_shop">لیست خریدهای من</string>
+    <string name="my_shop">فهرست خریدهای من</string>
     <string name="text_leftday">روز مانده</string>
     <string name="text_your_point">امتیاز</string>
     <string name="text_balance">موجودی</string>
@@ -56,7 +56,7 @@
     <string name="purchasetitle">عنوان خریدها</string>
     <string name="purchaseedit">ویرایش خرید</string>
     <string name="register_product">ثبت محصول</string>
-    <string name="productedit">ویرایش محصولات</string>
+    <string name="productedit">ویرایش محصول</string>
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">Powered By</string>
     <string name="familymember">اعضای خانواده همراه</string>
@@ -156,6 +156,7 @@
     <string name="update_body_dialog">ورژن جدید برنامه با قابلیت های جدید و رفع مشکلات جزیی منتشر شده برای دانلود کلیک کنید</string>
     <string name="barcode_description">به کمک اسکن بارکد , بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد آنرا تایپ کنید و نهایتا دکمه ی ثبت را لمس کنید</string>
     <string name="select">انتخاب کنید</string>
+    <string name="shopping_product">اقلام خرید</string>
 
 
 </resources>

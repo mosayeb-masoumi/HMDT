@@ -10,18 +10,21 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.adapters.HistoryAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.HistoryItemInteraction
+import com.rahbarbazaar.checkpanel.models.edit_products.TotalEditProductData
 import com.rahbarbazaar.checkpanel.models.history.HistoryData
 import com.rahbarbazaar.checkpanel.models.history.History
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
-import kotlinx.android.synthetic.main.activity_barcode_list.*
+import com.wang.avi.AVLoadingIndicatorView
+import kotlinx.android.synthetic.main.activity_edit_product.*
 import kotlinx.android.synthetic.main.activity_history.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -163,10 +166,17 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
             }, history_root, model)
 
         }else if(btn_title == "btn_shop_item"){
-            Toast.makeText(this@HistoryActivity, "btn_shop_item", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this@HistoryActivity,ShoppingProducts::class.java)
+            intent.putExtra("shopping_product_id", model.id)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+
         }
 
     }
+
+
 
     override fun onResume() {
         super.onResume()
@@ -174,6 +184,7 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
 
         // message must be initialize
         history = ArrayList<History>()
+        page=0
         getHistoryList(page)
     }
 

@@ -48,7 +48,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
@@ -58,7 +58,7 @@
                 <TextView
                     android:id="@+id/txt_shop"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
@@ -72,12 +72,13 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="0.5"
                     android:padding="5sp"
                     android:text="@string/shop2"
+                    android:gravity="center_vertical"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
@@ -168,7 +169,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
@@ -178,7 +179,7 @@
                 <TextView
                     android:id="@+id/txt_total_purchased_amount"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
@@ -207,7 +208,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
@@ -217,7 +218,7 @@
                 <TextView
                     android:id="@+id/txt_paid"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
@@ -351,7 +352,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="0.5"

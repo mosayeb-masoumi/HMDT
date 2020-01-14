@@ -80,7 +80,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 ////                lists.removeAt(i)
 ////            }
             barcodeList.add(BarcodeData(barcode.data!![i].id, barcode.data!![i].mygroup, barcode.data!![i].show, barcode.data!![i].decription,
-                    barcode.data!![i].barcodeDetail))
+                    barcode.data!![i].unit,barcode.data!![i].image,barcode.data!![i].barcodeDetail))
         }
 
         val recyclerview: RecyclerView = findViewById(R.id.recycler_barcodelist)
@@ -119,6 +119,8 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
                 intent.putExtra("product_id", model.id)
                 intent.putExtra("barcodeListItemDesc", model.decription)
                 intent.putExtra("mygroup", model.mygroup)
+                intent.putExtra("unit", model.unit)
+
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }

@@ -167,8 +167,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         txt_paid_title_purchased_item.text = (resources.getString(R.string.paid_amount) +" "+"("+"ریال"+")")
 
 
-        txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount) +" "+"("+"ریال"+")")
-
+        txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount) +" "+"("+"در صورت تخفیف داشتن کالا"+")")
+        ckbox_amount_text.text = (resources.getString(R.string.amount) +" "+"("+"ریال"+")")
 
     }
 

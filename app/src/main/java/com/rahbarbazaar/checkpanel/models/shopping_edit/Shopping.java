@@ -23,6 +23,9 @@ public class Shopping {
     @SerializedName("shop")
     @Expose
     public String shop;
+    @SerializedName("shop_id")
+    @Expose
+    public String shop_id;
     @SerializedName("date")
     @Expose
     public String date;

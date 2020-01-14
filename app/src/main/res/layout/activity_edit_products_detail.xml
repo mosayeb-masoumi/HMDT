@@ -310,7 +310,7 @@
                     android:id="@+id/rl_addmember"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
                     android:background="@drawable/bg_button_add">
@@ -365,7 +365,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:visibility="gone"
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
 

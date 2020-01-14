@@ -34,6 +34,7 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberDialogAdap
 import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberEditAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction;
+import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.checkpanel.models.edit_products.BoughtMember;
 import com.rahbarbazaar.checkpanel.models.edit_products.BoughtPrize;
 import com.rahbarbazaar.checkpanel.models.edit_products.EditProductDetailUpdateSendData;
@@ -44,6 +45,7 @@ import com.rahbarbazaar.checkpanel.models.register.Member;
 import com.rahbarbazaar.checkpanel.models.register.Prize;
 import com.rahbarbazaar.checkpanel.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.checkpanel.models.register.SendPrize;
+import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.checkpanel.network.Service;
 import com.rahbarbazaar.checkpanel.network.ServiceProvider;
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity;
@@ -90,6 +92,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     String checkbox_text = "" , info_type,description,bought_id;
 
 
+    MemberPrize initMemberPrizeLists;
 
 
     @Override
@@ -114,6 +117,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             }
         });
 
+
+        disposable = RxBus.MemberPrizeLists.subscribeMemberPrizeLists(result -> {
+            if (result instanceof MemberPrize) {
+                initMemberPrizeLists = (MemberPrize) result;
+            }
+        });
 
         bought_id = getIntent().getStringExtra("id_editProductItem");
         description = getIntent().getStringExtra("edit_product_description");
@@ -310,12 +319,20 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         // to show list of member items
         List<Member> members = new ArrayList<>();
 
-        for (int i = 0; i < totalEditProductData.data.member.size(); i++) {
-            for (int j = 0; j < totalEditProductData.data.member.get(i).size(); j++) {
-                members.add(new Member(totalEditProductData.data.member.get(i).get(j).name
-                        , totalEditProductData.data.member.get(i).get(j).id));
+//        for (int i = 0; i < totalEditProductData.data.member.size(); i++) {
+//            for (int j = 0; j < totalEditProductData.data.member.get(i).size(); j++) {
+//                members.add(new Member(totalEditProductData.data.member.get(i).get(j).name
+//                        , totalEditProductData.data.member.get(i).get(j).id));
+//            }
+//        }
+        for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+            for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+                members.add(new Member(initMemberPrizeLists.data.member.get(i).get(j).name
+                        , initMemberPrizeLists.data.member.get(i).get(j).id));
             }
         }
+
+
 
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
@@ -361,10 +378,16 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         // to show list of member items
         List<Prize> prizes = new ArrayList<>();
 
-        for (int i = 0; i < totalEditProductData.data.prize.size(); i++) {
-            for (int j = 0; j < totalEditProductData.data.prize.get(i).size(); j++) {
-                prizes.add(new Prize(totalEditProductData.data.prize.get(i).get(j).title
-                        , totalEditProductData.data.prize.get(i).get(j).id));
+//        for (int i = 0; i < totalEditProductData.data.prize.size(); i++) {
+//            for (int j = 0; j < totalEditProductData.data.prize.get(i).size(); j++) {
+//                prizes.add(new Prize(totalEditProductData.data.prize.get(i).get(j).title
+//                        , totalEditProductData.data.prize.get(i).get(j).id));
+//            }
+//        }
+        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
+            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
+                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
+                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
             }
         }
 
@@ -480,17 +503,38 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         sendData.setMember(editMembers);
         sendData.setPrize(sendPrizes);
         sendData.setAmount(edt_amount.getText().toString());
-        sendData.setCost(edt_total_amount.getText().toString());
-        sendData.setPaid(edt_paid.getText().toString());
+
+        if(!edt_total_amount.getText().toString().equals("ثبت نشده")){
+            sendData.setCost(edt_total_amount.getText().toString());
+        }
+
+
+        if(!edt_paid.getText().toString().equals("ثبت نشده")){
+            sendData.setPaid(edt_paid.getText().toString());
+        }
+
         sendData.setBought_id(bought_id);
 
 
         if (checkBox_precentage.isChecked()) {
             sendData.setDiscount_type("percent");
-            sendData.setDiscount_amount(edt_discount.getText().toString());
+
+            if(!edt_discount.getText().toString().equals("ثبت نشده")){
+                sendData.setDiscount_amount(edt_discount.getText().toString());
+            }else{
+                sendData.setDiscount_amount("not_set");
+            }
+
+
         } else if (checkBox_amount.isChecked()) {
             sendData.setDiscount_type("amount");
-            sendData.setDiscount_amount(edt_discount.getText().toString());
+            if(!edt_discount.getText().toString().equals("ثبت نشده")){
+                sendData.setDiscount_amount(edt_discount.getText().toString());
+            }else{
+                sendData.setDiscount_amount("not_set");
+            }
+
+
         }
 
 

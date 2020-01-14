@@ -9,6 +9,7 @@ import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.interfaces.HistoryItemInteraction
 import com.rahbarbazaar.checkpanel.models.history.History
 import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa
+import com.wang.avi.AVLoadingIndicatorView
 
 class HistoryViewHolder (view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -17,6 +18,7 @@ class HistoryViewHolder (view: View, val context: Context) : RecyclerView.ViewHo
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_title_historyitem)
     private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_history_item)
     private val btn_shop_item: Button = itemView.findViewById(R.id.btn_history_shopitem)
+    private val avi: AVLoadingIndicatorView = itemView.findViewById(R.id.avi_history_shopitem)
 
 
     fun bindUserData(model: History) {
