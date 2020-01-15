@@ -640,6 +640,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    Toast.makeText(NewRegisterActivity.this, "مشخصات خرید ثبت شد,لطفا اقلام خرید را وارد نمایید.", Toast.LENGTH_SHORT).show();
                     finish();
                     btn_register.setVisibility(View.VISIBLE);
                     avi.setVisibility(View.GONE);

@@ -460,7 +460,7 @@ public class DialogFactory {
         }
 
 
-        txt_header.setText(context.getResources().getString(R.string.explanation2));
+        txt_header.setText("جزئیات خرید");
         txt_shop.setText(model.getTitle());
         txt_purchased_date.setText(model.getDate());
         txt_register_date.setText(model.getCreatedAt());

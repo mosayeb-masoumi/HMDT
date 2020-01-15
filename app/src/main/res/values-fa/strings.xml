@@ -150,7 +150,7 @@
     <string name="register_new_barcodeList">ثبت مشخصات و کالای جدید</string>
     <string name="no_goods_warning">کالای مورد نظر یافت نشد. لطفا مشخصات آنرا درج نمائید.</string>
     <string name="update_body_dialog">ورژن جدید برنامه با قابلیت های جدید و رفع مشکلات جزیی منتشر شده برای دانلود کلیک کنید</string>
-    <string name="barcode_description">به کمک اسکن بارکد , بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد آنرا تایپ کنید و نهایتا دکمه ی ثبت را لمس کنید</string>
+    <string name="barcode_description">به کمک اسکن بارکد, بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد آن را تایپ کرده و نهایتا دکمه ی ثبت را لمس کنید.</string>
     <string name="select">انتخاب کنید</string>
     <string name="shopping_product">اقلام خرید</string>
     <string name="no_purchased_product">برای این خرید محصولی ثبت نشده است</string>

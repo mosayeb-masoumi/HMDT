@@ -58,7 +58,11 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
         getBarcode = intent.getStringExtra("barcode")
 
         linear_exit_barcode_list.setOnClickListener {
-            startActivity(Intent(this@BarcodeListActivity,QRcodeActivity::class.java))
+//            startActivity(Intent(this@BarcodeListActivity,QRcodeActivity::class.java))
+            val intent=Intent(this@BarcodeListActivity,QRcodeActivity::class.java)
+            intent.putExtra("static_barcode","static_barcode")
+            startActivity(intent)
+            finish()
         }
 
         rl_register_barcodeList.setOnClickListener {
