@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ShoppingProductsItemInteraction
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts
+import com.rahbarbazaar.checkpanel.models.shopping_product.ShoppingProductList
 
 class ShoppingProductsViewHolder (view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
@@ -17,12 +17,12 @@ class ShoppingProductsViewHolder (view: View, val context: Context) : RecyclerVi
 
 
 
-    fun bindUserData(model: EditProducts) {
+    fun bindUserData(model: ShoppingProductList) {
         txtTitle.text = model.description
 
     }
 
-    fun setOnShoppingProductsListHolderListener(listener: ShoppingProductsItemInteraction?, model: EditProducts, position: Int) {
+    fun setOnShoppingProductsListHolderListener(listener: ShoppingProductsItemInteraction?, model: ShoppingProductList, position: Int) {
 
         btn_detail.setOnClickListener {
 

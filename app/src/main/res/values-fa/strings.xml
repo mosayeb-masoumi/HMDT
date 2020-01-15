@@ -153,6 +153,8 @@
     <string name="barcode_description">به کمک اسکن بارکد , بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد. در غیر اینصورت در قسمت بارکد عدد آنرا تایپ کنید و نهایتا دکمه ی ثبت را لمس کنید</string>
     <string name="select">انتخاب کنید</string>
     <string name="shopping_product">اقلام خرید</string>
+    <string name="no_purchased_product">برای این خرید محصولی ثبت نشده است</string>
+    <string name="shop_date">فروشگاه/تاریخ</string>
 
 
 </resources>

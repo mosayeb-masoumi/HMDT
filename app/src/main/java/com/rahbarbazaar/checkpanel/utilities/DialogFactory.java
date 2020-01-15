@@ -27,13 +27,15 @@ import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.adapters.BarcodeListDetailAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.ProfileMemberDetailAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.SearchAdapter;
+import com.rahbarbazaar.checkpanel.controllers.adapters.ShoppingProductsDetailAdapter;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.checkpanel.models.barcodlist.BarcodeDetail;
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts;
 import com.rahbarbazaar.checkpanel.models.history.History;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetail;
 import com.rahbarbazaar.checkpanel.models.profile.MemberDetailObj;
 import com.rahbarbazaar.checkpanel.models.searchable.SearchModel;
+import com.rahbarbazaar.checkpanel.models.shopping_product.Detail;
+import com.rahbarbazaar.checkpanel.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.ScanActivity;
@@ -48,6 +50,7 @@ import java.util.Objects;
 public class DialogFactory {
 
     private Context context;
+
 
 
     public interface DialogFactoryInteraction {
@@ -885,9 +888,14 @@ public class DialogFactory {
 
 
 
-    public void  createShoppingProductDetailDialog(DialogFactoryInteraction param, RelativeLayout view, EditProducts model) {
+    public void createShoppingProductDetailDialog(@NotNull DialogFactoryInteraction dialogFactoryInteraction,
+                                                  @Nullable RelativeLayout view, @NotNull ShoppingProductList model) {
 
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.searchable_dialog, (ViewGroup) view, false);
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.shopping_product_detail_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_shopping_products_detail);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
 
 
 
@@ -903,8 +911,24 @@ public class DialogFactory {
 
 
 
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+
+
+//        set recyclerview
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        ShoppingProductsDetailAdapter adapter =new ShoppingProductsDetailAdapter(model.getDetail(),view.getContext());
+        recyclerView.setAdapter(adapter);
+
+
         dialog.show();
+
     }
+
+
+
+
 
 
 

@@ -14,6 +14,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData
+import com.rahbarbazaar.checkpanel.utilities.Cache
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import com.rahbarbazaar.checkpanel.utilities.RxBus
@@ -109,6 +110,7 @@ class AgreementActivity : CustomBaseActivity() {
             if (checkbox_agreement.isChecked) {
                startActivity(Intent(this@AgreementActivity,MainActivity::class.java))
                 this@AgreementActivity.finish()
+                Cache.setString(this@AgreementActivity,"agreement","done")
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
         }
@@ -118,9 +120,12 @@ class AgreementActivity : CustomBaseActivity() {
             if (isChecked) {
                 img_rules_enter_icon.visibility = View.VISIBLE
                 img_page_icon_rules.visibility = View.GONE
+
+
             } else {
                 img_rules_enter_icon.visibility = View.GONE
                 img_page_icon_rules.visibility = View.VISIBLE
+                Cache.setString(this@AgreementActivity,"agreement","undone")
             }
 
         }

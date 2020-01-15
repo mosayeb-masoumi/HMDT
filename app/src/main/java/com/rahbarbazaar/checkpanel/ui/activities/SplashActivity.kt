@@ -30,6 +30,7 @@ class SplashActivity : CustomBaseActivity() {
     private var connectivityReceiver: BroadcastReceiver? = null
 
     private lateinit var context: Context
+    var agreement:String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,9 @@ class SplashActivity : CustomBaseActivity() {
     }
 
     private fun startActivity() {
+
+        agreement= Cache.getString(this@SplashActivity, "agreement")
+
         var accessToken = Cache.getString(this@SplashActivity, "access_token")
         // add this condition to remove unwanted bug for clause
         if (accessToken == null) {
@@ -64,20 +68,34 @@ class SplashActivity : CustomBaseActivity() {
         }
 
 
-        if (accessToken != "") {
-            requestDashboardData()
+        if(agreement.equals("done")){
 
-        } else {
+            if (accessToken != "") {
+                requestDashboardData()
 
+            } else {
+
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                        this@SplashActivity.finish()
+
+                    }
+                }, 2700)
+            }
+
+        }else if(agreement.equals("undone") || agreement==null){
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
-
                 }
             }, 2700)
         }
+
+
     }
 
     override fun onResume() {

@@ -85,7 +85,9 @@
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="true"/>
 
 
                 <TextView

@@ -11,11 +11,6 @@
     android:layout_marginBottom="5dp"
     android:background="@drawable/bg_list_detail">
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_weight="1">-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,14 +29,6 @@
 
     </RelativeLayout>
 
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_weight="0.5">-->
 
     <RelativeLayout
         android:layout_width="110dp"

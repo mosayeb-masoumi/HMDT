@@ -143,7 +143,6 @@
                     android:id="@+id/btn_register_barcode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
                     android:background="@drawable/bg_btn_prize"
                     android:text="@string/register"
                     android:textColor="@color/white" />

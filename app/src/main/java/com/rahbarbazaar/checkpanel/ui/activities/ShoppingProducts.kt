@@ -15,27 +15,27 @@ import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.controllers.adapters.ShoppingProductsAdapter
 import com.rahbarbazaar.checkpanel.controllers.interfaces.ShoppingProductsItemInteraction
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts
-import com.rahbarbazaar.checkpanel.models.edit_products.TotalEditProductData
+import com.rahbarbazaar.checkpanel.models.shopping_product.Detail
+import com.rahbarbazaar.checkpanel.models.shopping_product.ShoppingProductList
+import com.rahbarbazaar.checkpanel.models.shopping_product.TotalShoppingProductData
 import com.rahbarbazaar.checkpanel.network.ServiceProvider
 import com.rahbarbazaar.checkpanel.utilities.CustomBaseActivity
 import com.rahbarbazaar.checkpanel.utilities.DialogFactory
 import com.rahbarbazaar.checkpanel.utilities.GeneralTools
-import kotlinx.android.synthetic.main.activity_edit_product.avi_edit_products
-import kotlinx.android.synthetic.main.activity_edit_product.txt_no_edit_product
+
 import kotlinx.android.synthetic.main.activity_shopping_products.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
+class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
 
 
-
+    private lateinit var dialogFactory: DialogFactory
     private var connectivityReceiver: BroadcastReceiver? = null
-    //    lateinit var editProductsData: EditProductsData
-    lateinit var totalEditProductData: TotalEditProductData
-    lateinit var editProducts: ArrayList<EditProducts>
+    lateinit var totalShoppingProductData: TotalShoppingProductData
+    lateinit var detail: ArrayList<Detail>
+    lateinit var shoppingProductList: ArrayList<ShoppingProductList>
     private lateinit var adapter: ShoppingProductsAdapter
 
     var shopping_id:String? =""
@@ -61,6 +61,8 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
             }
         }
 
+        //initial Dialog factory
+        dialogFactory = DialogFactory(this@ShoppingProducts)
 
         shopping_id = intent.getStringExtra("shopping_product_id")
 
@@ -70,29 +72,29 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
             finish()
         }
 
+
+
     }
 
-    private fun getEditList(page: Int) {
+    private fun getShoppiongProductList(page: Int) {
 
         avi_edit_products.visibility = View.VISIBLE
-        val service = ServiceProvider(this@ShoppingProducts).getmService()
-        val call = service.getEditProductsList(shopping_id, page)
-        call.enqueue(object : Callback<TotalEditProductData> {
+        val service = ServiceProvider(this).getmService()
+        val call = service.getShoppingProductList(shopping_id, page)
+        call.enqueue(object : Callback<TotalShoppingProductData> {
 
-            override fun onResponse(call: Call<TotalEditProductData>, response: Response<TotalEditProductData>) {
+            override fun onResponse(call: Call<TotalShoppingProductData>, response: Response<TotalShoppingProductData>) {
 
                 avi_edit_products.visibility = View.GONE
                 if (response.code() == 200) {
 
-                    totalEditProductData = response.body()!!
-                    setRecyclerview(totalEditProductData)
-
-                    var a =5
+                    totalShoppingProductData = response.body()!!
+                    setRecyclerview(totalShoppingProductData)
 
                 } else if (response.code() == 204) {
 
                     if (this@ShoppingProducts.page == 0) {
-                        txt_no_edit_product.visibility = View.VISIBLE
+                        txt_no_shopping_product.visibility = View.VISIBLE
                     }
 
                 } else {
@@ -102,7 +104,7 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
 
             }
 
-            override fun onFailure(call: Call<TotalEditProductData>, t: Throwable) {
+            override fun onFailure(call: Call<TotalShoppingProductData>, t: Throwable) {
                 Toast.makeText(this@ShoppingProducts, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 avi_edit_products.visibility = View.GONE
             }
@@ -110,30 +112,34 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
         })
     }
 
-    private fun setRecyclerview(totalEditProductData: TotalEditProductData) {
+    private fun setRecyclerview(totalShoppingProductData: TotalShoppingProductData) {
 
-        totalPages = totalEditProductData.data.total
+        totalPages = totalShoppingProductData.data!!.total!!
         if (page == 0) {
-            editProducts.clear()
+            detail.clear()
 
-            // repeat here because of local delete
-            if (totalEditProductData.data.bought.data.size == 0) {
-                txt_no_edit_product.visibility = View.VISIBLE
+
+            if (totalShoppingProductData.data!!.bought!!.data!!.isEmpty()) {
+                txt_no_shopping_product.visibility = View.VISIBLE
             }
         }
 
-        editProducts.addAll(totalEditProductData.data.bought.data)
+
+        shoppingProductList.addAll(totalShoppingProductData.data!!.bought?.data!!)
+
 
         linearLayoutManager = LinearLayoutManager(this@ShoppingProducts, LinearLayout.VERTICAL, false)
-        val rv_edit_products: RecyclerView = findViewById(R.id.rv_edit_products)
-        rv_edit_products.layoutManager = linearLayoutManager
+        val rv_shopping_products: RecyclerView = findViewById(R.id.rv_shopping_products)
+        rv_shopping_products.layoutManager = linearLayoutManager
 
-        adapter = ShoppingProductsAdapter(editProducts, this@ShoppingProducts)
-        adapter.setListener(this)  // important to set or else the app will crashed (onClick)
-        rv_edit_products.adapter = adapter
+        adapter = ShoppingProductsAdapter(shoppingProductList, this@ShoppingProducts)
+        adapter.setListener(this)
+        rv_shopping_products.adapter = adapter
         adapter.notifyDataSetChanged()
 
-        rv_edit_products.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+
+        rv_shopping_products.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
@@ -155,7 +161,7 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
                     page++
 
                     if (page <= totalPages) {
-                        getEditList(page)
+                    getShoppiongProductList(page)
                     }
 
                 }
@@ -163,9 +169,9 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
         })
     }
 
-    override fun shoppingProductsListOnClicked(model: EditProducts, position: Int) {
 
-        val dialogFactory = DialogFactory(this)
+    override fun shoppingProductsListOnClicked(model: ShoppingProductList, position: Int) {
+
         dialogFactory.createShoppingProductDetailDialog(object : DialogFactory.DialogFactoryInteraction {
             override fun onAcceptButtonClicked(vararg params: String) {
 
@@ -174,15 +180,16 @@ class ShoppingProducts : CustomBaseActivity(), ShoppingProductsItemInteraction {
             override fun onDeniedButtonClicked(bool: Boolean) {
 
             }
-        }, rl_root_shopping_product,model)
-
+        },rl_root_shopping_product,model)
     }
+
 
     override fun onResume() {
         super.onResume()
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        editProducts = ArrayList<EditProducts>()
-        getEditList(page)
+        shoppingProductList = ArrayList<ShoppingProductList>()
+        detail = ArrayList<Detail>()
+        getShoppiongProductList(page)
 
 
     }

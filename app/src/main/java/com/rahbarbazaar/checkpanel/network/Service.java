@@ -31,6 +31,7 @@ import com.rahbarbazaar.checkpanel.models.shop.ShopCenter;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.checkpanel.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.checkpanel.models.shopping_memberprize.MemberPrize;
+import com.rahbarbazaar.checkpanel.models.shopping_product.TotalShoppingProductData;
 import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
 import com.rahbarbazaar.checkpanel.models.verify.VerifyModel;
 
@@ -153,4 +154,8 @@ public interface Service {
                                           @Query("version_name") String version_name,
                                           @Query("ip") String ip,
                                           @Query("network_type") String network_type);
+
+    @POST("Bought/List")
+    Call<TotalShoppingProductData> getShoppingProductList(@Query("shopping_id") String shopping_id,
+                                                          @Query("page") Integer page);
 }

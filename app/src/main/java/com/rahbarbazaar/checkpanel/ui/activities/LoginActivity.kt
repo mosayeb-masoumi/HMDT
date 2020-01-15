@@ -51,7 +51,7 @@ class LoginActivity : CustomBaseActivity() {
 
     }
 
-    private fun closeKeyboard() {
+       private fun closeKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(
                 (currentFocus).windowToken, 0)

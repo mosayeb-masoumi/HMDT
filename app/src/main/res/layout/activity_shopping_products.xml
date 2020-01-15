@@ -37,19 +37,19 @@
         android:layout_marginBottom="10dp">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_edit_products"
+            android:id="@+id/rv_shopping_products"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
         <TextView
-            android:id="@+id/txt_no_edit_product"
+            android:id="@+id/txt_no_shopping_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_no_purchase"
             android:gravity="center"
             android:padding="17dp"
-            android:text="@string/no_edit_product"
+            android:text="@string/no_purchased_product"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="gone" />

@@ -1,10 +1,9 @@
 package com.rahbarbazaar.checkpanel.controllers.interfaces
 
-import android.widget.Button
-import com.rahbarbazaar.checkpanel.models.edit_products.EditProducts
+import com.rahbarbazaar.checkpanel.models.shopping_product.ShoppingProductList
 
 
 interface ShoppingProductsItemInteraction {
 
-    fun shoppingProductsListOnClicked(model: EditProducts, position: Int)
+    fun shoppingProductsListOnClicked(model: ShoppingProductList, position: Int)
 }

@@ -1,6 +1,7 @@
 package com.rahbarbazaar.checkpanel.ui.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.rahbarbazaar.checkpanel.R
 import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils
@@ -24,6 +27,7 @@ import com.rahbarbazaar.checkpanel.utilities.GeneralTools
 import com.rahbarbazaar.checkpanel.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_qrcode.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -78,7 +82,29 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
+
+
+
+        edt_barcode
+
+        // event on done keyboard
+        edt_barcode.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                getListOfProducts()
+                closeKeyboard()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
     }
+
+    private fun closeKeyboard() {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(
+                (currentFocus).windowToken, 0)
+    }
+
 
     override fun onClick(view: View) {
         when (view.id) {
