@@ -14,37 +14,44 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/rl_lable">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_value"
-            android:textSize="15sp"
-            android:layout_marginStart="10dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/blue_dark"
-            android:text="مقدار"/>
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/rl_lable"
-        android:layout_alignParentEnd="true">
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_lable"
-            android:textSize="15sp"
-            android:layout_marginEnd="10dp"
-            android:textColor="@color/blue_dark"
-            android:text="لیبل"/>
+            android:layout_toStartOf="@+id/rl_lable">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_value"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/blue_dark"
+                android:text="مقدار"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_lable"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_lable"
+                android:textSize="15sp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/blue_dark"
+                android:text="لیبل"/>
+        </RelativeLayout>
+
     </RelativeLayout>
+
 
     <!--</RelativeLayout>-->
 
