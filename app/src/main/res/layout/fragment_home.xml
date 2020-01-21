@@ -275,7 +275,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="0dp"
                             android:gravity="center_vertical"
-                            android:text="@string/store_tab"
+                            android:text="@string/left_days"
                             android:textColor="@color/blue"
                             android:textSize="11sp" />
 
@@ -344,7 +344,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_vertical"
-                            android:text="@string/incomplete_purchase"
+                            android:text="@string/papasi"
                             android:textColor="@color/blue"
                             android:textSize="11sp" />
                     </RelativeLayout>

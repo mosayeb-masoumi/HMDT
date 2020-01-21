@@ -123,7 +123,8 @@ public interface Service {
     Call<UpdateEditProductDetailResult> updateEditProductDetail(@Body EditProductDetailUpdateSendData sendData);
 
     @POST("Wallet/Index")
-    Call<TransactionData> getTransactionList(@Query("page") Integer page);
+    Call<TransactionData> getTransactionList(@Query("page") Integer page ,
+                                             @Query("type") String type);
 
     @GET("Shopcenter/Index")
     Call<ShopCenter> getShopcenter();

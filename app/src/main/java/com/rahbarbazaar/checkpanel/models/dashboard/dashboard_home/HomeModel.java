@@ -15,5 +15,5 @@ public class HomeModel {
     public Integer three;
     @SerializedName("four")
     @Expose
-    public Integer four;
+    public String four;
 }

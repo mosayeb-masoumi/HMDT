@@ -154,7 +154,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
                     isScrolling = false
                     page++
 
-                    if (page <= totalPages) {
+                    if (page <= totalPages-1) {
                         getEditList(page)
                     }
 

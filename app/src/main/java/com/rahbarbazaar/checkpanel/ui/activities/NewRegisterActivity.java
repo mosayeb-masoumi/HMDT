@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -187,6 +188,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
                 getResources().getString(R.string.discount_amount)));
         txt_checkBox_amount.setText(String.format("%s (ریال)", getResources().getString(R.string.amount)));
+
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
+        edt_total_amount.setTypeface(tf);
+        edt_paid.setTypeface(tf);
+        edt_discount.setTypeface(tf);
+        edtDate.setTypeface(tf);
+
+
+
     }
 
     private void setEditMemberRecyclere(Data shoppingEditModel) {

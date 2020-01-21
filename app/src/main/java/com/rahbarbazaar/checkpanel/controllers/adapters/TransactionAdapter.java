@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.rahbarbazaar.checkpanel.R;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.TransactionItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.viewholders.TransactionViewHolder;
@@ -15,18 +16,21 @@ import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHolder> {
 
-    List<Transaction> transactions;
+    private List<Transaction> transactions;
     Context context;
+    private String type;
 
-    public TransactionAdapter(List<Transaction> transactions, Context context) {
+    public TransactionAdapter(List<Transaction> transactions, Context context, String type) {
         this.transactions = transactions;
         this.context = context;
+        this.type = type;
     }
 
 
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_transaction, parent, false);
         return new TransactionViewHolder(view);
     }
@@ -34,7 +38,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
         Transaction model = transactions.get(position);
-        holder.bindData(model, position);
+        holder.bindData(model, position, type);
         holder.setOnActiveListHolderListener(listener, model, position);
 
     }

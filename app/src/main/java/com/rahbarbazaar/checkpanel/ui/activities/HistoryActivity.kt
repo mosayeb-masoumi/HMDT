@@ -141,7 +141,7 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
                     isScrolling = false
                     page++
 
-                    if(page<=totalPages){
+                    if(page<=(totalPages-1)){
                         getHistoryList(page)
                     }
 

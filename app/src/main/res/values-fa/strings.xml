@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CheckPanel</string>
+    <string name="app_name">Shopper</string>
     <string name="internet_setting">تنظیمات wifi</string>
     <string name="data_setting">تنظیمات دیتا</string>
     <string name="warning">اخطار</string>
@@ -15,7 +15,7 @@
 
     <!--Bottom navigation tabs-->
     <string name="home_tab">صفحه اصلی</string>
-    <string name="register_tab">خریدها</string>
+    <string name="register_tab">خریدهای جدید</string>
     <string name="myaccount_tab">حساب من</string>
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
@@ -57,7 +57,8 @@
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">Powered By</string>
     <string name="familymember">اعضای خانواده همراه</string>
-    <string name="prize_selection">انتخاب جوایز</string>
+    <string name="prize_selection">انتخاب جوایز فروشگاه</string>
+    <string name="goods_selection">انتخاب جوایز کالا</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
     <string name="update">ویرایش</string>
     <string name="update_done">بروز رسانی با موفقیت انجام شد</string>
@@ -155,6 +156,12 @@
     <string name="shopping_product">اقلام خرید</string>
     <string name="no_purchased_product">برای این خرید محصولی ثبت نشده است</string>
     <string name="shop_date">فروشگاه/تاریخ</string>
+    <string name="papasi">پاپاسی</string>
+    <string name="left_days">روز مانده</string>
+    <string name="amount_valume_size">اندازه/حجم/مقدار</string>
+    <string name="unit_price">قیمت واحد</string>
+    <string name="papasi_transaction">تراکنش پاپاسی</string>
+    <string name="amount_transaction">تراکنش مبالغ</string>
 
 
 </resources>

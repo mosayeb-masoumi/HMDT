@@ -153,7 +153,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
-                    android:text="@string/size"
+                    android:text="@string/amount_valume_size"
                     android:textColor="@color/blue_dark" />
 
                 <EditText
@@ -167,7 +167,7 @@
                     android:background="@drawable/bg_prize_item"
                     android:cursorVisible="true"
                     android:gravity="center"
-                    android:hint="@string/size"
+                    android:hint="@string/amount_valume_size"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -292,13 +292,14 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/tottal_amount"
+                android:text="@string/unit_price"
                 android:textColor="@color/blue_dark" />
 
             <EditText
                 android:id="@+id/edt_price"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_alignParentStart="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
@@ -306,7 +307,7 @@
                 android:background="@drawable/bg_prize_item"
                 android:cursorVisible="true"
                 android:gravity="center"
-                android:hint="@string/tottal_amount"
+                android:hint="@string/unit_price"
                 android:inputType="number"
                 android:padding="5sp"
                 android:textColor="@color/blue_dark"
@@ -531,7 +532,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:text="@string/prize_selection"
+                        android:text="@string/goods_selection"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />

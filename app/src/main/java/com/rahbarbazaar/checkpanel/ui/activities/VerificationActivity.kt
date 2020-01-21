@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -63,6 +64,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         linear_recode.setOnClickListener(this)
         button_verify.setOnClickListener(this)
 
+
+        val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
+        et_user_verify.typeface = tf
 
 
         // event on done keyboard

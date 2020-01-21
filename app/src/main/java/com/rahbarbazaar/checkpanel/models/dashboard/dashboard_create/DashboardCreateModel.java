@@ -9,7 +9,7 @@ public class DashboardCreateModel {
 
     @SerializedName("one")
     @Expose
-    public Integer one;
+    public String one;
     @SerializedName("min_version_code")
     @Expose
     public String minVersionCode;
@@ -18,13 +18,13 @@ public class DashboardCreateModel {
     public String currentVersionCode;
     @SerializedName("two")
     @Expose
-    public Integer two;
+    public String two;
     @SerializedName("three")
     @Expose
-    public Integer three;
+    public String three;
     @SerializedName("four")
     @Expose
-    public Integer four;
+    public String four;
     @SerializedName("video_image")
     @Expose
     public String video_image;

@@ -18,6 +18,7 @@ import com.rahbarbazaar.checkpanel.ui.activities.HistoryActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.HtmlLoaderActivity;
 import com.rahbarbazaar.checkpanel.ui.activities.MainActivity;
 import com.rahbarbazaar.checkpanel.utilities.Cache;
+import com.rahbarbazaar.checkpanel.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.checkpanel.utilities.RxBus;
 
 import org.jetbrains.annotations.NotNull;
@@ -93,10 +94,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         Glide.with(getActivity()).load(dashboardCreateData.data.news_image).centerCrop().into(img_news);
         Glide.with(getActivity()).load(dashboardCreateData.data.video_image).centerCrop().into(img_video);
         Glide.with(getActivity()).load(dashboardCreateData.data.myshop_image).centerCrop().into(img_myshop);
-        txt_balance.setText(String.valueOf(dashboardCreateData.data.one));
-        txt_incomplete_purchase.setText(String.valueOf(dashboardCreateData.data.two));
-        txt_total_purchase.setText(String.valueOf(dashboardCreateData.data.three));
-        txt_registered_products.setText(String.valueOf(dashboardCreateData.data.four));
+        txt_balance.setText(dashboardCreateData.data.one);
+        txt_incomplete_purchase.setText(dashboardCreateData.data.two);
+        txt_total_purchase.setText(dashboardCreateData.data.three);
+        txt_registered_products.setText(dashboardCreateData.data.four);
     }
 
 

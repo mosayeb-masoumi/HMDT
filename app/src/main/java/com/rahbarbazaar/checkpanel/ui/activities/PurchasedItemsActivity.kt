@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -162,7 +163,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         })
 
 
-        txt_total_amount_title_purchased_item.text = (resources.getString(R.string.tottal_amount) +" "+"("+"ریال"+")")
+        txt_total_amount_title_purchased_item.text = (resources.getString(R.string.unit_price) +" "+"("+"ریال"+")")
 
         txt_paid_title_purchased_item.text = (resources.getString(R.string.paid_amount) +" "+"("+"ریال"+")")
 
@@ -170,6 +171,14 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         txt_discount_title_purchased_item.text = (resources.getString(R.string.discount_amount) +" "+"("+"در صورت تخفیف داشتن کالا"+")")
         ckbox_amount_text.text = (resources.getString(R.string.amount) +" "+"("+"ریال"+")")
 
+
+        val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
+        edt_barcode_no_product.typeface = tf
+        edt_size_no_product.typeface = tf
+        edt_amount.typeface = tf
+        edt_price.typeface = tf
+        edt_paid.typeface = tf
+        edt_discount.typeface = tf
     }
 
     private fun initView() {

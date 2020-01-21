@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -34,6 +35,8 @@ import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberDialogAdap
 import com.rahbarbazaar.checkpanel.controllers.adapters.RegisterMemberEditAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.PrizeItemInteraction;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.RegisterItemInteraction;
+import com.rahbarbazaar.checkpanel.models.api_error.APIError422;
+import com.rahbarbazaar.checkpanel.models.api_error.ErrorUtils;
 import com.rahbarbazaar.checkpanel.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.checkpanel.models.edit_products.BoughtMember;
 import com.rahbarbazaar.checkpanel.models.edit_products.BoughtPrize;
@@ -91,7 +94,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     AVLoadingIndicatorView avi;
     String checkbox_text = "" , info_type,description,bought_id;
 
-
+    // for handling422
+    private StringBuilder builderPaid, builderCost, builderDiscountAmount,
+            builderShopId, builderMember, builderDate, buliderPrize;
     MemberPrize initMemberPrizeLists;
 
 
@@ -162,7 +167,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         txt_unit.setText(editProducts.unit);
 
 
-        txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.tottal_amount), editProducts.currency));
+        txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.unit_price), editProducts.currency));
         txt_paid_edit_product.setText(String.format("%s (%s)", getResources().getString(R.string.paid_amount), editProducts.currency));
 
         txt_discount_edit_product_detail.setText(String.format("%s (در صورت تخفیف داشتن کالا)", getResources().getString(R.string.discount_amount)));
@@ -170,6 +175,14 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         txt_desc.setText(description);
 
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+
+        Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
+        edt_amount.setTypeface(tf);
+        edt_total_amount.setTypeface(tf);
+        edt_paid.setTypeface(tf);
+        edt_discount.setTypeface(tf);
+
 
 
     }
@@ -535,6 +548,8 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             }
 
 
+        }else{
+            sendData.setDiscount_type("not_set");
         }
 
 
@@ -547,11 +562,98 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
                     avi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
-                    UpdateEditProductDetailResult getResult = response.body();
+//                    UpdateEditProductDetailResult getResult = response.body();
                     Toast.makeText(EditProductsDetailActivity.this, getResources().getString(R.string.update_done), Toast.LENGTH_SHORT).show();
                     finish();
 
-                } else {
+                } else if(response.code()==422) {
+
+                    avi.setVisibility(View.GONE);
+                    btn_register.setVisibility(View.VISIBLE);
+
+                    builderMember = null;
+                    builderShopId = null;
+                    builderCost = null;
+                    builderPaid = null;
+                    builderDiscountAmount = null;
+                    builderDate = null;
+                    buliderPrize = null;
+                    APIError422 apiError = ErrorUtils.parseError422(response);
+
+
+                    if (apiError.errors.shopId != null) {
+                        builderShopId = new StringBuilder();
+                        for (String a : apiError.errors.shopId) {
+                            builderShopId.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.cost != null) {
+                        builderCost = new StringBuilder();
+                        for (String b : apiError.errors.cost) {
+                            builderCost.append("").append(b).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.paid != null) {
+                        builderPaid = new StringBuilder();
+                        for (String a : apiError.errors.paid) {
+                            builderPaid.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.member != null) {
+                        builderMember = new StringBuilder();
+                        for (String b : apiError.errors.member) {
+                            builderMember.append("").append(b).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.discountAmount != null) {
+                        builderDiscountAmount = new StringBuilder();
+                        for (String c : apiError.errors.discountAmount) {
+                            builderDiscountAmount.append("").append(c).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.date != null) {
+                        builderDate = new StringBuilder();
+                        for (String c : apiError.errors.date) {
+                            builderDate.append("").append(c).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.prize != null) {
+                        buliderPrize = new StringBuilder();
+                        for (String b : apiError.errors.prize) {
+                            buliderPrize.append("").append(b).append(" ");
+                        }
+                    }
+
+                    if (builderMember != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderMember, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderShopId != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderShopId, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderCost != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderPaid != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderPaid, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderDiscountAmount != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderDiscountAmount, Toast.LENGTH_SHORT).show();
+                    }
+                    if (builderDate != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + builderDate, Toast.LENGTH_SHORT).show();
+                    }
+                    if (buliderPrize != null) {
+                        Toast.makeText(EditProductsDetailActivity.this, "" + buliderPrize, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }else{
                     avi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
                     Toast.makeText(EditProductsDetailActivity.this, getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();

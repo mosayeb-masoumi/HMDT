@@ -220,19 +220,25 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         switch (view.getId()) {
 
             case R.id.rl_btn_register:
-                if (checkGpsPermission()) {
-                    if (checkGpsON()) {
 
-                        sendLatLng();
-//                        getNewRegisterData();
-                    } else {
-                        displayLocationSettingsRequest(getContext(), 123);
-                    }
-                } else {
-                    askGpsPermission();
-                }
+                requestRegistration();
 
                 break;
+        }
+    }
+
+    private void requestRegistration() {
+
+        if (checkGpsPermission()) {
+            if (checkGpsON()) {
+
+                sendLatLng();
+//                        getNewRegisterData();
+            } else {
+                displayLocationSettingsRequest(getContext(), 123);
+            }
+        } else {
+            askGpsPermission();
         }
     }
 
@@ -363,6 +369,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     }
 
     private void displayLocationSettingsRequest(Context context, int requestCode) {
+
+
+        rl_btn_register.setVisibility(View.GONE);
+        avi.setVisibility(View.VISIBLE);
+
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API).build();
         googleApiClient.connect();
@@ -379,10 +390,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                 try {
                     status.startResolutionForResult((Activity) context, requestCode);
 
+                    rl_btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
+
                 } catch (IntentSender.SendIntentException ignored) {
+
                 }
         });
+
     }
+
+
+
 
     private void askGpsPermission() {
         ActivityCompat.requestPermissions((Activity) Objects.requireNonNull(getContext())
@@ -411,15 +430,15 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                         displayLocationSettingsRequest(getContext(), 123);
                     }
                 } else {
-                }
-            case 123:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                } else {
+
                 }
+
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 
     public void getLocation() {
         gpsTracker = new GpsTracker(getContext());

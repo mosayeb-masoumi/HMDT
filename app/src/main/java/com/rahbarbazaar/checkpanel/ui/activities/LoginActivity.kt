@@ -2,6 +2,7 @@ package com.rahbarbazaar.checkpanel.ui.activities
 
 import android.app.Activity
 import android.content.*
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,7 @@ class LoginActivity : CustomBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         //check network broadcast reciever
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
@@ -37,7 +39,7 @@ class LoginActivity : CustomBaseActivity() {
             }
         }
 
-        btn_submit_login.setOnClickListener {submitRequest()}
+        btn_submit_login.setOnClickListener { submitRequest() }
 
         // event on done keyboard
         edt_phone.setOnEditorActionListener { v, actionId, event ->
@@ -49,9 +51,13 @@ class LoginActivity : CustomBaseActivity() {
             false
         }
 
+
+        val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
+        edt_phone.typeface = tf
+
     }
 
-       private fun closeKeyboard() {
+    private fun closeKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(
                 (currentFocus).windowToken, 0)
@@ -69,7 +75,7 @@ class LoginActivity : CustomBaseActivity() {
 
     private fun requestLogin() {
 
-       val mobile = edt_phone.text.toString()
+        val mobile = edt_phone.text.toString()
         val service = ServiceProvider(this).getmService()
         val call = service.login(mobile)
 
@@ -77,8 +83,8 @@ class LoginActivity : CustomBaseActivity() {
 
             override fun onResponse(call: Call<LoginModel>, response: Response<LoginModel>) {
                 if (response.code() == 200) {
-                    val intent = Intent(this@LoginActivity,VerificationActivity::class.java)
-                    intent.putExtra("mobile",mobile)
+                    val intent = Intent(this@LoginActivity, VerificationActivity::class.java)
+                    intent.putExtra("mobile", mobile)
                     startActivity(intent)
                     this@LoginActivity.finish()
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
@@ -108,8 +114,8 @@ class LoginActivity : CustomBaseActivity() {
                     }
 
 
-                }else{
-                    Toast.makeText(this@LoginActivity, "" +resources.getString(R.string.serverFaield) , Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@LoginActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     btn_submit_login.visibility = View.VISIBLE
                     avi_login.hide()
                 }

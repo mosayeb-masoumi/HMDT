@@ -98,17 +98,6 @@ class SplashActivity : CustomBaseActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-        startAnim()
-        startActivity()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(connectivityReceiver)
-    }
 
 
     private fun requestDashboardData() {
@@ -259,4 +248,17 @@ class SplashActivity : CustomBaseActivity() {
         btn_reload.visibility = View.GONE
         startActivity(Intent(this@SplashActivity, SplashActivity::class.java))
     }
+
+    override fun onResume() {
+        super.onResume()
+        registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        startAnim()
+        startActivity()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(connectivityReceiver)
+    }
+
 }

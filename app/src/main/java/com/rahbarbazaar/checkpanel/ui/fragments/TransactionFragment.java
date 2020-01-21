@@ -15,10 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rahbarbazaar.checkpanel.R;
-import com.rahbarbazaar.checkpanel.controllers.adapters.ActiveListAdapter;
 import com.rahbarbazaar.checkpanel.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.checkpanel.controllers.interfaces.TransactionItemInteraction;
-import com.rahbarbazaar.checkpanel.models.activelist.ActiveListData;
 import com.rahbarbazaar.checkpanel.models.transaction.Transaction;
 import com.rahbarbazaar.checkpanel.models.transaction.TransactionData;
 import com.rahbarbazaar.checkpanel.network.Service;
@@ -35,11 +33,11 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionFragment extends Fragment  implements TransactionItemInteraction {
+public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
 
 
     RecyclerView rv_transaction;
-    TextView txt_no_transaction;
+    TextView txt_no_transaction, txt_btnpapasi, txt_btntoman;
     AVLoadingIndicatorView avi;
     RelativeLayout rl_root;
     int page = 0;
@@ -48,10 +46,11 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
     int currentItems, totalItems, scrollOutItems;
     TransactionAdapter adapter;
 
-
     TransactionData transactionData;
     LinearLayoutManager linearLayoutManager;
     List<Transaction> transactions;
+
+    String type = "";
 
     public TransactionFragment() {
         // Required empty public constructor
@@ -62,41 +61,46 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_transaction, container, false);
+        View view = inflater.inflate(R.layout.fragment_transaction, container, false);
 
         initView(view);
 
 
-        return  view;
+        return view;
     }
-
 
 
     private void initView(View view) {
 
         rv_transaction = view.findViewById(R.id.recyclere_transaction_fragment);
-        txt_no_transaction=view.findViewById(R.id.txt_no_transaction);
-        avi=view.findViewById(R.id.avi_loading_fr_transaction);
+        txt_no_transaction = view.findViewById(R.id.txt_no_transaction);
+        txt_btnpapasi = view.findViewById(R.id.txt_btnpapasi);
+        txt_btntoman = view.findViewById(R.id.txt_btntoman);
+
+        avi = view.findViewById(R.id.avi_loading_fr_transaction);
         rl_root = view.findViewById(R.id.rl_fr_transaction);
+
+        txt_btnpapasi.setOnClickListener(this);
+        txt_btntoman.setOnClickListener(this);
     }
 
-    private void getTransactionList(int page) {
+    private void getTransactionList(int page, String type) {
 
         avi.setVisibility(View.VISIBLE);
 
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<TransactionData> call = service.getTransactionList(this.page);
+        Call<TransactionData> call = service.getTransactionList(this.page , type);
         call.enqueue(new Callback<TransactionData>() {
             @Override
             public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
-                if(response.code()==200){
+                if (response.code() == 200) {
 
                     transactionData = response.body();
                     avi.setVisibility(View.GONE);
-                    setRecyclerView(transactionData);
+                    setRecyclerView(transactionData, type);
 
 
-                }else if(response.code()==204){
+                } else if (response.code() == 204) {
                     avi.setVisibility(View.GONE);
                     if (page == 0) {
                         txt_no_transaction.setVisibility(View.VISIBLE);
@@ -104,7 +108,7 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
                         txt_no_transaction.setVisibility(View.GONE);
                     }
 
-                }else {
+                } else {
                     avi.setVisibility(View.GONE);
                     Toast.makeText(getContext(), getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
@@ -118,7 +122,7 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
         });
     }
 
-    private void setRecyclerView(TransactionData transactionData) {
+    private void setRecyclerView(TransactionData transactionData, String type) {
 
         totalPage = transactionData.total;
         if (page == 0) {
@@ -130,7 +134,7 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
         transactions.addAll(transactionData.data);
 
         rv_transaction.setLayoutManager(linearLayoutManager);
-        adapter = new TransactionAdapter(transactions, getContext());
+        adapter = new TransactionAdapter(transactions, getContext(), type);
         rv_transaction.setAdapter(adapter);
         adapter.setListener(this);  // important to set or else the app will crashed
         adapter.notifyDataSetChanged();
@@ -158,10 +162,9 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
                     isScrolling = false;
                     page++;
 
-
-                    if(page<=totalPage){
+                    if (page <= totalPage) {
                         //data fetch
-                        getTransactionList(page);
+                        getTransactionList(page, type);
                     }
 
                 }
@@ -171,10 +174,45 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
 
 
     @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.txt_btntoman:
+                txt_btntoman.setBackground(getResources().getDrawable(R.drawable.bg_transaction_toman_select));
+                txt_btntoman.setTextColor(getResources().getColor(R.color.white));
+                txt_btnpapasi.setBackground(getResources().getDrawable(R.drawable.bg_transaction_papasi_unselect));
+                txt_btnpapasi.setTextColor(getResources().getColor(R.color.colorText));
+
+                page = 0;
+                type = "amount";
+                getTransactionList(page, type);
+
+
+                break;
+
+            case R.id.txt_btnpapasi:
+                txt_btnpapasi.setBackground(getResources().getDrawable(R.drawable.bg_transaction_papasi_select));
+                txt_btnpapasi.setTextColor(getResources().getColor(R.color.white));
+                txt_btntoman.setBackground(getResources().getDrawable(R.drawable.bg_transaction_toman_unselect));
+                txt_btntoman.setTextColor(getResources().getColor(R.color.colorText));
+
+                page = 0;
+                type = "papasi";
+                getTransactionList(page, type);
+
+
+                break;
+        }
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         transactions = new ArrayList<>();
-        getTransactionList(page);
+
+        type = "amount";
+        getTransactionList(page, type);
     }
 
     @Override
@@ -183,4 +221,6 @@ public class TransactionFragment extends Fragment  implements TransactionItemInt
 //        Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
 
     }
+
+
 }
