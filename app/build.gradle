@@ -20,12 +20,11 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-//        applicationId "com.example.panelist"
-        applicationId "com.rahbarbazaar.checkpanel"
+        applicationId "com.rahbarbazaar.shopper"
         minSdkVersion 18
         multiDexEnabled true
         targetSdkVersion 28
-        versionCode 6
+        versionCode 1
         versionName "1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
