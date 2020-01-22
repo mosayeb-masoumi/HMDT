@@ -109,4 +109,18 @@ public final class RxBus {
         }
     }
 
+    public static class GroupsSpnData {
+
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+
+        public static Disposable subscribeGroupsSpnData(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+
+        public static void publishGroupsSpnData(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
 }

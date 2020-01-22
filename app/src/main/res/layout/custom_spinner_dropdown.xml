@@ -7,6 +7,7 @@
     android:ellipsize="marquee"
     android:singleLine="true"
     android:padding="5dp"
+    android:text="انتاتنات"
     android:textColor="@color/blue_dark"
     android:background="@color/white"
     android:textSize="14sp"

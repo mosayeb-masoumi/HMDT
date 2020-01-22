@@ -24,7 +24,7 @@ class BarcodeListAdapter (private val barcodeList: List<BarcodeData>, val contex
 
         val model = barcodeList[position]
         holder.bindUserData(model)
-        holder.setOnBarcodeListHolderListener(listener, model, position)
+        holder.setOnBarcodeListHolderListener(listener, model)
     }
 
     private var listener: BarcodeItemInteraction? = null

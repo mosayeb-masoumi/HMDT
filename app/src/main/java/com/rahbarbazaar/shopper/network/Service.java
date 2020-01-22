@@ -27,6 +27,7 @@ import com.rahbarbazaar.shopper.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.shopper.models.register.GetShopId;
 import com.rahbarbazaar.shopper.models.register.RegisterModel;
 import com.rahbarbazaar.shopper.models.register.SendRegisterTotalData;
+import com.rahbarbazaar.shopper.models.search_goods.GroupsData;
 import com.rahbarbazaar.shopper.models.shop.ShopCenter;
 import com.rahbarbazaar.shopper.models.shopping_edit.SendUpdateTotalData;
 import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
@@ -159,4 +160,10 @@ public interface Service {
     @POST("Bought/List")
     Call<TotalShoppingProductData> getShoppingProductList(@Query("shopping_id") String shopping_id,
                                                           @Query("page") Integer page);
+
+    @GET("Search/Main")
+    Call<GroupsData> getGroupsSpnData();
+
+    @POST("Search/Category")
+    Call<GroupsData> getCategorySpnData(@Query("category_id") String category_id);
 }

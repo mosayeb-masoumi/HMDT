@@ -32,7 +32,7 @@ class BarcodeListViewHolder (view: View, val context:Context) : RecyclerView.Vie
 
     }
 
-    fun setOnBarcodeListHolderListener(listener: BarcodeItemInteraction?, model: BarcodeData, position: Int) {
+    fun setOnBarcodeListHolderListener(listener: BarcodeItemInteraction?, model: BarcodeData) {
 
         btnDetail.setOnClickListener {
             listener?.barcodeListOnClicked(model,"btnDetail")

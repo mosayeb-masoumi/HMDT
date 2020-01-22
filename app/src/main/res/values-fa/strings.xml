@@ -162,6 +162,7 @@
     <string name="unit_price">قیمت واحد</string>
     <string name="papasi_transaction">تراکنش پاپاسی</string>
     <string name="amount_transaction">تراکنش مبالغ</string>
+    <string name="search_in_goods_list">جستجو در فهرست کالاها</string>
 
 
 </resources>
