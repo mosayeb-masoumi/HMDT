@@ -75,6 +75,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     var barcode: String? = ""
     var description: String? = ""
     var info_type: String? = ""
+    var searchedResult: String? = ""  // to handle error204 in searchActivity
 
 
     // for handling422
@@ -134,14 +135,26 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         description = intent.getStringExtra("barcodeListItemDesc")
         barcode = intent.getStringExtra("barcode")
         type = intent.getStringExtra("no_product")
-        if (type == "no_product") {
-            linear_no_product.visibility = View.VISIBLE
-            purchased_item_header.text = "ثبت مشخصات و کالای خریداری شده"
-            ll_decs_purchased_item.visibility = View.GONE
-        } else {
-            purchased_item_header.text = "ثبت کالای خریداری شده"
-            linear_no_product.visibility = View.GONE
+        searchedResult = intent.getStringExtra("no_searchedList")
+
+        when {
+            type == "no_product" -> {
+                linear_no_product.visibility = View.VISIBLE
+                purchased_item_header.text = "ثبت مشخصات و کالای خریداری شده"
+                ll_decs_purchased_item.visibility = View.GONE
+            }
+            searchedResult == "no_searchedList" -> {
+                linear_no_product.visibility = View.VISIBLE
+                purchased_item_header.text = "ثبت مشخصات و کالای خریداری شده"
+                ll_decs_purchased_item.visibility = View.GONE
+                ll_barcode_purchasedItem.visibility = View.GONE
+            }
+            else -> {
+                purchased_item_header.text = "ثبت کالای خریداری شده"
+                linear_no_product.visibility = View.GONE
+            }
         }
+
 
         edt_barcode_no_product.setText(barcode)
         txt_desc_purchased_item.text = description
@@ -231,9 +244,13 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
             R.id.btn_register_purchased_items -> {
 
+
                 if (type == "no_product") {
                     sendDataNo_product()
-                } else {
+                } else if(searchedResult =="no_searchedList"){
+                    sendDataNo_product()  // to handle error204 in searchActivity
+                }
+                else {
                     sendData()
                 }
             }
@@ -307,10 +324,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                     var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
                     startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
-                    Toast.makeText(this@PurchasedItemsActivity,
-                            resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PurchasedItemsActivity, resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
                     Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
-
                     finish()
                 } else if (response.code() == 422) {
 
@@ -438,10 +453,20 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
                     var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
+//                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
+                    intent.putExtra("static_barcode","static_barcode")
+                    startActivity(intent)
+
                     Toast.makeText(this@PurchasedItemsActivity,
                             resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
-                    Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
+                    if(searchedResult=="no_searchedList"){
+
+                    }else{
+                        Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
+                    }
+
+
                     finish()
                 } else if (response.code() == 422) {
 

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="ثبت بارکد"
+            android:text="@string/register_goods"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -95,74 +95,139 @@
                 android:textSize="14sp" />
 
 
-            <Button
-                android:id="@+id/btn_choose_scanner"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_btn_prize"
-                android:text="@string/scanner"
-                android:textColor="@color/white" />
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/bg_btn_prize">
-
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/avi_barcode_search"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:id="@+id/rl_barcode_search"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone"
-                    app:indicatorColor="@color/white" />
+                    android:background="@drawable/bg_btn_prize">
 
-                <TextView
-                    android:id="@+id/btn_barcode_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/search_in_goods_list"
-                    android:textColor="@color/white" />
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/avi_barcode_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
+                        app:indicatorColor="@color/white" />
 
+                    <TextView
+                        android:id="@+id/btn_barcode_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/search_in_goods_list2"
+                        android:textColor="@color/white" />
 
-            </RelativeLayout>
+                </RelativeLayout>
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_above="@+id/ll_return"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/bg_button_add">
-
-                <com.wang.avi.AVLoadingIndicatorView
-                    android:id="@+id/avi_register_barcode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone"
-                    app:indicatorColor="@color/white" />
 
                 <Button
-                    android:id="@+id/btn_register_barcode"
-                    android:layout_width="match_parent"
+                    android:id="@+id/btn_choose_scanner"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bg_button_add"
-                    android:text="@string/register"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="@string/scanner"
                     android:textColor="@color/white" />
 
+            </LinearLayout>
 
-            </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_direct_register"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_prize"
+                android:text="ثبت مستقیم"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btn_finish"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_prize"
+                android:text="@string/finish_purchase"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_button_add">
+
+                    <com.wang.avi.AVLoadingIndicatorView
+                        android:id="@+id/avi_register_barcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
+                        app:indicatorColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btn_register_barcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_button_add"
+                        android:text="@string/register_barcode"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/rl_info_member_new_register"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/bg_info_btn">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_info_btn" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
 
         </LinearLayout>
 

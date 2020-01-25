@@ -166,4 +166,17 @@ public interface Service {
 
     @POST("Search/Category")
     Call<GroupsData> getCategorySpnData(@Query("category_id") String category_id);
+
+    @POST("Search/Subcategory")
+    Call<GroupsData> getSubCategorySpnData(@Query("category_id") String category_id);
+
+    @POST("Search/Brand")
+    Call<GroupsData> getBrandSpnData(@Query("category_id") String category_id);
+
+
+    @POST("Search/Product")
+    Call<Barcode> getSearchedList(@Query("category_id") String category_id,
+                                     @Query("sub_category_id") String sub_category_id,
+                                     @Query("brand_id") String brand_id,
+                                     @Query("page") Integer page);
 }

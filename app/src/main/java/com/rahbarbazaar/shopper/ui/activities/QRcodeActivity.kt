@@ -67,7 +67,9 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         btn_register_barcode.setOnClickListener(this)
         rl_home_qrcode.setOnClickListener(this)
         linear_return_qrcode.setOnClickListener(this)
-        btn_barcode_search.setOnClickListener(this)
+//        btn_barcode_search.setOnClickListener(this)
+        rl_barcode_search.setOnClickListener(this)
+        btn_direct_register.setOnClickListener(this)
 
 
         // state can be null
@@ -99,8 +101,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         }
 
 
-
-
 //        // Spinner click listener
 //        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            public void onItemSelected(AdapterView<?> parent, View view,
@@ -120,11 +120,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 //
 //            }
 //        });
-
-
-
-
-
 
 
     }
@@ -150,7 +145,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
 
-
             R.id.btn_register_barcode -> {
                 getListOfProducts()
             }
@@ -164,11 +158,17 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                 finish()
             }
 
-            R.id.btn_barcode_search -> {
+            R.id.rl_barcode_search -> {
 
                 getGroupSpnList()
             }
 
+            R.id.btn_direct_register -> {
+                val intent = Intent(this@QRcodeActivity, PurchasedItemsActivity::class.java)
+                intent.putExtra("no_searchedList", "no_searchedList")
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+            }
 
         }
     }
@@ -186,8 +186,12 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
                     var groupsData = GroupsData()
                     groupsData = response.body()!!
-                    RxBus.GroupsSpnData.publishGroupsSpnData(groupsData)
-                    startActivity(Intent(this@QRcodeActivity, SearchActivity::class.java))
+
+                    val intent = Intent(this@QRcodeActivity, SearchActivity::class.java)
+                    intent.putExtra("groupsData", groupsData)
+                    startActivity(intent)
+//                    RxBus.GroupsSpnData.publishGroupsSpnData(groupsData)
+//                    startActivity(Intent(this@QRcodeActivity, SearchActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     btn_barcode_search.visibility = View.VISIBLE
                     avi_barcode_search.visibility = View.GONE
@@ -316,11 +320,6 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         unregisterReceiver(connectivityReceiver)
         disposable.dispose()
     }
-
-
-
-
-
 
 
 }

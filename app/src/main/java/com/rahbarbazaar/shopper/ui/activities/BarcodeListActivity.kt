@@ -45,7 +45,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
             }
         }
 
-// get data from rxbus
+       // get data from rxbus
         disposable = CompositeDisposable()
         disposable = RxBus.BarcodeList.subscribeBarcodeList { result ->
             if (result is Barcode) {

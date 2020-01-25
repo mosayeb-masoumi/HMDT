@@ -54,7 +54,7 @@
             <Spinner
                 android:id="@+id/spn_group"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -64,15 +64,30 @@
         </RelativeLayout>
 
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:text="گروه"
-            android:id="@+id/txt_spn_category"
-            android:textColor="@color/grey" />
+            android:layout_marginEnd="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="گروه"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/txt_spn_category"
+                android:textColor="@color/grey" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:id="@+id/avi_category_spn"
+                android:visibility="gone"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                app:indicatorColor="@color/blue_dark"/>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/rl_spn_category"
@@ -89,7 +104,7 @@
             <Spinner
                 android:id="@+id/spn_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -99,15 +114,30 @@
         </RelativeLayout>
 
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:text="زیر گروه"
-            android:id="@+id/txt_spn_subCategory"
-            android:textColor="@color/grey" />
+            android:layout_marginEnd="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="زیر گروه"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/txt_spn_subCategory"
+                android:textColor="@color/grey" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:id="@+id/avi_subCategory_spn"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                app:indicatorColor="@color/blue_dark"/>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/rl_spn_sub_category"
@@ -124,7 +154,7 @@
             <Spinner
                 android:id="@+id/spn_sub_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -133,15 +163,31 @@
             </Spinner>
         </RelativeLayout>
 
-        <TextView
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="15dp"
-            android:text="برند"
-            android:id="@+id/txt_spn_brand"
-            android:textColor="@color/grey" />
+            android:layout_marginEnd="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="برند"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/txt_spn_brand"
+                android:textColor="@color/grey" />
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:id="@+id/avi_brand_spn"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:visibility="gone"
+                app:indicatorColor="@color/blue_dark"/>
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/rl_spn_brand"
@@ -158,7 +204,7 @@
             <Spinner
                 android:id="@+id/spn_brand"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
@@ -179,8 +225,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
-
-        android:background="@drawable/bg_btn_prize">
+        android:background="@drawable/bg_button_add">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi_register_search"
@@ -194,8 +239,8 @@
             android:id="@+id/btn_register_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:text="@string/search"
             android:background="@drawable/bg_button_add"
-            android:text="@string/register"
             android:textColor="@color/white" />
 
 
