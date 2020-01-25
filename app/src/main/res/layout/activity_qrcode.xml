@@ -153,6 +153,15 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_finish"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_prize"
+                android:text="@string/finish_purchase"
+                android:textColor="@color/white" />
+
+            <Button
                 android:id="@+id/btn_direct_register"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -161,14 +170,7 @@
                 android:text="ثبت مستقیم"
                 android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/btn_finish"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bg_btn_prize"
-                android:text="@string/finish_purchase"
-                android:textColor="@color/white" />
+
 
         </LinearLayout>
 
