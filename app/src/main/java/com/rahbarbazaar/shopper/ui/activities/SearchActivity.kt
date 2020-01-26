@@ -437,7 +437,6 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     RxBus.BarcodeList.publishBarcodeList(barcode)
                     startActivity(Intent(this@SearchActivity, BarcodeListActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    Toast.makeText(this@SearchActivity, "" + resources.getString(R.string.search_result_completed), Toast.LENGTH_LONG).show()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
 
