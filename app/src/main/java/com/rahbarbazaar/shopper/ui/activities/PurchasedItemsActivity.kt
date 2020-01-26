@@ -321,7 +321,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
                 hideLoading()
                 if (response.code() == 200) {
-                    var a: Boolean = response.body()!!.data
+//                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
                     startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
                     Toast.makeText(this@PurchasedItemsActivity, resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
@@ -451,7 +451,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
                 hideLoading()
                 if (response.code() == 200) {
-                    var a: Boolean = response.body()!!.data
+//                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
 //                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
                     val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
@@ -668,7 +668,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
 
         // to select all members
-        checkBoxAll.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBoxAll.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 editMembers = ArrayList<RegisterMemberEditModel>()
 
@@ -690,8 +690,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             }
         }
 
-        img_close.setOnClickListener { v -> dialog.dismiss() }
-        btn_exit_dialog.setOnClickListener { v -> dialog.dismiss() }
+        img_close.setOnClickListener { dialog.dismiss() }
+        btn_exit_dialog.setOnClickListener { dialog.dismiss() }
 
         dialog.show()
 
@@ -755,8 +755,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         _prizeAdapter.setListener(this)  // important or else the app will crashed
         recycler_prize.adapter = _prizeAdapter
 
-        img_close.setOnClickListener { v -> dialog.dismiss() }
-        btn_exit_dialog.setOnClickListener { v -> dialog.dismiss() }
+        img_close.setOnClickListener { dialog.dismiss() }
+        btn_exit_dialog.setOnClickListener { dialog.dismiss() }
 
         dialog.show()
     }
@@ -785,6 +785,8 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         recycler_prize.adapter = editPrizeAdapter
     }
 
+
+    @Suppress("NAME_SHADOWING")
     private fun createPrizeDetailDialog(title: String?, id: String?) {
         dialogFactory.createPrizeDetailDialog(object : DialogFactory.DialogFactoryInteraction {
             override fun onAcceptButtonClicked(vararg params: String) {
@@ -829,6 +831,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     }
 
 
+    @Suppress("DEPRECATION")
     override fun onResume() {
         super.onResume()
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))

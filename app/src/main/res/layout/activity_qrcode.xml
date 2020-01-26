@@ -153,7 +153,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_finish"
+                android:id="@+id/btn_finish_purchased"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -209,7 +209,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:id="@+id/rl_info_member_new_register"
+                    android:id="@+id/rl_info_registerbarcode"
                     android:layout_marginEnd="20dp"
                     android:gravity="center_vertical"
                     android:src="@drawable/bg_info_btn">

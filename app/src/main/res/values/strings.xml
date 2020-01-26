@@ -21,7 +21,7 @@
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
     <string name="text_video">ویدئوها</string>
-    <string name="my_shop">فهرست خریدهای من</string>
+    <string name="my_shop">تاریخچه خریدهای من</string>
     <string name="text_leftday">روز مانده</string>
     <string name="text_your_point">امتیاز</string>
     <string name="text_balance">موجودی</string>
@@ -42,7 +42,7 @@
     <string name="shop2">فروشگاه:</string>
     <string name="tottal_amount">مبلغ کل خرید</string>
     <string name="discount">مبلغ تخفیف</string>
-    <string name="paid_amount">مبلغ پرداخت شده</string>
+    <string name="paid_amount">مبلغ پرداخت شده واحد</string>
     <string name="register_new">ثبت خرید جدید</string>
     <string name="error204">اطلاعات مورد نظر دریافت نشد</string>
     <string name="register">ثبت</string>
@@ -109,7 +109,7 @@
     <string name="support_center">مرکز پشتیبانی</string>
     <string name="faq">سوالات متداول</string>
     <string name="report_issue">گزارش مشکل</string>
-    <string name="share_poller">چک پنل را به اشتراک بگذارید</string>
+    <string name="share_shopper">شاپر را به اشتراک بگذارید</string>
     <string name="system_error">خطای سیستمی</string>
     <string name="text_title">عنوان</string>
     <string name="explanation2">توضیحات</string>
@@ -172,6 +172,19 @@
     <string name="search_result_completed">کالاهای خریداری شده با موفقیت ثبت شده است.در صورت لزوم , از بخش خریدهای من آنها را ویرایش کنید.</string>
     <string name="register_goods">ثبت کالا</string>
     <string name="register_barcode">ثبت بارکد</string>
+    <string name="finish_purchase_info">اعلام اتمام فرایند ثبت کالاهای خریداری شده. تا 24 ساعت بعد از ثبت خرید، می توانید مشخصات خرید و یا اقلام خرید را از بخش
+        "خرید های جدید" در صفحه اصلی ویرایش، کم یا زیاد کنید.</string>
+    <string name="finish_purchase_info2">خریدهای شما با موفقیت ثبت شده است. در صورت لزوم از بخش  خریدهای من آنرا ویرایش کنید.</string>
+    <string name="register_barcode_info"> ارسال بارکد کالا به سیستم و دریافت کالاهای مرتبط با آن</string>
+    <string name="direct_registeration_info">در این بخش می توانید مستقیما مشخصات کالا و نیز اطلاعات خرید آن را ثبت کنید.</string>
+    <string name="search_goods_info">به کمک این سرویس،
+        می توانید کالای خود را جستجو کرده و در صورت موجود بودن، اطلاعات خرید آن را ثبت کنید.</string>
+    <string name="barcode_field_detail">اگر بارکد کالایی ناقص یا ناخوانا می باشد،
+        حداقل 7 رقم از آن را بنویسید و "دکمه ثبت بارکد" را لمس کنید.</string>
+    <string name="allowed_goods">مجموعه کالاهایی که می بایست در سیستم از روش های زیر ثبت گردد.</string>
+    <string name="scan_barcode_detail">به کمک دوربین موبایل یا تبلت، بارکد محصول را بخوانید. برای نتیجه بهتر کالا را در جای ثابت و پر نور قرار دهید. در صورت عدم خوانده شدن بارکد،
+        می توانید ارقام آن را در بخش بارکد بنویسید. نهایتا "دکمه ثبت بارکد" را لمس کنید.</string>
+    <string name="direct_registerarion">ثبت مستقیم</string>
 
 
 </resources>

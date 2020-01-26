@@ -21,6 +21,7 @@ class MessageViewHolder(view: View, val context: Context) : RecyclerView.ViewHol
     private val ll_root: LinearLayout = itemView.findViewById(R.id.ll_row_message)
 
 
+    @Suppress("DEPRECATION")
     fun bindUserData(model: Message) {
 
         txtDate.text = model.date

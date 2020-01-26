@@ -1,44 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_btn_shape"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/searchView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:focusable="false"
-        android:focusableInTouchMode="true"
-        android:layout_height="50dp"
-        app:defaultQueryHint="جستجو ..."
-        android:background="@drawable/dialog_header_shape"
-        app:searchIcon="@drawable/ic_search"
-        />
+        android:layout_height="450dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/dialog_btn_shape"
+        android:orientation="vertical">
 
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/dialog_header_shape"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            app:defaultQueryHint="جستجو ..."
+            app:searchIcon="@drawable/ic_search" />
 
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/rv_searchable"
-            android:layout_marginTop="3dp"
-            android:layout_height="400dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp" />
 
-    <!--<Button-->
-        <!--android:id="@+id/btn"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_marginStart="40dp"-->
-        <!--android:layout_marginEnd="40dp"-->
-        <!--android:background="@drawable/dialog_btn_shape"-->
-        <!--android:gravity="center"-->
-        <!--android:text="Button"-->
-        <!--android:textColor="@color/blue"-->
-        <!--android:textSize="12sp" />-->
+    </LinearLayout>
 
 </LinearLayout>

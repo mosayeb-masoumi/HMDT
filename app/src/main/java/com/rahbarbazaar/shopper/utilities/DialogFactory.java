@@ -828,22 +828,15 @@ public class DialogFactory {
         SearchView searchView = customLayout.findViewById(R.id.searchView);
 
 
-
-
         EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.WHITE);
-
-
         searchEditText.setHintTextColor(context.getResources().getColor(R.color.colorText));
         ImageView imvClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         imvClose.setImageResource(R.drawable.ic_close);
 
+
         // delete icon search
         searchView.setIconifiedByDefault(false);
-
-
-
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -853,9 +846,6 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
-
-
 
 
         //set recyclerview
@@ -880,12 +870,8 @@ public class DialogFactory {
             }
         });
 
-
-
         dialog.show();
     }
-
-
 
     public void createShoppingProductDetailDialog(@NotNull DialogFactoryInteraction dialogFactoryInteraction,
                                                   @Nullable RelativeLayout view, @NotNull ShoppingProductList model) {
@@ -895,6 +881,37 @@ public class DialogFactory {
         //define views inside of dialog
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_shopping_products_detail);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+//        set recyclerview
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        ShoppingProductsDetailAdapter adapter =new ShoppingProductsDetailAdapter(model.getDetail(),view.getContext());
+        recyclerView.setAdapter(adapter);
+
+        dialog.show();
+
+    }
+
+
+
+    public void createRegisterBarcodeInfoDialog(@NotNull DialogFactoryInteraction dialogFactoryInteraction,
+                                                  @Nullable RelativeLayout view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_info_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header= customLayout.findViewById(R.id.txt_header);
+        Button btn_close= customLayout.findViewById(R.id.btn1);
 
 
 
@@ -906,19 +923,8 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
-
-
-
-
         img_close.setOnClickListener(v -> dialog.dismiss());
-
-
-
-//        set recyclerview
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        ShoppingProductsDetailAdapter adapter =new ShoppingProductsDetailAdapter(model.getDetail(),view.getContext());
-        recyclerView.setAdapter(adapter);
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
 
         dialog.show();
@@ -926,9 +932,42 @@ public class DialogFactory {
     }
 
 
+    public void createNoSearchSpnResultDialog(@NotNull DialogFactoryInteraction listener,
+                                                @Nullable RelativeLayout view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header= customLayout.findViewById(R.id.txt_header);
+        TextView txt_description= customLayout.findViewById(R.id.txt_description);
+        Button btn_close= customLayout.findViewById(R.id.btn2);
+        Button btn_direct_registeration= customLayout.findViewById(R.id.btn1);
+
+        btn_close.setText(context.getResources().getString(R.string.close));
+        btn_direct_registeration.setText(context.getResources().getString(R.string.direct_registerarion));
+
+        txt_header.setText(context.getResources().getString(R.string.system_message));
+        txt_description.setText("کالایی با مشخصات فوق پیدا نشد!");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+
+        btn_direct_registeration.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
 
 
+        dialog.show();
 
-
-
+    }
 }

@@ -974,6 +974,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     checkBox_precentage.setChecked(false);
                     edt_discount.setHint(getResources().getString(R.string.amount2_));
                     checkbox_text = getResources().getString(R.string.amount2_);
+                    edt_discount.setText("");
                     edt_discount.setEnabled(true);
                 }
                 break;
@@ -983,6 +984,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     checkBox_amount.setChecked(false);
                     edt_discount.setHint(getResources().getString(R.string.percent));
                     checkbox_text = getResources().getString(R.string.percent);
+                    edt_discount.setText("");
                     edt_discount.setEnabled(true);
                 }
                 break;

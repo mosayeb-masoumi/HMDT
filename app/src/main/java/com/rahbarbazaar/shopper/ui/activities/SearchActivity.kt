@@ -1,5 +1,6 @@
 package com.rahbarbazaar.shopper.ui.activities
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,7 @@ import com.rahbarbazaar.shopper.models.barcodlist.Barcode
 import com.rahbarbazaar.shopper.models.search_goods.GroupsData
 import com.rahbarbazaar.shopper.network.ServiceProvider
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity
+import com.rahbarbazaar.shopper.utilities.DialogFactory
 import com.rahbarbazaar.shopper.utilities.GeneralTools
 import com.rahbarbazaar.shopper.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
@@ -33,7 +35,6 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
     var disposable: Disposable = CompositeDisposable()
     lateinit var groupsData: GroupsData
 
-
     var group_id: String = ""
     var category_id: String = ""
     var sub_category_id: String = ""
@@ -50,7 +51,6 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                 tools.doCheckNetwork(this@SearchActivity, findViewById<View>(R.id.rl_root))
             }
         }
-
 
 //        // get data from rxbus
 //        disposable = CompositeDisposable()
@@ -101,7 +101,12 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                             if (this@SearchActivity.groupsData.data!![i].title == title) {
                                 group_id = this@SearchActivity.groupsData.data!![i].id!!
 
+                                category_id = ""
+                                sub_category_id = ""
+                                brand_id = ""
                                 getCategoryList(group_id)
+
+                                emptySpnSubCategory_spnBrand()
                             }
                         }
 
@@ -116,6 +121,23 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         }
 
     }
+
+    @SuppressLint("ResourceAsColor")
+    private fun emptySpnSubCategory_spnBrand() {
+        val emptyList: MutableList<String> = ArrayList()
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner, emptyList)
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+        spn_sub_category.adapter = adapter
+        spn_brand.adapter = adapter
+
+        txt_spn_subCategory.setTextColor(R.color.grey)
+        rl_spn_sub_category.setBackgroundResource(R.drawable.bg_inactive_spn)
+
+        txt_spn_brand.setTextColor(R.color.grey)
+        rl_spn_brand.setBackgroundResource(R.drawable.bg_inactive_spn)
+
+    }
+
 
     private fun getCategoryList(spnGroupID: String) {
 
@@ -133,9 +155,10 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     avi_category_spn.visibility = View.GONE
 
                 } else if (response.code() == 204) {
-                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
-                    intent.putExtra("no_searchedList", "no_searchedList")
-                    startActivity(intent)
+//                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
+//                    intent.putExtra("no_searchedList", "no_searchedList")
+//                    startActivity(intent)
+                    showNoSearchResultDialog()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
                     avi_category_spn.visibility = View.GONE
@@ -153,9 +176,10 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
 
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun setSpnCategory(groupsData: GroupsData) {
 
-        txt_spn_category.setTextColor(resources.getColor(R.color.blue_dark))
+        txt_spn_category.setTextColor(R.color.blue_dark)
         rl_spn_category.setBackgroundResource(R.drawable.bg_prize_item)
 
         val categoryTitleList: MutableList<String> = ArrayList()
@@ -180,6 +204,11 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                             if (groupsData.data!![i].title == title) {
                                 category_id = groupsData.data!![i].id!!
                                 getSubCategoryList(category_id)
+
+                                sub_category_id = ""
+                                brand_id = ""
+                                emptyBrandSpn()
+
                             }
                         }
                     }
@@ -192,6 +221,17 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
+    private fun emptyBrandSpn() {
+        val emptyList: MutableList<String> = ArrayList()
+        val adapter = ArrayAdapter(this, R.layout.custom_spinner, emptyList)
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+        spn_brand.adapter = adapter
+
+        txt_spn_brand.setTextColor(R.color.grey)
+        rl_spn_brand.setBackgroundResource(R.drawable.bg_inactive_spn)
+    }
+
     private fun getSubCategoryList(spnCategoryID: String) {
         avi_subCategory_spn.visibility = View.VISIBLE
         val service = ServiceProvider(this).getmService()
@@ -200,14 +240,16 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
                 if (response.code() == 200) {
                     var groupsData = GroupsData()
+
                     groupsData = response.body()!!
                     setSpnSubCategory(groupsData)
                     avi_subCategory_spn.visibility = View.GONE
 
                 } else if (response.code() == 204) {
-                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
-                    intent.putExtra("no_searchedList", "no_searchedList")
-                    startActivity(intent)
+//                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
+//                    intent.putExtra("no_searchedList", "no_searchedList")
+//                    startActivity(intent)
+                    showNoSearchResultDialog()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
                     avi_subCategory_spn.visibility = View.GONE
@@ -277,10 +319,11 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     avi_brand_spn.visibility = View.GONE
 
                 } else if (response.code() == 204) {
-                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
-                    intent.putExtra("no_searchedList", "no_searchedList")
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
+//                    intent.putExtra("no_searchedList", "no_searchedList")
+//                    startActivity(intent)
+//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    showNoSearchResultDialog()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
                     avi_brand_spn.visibility = View.GONE
@@ -295,6 +338,26 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                 avi_brand_spn.visibility = View.GONE
             }
         })
+    }
+
+    private fun showNoSearchResultDialog() {
+
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createNoSearchSpnResultDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg strings: String?) {
+
+                val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
+                intent.putExtra("no_searchedList", "no_searchedList")
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+
+            }
+
+            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+
+            }
+
+        }, rl_root_search)
     }
 
     private fun setSpnBrand(groupsData: GroupsData) {
@@ -364,7 +427,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         avi_register_search.visibility = View.VISIBLE
 
         val service = ServiceProvider(this).getmService()
-        val call = service.getSearchedList(category_id,sub_category_id,brand_id,0)
+        val call = service.getSearchedList(category_id, sub_category_id, brand_id, 0)
         call.enqueue(object : Callback<Barcode> {
             override fun onResponse(call: Call<Barcode>, response: Response<Barcode>) {
                 if (response.code() == 200) {
@@ -374,7 +437,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     RxBus.BarcodeList.publishBarcodeList(barcode)
                     startActivity(Intent(this@SearchActivity, BarcodeListActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    Toast.makeText(this@SearchActivity,""+resources.getString(R.string.search_result_completed),Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@SearchActivity, "" + resources.getString(R.string.search_result_completed), Toast.LENGTH_LONG).show()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
 
@@ -393,6 +456,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         })
 
     }
+
 
     override fun onResume() {
         super.onResume()

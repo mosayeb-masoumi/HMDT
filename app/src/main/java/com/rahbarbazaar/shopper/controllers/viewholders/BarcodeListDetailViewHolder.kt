@@ -14,9 +14,9 @@ class BarcodeListDetailViewHolder (view: View, val context: Context) : RecyclerV
     private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable)
     private val txt_value: TextView = itemView.findViewById(R.id.txt_value)
 
-    @SuppressLint("SetTextI18n")
+//    @SuppressLint("SetTextI18n")
     fun bindBarcodeDetailData(model: BarcodeDetail) {
         txt_lable.text = model.label + ":"
-        txt_value.text= model.value!!.trim()
+        txt_value.text= model.value!!
     }
 }

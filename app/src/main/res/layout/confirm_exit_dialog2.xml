@@ -2,12 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/dialog_btn_shape"
     android:layout_margin="5dp"
+    android:background="@drawable/dialog_btn_shape"
     android:gravity="center"
     android:orientation="vertical">
-
-
 
 
     <RelativeLayout
@@ -15,28 +13,29 @@
         android:layout_height="45dp"
         android:background="@drawable/dialog_header_shape"
         android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/attention"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="16dp"/>
+            android:textColor="#FFF"
+            android:textSize="16dp"
+            android:textStyle="bold" />
     </RelativeLayout>
-
 
 
     <TextView
         android:id="@+id/text_body"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="5dp"
-        android:textColor="@color/blue"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
         android:text="@string/exit_profile_text_dialog"
+        android:textColor="@color/blue"
         android:textSize="14dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,30 +50,27 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:textSize="12sp"
-            android:textColor="@color/blue"
             android:background="@drawable/dialog_btn_shape"
             android:gravity="center"
-            android:text="@string/sure_text"/>
+            android:text="@string/sure_text"
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/btn_cancel_dialog"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_height="50dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_height="50dp"
-            android:textSize="12sp"
+            android:layout_weight="1"
             android:background="@drawable/dialog_btn_shape"
-            android:textColor="@color/blue"
             android:gravity="center"
-            android:text="@string/cancel_text"/>
-
+            android:text="@string/cancel_text"
+            android:textColor="@color/blue"
+            android:textSize="12sp" />
 
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

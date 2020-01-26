@@ -67,6 +67,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:id="@+id/img_line"
                 android:layout_alignParentBottom="true"
                 android:background="@color/blue_dark"/>
 

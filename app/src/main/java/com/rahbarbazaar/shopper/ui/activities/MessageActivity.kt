@@ -171,7 +171,7 @@ class MessageActivity : CustomBaseActivity(), MessageItemInteraction {
             override fun onResponse(call: Call<MessageRead>, response: Response<MessageRead>) {
                 if (response.code() == 200) {
 
-                    var state: Boolean? = response.body()?.data
+//                    var state: Boolean? = response.body()?.data
 
                 } else {
                     Toast.makeText(this@MessageActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -188,6 +188,7 @@ class MessageActivity : CustomBaseActivity(), MessageItemInteraction {
     }
 
 
+    @Suppress("DEPRECATION")
     override fun onResume() {
         super.onResume()
         // message must be initialize

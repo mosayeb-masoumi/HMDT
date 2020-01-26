@@ -22,12 +22,10 @@ import com.rahbarbazaar.shopper.models.barcodlist.Barcode
 import com.rahbarbazaar.shopper.models.search_goods.GroupsData
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.shopper.network.ServiceProvider
-import com.rahbarbazaar.shopper.utilities.Cache
-import com.rahbarbazaar.shopper.utilities.CustomBaseActivity
-import com.rahbarbazaar.shopper.utilities.GeneralTools
-import com.rahbarbazaar.shopper.utilities.RxBus
+import com.rahbarbazaar.shopper.utilities.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_qrcode.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,6 +68,8 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 //        btn_barcode_search.setOnClickListener(this)
         rl_barcode_search.setOnClickListener(this)
         btn_direct_register.setOnClickListener(this)
+        btn_finish_purchased.setOnClickListener(this)
+        rl_info_registerbarcode.setOnClickListener(this)
 
 
         // state can be null
@@ -138,6 +138,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
                 if (checkCameraPermission()) {
                     startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     finish()
                 } else {
                     requestCameraPermission()
@@ -150,7 +151,8 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             R.id.rl_home_qrcode -> {
-//                startActivity(Intent(this@QRcodeActivity, MainActivity::class.java))
+                startActivity(Intent(this@QRcodeActivity, MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()
             }
 
@@ -170,7 +172,34 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
 
+            R.id.btn_finish_purchased -> {
+                startActivity(Intent(this@QRcodeActivity,MainActivity::class.java))
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                Toast.makeText(this@QRcodeActivity,""+resources.getString(R.string.finish_purchase_info2),Toast.LENGTH_LONG).show()
+                finish()
+            }
+
+            R.id. rl_info_registerbarcode -> {
+
+                showRegisterBarcodeInfoDialog()
+            }
+
+
         }
+    }
+
+    private fun showRegisterBarcodeInfoDialog() {
+
+        val dialogFactory = DialogFactory(this)
+        dialogFactory.createRegisterBarcodeInfoDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg strings: String?) {
+            }
+
+            override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+
+            }
+
+        }, rl_root)
     }
 
     private fun getGroupSpnList() {

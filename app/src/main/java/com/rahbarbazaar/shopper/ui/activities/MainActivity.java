@@ -542,7 +542,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                         append(getString(R.string.text_invite_friend))
                         .append("\n").append(share_url))
                 .setType("text/plain")
-                .setChooserTitle(R.string.share_poller)
+                .setChooserTitle(R.string.share_shopper)
                 .startChooser();
     }
 
@@ -583,6 +583,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 Cache.setString(MainActivity.this, "access_token", "");
                 Cache.setString(MainActivity.this, "refresh_token", "");
                 Cache.setString(MainActivity.this, "expireAt", "");
+                Cache.setString(MainActivity.this,"agreement","undone");
+
                 startActivity(new Intent(context, SplashActivity.class));
                 MainActivity.this.finish();
             }

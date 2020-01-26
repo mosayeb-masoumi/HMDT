@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     LinearLayoutManager linearLayoutManager;
     List<Transaction> transactions;
 
+    ImageView img_line;
     String type = "";
 
     public TransactionFragment() {
@@ -76,7 +78,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         txt_no_transaction = view.findViewById(R.id.txt_no_transaction);
         txt_btnpapasi = view.findViewById(R.id.txt_btnpapasi);
         txt_btntoman = view.findViewById(R.id.txt_btntoman);
-
+        img_line = view.findViewById(R.id.img_line);
         avi = view.findViewById(R.id.avi_loading_fr_transaction);
         rl_root = view.findViewById(R.id.rl_fr_transaction);
 
@@ -183,7 +185,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btntoman.setTextColor(getResources().getColor(R.color.white));
                 txt_btnpapasi.setBackground(getResources().getDrawable(R.drawable.bg_transaction_papasi_unselect));
                 txt_btnpapasi.setTextColor(getResources().getColor(R.color.colorText));
-
+                img_line.setBackgroundColor(getResources().getColor(R.color.blue_dark));
                 page = 0;
                 type = "amount";
                 getTransactionList(page, type);
@@ -196,6 +198,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btnpapasi.setTextColor(getResources().getColor(R.color.white));
                 txt_btntoman.setBackground(getResources().getDrawable(R.drawable.bg_transaction_toman_unselect));
                 txt_btntoman.setTextColor(getResources().getColor(R.color.colorText));
+
+                img_line.setBackgroundColor(getResources().getColor(R.color.pink_dark));
 
                 page = 0;
                 type = "papasi";

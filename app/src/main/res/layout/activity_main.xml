@@ -148,7 +148,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="10dp"
                             android:gravity="center_vertical"
-                            android:text="@string/share_poller"
+                            android:text="@string/share_shopper"
                             android:textColor="@color/white_gray"
                             android:textSize="13sp" />
 
