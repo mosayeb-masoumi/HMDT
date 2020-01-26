@@ -176,10 +176,10 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
 
     }
 
-    @SuppressLint("ResourceAsColor")
+
     private fun setSpnCategory(groupsData: GroupsData) {
 
-        txt_spn_category.setTextColor(R.color.blue_dark)
+        txt_spn_category.setTextColor(resources.getColor(R.color.blue_dark))
         rl_spn_category.setBackgroundResource(R.drawable.bg_prize_item)
 
         val categoryTitleList: MutableList<String> = ArrayList()
