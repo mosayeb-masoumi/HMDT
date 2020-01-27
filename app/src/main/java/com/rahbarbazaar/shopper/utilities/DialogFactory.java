@@ -3,6 +3,7 @@ package com.rahbarbazaar.shopper.utilities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
@@ -38,6 +39,11 @@ import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.shopper.ui.activities.ScanActivity;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.enums.EPickType;
+import com.vansuita.pickimage.listeners.IPickResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,10 +51,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class DialogFactory {
+public class DialogFactory implements IPickResult {
 
     private Context context;
+
 
 
 
@@ -932,8 +940,7 @@ public class DialogFactory {
     }
 
 
-    public void createNoSearchSpnResultDialog(@NotNull DialogFactoryInteraction listener,
-                                                @Nullable RelativeLayout view) {
+    public void createNoSearchSpnResultDialog(@NotNull DialogFactoryInteraction listener,@Nullable RelativeLayout view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
 
@@ -966,8 +973,129 @@ public class DialogFactory {
             dialog.dismiss();
         });
 
+        dialog.show();
+    }
+
+
+    public void createPhotoDialog(@NotNull DialogFactoryInteraction listener,
+                                  @Nullable RelativeLayout view, NewRegisterActivity newRegisterActivity) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.photo_dialog, (ViewGroup) view, false);
+
+
+        //define views inside of dialog
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        Button btn_close= customLayout.findViewById(R.id.btn_close);
+
+        ImageView img_close1 = customLayout.findViewById(R.id.img_close1);
+        ImageView img_close2 = customLayout.findViewById(R.id.img_close2);
+        ImageView img_close3 = customLayout.findViewById(R.id.img_close3);
+        ImageView img_close4 = customLayout.findViewById(R.id.img_close4);
+
+        ImageView img1 = customLayout.findViewById(R.id.img1);
+        ImageView img2 = customLayout.findViewById(R.id.img2);
+        ImageView img3 = customLayout.findViewById(R.id.img3);
+        ImageView img4 = customLayout.findViewById(R.id.img4);
+
+        RelativeLayout rl_camera1 = customLayout.findViewById(R.id.rl_camera1);
+        RelativeLayout rl_camera2 = customLayout.findViewById(R.id.rl_camera2);
+        RelativeLayout rl_camera3 = customLayout.findViewById(R.id.rl_camera3);
+        RelativeLayout rl_camera4 = customLayout.findViewById(R.id.rl_camera4);
+
+        AtomicInteger status = new AtomicInteger();
+        Bitmap bm1, bm2, bm3, bm4;
+        String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+
+
+        rl_camera1.setOnClickListener(v -> {
+            status.set(1);
+            choose_pic(newRegisterActivity);
+        });
+        rl_camera2.setOnClickListener(v -> {
+            status.set(2);
+            choose_pic(newRegisterActivity);
+        });
+        rl_camera3.setOnClickListener(v -> {
+            status.set(3);
+            choose_pic(newRegisterActivity);
+        });
+        rl_camera4.setOnClickListener(v -> {
+            status.set(4);
+            choose_pic(newRegisterActivity);
+        });
+
+
+
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+
+
+
 
         dialog.show();
+    }
+
+    private void choose_pic(NewRegisterActivity newRegisterActivity) {
+
+        PickSetup setup = new PickSetup()
+                .setTitle("settitle")
+                .setProgressText("progress text")
+                .setPickTypes(EPickType.CAMERA)
+                .setSystemDialog(true);
+        PickImageDialog.build(setup).show(newRegisterActivity);
+    }
+
+    @Override
+    public void onPickResult(PickResult r) {
+        if (r.getError() == null) {
+//            if (status == 1) {
+//
+//                img1.setImageBitmap(r.getBitmap());
+//                bm1 = r.getBitmap();
+//
+//                strBm1 =ConvertorBitmapToString.bitmapToString(bm1);
+//
+//            }
+//            if (status == 2) {
+//                img2.setImageBitmap(r.getBitmap());
+//                bm2 = r.getBitmap();
+//
+//                strBm2 = Converter.bitmapToString(bm2);
+////                requestImageUpdate(bm2);
+//
+//            }
+//            if (status == 3) {
+//                img3.setImageBitmap(r.getBitmap());
+//                bm3 = r.getBitmap();
+//
+//                strBm3 = Converter.bitmapToString(bm3);
+////                requestImageUpdate(bm3);
+//
+//            }
+//            if (status == 4) {
+//                img4.setImageBitmap(r.getBitmap());
+//                bm4 = r.getBitmap();
+//
+//                strBm4 = Converter.bitmapToString(bm4);
+//
+////                requestImageUpdate(bm4);
+//
+//            }
+        }
 
     }
+
 }

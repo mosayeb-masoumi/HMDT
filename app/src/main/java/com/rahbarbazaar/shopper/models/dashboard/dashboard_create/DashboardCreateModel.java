@@ -45,6 +45,11 @@ public class DashboardCreateModel {
     @SerializedName("faq_page")
     @Expose
     public String faqPage;
+
+    @SerializedName("education_page")
+    @Expose
+    public String education_page;
+
     @SerializedName("agreement_page")
     @Expose
     public String agreementPage;

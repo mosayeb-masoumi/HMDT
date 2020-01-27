@@ -69,4 +69,20 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> description = null;
 
+    @SerializedName("brand_id")
+    @Expose
+    public List<String> brand_id = null;
+
+    @SerializedName("category_id")
+    @Expose
+    public List<String> category_id = null;
+
+    @SerializedName("sub_category_id")
+    @Expose
+    public List<String> sub_category_id = null;
+
+    @SerializedName("group_id")
+    @Expose
+    public List<String> group_id = null;
+
 }

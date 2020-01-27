@@ -185,6 +185,8 @@
     <string name="scan_barcode_detail">به کمک دوربین موبایل یا تبلت، بارکد محصول را بخوانید. برای نتیجه بهتر کالا را در جای ثابت و پر نور قرار دهید. در صورت عدم خوانده شدن بارکد،
         می توانید ارقام آن را در بخش بارکد بنویسید. نهایتا "دکمه ثبت بارکد" را لمس کنید.</string>
     <string name="direct_registerarion">ثبت مستقیم</string>
+    <string name="edu">آموزش و اصطلاحات</string>
+    <string name="take_photo">انتخاب یا گرفتن عکس</string>
 
 
 </resources>

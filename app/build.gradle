@@ -73,6 +73,7 @@ dependencies {
     implementation 'co.ronash.android:pushe-base:1.6.3'
 
     implementation 'com.codesgood:justifiedtextview:1.1.0'
+    implementation 'com.github.jrvansuita:PickImage:2.2.4'
 
 //    implementation 'me.biubiubiu.justifytext:library:1.1'
     

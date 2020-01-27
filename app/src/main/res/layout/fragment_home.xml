@@ -398,7 +398,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/txt_registered_products"
+                            android:id="@+id/txt_left_days"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -433,7 +433,7 @@
                         android:layout_weight="1">
 
                         <TextView
-                            android:id="@+id/txt_incomplete_purchase"
+                            android:id="@+id/txt_papasi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"

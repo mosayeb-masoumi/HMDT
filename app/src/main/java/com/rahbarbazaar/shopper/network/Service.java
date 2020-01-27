@@ -5,6 +5,7 @@ import com.rahbarbazaar.shopper.models.activelist.ActiveListData;
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_history.DashboardHistory;
+import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.shopper.models.edit_products.DeleteProduct;
 import com.rahbarbazaar.shopper.models.edit_products.EditProductDetailUpdateSendData;
@@ -103,8 +104,8 @@ public interface Service {
     @POST("Message/Read")
     Call<MessageRead> getMessageRead(@Query("message_id") String message_id);
 
-//    @GET("Dashboard/Home")
-//    Call<HomeData> getHomeData();
+    @GET("Dashboard/Home")
+    Call<HomeData> getRefreshHomeData();
 
 
     @POST("Shopping/Index")
@@ -175,7 +176,8 @@ public interface Service {
 
 
     @POST("Search/Product")
-    Call<Barcode> getSearchedList(@Query("category_id") String category_id,
+    Call<Barcode> getSearchedList(@Query("group_id") String group_id,
+                                  @Query("category_id") String category_id,
                                      @Query("sub_category_id") String sub_category_id,
                                      @Query("brand_id") String brand_id,
                                      @Query("page") Integer page);

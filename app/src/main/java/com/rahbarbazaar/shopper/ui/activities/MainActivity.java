@@ -78,7 +78,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_report_issue, linear_faq, linear_submenu, linear_profile_drawer, ll_drawer;
+            linear_support, linear_report_issue, linear_faq,linear_edu, linear_submenu, linear_profile_drawer, ll_drawer;
     RelativeLayout ll_notify_count;
 
     TextView txt_exit, text_notify_count, text_follow_us;
@@ -274,6 +274,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_profile_drawer = findViewById(R.id.linear_profile_drawer);
 
         linear_faq = findViewById(R.id.linear_faq);
+        linear_edu = findViewById(R.id.linear_edu);
         linear_submenu = findViewById(R.id.linear_submenu);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
@@ -293,6 +294,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
         linear_faq.setOnClickListener(this);
+        linear_edu.setOnClickListener(this);
         linear_support.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
@@ -452,6 +454,13 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             case R.id.linear_faq:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.faqPage);
+                break;
+
+
+
+            case R.id.linear_edu:
+                drawer_layout_home.closeDrawers();
+                goToHtmlActivity(dashboardCreateData.data.education_page);
                 break;
 
 

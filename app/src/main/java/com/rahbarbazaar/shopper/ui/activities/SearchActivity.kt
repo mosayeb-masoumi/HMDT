@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.rahbarbazaar.shopper.R
+import com.rahbarbazaar.shopper.models.api_error.ErrorUtils
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode
 import com.rahbarbazaar.shopper.models.search_goods.GroupsData
 import com.rahbarbazaar.shopper.network.ServiceProvider
@@ -39,6 +40,11 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
     var category_id: String = ""
     var sub_category_id: String = ""
     var brand_id: String = ""
+
+    private var builder_group_id: StringBuilder? = null
+    private var builder_brand_id: StringBuilder? = null
+    private var builder_category_id: StringBuilder? = null
+    private var builder_sub_category_id: StringBuilder? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -427,7 +433,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         avi_register_search.visibility = View.VISIBLE
 
         val service = ServiceProvider(this).getmService()
-        val call = service.getSearchedList(category_id, sub_category_id, brand_id, 0)
+        val call = service.getSearchedList(group_id,category_id, sub_category_id, brand_id, 0)
         call.enqueue(object : Callback<Barcode> {
             override fun onResponse(call: Call<Barcode>, response: Response<Barcode>) {
                 if (response.code() == 200) {
@@ -440,7 +446,64 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE
 
-                } else {
+                }else if(response.code()==422){
+
+                    val apiError = ErrorUtils.parseError422(response)
+
+                    builder_group_id = null
+                    builder_brand_id = null
+                    builder_category_id = null
+                    builder_sub_category_id = null
+
+                    if (apiError.errors.group_id != null) {
+                        builder_group_id = StringBuilder()
+                        for (b in apiError.errors.group_id) {
+                            builder_group_id!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.category_id != null) {
+                        builder_category_id = StringBuilder()
+                        for (b in apiError.errors.category_id) {
+                            builder_category_id!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.sub_category_id != null) {
+                        builder_sub_category_id = StringBuilder()
+                        for (b in apiError.errors.sub_category_id) {
+                            builder_sub_category_id!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (apiError.errors.brand_id != null) {
+                        builder_brand_id = StringBuilder()
+                        for (b in apiError.errors.brand_id) {
+                            builder_brand_id!!.append("").append(b).append(" ")
+                        }
+                    }
+
+                    if (builder_group_id != null) {
+                        Toast.makeText(this@SearchActivity, "" + builder_group_id, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (builder_category_id != null) {
+                        Toast.makeText(this@SearchActivity, "" + builder_category_id, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (builder_sub_category_id != null) {
+                        Toast.makeText(this@SearchActivity, "" + builder_sub_category_id, Toast.LENGTH_SHORT).show()
+                    }
+
+                    if (builder_brand_id != null) {
+                        Toast.makeText(this@SearchActivity, "" + builder_brand_id, Toast.LENGTH_SHORT).show()
+                    }
+
+                    btn_register_search.visibility = View.VISIBLE
+                    avi_register_search.visibility = View.GONE
+
+                }
+                else {
                     Toast.makeText(this@SearchActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     btn_register_search.visibility = View.VISIBLE
                     avi_register_search.visibility = View.GONE

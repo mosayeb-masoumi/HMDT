@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class HomeModel {
     @SerializedName("one")
     @Expose
-    public Integer one;
+    public String one;
     @SerializedName("two")
     @Expose
-    public Integer two;
+    public String two;
     @SerializedName("three")
     @Expose
-    public Integer three;
+    public String three;
     @SerializedName("four")
     @Expose
     public String four;

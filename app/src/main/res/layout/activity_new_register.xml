@@ -303,8 +303,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginTop="10dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_addmember"
@@ -313,7 +312,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
-                    android:background="@drawable/bg_button_add">
+                    android:background="@drawable/bg_btn_prize">
 
                     <ImageView
                         android:layout_width="45dp"
@@ -342,12 +341,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/bg_info_btn">
+                    android:src="@drawable/bg_info_btn_prize">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/bg_info_btn" />
+                        android:src="@drawable/bg_info_btn_prize" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -374,7 +373,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp">
 
                 <RelativeLayout
@@ -441,14 +440,40 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:background="@drawable/bg_btn_prize">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/camera" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/take_photo"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="10dp"
-                android:layout_toEndOf="@+id/btn_cancel_register"
-                android:background="@drawable/bg_btn_prize">
+                android:background="@drawable/bg_button_add">
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/avi_register"
@@ -463,7 +488,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_btn_prize"
+                    android:background="@drawable/bg_button_add"
                     android:text="@string/update"
                     android:textColor="@color/white"
                     android:visibility="gone" />
@@ -473,7 +498,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_btn_prize"
+                    android:background="@drawable/bg_button_add"
                     android:text="@string/register"
                     android:textColor="@color/white"
                     android:visibility="gone" />

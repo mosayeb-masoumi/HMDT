@@ -49,6 +49,7 @@ import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
+import com.rahbarbazaar.shopper.ui.fragments.HomeFragment;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
@@ -85,12 +86,12 @@ public class NewRegisterActivity extends CustomBaseActivity
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info;
+    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info,rl_photo;
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
 
-    String str_spnItemId, info_type, checkbox_text = "";
+    String str_spnItemId, info_type, checkbox_text = "" , totalPurchasedCount;
     Context context;
 
     TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title, txt_spinner_title, txt_checkBox_amount;
@@ -232,6 +233,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         rl_calander = findViewById(R.id.rl_calander);
         rl_member_info = findViewById(R.id.rl_info_member_new_register);
         rl_prize_info = findViewById(R.id.rl_info_prize_new_register);
+        rl_photo = findViewById(R.id.rl_photo);
         avi = findViewById(R.id.avi_register);
         edtDate = findViewById(R.id.edtDate);
         edt_discount = findViewById(R.id.edt_discount);
@@ -260,6 +262,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         rl_member_info.setOnClickListener(this);
         rl_prize_info.setOnClickListener(this);
         rl_spn_shop.setOnClickListener(this);
+        rl_photo.setOnClickListener(this);
         edt_discount.setEnabled(false);
         edt_discount.setText("");
     }
@@ -347,6 +350,11 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showPrizeDialog();
                 break;
 
+            case R.id.rl_photo:
+                showPhotoDialog();
+                break;
+
+
             case R.id.linear_return_new_register:
                 finish();
                 break;
@@ -362,11 +370,23 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.rl_spn_shop:
-
                 showSearchableDialog();
-
                 break;
         }
+    }
+
+    private void showPhotoDialog() {
+        dialogFactory.createPhotoDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register , this);
     }
 
     private void showSearchableDialog() {
@@ -645,7 +665,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 //                    Cache.setString("shopping_id",shopping_id);
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
-//                    createChooseScannerDialog();
+                    update_home_total_purchase_count();
 
                     Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
                     intent.putExtra("static_barcode", "static_barcode");
@@ -757,6 +777,11 @@ public class NewRegisterActivity extends CustomBaseActivity
                 avi.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void update_home_total_purchase_count() {
+
+
     }
 
 
@@ -1013,5 +1038,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         str_spnItemId = model.getId();
         dialog.dismiss();
     }
+
+
 }
 

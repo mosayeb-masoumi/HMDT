@@ -323,7 +323,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
 //                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
+                    intent.putExtra("static_barcode","static_barcode")
+                    startActivity(intent)
+
+
                     Toast.makeText(this@PurchasedItemsActivity, resources.getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show()
                     Cache.setString(this@PurchasedItemsActivity, "barcode_registered", "barcode_registered")
                     finish()
