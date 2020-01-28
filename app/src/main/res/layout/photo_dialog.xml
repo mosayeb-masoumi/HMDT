@@ -2,271 +2,276 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@drawable/dialog_btn_shape"
-    android:gravity="center"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/dialog_header_shape"
-        android:layoutDirection="ltr">
-
-        <ImageView
-            android:id="@+id/img_close"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:padding="6dp"
-            android:src="@drawable/ic_close" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/take_photo"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="1dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/crdview2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="3dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F3EEEE">
-
-                <RelativeLayout
-                    android:id="@+id/rl_camera2"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/add_photo" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/img_close2"
-                    android:src="@drawable/ic_clear_pink"
-                    android:layout_alignParentEnd="true"/>
-
-                <ImageView
-                    android:id="@+id/img2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/crdview1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F3EEEE">
-
-                <RelativeLayout
-                    android:id="@+id/rl_camera1"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/add_photo" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/img_close1"
-                    android:src="@drawable/ic_clear_pink"
-                    android:layout_alignParentEnd="true"/>
-
-                <ImageView
-                    android:id="@+id/img1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/divider_img" />
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/crdview4"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="3dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F3EEEE">
-
-                <RelativeLayout
-                    android:id="@+id/rl_camera4"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/add_photo" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/img_close4"
-                    android:src="@drawable/ic_clear_pink"
-                    android:layout_alignParentEnd="true"/>
-
-                <ImageView
-                    android:id="@+id/img4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/divider_img" />
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/crdview3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="20dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F3EEEE">
-
-                <RelativeLayout
-                    android:id="@+id/rl_camera3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/add_photo" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/img_close3"
-                    android:src="@drawable/ic_clear_pink"
-                    android:layout_alignParentEnd="true"/>
-
-
-                <ImageView
-                    android:id="@+id/img3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/divider_img" />
-
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/dialog_btn_shape"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/dialog_btn_shape"
-            android:gravity="center"
-            android:text="@string/close"
-            android:textColor="@color/blue"
-            android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/dialog_header_shape"
+            android:layoutDirection="ltr">
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/take_photo"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        <!--<ImageView-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="1dp" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:layout_marginStart="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/dialog_btn_shape"
-            android:gravity="center"
-            android:text="@string/register"
-            android:textColor="@color/blue"
-            android:textSize="12sp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/crdview2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F3EEEE">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_camera2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add_photo" />
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/img_delete2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_clear_pink" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/crdview1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F3EEEE">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_camera1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add_photo" />
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/img_delete1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_clear_pink" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/crdview4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F3EEEE">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_camera4"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add_photo" />
+                    </RelativeLayout>
+
+
+                    <ImageView
+                        android:id="@+id/img4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/img_delete4"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_clear_pink" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/crdview3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F3EEEE">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_camera3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add_photo" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+
+                    <ImageView
+                        android:id="@+id/img_delete3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:visibility="gone"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_clear_pink" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/btn_close_photo_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/dialog_btn_shape"
+                android:gravity="center"
+                android:text="@string/close"
+                android:textColor="@color/blue"
+                android:textSize="12sp" />
+
+
+
 
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -460,6 +460,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
+                    android:id="@+id/txt_button_photo"
                     android:text="@string/take_photo"
                     android:textColor="@color/white"
                     android:textSize="14sp"

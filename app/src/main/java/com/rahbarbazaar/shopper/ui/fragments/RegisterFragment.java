@@ -518,7 +518,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     hideLoading();
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                    String a = response.message();
                     hideLoading();
                 }
             }
