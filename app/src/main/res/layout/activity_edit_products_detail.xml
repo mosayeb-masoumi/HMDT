@@ -90,7 +90,7 @@
                     android:backgroundTint="@color/blue"
                     android:gravity="center"
                     android:hint="@string/amount_valume_size"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -146,7 +146,7 @@
                     android:cursorVisible="true"
                     android:gravity="center"
                     android:hint="@string/tottal_amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -199,7 +199,7 @@
                     android:backgroundTint="@color/blue"
                     android:gravity="center"
                     android:hint="@string/paid_amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -241,7 +241,7 @@
                         android:backgroundTint="@color/blue"
                         android:gravity="center"
                         android:hint="@string/percent_amount"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:maxLength="12"
                         android:padding="10dp"
                         android:textColor="@color/blue_dark"
@@ -313,7 +313,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
-                    android:background="@drawable/bg_button_add">
+                    android:background="@drawable/bg_btn_prize">
 
                     <ImageView
                         android:layout_width="45dp"
@@ -346,7 +346,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/bg_info_btn" />
+                        android:src="@drawable/bg_info_btn_prize" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -441,11 +441,11 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="60dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_btn_prize">
+                android:background="@drawable/bg_button_add">
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/avi_edit_product_detail"
@@ -460,7 +460,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_btn_prize"
+                    android:background="@drawable/bg_button_add"
                     android:text="@string/register"
                     android:textColor="@color/white" />
 

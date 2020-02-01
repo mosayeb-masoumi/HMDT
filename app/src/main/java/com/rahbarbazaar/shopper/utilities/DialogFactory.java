@@ -847,6 +847,8 @@ public class DialogFactory {
         ImageView imvClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         imvClose.setImageResource(R.drawable.ic_close);
 
+        Button btn_close = customLayout.findViewById(R.id.btn_close_search_dialog);
+
 
         // delete icon search
         searchView.setIconifiedByDefault(false);
@@ -881,6 +883,9 @@ public class DialogFactory {
                 return false;
             }
         });
+
+        dialog.setCanceledOnTouchOutside(true);
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

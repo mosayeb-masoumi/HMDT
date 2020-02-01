@@ -253,6 +253,13 @@
         </LinearLayout>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/blue_dark"
+            android:text="@string/taking_clear_photo"/>
 
             <Button
                 android:id="@+id/btn_close_photo_dialog"
@@ -266,7 +273,7 @@
                 android:gravity="center"
                 android:text="@string/close"
                 android:textColor="@color/blue"
-                android:textSize="12sp" />
+                android:textSize="13sp" />
 
 
 

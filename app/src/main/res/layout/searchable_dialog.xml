@@ -5,15 +5,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_btn_shape"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="70dp"
-        android:background="@drawable/dialog_btn_shape"
-        android:orientation="vertical">
 
+        android:orientation="vertical">
 
         <android.support.v7.widget.SearchView
             android:id="@+id/searchView"
@@ -31,6 +33,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp" />
+
+    </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_close_search_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/dialog_btn_shape"
+            android:gravity="center"
+            android:text="@string/close"
+            android:textColor="@color/blue"
+            android:textSize="13sp" />
 
     </LinearLayout>
 

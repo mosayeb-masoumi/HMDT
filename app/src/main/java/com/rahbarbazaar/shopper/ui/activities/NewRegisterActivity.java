@@ -62,6 +62,7 @@ import com.rahbarbazaar.shopper.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.shopper.utilities.ConvertorBitmapToString;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
+import com.rahbarbazaar.shopper.utilities.EditTextWatcher;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.rahbarbazaar.shopper.utilities.SolarCalendar;
@@ -109,7 +110,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     Context context;
 
     TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title,
-            txt_spinner_title, txt_checkBox_amount,txt_button_photo;
+            txt_spinner_title, txt_checkBox_amount,txt_button_photo,txt_img_count;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -125,6 +126,11 @@ public class NewRegisterActivity extends CustomBaseActivity
     String strBm4 = "";
     int status = 0;
 
+
+    int image_count1=0;
+    int image_count2=0;
+    int image_count3=0;
+    int image_count4=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,6 +231,51 @@ public class NewRegisterActivity extends CustomBaseActivity
         edtDate.setTypeface(tf);
 
 
+        // to count the number of images at first run while in editModel
+        if(shoppingEditModel.data!=null){
+            if(!shoppingEditModel.data.shopping.image_1.equals("")){
+                image_count1 = 1;
+            }else{
+                image_count1 = 0;
+            }
+        }
+        if(shoppingEditModel.data!=null){
+            if(!shoppingEditModel.data.shopping.image_2.equals("")){
+                image_count2 = 1;
+            }else{
+                image_count2 = 0;
+            }
+        }
+        if(shoppingEditModel.data!=null){
+            if(!shoppingEditModel.data.shopping.image_3.equals("")){
+                image_count3 = 1;
+            }else{
+                image_count3 = 0;
+            }
+        }
+        if(shoppingEditModel.data!=null){
+            if(!shoppingEditModel.data.shopping.image_4.equals("")){
+                image_count4 = 1;
+            }else{
+                image_count4= 0;
+            }
+        }
+
+        int total_img_count1 = image_count1+image_count2+image_count3+image_count4;
+        String img_count1 = ConvertEnDigitToFa.convert(String.valueOf(total_img_count1));
+        if(total_img_count1>0){
+            txt_img_count.setVisibility(View.VISIBLE);
+            txt_img_count.setText(String.format("+%s", img_count1));
+        }else{
+            txt_img_count.setVisibility(View.GONE);
+        }
+
+
+        // to add comma after 3 digits
+        edt_total_amount.addTextChangedListener(new EditTextWatcher(edt_total_amount));
+        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
+        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
+
 
     }
 
@@ -277,6 +328,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_discount_title = findViewById(R.id.txt_discount_title);
         txt_checkBox_amount = findViewById(R.id.checkBox_amount_txt_new_register);
         txt_button_photo = findViewById(R.id.txt_button_photo);
+        txt_img_count=findViewById(R.id.txt_img_count);
 
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
@@ -292,7 +344,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         rl_spn_shop.setOnClickListener(this);
         rl_photo.setOnClickListener(this);
         edt_discount.setEnabled(false);
-        edt_discount.setText("");
+//        edt_discount.setText("");
     }
 
 
@@ -390,6 +442,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 //    }
 
 
+
     private void showPhotoDialog() {
 
         final Dialog dialog = new Dialog(NewRegisterActivity.this);
@@ -417,15 +470,19 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (bm1 != null && shoppingEditModel.data == null) {
             img1.setImageBitmap(bm1);
             img_delete1.setVisibility(View.VISIBLE);
+            image_count1 = 1;
         }else if(bm1==null && shoppingEditModel.data!=null){
             if(!shoppingEditModel.data.shopping.image_1.equals("")){
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_1).centerCrop().into(img1);
                 strBm1 = null;
                 img_delete1.setVisibility(View.VISIBLE);
+
+                image_count1 = 1;
             }
         }else if(bm1!=null && shoppingEditModel.data!=null){
             img1.setImageBitmap(bm1);
             img_delete1.setVisibility(View.VISIBLE);
+            image_count1 = 1;
         }
 
         //        if (bm2 != null) {
@@ -436,15 +493,18 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (bm2 != null && shoppingEditModel.data == null) {
             img2.setImageBitmap(bm2);
             img_delete2.setVisibility(View.VISIBLE);
+            image_count2= 1;
         }else if(bm2==null && shoppingEditModel.data!=null){
             if(!shoppingEditModel.data.shopping.image_2.equals("")){
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_2).centerCrop().into(img2);
                 strBm2 = null;
                 img_delete2.setVisibility(View.VISIBLE);
+                image_count2 = 1;
             }
         }else if(bm2!=null && shoppingEditModel.data!=null){
             img2.setImageBitmap(bm2);
             img_delete2.setVisibility(View.VISIBLE);
+            image_count2= 1;
         }
 
 
@@ -452,15 +512,18 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (bm3 != null && shoppingEditModel.data == null) {
             img3.setImageBitmap(bm3);
             img_delete3.setVisibility(View.VISIBLE);
+            image_count3= 1;
         }else if(bm3==null && shoppingEditModel.data!=null){
             if(!shoppingEditModel.data.shopping.image_3.equals("")){
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_3).centerCrop().into(img3);
                 strBm3 = null;
                 img_delete3.setVisibility(View.VISIBLE);
+                image_count3= 1;
             }
         }else if(bm3!=null && shoppingEditModel.data!=null){
             img3.setImageBitmap(bm3);
             img_delete3.setVisibility(View.VISIBLE);
+            image_count3= 1;
         }
 
 
@@ -468,15 +531,18 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (bm4 != null && shoppingEditModel.data == null) {
             img4.setImageBitmap(bm4);
             img_delete4.setVisibility(View.VISIBLE);
+            image_count4= 1;
         }else if(bm4==null && shoppingEditModel.data!=null){
             if(!shoppingEditModel.data.shopping.image_4.equals("")){
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_4).centerCrop().into(img4);
                 strBm4 = null;
                 img_delete4.setVisibility(View.VISIBLE);
+                image_count4= 1;
             }
         }else if(bm4!=null && shoppingEditModel.data!=null){
             img4.setImageBitmap(bm4);
             img_delete4.setVisibility(View.VISIBLE);
+            image_count4= 1;
         }
 
 
@@ -512,10 +578,13 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
 
         img_delete1.setOnClickListener(v -> {
-            strBm1 = "";
+//            strBm1 = "";
+            strBm1 = "deleted";
             bm1 = null;
             img1.setImageDrawable(null);
             img_delete1.setVisibility(View.GONE);
+
+            image_count1= 0;
 
             if(shoppingEditModel.data!=null){
                 shoppingEditModel.data.shopping.image_1 = ""; // to dosent download url again
@@ -524,39 +593,86 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
 
         img_delete2.setOnClickListener(v -> {
-            strBm2 = "";
+//            strBm2 = "";
+            strBm2 = "deleted";
             bm2 = null;
             img2.setImageDrawable(null);
             img_delete2.setVisibility(View.GONE);
+            image_count2= 0;
+
             if(shoppingEditModel.data!=null) {
                 shoppingEditModel.data.shopping.image_2 = ""; // to dosent download url again
             }
 
         });
         img_delete3.setOnClickListener(v -> {
-            strBm3 = "";
+//            strBm3 = "";
+            strBm3 = "deleted";
             bm3 = null;
             img3.setImageDrawable(null);
             img_delete3.setVisibility(View.GONE);
+            image_count3= 0;
+
             if(shoppingEditModel.data!=null) {
                 shoppingEditModel.data.shopping.image_3 = ""; // to dosent download url again
             }
 
         });
         img_delete4.setOnClickListener(v -> {
-            strBm4 = "";
+//            strBm4 = "";
             bm4 = null;
+            strBm4 = "deleted";
             img4.setImageDrawable(null);
             img_delete4.setVisibility(View.GONE);
+            image_count4= 0;
+
             if(shoppingEditModel.data!=null) {
                 shoppingEditModel.data.shopping.image_4 = ""; // to dosent download url again
             }
         });
 
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_close.setOnClickListener(v -> dialog.dismiss());
 
+
+
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+
+            int total_img_count = image_count1+image_count2+image_count3+image_count4;
+
+            String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
+
+            if(total_img_count >0){
+                txt_img_count.setVisibility(View.VISIBLE);
+                txt_img_count.setText(String.format("+%s", img_count));
+            }else {
+                txt_img_count.setVisibility(View.GONE);
+            }
+
+        });
+
+
+        btn_close.setOnClickListener(v -> {
+            dialog.dismiss();
+            int total_img_count = image_count1+image_count2+image_count3+image_count4;
+
+            String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
+
+            if(total_img_count >0){
+                txt_img_count.setVisibility(View.VISIBLE);
+                txt_img_count.setText(String.format("+%s", img_count));
+            }else {
+                txt_img_count.setVisibility(View.GONE);
+            }
+
+                });
+
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+
+
+
+
+
 
     }
 
@@ -579,21 +695,25 @@ public class NewRegisterActivity extends CustomBaseActivity
                 bm1 = r.getBitmap();
                 strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
                 img_delete1.setVisibility(View.VISIBLE);
+                image_count1=1;
             } else if (status == 2) {
                 img2.setImageBitmap(r.getBitmap());
                 bm2 = r.getBitmap();
                 strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
                 img_delete2.setVisibility(View.VISIBLE);
+                image_count2=1;
             } else if (status == 3) {
                 img3.setImageBitmap(r.getBitmap());
                 bm3 = r.getBitmap();
                 strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
                 img_delete3.setVisibility(View.VISIBLE);
+                image_count3=1;
             } else if (status == 4) {
                 img4.setImageBitmap(r.getBitmap());
                 bm4 = r.getBitmap();
                 strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
                 img_delete4.setVisibility(View.VISIBLE);
+                image_count4=1;
             }
 
         }
@@ -1225,7 +1345,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     checkBox_precentage.setChecked(false);
                     edt_discount.setHint(getResources().getString(R.string.amount2_));
                     checkbox_text = getResources().getString(R.string.amount2_);
-                    edt_discount.setText("");
+//                    edt_discount.setText("");
                     edt_discount.setEnabled(true);
                 }
                 break;
@@ -1235,7 +1355,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     checkBox_amount.setChecked(false);
                     edt_discount.setHint(getResources().getString(R.string.percent));
                     checkbox_text = getResources().getString(R.string.percent);
-                    edt_discount.setText("");
+//                    edt_discount.setText("");
                     edt_discount.setEnabled(true);
                 }
                 break;

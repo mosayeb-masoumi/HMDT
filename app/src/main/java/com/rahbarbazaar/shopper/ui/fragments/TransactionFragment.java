@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
@@ -24,8 +26,19 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +67,10 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     ImageView img_line;
     String type = "";
 
+
+    CompositeDisposable disposable;
+    ServiceProvider provider = null;
+
     public TransactionFragment() {
         // Required empty public constructor
     }
@@ -67,6 +84,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
         initView(view);
 
+        provider = new ServiceProvider(getContext());
+        disposable = new CompositeDisposable();
 
         return view;
     }
@@ -90,22 +109,72 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
         avi.setVisibility(View.VISIBLE);
 
+
+//        Service service = new ServiceProvider(getContext()).getmService();
+//        disposable.add(service.getTransactionList(page, type).subscribeOn(Schedulers.io()).
+//                observeOn(AndroidSchedulers.mainThread()).
+//                subscribeWith(new DisposableSingleObserver<TransactionData>() {
+//                    @Override
+//                    public void onSuccess(TransactionData result) {
+//
+//                        transactionData = result;
+//                        avi.setVisibility(View.GONE);
+//                        setRecyclerView(transactionData, type);
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        avi.setVisibility(View.GONE);
+//                        String message = "";
+//                        try {
+//                            if (e instanceof IOException) {
+//                                message = "No internet connection!";
+//                            }
+//                            if (e instanceof HttpException) {
+//                                HttpException error = (HttpException) e;
+//                                String errorBody = error.response().errorBody().string();
+//                                JSONObject jObj = new JSONObject(errorBody);
+//
+//                                message = jObj.getString("error");
+//                            }
+//                            if (e instanceof NoSuchElementException) {
+//                                NoSuchElementException error = (NoSuchElementException) e;
+//
+//                            }
+//
+//                        } catch (IOException e1) {
+//                            e1.printStackTrace();
+//                        } catch (JSONException e1) {
+//                            e1.printStackTrace();
+//                        } catch (NoSuchElementException e1){
+//                            e1.printStackTrace();
+//                        } catch (Exception e1) {
+//                            e1.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                }));
+
+
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<TransactionData> call = service.getTransactionList(this.page , type);
+        Call<TransactionData> call = service.getTransactionList(this.page, type);
         call.enqueue(new Callback<TransactionData>() {
             @Override
             public void onResponse(Call<TransactionData> call, Response<TransactionData> response) {
                 if (response.code() == 200) {
 
+                    txt_no_transaction.setVisibility(View.GONE);
                     transactionData = response.body();
                     avi.setVisibility(View.GONE);
-                    setRecyclerView(transactionData, type);
-
+                    setRecyclerView(transactionData, type, response.code());
 
                 } else if (response.code() == 204) {
                     avi.setVisibility(View.GONE);
                     if (page == 0) {
                         txt_no_transaction.setVisibility(View.VISIBLE);
+                        setRecyclerView(transactionData, type, response.code());
                     } else {
                         txt_no_transaction.setVisibility(View.GONE);
                     }
@@ -124,54 +193,60 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         });
     }
 
-    private void setRecyclerView(TransactionData transactionData, String type) {
+    private void setRecyclerView(TransactionData transactionData, String type, int code) {
 
-        totalPage = transactionData.total;
-        if (page == 0) {
-            transactions.clear();
-        }
-
-        linearLayoutManager = new LinearLayoutManager(getContext());
-
-        transactions.addAll(transactionData.data);
-
-        rv_transaction.setLayoutManager(linearLayoutManager);
-        adapter = new TransactionAdapter(transactions, getContext(), type);
-        rv_transaction.setAdapter(adapter);
-        adapter.setListener(this);  // important to set or else the app will crashed
-        adapter.notifyDataSetChanged();
-
-        rv_transaction.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                    isScrolling = true;
-                }
+            totalPage = transactionData.total;
+            if (page == 0) {
+                transactions.clear();
             }
 
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            linearLayoutManager = new LinearLayoutManager(getContext());
 
-                currentItems = linearLayoutManager.getChildCount();
-                totalItems = linearLayoutManager.getItemCount();
-                scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
+            transactions.addAll(transactionData.data);
 
-                if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
+            rv_transaction.setLayoutManager(linearLayoutManager);
+            adapter = new TransactionAdapter(transactions, getContext(), type);
 
-                    isScrolling = false;
-                    page++;
+            if(code==204 && page==0){
+                rv_transaction.setAdapter(null);
+            }else{
+                rv_transaction.setAdapter(adapter);
+            }
 
-                    if (page <= totalPage) {
-                        //data fetch
-                        getTransactionList(page, type);
+            adapter.setListener(this);  // important to set or else the app will crashed
+            adapter.notifyDataSetChanged();
+
+            rv_transaction.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                        isScrolling = true;
                     }
-
                 }
-            }
-        });
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    currentItems = linearLayoutManager.getChildCount();
+                    totalItems = linearLayoutManager.getItemCount();
+                    scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
+
+                    if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
+
+                        isScrolling = false;
+                        page++;
+
+                        if (page <= totalPage) {
+                            //data fetch
+                            getTransactionList(page, type);
+                        }
+
+                    }
+                }
+            });
     }
 
 

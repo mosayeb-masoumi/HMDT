@@ -190,6 +190,15 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         edt_price.typeface = tf
         edt_paid.typeface = tf
         edt_discount.typeface = tf
+
+
+        edt_size_no_product.addTextChangedListener(EditTextWatcher(edt_size_no_product))
+        edt_amount.addTextChangedListener(EditTextWatcher(edt_amount))
+        edt_price.addTextChangedListener(EditTextWatcher(edt_price))
+        edt_paid.addTextChangedListener(EditTextWatcher(edt_paid))
+        edt_discount.addTextChangedListener(EditTextWatcher(edt_discount))
+
+
     }
 
     private fun initView() {

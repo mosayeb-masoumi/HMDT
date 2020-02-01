@@ -181,5 +181,6 @@
     <string name="direct_registerarion">ثبت مستقیم</string>
     <string name="edu">آموزش و اصطلاحات</string>
     <string name="take_photo">انتخاب یا گرفتن عکس</string>
+    <string name="taking_clear_photo">لطفا از فاکتور خرید خود بصورت خوانا عکس بگیرید.</string>
 
 </resources>

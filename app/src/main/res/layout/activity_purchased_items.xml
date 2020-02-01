@@ -178,7 +178,7 @@
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
-
+                    android:inputType="numberDecimal"
                     android:textDirection="rtl"
                     android:textSize="14sp" />
 
@@ -268,7 +268,7 @@
                     android:cursorVisible="true"
                     android:gravity="center"
                     android:hint="@string/amount2"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -315,7 +315,7 @@
                 android:cursorVisible="true"
                 android:gravity="center"
                 android:hint="@string/unit_price"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="5sp"
                 android:textColor="@color/blue_dark"
                 android:textColorHint="@color/blue"
@@ -343,7 +343,7 @@
                 android:background="@drawable/bg_prize_item"
                 android:gravity="center"
                 android:hint="@string/paid_amount"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:padding="5sp"
                 android:textColor="@color/blue_dark"
                 android:textColorHint="@color/blue"
@@ -383,7 +383,7 @@
                         android:backgroundTint="@color/blue"
                         android:gravity="center"
                         android:hint="@string/percent_amount"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
@@ -455,7 +455,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
-                    android:background="@drawable/bg_button_add">
+                    android:background="@drawable/bg_btn_prize">
 
                     <ImageView
                         android:layout_width="45dp"
@@ -488,7 +488,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/bg_info_btn" />
+                        android:src="@drawable/bg_info_btn_prize" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -589,7 +589,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="60dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_btn_prize">
+                android:background="@drawable/bg_button_add">
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/avi_register_purchased_items"
@@ -604,7 +604,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/bg_btn_prize"
+                    android:background="@drawable/bg_button_add"
                     android:text="@string/register"
                     android:textColor="@color/white" />
 

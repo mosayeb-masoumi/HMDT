@@ -50,6 +50,7 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
+import com.rahbarbazaar.shopper.utilities.EditTextWatcher;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -179,6 +180,12 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         edt_total_amount.setTypeface(tf);
         edt_paid.setTypeface(tf);
         edt_discount.setTypeface(tf);
+
+
+        edt_amount.addTextChangedListener(new EditTextWatcher(edt_amount));
+        edt_total_amount.addTextChangedListener(new EditTextWatcher(edt_total_amount));
+        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
+        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
 
 
 

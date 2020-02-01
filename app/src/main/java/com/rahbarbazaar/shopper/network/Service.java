@@ -39,6 +39,7 @@ import com.rahbarbazaar.shopper.models.verify.VerifyModel;
 
 import java.util.List;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -124,9 +125,10 @@ public interface Service {
     @POST("Bought/Update")
     Call<UpdateEditProductDetailResult> updateEditProductDetail(@Body EditProductDetailUpdateSendData sendData);
 
+    // rx request
     @POST("Wallet/Index")
     Call<TransactionData> getTransactionList(@Query("page") Integer page ,
-                                             @Query("type") String type);
+                                               @Query("type") String type);
 
     @GET("Shopcenter/Index")
     Call<ShopCenter> getShopcenter();
