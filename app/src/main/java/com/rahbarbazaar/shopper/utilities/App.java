@@ -2,6 +2,7 @@ package com.rahbarbazaar.shopper.utilities;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
@@ -18,7 +19,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+//        Fabric.with(this, new Crashlytics());
 //        context = this;
 
 
@@ -34,5 +35,13 @@ public class App extends Application {
 //        App application = (App) context.getApplicationContext();
 //        return application.refWatcher;
 //    }
+
+
+    // TO support android below 21
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
 }
