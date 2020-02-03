@@ -407,7 +407,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.linear_return_search -> {
 
-                val intent = Intent(this@SearchActivity, QRcodeActivityOld::class.java)
+                val intent = Intent(this@SearchActivity, QRcodeActivity::class.java)
                 intent.putExtra("static_barcode", "static_barcode")
                 startActivity(intent)
                 finish()

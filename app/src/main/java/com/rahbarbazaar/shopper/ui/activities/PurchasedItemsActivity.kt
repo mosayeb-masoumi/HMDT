@@ -371,7 +371,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
 //                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivityOld::class.java)
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
                     intent.putExtra("static_barcode","static_barcode")
                     startActivity(intent)
 
@@ -506,7 +506,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 //                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
 //                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
-                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivityOld::class.java)
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
                     intent.putExtra("static_barcode","static_barcode")
                     startActivity(intent)
 

@@ -26,7 +26,7 @@
         <activity android:name=".ui.activities.QRcodeActivity1"/>
         <activity android:name=".ui.activities.NewRegisterActivity" />
         <activity android:name=".ui.activities.ScanActivity" />
-        <activity android:name=".ui.activities.QRcodeActivityOld" />
+        <activity android:name=".ui.activities.QRcodeActivity" />
         <activity android:name=".ui.activities.BarcodeListActivity" />
         <activity android:name=".ui.activities.PurchasedItemsActivity" />
         <activity android:name=".ui.activities.HtmlLoaderActivity" />

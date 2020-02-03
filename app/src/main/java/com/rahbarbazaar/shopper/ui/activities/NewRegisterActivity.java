@@ -358,12 +358,14 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.btn_register:
+                if(cameraPermissionGranted()){
+                    sendRegisterData();
+                }else{
+                    askCameraPermission();
+                }
 
-                sendRegisterData();
-//                if((edt_total_amount.getText().toString().length()>0 || edt_paid.getText().toString().length()>0)
-//                   || (edt_total_amount.getText().toString().length()>0 && edt_paid.getText().toString().length()>0)){
-//
-//                }
+
+
                 break;
 
             case R.id.btn_update:
@@ -1001,7 +1003,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
 
-                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivityOld.class);
+                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

@@ -36,7 +36,7 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.EditProductsActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
-import com.rahbarbazaar.shopper.ui.activities.QRcodeActivityOld;
+import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.rahbarbazaar.shopper.utilities.GpsTracker;
@@ -461,7 +461,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
         }else if(action.equals("register")){
 
-            Intent intent = new Intent(getContext(), QRcodeActivityOld.class);
+            Intent intent = new Intent(getContext(), QRcodeActivity.class);
 //            intent.putExtra("shopping_id",id);
             Cache.setString(getContext(),"shopping_id",id);
             intent.putExtra("static_barcode","static_barcode");
