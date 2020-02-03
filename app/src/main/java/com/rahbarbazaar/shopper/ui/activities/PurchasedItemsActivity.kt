@@ -1,15 +1,18 @@
 package com.rahbarbazaar.shopper.ui.activities
 
+import android.Manifest
+import android.app.Activity
 import android.app.Dialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -90,6 +93,25 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private var buliderBrand: StringBuilder? = null
     private var buliderSize: StringBuilder? = null
     private var buliderUnit: StringBuilder? = null
+
+
+    internal var img1: ImageView? = null
+    internal var img2:ImageView? = null
+    internal var img3:ImageView?= null
+    internal var img4:ImageView?= null
+    internal var img_delete1:ImageView?= null
+    internal var img_delete2:ImageView?= null
+    internal var img_delete3:ImageView?= null
+    internal var img_delete4:ImageView?= null
+    internal var bm1: Bitmap? = null
+    internal var bm2:Bitmap? = null
+    internal var bm3:Bitmap? = null
+    internal var bm4:Bitmap? = null
+    internal var strBm1: String? = ""
+    internal var strBm2: String? = ""
+    internal var strBm3: String? = ""
+    internal var strBm4: String? = ""
+    internal var status = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -219,7 +241,6 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         rl_prize.setOnClickListener(this)
         checkBox_precentage.setOnCheckedChangeListener(this)
         checkBox_amount.setOnCheckedChangeListener(this)
-
         btn_register.setOnClickListener(this)
 
 
@@ -278,8 +299,26 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 showInfoDialog(info_type!!)
             }
 
+
+
         }
     }
+
+
+
+
+
+
+
+    private fun cameraPermissionGranted(): Boolean {
+
+        return ContextCompat.checkSelfPermission(this@PurchasedItemsActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun askCameraPermission() {
+        ActivityCompat.requestPermissions(this@PurchasedItemsActivity as Activity, arrayOf(Manifest.permission.CAMERA), 20)
+    }
+
 
     private fun showInfoDialog(info_type: String) {
         dialogFactory.createInfoMemberPrizeDialog(object : DialogFactory.DialogFactoryInteraction {
@@ -332,7 +371,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 if (response.code() == 200) {
 //                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
-                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivityOld::class.java)
                     intent.putExtra("static_barcode","static_barcode")
                     startActivity(intent)
 
@@ -467,7 +506,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 //                    var a: Boolean = response.body()!!.data
 //                    showNextScanDialog()
 //                    startActivity(Intent(this@PurchasedItemsActivity, QRcodeActivity::class.java))
-                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivity::class.java)
+                    val intent = Intent(this@PurchasedItemsActivity,QRcodeActivityOld::class.java)
                     intent.putExtra("static_barcode","static_barcode")
                     startActivity(intent)
 
@@ -842,6 +881,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
             }
         }
     }
+
 
 
     @Suppress("DEPRECATION")

@@ -1001,7 +1001,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
 
-                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivityOld.class);
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

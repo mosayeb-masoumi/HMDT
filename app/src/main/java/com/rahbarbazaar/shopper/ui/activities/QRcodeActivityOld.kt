@@ -25,14 +25,13 @@ import com.rahbarbazaar.shopper.network.ServiceProvider
 import com.rahbarbazaar.shopper.utilities.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_qrcode.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
+class QRcodeActivityOld : CustomBaseActivity(), View.OnClickListener {
 
     private var connectivityReceiver: BroadcastReceiver? = null
     lateinit var initMemberPrizeLists: MemberPrize
@@ -50,7 +49,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                tools.doCheckNetwork(this@QRcodeActivity, findViewById<View>(R.id.rl_root))
+                tools.doCheckNetwork(this@QRcodeActivityOld, findViewById<View>(R.id.rl_root))
             }
         }
 
@@ -137,7 +136,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             R.id.btn_choose_scanner -> {
 
                 if (checkCameraPermission()) {
-                    startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+                    startActivity(Intent(this@QRcodeActivityOld, ScanActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     finish()
                 } else {
@@ -151,7 +150,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             R.id.rl_home_qrcode -> {
-                startActivity(Intent(this@QRcodeActivity, MainActivity::class.java))
+                startActivity(Intent(this@QRcodeActivityOld, MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                 finish()
             }
@@ -166,16 +165,16 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             R.id.btn_direct_register -> {
-                val intent = Intent(this@QRcodeActivity, PurchasedItemsActivity::class.java)
+                val intent = Intent(this@QRcodeActivityOld, PurchasedItemsActivity::class.java)
                 intent.putExtra("no_searchedList", "no_searchedList")
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
             }
 
             R.id.btn_finish_purchased -> {
-                startActivity(Intent(this@QRcodeActivity,MainActivity::class.java))
+                startActivity(Intent(this@QRcodeActivityOld,MainActivity::class.java))
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                Toast.makeText(this@QRcodeActivity,""+resources.getString(R.string.finish_purchase_info2),Toast.LENGTH_LONG).show()
+                Toast.makeText(this@QRcodeActivityOld,""+resources.getString(R.string.finish_purchase_info2),Toast.LENGTH_LONG).show()
                 finish()
             }
 
@@ -216,7 +215,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                     var groupsData = GroupsData()
                     groupsData = response.body()!!
 
-                    val intent = Intent(this@QRcodeActivity, SearchActivity::class.java)
+                    val intent = Intent(this@QRcodeActivityOld, SearchActivity::class.java)
                     intent.putExtra("groupsData", groupsData)
                     startActivity(intent)
 //                    RxBus.GroupsSpnData.publishGroupsSpnData(groupsData)
@@ -227,7 +226,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                     finish()
 
                 } else {
-                    Toast.makeText(this@QRcodeActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@QRcodeActivityOld, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     btn_barcode_search.visibility = View.VISIBLE
                     avi_barcode_search.visibility = View.GONE
 
@@ -235,7 +234,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<GroupsData>, t: Throwable) {
-                Toast.makeText(this@QRcodeActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@QRcodeActivityOld, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 btn_barcode_search.visibility = View.VISIBLE
                 avi_barcode_search.visibility = View.GONE
 
@@ -245,11 +244,11 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
     }
 
     private fun checkCameraPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(this@QRcodeActivity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(this@QRcodeActivityOld, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun requestCameraPermission() {
-        ActivityCompat.requestPermissions(this@QRcodeActivity, arrayOf(Manifest.permission.CAMERA), 33)
+        ActivityCompat.requestPermissions(this@QRcodeActivityOld, arrayOf(Manifest.permission.CAMERA), 33)
     }
 
     private fun getListOfProducts() {
@@ -268,7 +267,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
                     RxBus.BarcodeList.publishBarcodeList(barcode)
 //                  startActivity(Intent(this@QRcodeActivity, BarcodeListActivity::class.java))
-                    val intent = Intent(this@QRcodeActivity, BarcodeListActivity::class.java)
+                    val intent = Intent(this@QRcodeActivityOld, BarcodeListActivity::class.java)
                     intent.putExtra("barcode", edt_barcode.text.toString())
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
@@ -284,13 +283,13 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
                         for (a in apiError.errors.barcode) {
                             builderBarcode.append("$a ")
                         }
-                        Toast.makeText(this@QRcodeActivity, "" + builderBarcode, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@QRcodeActivityOld, "" + builderBarcode, Toast.LENGTH_SHORT).show()
 
                     }
 
 
                 } else if (response.code() == 204) {
-                    val intent = Intent(this@QRcodeActivity, PurchasedItemsActivity::class.java)
+                    val intent = Intent(this@QRcodeActivityOld, PurchasedItemsActivity::class.java)
                     intent.putExtra("no_product", "no_product")
                     intent.putExtra("barcode", edt_barcode.text.toString())
                     startActivity(intent)
@@ -298,13 +297,13 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
 
                     showbtn()
                 } else {
-                    Toast.makeText(this@QRcodeActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@QRcodeActivityOld, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     showbtn()
                 }
             }
 
             override fun onFailure(call: Call<Barcode>, t: Throwable) {
-                Toast.makeText(this@QRcodeActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@QRcodeActivityOld, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 showbtn()
             }
         })
@@ -313,7 +312,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == 33) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startActivity(Intent(this@QRcodeActivity, ScanActivity::class.java))
+                startActivity(Intent(this@QRcodeActivityOld, ScanActivity::class.java))
             } else {
                 Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show()
             }
@@ -336,10 +335,10 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
         // to delete BarcodeEditText while register successfully
-        val barcode_state: String? = Cache.getString(this@QRcodeActivity, "barcode_registered")
+        val barcode_state: String? = Cache.getString(this@QRcodeActivityOld, "barcode_registered")
         if (barcode_state == "barcode_registered") {
             edt_barcode.setText("")
-            Cache.setString(this@QRcodeActivity, "barcode_registered", "")
+            Cache.setString(this@QRcodeActivityOld, "barcode_registered", "")
         }
 
     }

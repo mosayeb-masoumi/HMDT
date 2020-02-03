@@ -22,7 +22,6 @@ import com.rahbarbazaar.shopper.utilities.GeneralTools
 import com.rahbarbazaar.shopper.utilities.RxBus
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_qrcode.*
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -408,7 +407,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.linear_return_search -> {
 
-                val intent = Intent(this@SearchActivity, QRcodeActivity::class.java)
+                val intent = Intent(this@SearchActivity, QRcodeActivityOld::class.java)
                 intent.putExtra("static_barcode", "static_barcode")
                 startActivity(intent)
                 finish()

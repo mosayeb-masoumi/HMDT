@@ -39,9 +39,9 @@ public class ScanActivity extends CustomBaseActivity implements ZXingScannerView
     public void handleResult(Result rawResult) {
 
 //        QRCodeActivity.edtQR.setText(rawResult.getText());
-        QRcodeActivity.ResultScan=rawResult.getText();
+        QRcodeActivityOld.ResultScan=rawResult.getText();
 //        onBackPressed();
-        startActivity(new Intent(ScanActivity.this,QRcodeActivity.class));
+        startActivity(new Intent(ScanActivity.this, QRcodeActivityOld.class));
         finish();
     }
 
@@ -49,8 +49,8 @@ public class ScanActivity extends CustomBaseActivity implements ZXingScannerView
     public void onBackPressed() {
         super.onBackPressed();
 
-        QRcodeActivity.ResultScan="";
-        startActivity(new Intent(ScanActivity.this,QRcodeActivity.class));
+        QRcodeActivityOld.ResultScan="";
+        startActivity(new Intent(ScanActivity.this, QRcodeActivityOld.class));
         finish();
 
     }
