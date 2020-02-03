@@ -59,6 +59,7 @@ public class DialogFactory {
     private Context context;
 
 
+
 //    private int status;
 //    private Bitmap bm1, bm2, bm3, bm4;
 //    private String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
@@ -982,6 +983,37 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+
+    public void createQrcodeInfoBtnsDialog(DialogFactoryInteraction dialogFactoryInteraction, LinearLayout view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
+
+        //define views inside of dialog
+        Button btn_close = customLayout.findViewById(R.id.btn);
+        TextView txt_body = customLayout.findViewById(R.id.txt_description);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+
+        btn_close.setText(context.getResources().getString(R.string.close));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
 
 
 

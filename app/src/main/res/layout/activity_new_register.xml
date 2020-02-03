@@ -133,128 +133,128 @@
                 android:textSize="14sp" />
 
 
-            <TextView
-                android:id="@+id/txt_paid_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/paid_amount"
-                android:textColor="@color/blue_dark"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/txt_paid_title"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/paid_amount"-->
+                <!--android:textColor="@color/blue_dark"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <EditText
-                android:id="@+id/edt_paid"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:gravity="center"
-                android:hint="@string/paid_amount"
-                android:inputType="numberDecimal"
-                android:padding="5sp"
-                android:textColor="@color/blue_dark"
-                android:textColorHint="@color/blue"
-                android:textDirection="rtl"
-                android:textSize="14sp" />
+            <!--<EditText-->
+                <!--android:id="@+id/edt_paid"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:background="@drawable/bg_prize_item"-->
+                <!--android:gravity="center"-->
+                <!--android:hint="@string/paid_amount"-->
+                <!--android:inputType="numberDecimal"-->
+                <!--android:padding="5sp"-->
+                <!--android:textColor="@color/blue_dark"-->
+                <!--android:textColorHint="@color/blue"-->
+                <!--android:textDirection="rtl"-->
+                <!--android:textSize="14sp" />-->
 
-            <TextView
-                android:id="@+id/txt_discount_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:text="@string/discount_amount"
-                android:textColor="@color/blue_dark"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/txt_discount_title"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:text="@string/discount_amount"-->
+                <!--android:textColor="@color/blue_dark"-->
+                <!--android:textSize="14sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5sp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal"
-                android:weightSum="4">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_marginStart="5sp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:background="@drawable/bg_prize_item"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="4">-->
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.6">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1.6">-->
 
-                    <EditText
-                        android:id="@+id/edt_discount"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="20dp"
-                        android:backgroundTint="@color/blue"
-                        android:gravity="center"
-                        android:hint="@string/percent_amount"
-                        android:inputType="numberDecimal"
-                        android:padding="10dp"
-                        android:textColor="@color/blue_dark"
-                        android:textColorHint="@color/blue"
-                        android:textSize="15sp" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/edt_discount"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_marginStart="20dp"-->
+                        <!--android:backgroundTint="@color/blue"-->
+                        <!--android:gravity="center"-->
+                        <!--android:hint="@string/percent_amount"-->
+                        <!--android:inputType="numberDecimal"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:textColor="@color/blue_dark"-->
+                        <!--android:textColorHint="@color/blue"-->
+                        <!--android:textSize="15sp" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.4">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1.4">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:layout_toStartOf="@+id/checkBox_amount"
-                        android:id="@+id/checkBox_amount_txt_new_register"
-                        android:gravity="center_vertical"
-                        android:text="@string/amount"
-                        android:textSize="13sp"
-                        android:textColor="@color/blue_dark" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_marginEnd="2dp"-->
+                        <!--android:layout_toStartOf="@+id/checkBox_amount"-->
+                        <!--android:id="@+id/checkBox_amount_txt_new_register"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="@string/amount"-->
+                        <!--android:textSize="13sp"-->
+                        <!--android:textColor="@color/blue_dark" />-->
 
-                    <CheckBox
-                        android:id="@+id/checkBox_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        app:buttonTint="@color/blue_dark" />
-                </RelativeLayout>
+                    <!--<CheckBox-->
+                        <!--android:id="@+id/checkBox_amount"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--app:buttonTint="@color/blue_dark" />-->
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="3dp"
-                    android:layout_weight="1">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginEnd="3dp"-->
+                    <!--android:layout_weight="1">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="2dp"
-                        android:layout_toStartOf="@+id/checkBox_precentage"
-                        android:gravity="center_vertical"
-                        android:text="@string/percentage"
-                        android:textSize="13sp"
-                        android:textColor="@color/blue_dark" />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_marginEnd="2dp"-->
+                        <!--android:layout_toStartOf="@+id/checkBox_precentage"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="@string/percentage"-->
+                        <!--android:textSize="13sp"-->
+                        <!--android:textColor="@color/blue_dark" />-->
 
-                    <CheckBox
-                        android:id="@+id/checkBox_precentage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        app:buttonTint="@color/blue_dark" />
+                    <!--<CheckBox-->
+                        <!--android:id="@+id/checkBox_precentage"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--app:buttonTint="@color/blue_dark" />-->
 
-                </RelativeLayout>
-            </LinearLayout>
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -370,73 +370,73 @@
                 android:layout_marginEnd="10dp"
                 android:layoutDirection="rtl" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp">-->
 
-                <RelativeLayout
-                    android:id="@+id/rl_prize"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@drawable/bg_btn_prize">
+                <!--<RelativeLayout-->
+                    <!--android:id="@+id/rl_prize"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_marginStart="60dp"-->
+                    <!--android:layout_marginEnd="60dp"-->
+                    <!--android:background="@drawable/bg_btn_prize">-->
 
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:padding="10dp"
-                        android:src="@drawable/img_prize" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="45dp"-->
+                        <!--android:layout_height="45dp"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:layout_marginEnd="10dp"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:src="@drawable/img_prize" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/prize_selection"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:text="@string/prize_selection"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="14sp"-->
+                        <!--android:textStyle="bold" />-->
+                <!--</RelativeLayout>-->
 
-                <RelativeLayout
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:id="@+id/rl_info_prize_new_register"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="5dp"
-                    android:src="@drawable/bg_info_btn">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="40dp"-->
+                    <!--android:layout_height="40dp"-->
+                    <!--android:id="@+id/rl_info_prize_new_register"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginEnd="15dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:src="@drawable/bg_info_btn">-->
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/bg_info_btn_prize" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:src="@drawable/bg_info_btn_prize" />-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:padding="8dp"
-                        android:rotation="180"
-                        android:src="@drawable/ic_info2" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:padding="8dp"-->
+                        <!--android:rotation="180"-->
+                        <!--android:src="@drawable/ic_info2" />-->
 
-                </RelativeLayout>
-            </RelativeLayout>
+                <!--</RelativeLayout>-->
+            <!--</RelativeLayout>-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_prize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layoutDirection="rtl" />
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/recycler_prize"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layoutDirection="rtl" />-->
 
 
 

@@ -82,8 +82,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewRegisterActivity extends CustomBaseActivity
-        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction,
-        CompoundButton.OnCheckedChangeListener, SearchItemInteraction, IPickResult {
+        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction, SearchItemInteraction, IPickResult {
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -190,8 +189,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         } else if (shoppingEditModel.data != null) {
             txt_header.setText("ویرایش خرید");
             edt_total_amount.setText(shoppingEditModel.data.shopping.cost);
-            edt_paid.setText(shoppingEditModel.data.shopping.paid);
-            edt_discount.setText(shoppingEditModel.data.shopping.discount_amount);
+//            edt_paid.setText(shoppingEditModel.data.shopping.paid);
+//            edt_discount.setText(shoppingEditModel.data.shopping.discount_amount);
             edtDate.setText(shoppingEditModel.data.shopping.date);
 
             txt_spinner_title.setText(shoppingEditModel.data.shopping.shop);
@@ -200,17 +199,17 @@ public class NewRegisterActivity extends CustomBaseActivity
             btn_register.setVisibility(View.GONE);
             btn_update.setVisibility(View.VISIBLE);
 
-            if (shoppingEditModel.data.shopping.discount_type.equals("percent")) {
-                checkBox_precentage.setChecked(true);
-                checkBox_amount.setChecked(false);
+//            if (shoppingEditModel.data.shopping.discount_type.equals("percent")) {
+//                checkBox_precentage.setChecked(true);
+//                checkBox_amount.setChecked(false);
 
-            } else if (shoppingEditModel.data.shopping.discount_type.equals("amount")) {
-                checkBox_precentage.setChecked(false);
-                checkBox_amount.setChecked(true);
-            }
+//            } else if (shoppingEditModel.data.shopping.discount_type.equals("amount")) {
+//                checkBox_precentage.setChecked(false);
+//                checkBox_amount.setChecked(true);
+//            }
 
             setEditMemberRecyclere(shoppingEditModel.data);
-            setEditPrizeRecycler(shoppingEditModel.data);
+//            setEditPrizeRecycler(shoppingEditModel.data);
 
             txt_button_photo.setText("ویرایش عکس");
 
@@ -218,16 +217,16 @@ public class NewRegisterActivity extends CustomBaseActivity
 //        setSpinner();
 
         txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
-        txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.paid_amount)));
-        txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
-                getResources().getString(R.string.discount_amount)));
-        txt_checkBox_amount.setText(String.format("%s (ریال)", getResources().getString(R.string.amount)));
+//        txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.paid_amount)));
+//        txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
+//                getResources().getString(R.string.discount_amount)));
+//        txt_checkBox_amount.setText(String.format("%s (ریال)", getResources().getString(R.string.amount)));
 
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
         edt_total_amount.setTypeface(tf);
-        edt_paid.setTypeface(tf);
-        edt_discount.setTypeface(tf);
+//        edt_paid.setTypeface(tf);
+//        edt_discount.setTypeface(tf);
         edtDate.setTypeface(tf);
 
 
@@ -273,8 +272,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         // to add comma after 3 digits
         edt_total_amount.addTextChangedListener(new EditTextWatcher(edt_total_amount));
-        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
-        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
+//        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
+//        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
 
 
     }
@@ -302,31 +301,31 @@ public class NewRegisterActivity extends CustomBaseActivity
     private void initView() {
         rl_addmember = findViewById(R.id.rl_addmember);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
-        recycler_prize = findViewById(R.id.recycler_prize);
+//        recycler_prize = findViewById(R.id.recycler_prize);
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
         spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
         btn_update = findViewById(R.id.btn_update);
-        rl_prize = findViewById(R.id.rl_prize);
+//        rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
         rl_member_info = findViewById(R.id.rl_info_member_new_register);
-        rl_prize_info = findViewById(R.id.rl_info_prize_new_register);
+//        rl_prize_info = findViewById(R.id.rl_info_prize_new_register);
         rl_photo = findViewById(R.id.rl_photo);
         avi = findViewById(R.id.avi_register);
         edtDate = findViewById(R.id.edtDate);
-        edt_discount = findViewById(R.id.edt_discount);
+//        edt_discount = findViewById(R.id.edt_discount);
         edt_total_amount = findViewById(R.id.edt_total_amount);
-        edt_paid = findViewById(R.id.edt_paid);
-        checkBox_precentage = findViewById(R.id.checkBox_precentage);
-        checkBox_amount = findViewById(R.id.checkBox_amount);
+//        edt_paid = findViewById(R.id.edt_paid);
+//        checkBox_precentage = findViewById(R.id.checkBox_precentage);
+//        checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_new_register);
         txt_header = findViewById(R.id.header_new_register);
         linear_return_new_register = findViewById(R.id.linear_return_new_register);
         txt_total_amount_title = findViewById(R.id.txt_total_amount_title);
         txt_spinner_title = findViewById(R.id.txt_spinner_title_new_register);
-        txt_paid_title = findViewById(R.id.txt_paid_title);
-        txt_discount_title = findViewById(R.id.txt_discount_title);
-        txt_checkBox_amount = findViewById(R.id.checkBox_amount_txt_new_register);
+//        txt_paid_title = findViewById(R.id.txt_paid_title);
+//        txt_discount_title = findViewById(R.id.txt_discount_title);
+//        txt_checkBox_amount = findViewById(R.id.checkBox_amount_txt_new_register);
         txt_button_photo = findViewById(R.id.txt_button_photo);
         txt_img_count=findViewById(R.id.txt_img_count);
 
@@ -334,16 +333,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_register.setOnClickListener(this);
         btn_update.setOnClickListener(this);
         edtDate.setOnClickListener(this);
-        rl_prize.setOnClickListener(this);
+//        rl_prize.setOnClickListener(this);
         rl_calander.setOnClickListener(this);
-        checkBox_precentage.setOnCheckedChangeListener(this);
-        checkBox_amount.setOnCheckedChangeListener(this);
+//        checkBox_precentage.setOnCheckedChangeListener(this);
+//        checkBox_amount.setOnCheckedChangeListener(this);
         linear_return_new_register.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
-        rl_prize_info.setOnClickListener(this);
+//        rl_prize_info.setOnClickListener(this);
         rl_spn_shop.setOnClickListener(this);
         rl_photo.setOnClickListener(this);
-        edt_discount.setEnabled(false);
+//        edt_discount.setEnabled(false);
 //        edt_discount.setText("");
     }
 
@@ -361,7 +360,8 @@ public class NewRegisterActivity extends CustomBaseActivity
                 if(cameraPermissionGranted()){
                     sendRegisterData();
                 }else{
-                    askCameraPermission();
+                    int request_code = 21;
+                    askCameraPermission(request_code);
                 }
 
 
@@ -382,16 +382,17 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showCalendarDialog();
                 break;
 
-            case R.id.rl_prize:
-                showPrizeDialog();
-                break;
+//            case R.id.rl_prize:
+//                showPrizeDialog();
+//                break;
 
             case R.id.rl_photo:
 
                 if (cameraPermissionGranted()) {
                     showPhotoDialog();
                 } else {
-                    askCameraPermission();
+                    int request_code = 20;
+                    askCameraPermission(request_code);
                 }
 
                 break;
@@ -406,10 +407,10 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showInfoDialog(info_type);
                 break;
 
-            case R.id.rl_info_prize_new_register:
-                info_type = "prize_info_new_register";
-                showInfoDialog(info_type);
-                break;
+//            case R.id.rl_info_prize_new_register:
+//                info_type = "prize_info_new_register";
+//                showInfoDialog(info_type);
+//                break;
 
             case R.id.rl_spn_shop:
                 showSearchableDialog();
@@ -424,25 +425,9 @@ public class NewRegisterActivity extends CustomBaseActivity
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void askCameraPermission() {
-        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, 20);
+    private void askCameraPermission(int request_code) {
+        ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, request_code);
     }
-
-
-//    private void showPhotoDialog() {
-//        dialogFactory.createPhotoDialog(new DialogFactory.DialogFactoryInteraction() {
-//            @Override
-//            public void onAcceptButtonClicked(String... params) {
-//
-//            }
-//
-//            @Override
-//            public void onDeniedButtonClicked(boolean bool) {
-//
-//            }
-//        }, layout_register , this);
-//    }
-
 
 
     private void showPhotoDialog() {
@@ -869,56 +854,40 @@ public class NewRegisterActivity extends CustomBaseActivity
         dialog.show();
     }
 
-    private void showPrizeDialog() {
-        sendPrizes = new ArrayList<>();
-        final Dialog dialog = new Dialog(NewRegisterActivity.this);
-        dialog.setContentView(R.layout.prize_dialog);
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        // to show list of member items
-        List<Prize> prizes = new ArrayList<>();
-
-//        if (registerModel.data != null) {
-//            for (int i = 0; i < registerModel.data.prize.size(); i++) {
-//                for (int j = 0; j < registerModel.data.prize.get(i).size(); j++) {
-//                    prizes.add(new Prize(registerModel.data.prize.get(i).get(j).title
-//                            , registerModel.data.prize.get(i).get(j).id));
-//                }
-//            }
-//        } else if (shoppingEditModel.data != null) {
-//            for (int i = 0; i < shoppingEditModel.data.prize.size(); i++) {
-//                for (int j = 0; j < shoppingEditModel.data.prize.get(i).size(); j++) {
-//                    prizes.add(new Prize(shoppingEditModel.data.prize.get(i).get(j).title
-//                            , shoppingEditModel.data.prize.get(i).get(j).id));
-//                }
+//    private void showPrizeDialog() {
+//        sendPrizes = new ArrayList<>();
+//        final Dialog dialog = new Dialog(NewRegisterActivity.this);
+//        dialog.setContentView(R.layout.prize_dialog);
+//
+//        if (dialog.getWindow() != null) {
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        }
+//
+//        // to show list of member items
+//        List<Prize> prizes = new ArrayList<>();
+//
+//        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
+//            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
+//                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
+//                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
 //            }
 //        }
-
-        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
-            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
-                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
-                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
-            }
-        }
-
-
-        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
-        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
-        ImageView img_close = dialog.findViewById(R.id.img_close);
-        recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-        adapter_prize = new PrizeAdapter(prizes, NewRegisterActivity.this);
-        adapter_prize.setListener(this);  // important or else the app will crashed
+//
+//
+//        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
+//        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
+//        ImageView img_close = dialog.findViewById(R.id.img_close);
+//        recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
+//        adapter_prize = new PrizeAdapter(prizes, NewRegisterActivity.this);
 //        adapter_prize.setListener(this);  // important or else the app will crashed
-        recycler_prize.setAdapter(adapter_prize);
-
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
-    }
+////        adapter_prize.setListener(this);  // important or else the app will crashed
+//        recycler_prize.setAdapter(adapter_prize);
+//
+//        img_close.setOnClickListener(v -> dialog.dismiss());
+//        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
+//
+//        dialog.show();
+//    }
 
     // to setCheck single checkbox and show in list
     @Override
@@ -955,8 +924,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         avi.setVisibility(View.VISIBLE);
 
         String total_amount = edt_total_amount.getText().toString();
-        String total_paid = edt_paid.getText().toString();
-        String discount_amount = edt_discount.getText().toString();
+//        String total_paid = edt_paid.getText().toString();
+//        String discount_amount = edt_discount.getText().toString();
         String date = edtDate.getText().toString();
 
         SendRegisterTotalData sendData = new SendRegisterTotalData();
@@ -964,7 +933,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setPrize(sendPrizes);
         sendData.setShop_id(str_spnItemId);
         sendData.setCost(total_amount);
-        sendData.setPaid(total_paid);
+//        sendData.setPaid(total_paid);
         sendData.setLat(Cache.getString(NewRegisterActivity.this, "lat"));
         sendData.setLng(Cache.getString(NewRegisterActivity.this, "lng"));
 
@@ -981,13 +950,13 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 
 
-        if (checkBox_precentage.isChecked()) {
-            sendData.setDiscount_type("percent");
-            sendData.setDiscount_amount(discount_amount);
-        } else if (checkBox_amount.isChecked()) {
-            sendData.setDiscount_type("amount");
-            sendData.setDiscount_amount(discount_amount);
-        }
+//        if (checkBox_precentage.isChecked()) {
+//            sendData.setDiscount_type("percent");
+//            sendData.setDiscount_amount(discount_amount);
+//        } else if (checkBox_amount.isChecked()) {
+//            sendData.setDiscount_type("amount");
+//            sendData.setDiscount_amount(discount_amount);
+//        }
 
         sendData.setDate(date);
 
@@ -1002,8 +971,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 //                    Cache.setString("shopping_id",shopping_id);
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
-
-                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity1.class);
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -1121,8 +1089,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         avi.setVisibility(View.VISIBLE);
 
         String total_amount = edt_total_amount.getText().toString();
-        String total_paid = edt_paid.getText().toString();
-        String discount_amount = edt_discount.getText().toString();
+//        String total_paid = edt_paid.getText().toString();
+//        String discount_amount = edt_discount.getText().toString();
         String date = edtDate.getText().toString();
 
         SendUpdateTotalData sendData = new SendUpdateTotalData();
@@ -1130,7 +1098,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setPrize(sendPrizes);
         sendData.setShop_id(str_spnItemId);
         sendData.setCost(total_amount);
-        sendData.setPaid(total_paid);
+//        sendData.setPaid(total_paid);
 
 
         if(strBm1!=null){
@@ -1153,21 +1121,21 @@ public class NewRegisterActivity extends CustomBaseActivity
 //        sendData.setShopping_id(Cache.getString("shopping_id"));
         sendData.setShopping_id(Cache.getString(NewRegisterActivity.this, "shopping_id"));
 
-        String chechBox_type = checkbox_text;
-        if (!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()) {
-            chechBox_type = "";
-        }
+//        String chechBox_type = checkbox_text;
+//        if (!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()) {
+//            chechBox_type = "";
+//        }
 
 
-        if (chechBox_type.equals("مبلغ") || chechBox_type.equals("amount")) {
-            sendData.setDiscount_type("amount");
-            sendData.setDiscount_amount(discount_amount);
-        } else if (chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
-            sendData.setDiscount_type("percent");
-            sendData.setDiscount_amount(discount_amount);
-        } else {
-            sendData.setDiscount_type("not_set");
-        }
+//        if (chechBox_type.equals("مبلغ") || chechBox_type.equals("amount")) {
+//            sendData.setDiscount_type("amount");
+//            sendData.setDiscount_amount(discount_amount);
+//        } else if (chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
+//            sendData.setDiscount_type("percent");
+//            sendData.setDiscount_amount(discount_amount);
+//        } else {
+//            sendData.setDiscount_type("not_set");
+//        }
 
         sendData.setDate(date);
 
@@ -1332,37 +1300,35 @@ public class NewRegisterActivity extends CustomBaseActivity
         recycler_prize.setAdapter(editPrizeAdapter);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-
-        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
-            edt_discount.setHint(getResources().getString(R.string.percent_amount));
-            edt_discount.setEnabled(false);
-            edt_discount.setText("");
-        }
-
-        switch (view.getId()) {
-            case R.id.checkBox_amount:
-                if (isChecked) {
-                    checkBox_precentage.setChecked(false);
-                    edt_discount.setHint(getResources().getString(R.string.amount2_));
-                    checkbox_text = getResources().getString(R.string.amount2_);
-//                    edt_discount.setText("");
-                    edt_discount.setEnabled(true);
-                }
-                break;
-
-            case R.id.checkBox_precentage:
-                if (isChecked) {
-                    checkBox_amount.setChecked(false);
-                    edt_discount.setHint(getResources().getString(R.string.percent));
-                    checkbox_text = getResources().getString(R.string.percent);
-//                    edt_discount.setText("");
-                    edt_discount.setEnabled(true);
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+//
+//        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
+//            edt_discount.setHint(getResources().getString(R.string.percent_amount));
+//            edt_discount.setEnabled(false);
+//            edt_discount.setText("");
+//        }
+//
+//        switch (view.getId()) {
+//            case R.id.checkBox_amount:
+//                if (isChecked) {
+//                    checkBox_precentage.setChecked(false);
+//                    edt_discount.setHint(getResources().getString(R.string.amount2_));
+//                    checkbox_text = getResources().getString(R.string.amount2_);
+//                    edt_discount.setEnabled(true);
+//                }
+//                break;
+//
+//            case R.id.checkBox_precentage:
+//                if (isChecked) {
+//                    checkBox_amount.setChecked(false);
+//                    edt_discount.setHint(getResources().getString(R.string.percent));
+//                    checkbox_text = getResources().getString(R.string.percent);
+//                    edt_discount.setEnabled(true);
+//                }
+//                break;
+//        }
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -1370,6 +1336,12 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (requestCode == 20) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showPhotoDialog();
+            } else {
+                Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+            }
+        }else if(requestCode == 21){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sendRegisterData();
             } else {
                 Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
             }

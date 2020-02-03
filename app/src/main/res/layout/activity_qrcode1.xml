@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_qrcode_scanner"
     android:orientation="vertical"
     tools:context=".ui.activities.QRcodeActivity1">
 
@@ -32,25 +33,40 @@
 
        <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="50dp"
-           android:layout_marginStart="5dp"
-           android:layout_marginEnd="5dp"
+           android:layout_height="45dp"
+           android:layout_margin="5dp"
            android:orientation="horizontal">
 
            <Button
                android:layout_width="0dp"
+               android:id="@+id/btn4_register_barcode"
                android:layout_height="match_parent"
+               android:text="btn4"
+               android:textColor="@color/white"
+               android:background="@drawable/bg_btn_prize"
                android:layout_weight="1"/>
            <Button
                android:layout_width="0dp"
+               android:id="@+id/btn3_register_barcode"
                android:layout_height="match_parent"
+               android:text="btn3"
+               android:textColor="@color/white"
+               android:background="@drawable/bg_btn_prize"
                android:layout_weight="1"/>
            <Button
                android:layout_width="0dp"
+               android:id="@+id/btn2_register_barcode"
                android:layout_height="match_parent"
+               android:text="btn2"
+               android:textColor="@color/white"
+               android:background="@drawable/bg_btn_prize"
                android:layout_weight="1"/>
            <Button
                android:layout_width="0dp"
+               android:text="btn1"
+               android:textColor="@color/white"
+               android:background="@drawable/bg_btn_prize"
+               android:id="@+id/btn1_register_barcode"
                android:layout_height="match_parent"
                android:layout_weight="1"/>
 
@@ -58,25 +74,41 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn8_register_barcode"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_prize"
+                android:text="btn8" />
+            <Button
+                android:layout_width="0dp"
+                android:id="@+id/btn7_register_barcode"
+                android:layout_height="match_parent"
+                android:text="btn7"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_btn_prize"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="0dp"
+                android:text="btn6"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_btn_prize"
+                android:id="@+id/btn6_register_barcode"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-            <Button
-                android:layout_width="0dp"
+                android:text="btn5"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_btn_prize"
+                android:id="@+id/btn5_register_barcode"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
 
@@ -108,6 +140,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="10dp"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
@@ -115,10 +148,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="@string/finish_purchase"
+                android:textColor="@color/white"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/bg_button_add"
                 android:layout_weight="1"/>
             <Button
                 android:layout_width="0dp"
+                android:background="@drawable/bg_button_add"
                 android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:layout_marginStart="2dp"
                 android:text="عدم خواندن بارکد"
                 android:layout_weight="1"/>
 

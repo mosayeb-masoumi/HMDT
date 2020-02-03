@@ -35,10 +35,13 @@ import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.EditProductsActivity;
+import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
+import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
+import com.rahbarbazaar.shopper.utilities.DownloadManager;
 import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,7 +66,7 @@ import retrofit2.Response;
 public class RegisterFragment extends Fragment implements View.OnClickListener , ActiveListItemInteraction {
 
     private GpsTracker gpsTracker;
-    String strLat, strLng;
+    String strLat, strLng ,shopping_id;
     AVLoadingIndicatorView avi,avi_load_list;
     RecyclerView recyclerView;
     ActiveListAdapter adapter;
@@ -418,25 +421,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        switch (requestCode) {
-            case 3:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    if (checkGpsON()) {
-                    } else {
-                        displayLocationSettingsRequest(getContext(), 123);
-                    }
-                } else {
-
-
-                }
-
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
 
 
@@ -455,28 +440,46 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     @Override
     public void activeListOnClicked(String title , String id,String action) {
 
+        shopping_id = id;
+        Cache.setString(getContext(),"shopping_id",shopping_id);
+
         if(action.equals("edit_shop")){
 
-            getShoppingEditInfo(id);
+            getShoppingEditInfo(shopping_id);
 
         }else if(action.equals("register")){
 
-            Intent intent = new Intent(getContext(), QRcodeActivity.class);
-//            intent.putExtra("shopping_id",id);
-            Cache.setString(getContext(),"shopping_id",id);
-            intent.putExtra("static_barcode","static_barcode");
-            startActivity(intent);
-            getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//            getMemberPrizeLists();
+
+            if (cameraPermissionGranted()) {
+
+                Intent intent = new Intent(getContext(), QRcodeActivity1.class);
+                Cache.setString(getContext(),"shopping_id",shopping_id);
+                intent.putExtra("static_barcode","static_barcode");
+                startActivity(intent);
+                getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            } else {
+                askCameraPermission();
+            }
+
 
 
         }else if(action.equals("edit_product")){
 
             Intent intent = new Intent(getContext(), EditProductsActivity.class);
-            intent.putExtra("shopping_id",id);
+            intent.putExtra("shopping_id",shopping_id);
             startActivity(intent);
             getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         }
+    }
+
+    private boolean cameraPermissionGranted() {
+
+        return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void askCameraPermission() {
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 25);
     }
 
 //    private void getMemberPrizeLists() {
@@ -529,6 +532,27 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             }
         });
     }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case 3:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (checkGpsON()) {
+                    } else {
+                        displayLocationSettingsRequest(getContext(), 123);
+                    }
+                }
+
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
     @Override
     public void onResume() {

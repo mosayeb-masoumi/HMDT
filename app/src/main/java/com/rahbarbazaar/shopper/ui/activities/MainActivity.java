@@ -69,7 +69,6 @@ import retrofit2.Response;
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
 
-    //new
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -675,6 +674,16 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             case 444:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     new DownloadManager().DownloadUpdateApp(MainActivity.this);
+                }
+
+            case 25:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(MainActivity.this, QRcodeActivity1.class);
+                    intent.putExtra("static_barcode","static_barcode");
+                    startActivity(intent);
+                   overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                }else{
+                    Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
                 }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
