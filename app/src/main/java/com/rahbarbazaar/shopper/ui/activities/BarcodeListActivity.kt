@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import com.rahbarbazaar.shopper.R
-import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListAdapter
 import com.rahbarbazaar.shopper.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData
@@ -59,7 +58,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
         linear_exit_barcode_list.setOnClickListener {
 //            startActivity(Intent(this@BarcodeListActivity,QRcodeActivity::class.java))
-            val intent=Intent(this@BarcodeListActivity,QRcodeActivity::class.java)
+            val intent=Intent(this@BarcodeListActivity,QRcodeActivity1::class.java)
             intent.putExtra("static_barcode","static_barcode")
             startActivity(intent)
             finish()
@@ -91,49 +90,49 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 
         recyclerview.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        val adapter = BarcodeListAdapter(barcodeList, this@BarcodeListActivity)
-        adapter.setListener(this)  // important to set or else the app will crashed
-        recyclerview.adapter = adapter
+//        val adapter = BarcodeListAdapter(barcodeList, this@BarcodeListActivity)
+//        adapter.setListener(this)  // important to set or else the app will crashed
+//        recyclerview.adapter = adapter
 //        adapter.notifyDataSetChanged()
 
     }
 
 
-    override fun barcodeListOnClicked(model: BarcodeData, state: String) {
+    override fun barcodeListOnClicked(model: BarcodeData, state: Int) {
 
-        when (state) {
-            "btnDetail" -> {
-                val dialogFactory = DialogFactory(this)
-                dialogFactory.createbarcodeListDetailDialog(object : DialogFactory.DialogFactoryInteraction {
-                    override fun onAcceptButtonClicked(vararg strings: String?) {
-                    }
-
-                    override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
-
-                    }
-
-                }, rl_root_barcodelist, model)
-
-
-            }
-            "btnRegisterActive" -> {
-
-                val intent = Intent(this, PurchasedItemsActivity::class.java)
+//        when (state) {
+//            "btnDetail" -> {
+//                val dialogFactory = DialogFactory(this)
+//                dialogFactory.createbarcodeListDetailDialog(object : DialogFactory.DialogFactoryInteraction {
+//                    override fun onAcceptButtonClicked(vararg strings: String?) {
+//                    }
+//
+//                    override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
+//
+//                    }
+//
+//                }, rl_root_barcodelist, model)
+//
+//
+//            }
+//            "btnRegisterActive" -> {
+//
+//                val intent = Intent(this, PurchasedItemsActivity::class.java)
+////                intent.putExtra("unit", model.unit)
+//                intent.putExtra("product_id", model.id)
+//                intent.putExtra("barcodeListItemDesc", model.decription)
+//                intent.putExtra("mygroup", model.mygroup)
 //                intent.putExtra("unit", model.unit)
-                intent.putExtra("product_id", model.id)
-                intent.putExtra("barcodeListItemDesc", model.decription)
-                intent.putExtra("mygroup", model.mygroup)
-                intent.putExtra("unit", model.unit)
-
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-            }
-
-            "btnRegisterDeactive" -> {
-
-                showDeactiveActionDialog()
-            }
-        }
+//
+//                startActivity(intent)
+//                overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//            }
+//
+//            "btnRegisterDeactive" -> {
+//
+//                showDeactiveActionDialog()
+//            }
+//        }
     }
 
     private fun showDeactiveActionDialog() {

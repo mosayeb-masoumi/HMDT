@@ -1,6 +1,8 @@
 package com.rahbarbazaar.shopper.controllers.adapters
 
+import android.app.AlertDialog
 import android.content.Context
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +11,10 @@ import com.rahbarbazaar.shopper.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.shopper.controllers.viewholders.BarcodeListViewHolder
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData
 
-class BarcodeListAdapter (private val barcodeList: List<BarcodeData>, val context: Context) :
+class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val context: Context, dialog: AlertDialog) :
         RecyclerView.Adapter<BarcodeListViewHolder>() {
+//class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val context: Context, dialog: AlertDialog) :
+//        RecyclerView.Adapter<BarcodeListViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): BarcodeListViewHolder {
@@ -24,7 +28,7 @@ class BarcodeListAdapter (private val barcodeList: List<BarcodeData>, val contex
 
         val model = barcodeList[position]
         holder.bindUserData(model)
-        holder.setOnBarcodeListHolderListener(listener, model)
+        holder.setOnBarcodeListHolderListener(listener, model,position)
     }
 
     private var listener: BarcodeItemInteraction? = null

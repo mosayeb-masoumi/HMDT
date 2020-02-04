@@ -79,7 +79,7 @@ class QRcodeActivity : CustomBaseActivity(), View.OnClickListener {
             edt_barcode?.setText(ResultScan)
         }
 
-        txt_list_registable.text = initMemberPrizeLists.data.categories
+//        txt_list_registable.text = initMemberPrizeLists.data.categories
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)

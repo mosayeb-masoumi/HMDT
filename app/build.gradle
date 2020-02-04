@@ -81,6 +81,8 @@ dependencies {
     // to support android below api21
     implementation 'com.android.support:multidex:1.0.3'
 
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     //todo delete leakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'

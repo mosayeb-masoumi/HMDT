@@ -194,14 +194,14 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     private void initView() {
 
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
-        recycler_prize = findViewById(R.id.recycler_prize);
+//        recycler_prize = findViewById(R.id.recycler_prize);
         rl_addmember = findViewById(R.id.rl_addmember);
         rl_spn_shop = findViewById(R.id.rl_spn_shop);
-        rl_prize = findViewById(R.id.rl_prize);
+//        rl_prize = findViewById(R.id.rl_prize);
         rl_root = findViewById(R.id.layout_edit_product_detail);
         rl_home = findViewById(R.id.rl_home_edit_product_detail);
         rl_member_info = findViewById(R.id.rl_info_member_edit_detail);
-        rl_prize_info = findViewById(R.id.rl_info_prize_edit_detail);
+//        rl_prize_info = findViewById(R.id.rl_info_prize_edit_detail);
         ll_return = findViewById(R.id.linear_return_editProductDetail);
 
         btn_register = findViewById(R.id.btn_register_edit_product_detail);
@@ -223,9 +223,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         checkBox_amount = findViewById(R.id.checkBox_amount);
 
         rl_addmember.setOnClickListener(this);
-        rl_prize.setOnClickListener(this);
+//        rl_prize.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
-        rl_prize_info.setOnClickListener(this);
+//        rl_prize_info.setOnClickListener(this);
 
         checkBox_precentage.setOnCheckedChangeListener(this);
         checkBox_amount.setOnCheckedChangeListener(this);
@@ -284,9 +284,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 break;
 
 
-            case R.id.rl_prize:
-                showPrizeDialog();
-                break;
+//            case R.id.rl_prize:
+//                showPrizeDialog();
+//                break;
 
             case R.id.linear_return_editProductDetail:
                 finish();
@@ -302,10 +302,10 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 showInfoDialog(info_type);
                 break;
 
-            case R.id.rl_info_prize_edit_detail:
-                info_type = "prize_info_edit_product_detail";
-                showInfoDialog(info_type);
-                break;
+//            case R.id.rl_info_prize_edit_detail:
+//                info_type = "prize_info_edit_product_detail";
+//                showInfoDialog(info_type);
+//                break;
 
         }
     }
@@ -383,45 +383,38 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         dialog.show();
     }
 
-    private void showPrizeDialog() {
-        sendPrizes = new ArrayList<>();
-        final Dialog dialog = new Dialog(EditProductsDetailActivity.this);
-        dialog.setContentView(R.layout.prize_dialog);
-
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        // to show list of member items
-        List<Prize> prizes = new ArrayList<>();
-
-//        for (int i = 0; i < totalEditProductData.data.prize.size(); i++) {
-//            for (int j = 0; j < totalEditProductData.data.prize.get(i).size(); j++) {
-//                prizes.add(new Prize(totalEditProductData.data.prize.get(i).get(j).title
-//                        , totalEditProductData.data.prize.get(i).get(j).id));
+//    private void showPrizeDialog() {
+//        sendPrizes = new ArrayList<>();
+//        final Dialog dialog = new Dialog(EditProductsDetailActivity.this);
+//        dialog.setContentView(R.layout.prize_dialog);
+//
+//        if (dialog.getWindow() != null) {
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        }
+//
+//        // to show list of member items
+//        List<Prize> prizes = new ArrayList<>();
+//        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
+//            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
+//                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
+//                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
 //            }
 //        }
-        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
-            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
-                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
-                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
-            }
-        }
-
-        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
-        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
-        ImageView img_close = dialog.findViewById(R.id.img_close);
-        recycler_prize.setLayoutManager(new LinearLayoutManager(EditProductsDetailActivity.this));
-        adapter_prize = new PrizeAdapter(prizes, EditProductsDetailActivity.this);
-        adapter_prize.setListener(this);  // important or else the app will crashed
+//
+//        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
+//        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
+//        ImageView img_close = dialog.findViewById(R.id.img_close);
+//        recycler_prize.setLayoutManager(new LinearLayoutManager(EditProductsDetailActivity.this));
+//        adapter_prize = new PrizeAdapter(prizes, EditProductsDetailActivity.this);
 //        adapter_prize.setListener(this);  // important or else the app will crashed
-        recycler_prize.setAdapter(adapter_prize);
-
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
-    }
+////        adapter_prize.setListener(this);  // important or else the app will crashed
+//        recycler_prize.setAdapter(adapter_prize);
+//
+//        img_close.setOnClickListener(v -> dialog.dismiss());
+//        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
+//
+//        dialog.show();
+//    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

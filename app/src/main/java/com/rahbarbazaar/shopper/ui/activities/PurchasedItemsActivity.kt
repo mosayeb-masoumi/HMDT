@@ -234,11 +234,11 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         btn_register = findViewById(R.id.btn_register_purchased_items)
         recyclerEditedMember = findViewById(R.id.recycler_edited_members)
         avi = findViewById(R.id.avi_register_purchased_items)
-        recycler_prize = findViewById(R.id.recycler_prize)
+//        recycler_prize = findViewById(R.id.recycler_prize)
         checkBox_precentage = findViewById(R.id.checkBox_precentage)
         checkBox_amount = findViewById(R.id.checkBox_amount)
         rl_addmember.setOnClickListener(this)
-        rl_prize.setOnClickListener(this)
+//        rl_prize.setOnClickListener(this)
         checkBox_precentage.setOnCheckedChangeListener(this)
         checkBox_amount.setOnCheckedChangeListener(this)
         btn_register.setOnClickListener(this)
@@ -247,7 +247,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         linear_return_purchased_item.setOnClickListener(this)
         rl_home_purchased_item.setOnClickListener(this)
         rl_info_member_purchased_item.setOnClickListener(this)
-        rl_info_prize_purchased_item.setOnClickListener(this)
+//        rl_info_prize_purchased_item.setOnClickListener(this)
 
         edt_discount.isEnabled = false
         edt_discount.setText("")
@@ -263,9 +263,9 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 showAddMemberDialog()
             }
 
-            R.id.rl_prize -> {
-                showPrizeDialog()
-            }
+//            R.id.rl_prize -> {
+//                showPrizeDialog()
+//            }
 
             R.id.linear_return_purchased_item -> {
 
@@ -294,10 +294,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 info_type = "member_info_purchased_item"
                 showInfoDialog(info_type!!)
             }
-            R.id.rl_info_prize_purchased_item -> {
-                info_type = "prize_info_purchased_item"
-                showInfoDialog(info_type!!)
-            }
+//            R.id.rl_info_prize_purchased_item -> {
+//                info_type = "prize_info_purchased_item"
+//                showInfoDialog(info_type!!)
+//            }
 
 
 
@@ -775,43 +775,39 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     }
 
 
-    private fun showPrizeDialog() {
-        sendPrizes = ArrayList<SendPrize>()
-        val dialog = Dialog(this@PurchasedItemsActivity)
-        dialog.setContentView(R.layout.prize_dialog)
-
-        if (dialog.window != null) {
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
-
-        // to show list of member items
-        val prizes = ArrayList<Prize>()
-
-        for (i in initMemberPrizeLists.data.prize.indices) {
-            for (j in 0 until initMemberPrizeLists.data.prize[i].size) {
-                prizes.add(Prize(initMemberPrizeLists.data.prize[i][j].title, initMemberPrizeLists.data.prize[i][j].id))
-            }
-        }
-//        for (i in registerModel.data.prize.indices) {
-//            for (j in 0 until registerModel.data.prize[i].size) {
-//                prizes.add(Prize(registerModel.data.prize[i][j].title, registerModel.data.prize[i][j].id))
+//    private fun showPrizeDialog() {
+//        sendPrizes = ArrayList<SendPrize>()
+//        val dialog = Dialog(this@PurchasedItemsActivity)
+//        dialog.setContentView(R.layout.prize_dialog)
+//
+//        if (dialog.window != null) {
+//            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        }
+//
+//        // to show list of member items
+//        val prizes = ArrayList<Prize>()
+//
+//        for (i in initMemberPrizeLists.data.prize.indices) {
+//            for (j in 0 until initMemberPrizeLists.data.prize[i].size) {
+//                prizes.add(Prize(initMemberPrizeLists.data.prize[i][j].title, initMemberPrizeLists.data.prize[i][j].id))
 //            }
 //        }
-
-
-        val recycler_prize = dialog.findViewById<RecyclerView>(R.id.recycler_prize)
-        val btn_exit_dialog = dialog.findViewById<Button>(R.id.btn_exit_dialog)
-        val img_close = dialog.findViewById<ImageView>(R.id.img_close)
-        recycler_prize.layoutManager = LinearLayoutManager(this@PurchasedItemsActivity)
-        _prizeAdapter = PrizeAdapter(prizes, this@PurchasedItemsActivity)
-        _prizeAdapter.setListener(this)  // important or else the app will crashed
-        recycler_prize.adapter = _prizeAdapter
-
-        img_close.setOnClickListener { dialog.dismiss() }
-        btn_exit_dialog.setOnClickListener { dialog.dismiss() }
-
-        dialog.show()
-    }
+//
+//
+//
+//        val recycler_prize = dialog.findViewById<RecyclerView>(R.id.recycler_prize)
+//        val btn_exit_dialog = dialog.findViewById<Button>(R.id.btn_exit_dialog)
+//        val img_close = dialog.findViewById<ImageView>(R.id.img_close)
+//        recycler_prize.layoutManager = LinearLayoutManager(this@PurchasedItemsActivity)
+//        _prizeAdapter = PrizeAdapter(prizes, this@PurchasedItemsActivity)
+//        _prizeAdapter.setListener(this)  // important or else the app will crashed
+//        recycler_prize.adapter = _prizeAdapter
+//
+//        img_close.setOnClickListener { dialog.dismiss() }
+//        btn_exit_dialog.setOnClickListener { dialog.dismiss() }
+//
+//        dialog.show()
+//    }
 
 
     override fun prizeOnClicked(title: String?, id: String?, chkbox: Boolean?) {

@@ -4,5 +4,5 @@ import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData
 
 interface BarcodeItemInteraction {
 
-    fun barcodeListOnClicked(model: BarcodeData, state: String)
+    fun barcodeListOnClicked(model: BarcodeData, position: Int)
 }

@@ -3,9 +3,9 @@ package com.rahbarbazaar.shopper.utilities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,10 +25,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
+import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListDetailAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ProfileMemberDetailAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ShoppingProductsDetailAdapter;
+import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeDetail;
 import com.rahbarbazaar.shopper.models.history.History;
@@ -38,12 +40,8 @@ import com.rahbarbazaar.shopper.models.searchable.SearchModel;
 import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
+import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
 import com.rahbarbazaar.shopper.ui.activities.ScanActivity;
-import com.vansuita.pickimage.bean.PickResult;
-import com.vansuita.pickimage.bundle.PickSetup;
-import com.vansuita.pickimage.dialog.PickImageDialog;
-import com.vansuita.pickimage.enums.EPickType;
-import com.vansuita.pickimage.listeners.IPickResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,13 +49,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 //public class DialogFactory implements IPickResult {
 public class DialogFactory {
 
     private Context context;
-
 
 
 //    private int status;
@@ -985,8 +981,8 @@ public class DialogFactory {
     }
 
 
-
-    public void createQrcodeInfoBtnsDialog(DialogFactoryInteraction dialogFactoryInteraction, LinearLayout view) {
+    //    public void createQrcodeInfoBtnsDialog(DialogFactoryInteraction dialogFactoryInteraction, LinearLayout view, String description, String name) {
+    public void createQrcodeInfoBtnsDialog(DialogFactoryInteraction listener, View view, String description, String name) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
 
@@ -996,7 +992,6 @@ public class DialogFactory {
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
 
-        btn_close.setText(context.getResources().getString(R.string.close));
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1007,6 +1002,9 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
+        btn_close.setText(context.getResources().getString(R.string.close));
+        txt_body.setText(description);
+        txt_header.setText(name);
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
@@ -1015,119 +1013,51 @@ public class DialogFactory {
     }
 
 
+    public void createBarcodeResultListDialog(DialogFactoryInteraction listener, LinearLayout view, Barcode barcode,
+                                              QRcodeActivity1 qRcodeActivity1) {
 
 
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_result_list_dialog, (ViewGroup) view, false);
 
-//    public void createPhotoDialog(@NotNull DialogFactoryInteraction listener,
-//                                  @Nullable RelativeLayout view, NewRegisterActivity newRegisterActivity) {
-//
-//        View customLayout = LayoutInflater.from(context).inflate(R.layout.photo_dialog, (ViewGroup) view, false);
-//
-//
-//        //define views inside of dialog
-//        ImageView img_close = customLayout.findViewById(R.id.img_close);
-//        Button btn_close = customLayout.findViewById(R.id.btn_close);
-//
-//        ImageView img_close1 = customLayout.findViewById(R.id.img_close1);
-//        ImageView img_close2 = customLayout.findViewById(R.id.img_close2);
-//        ImageView img_close3 = customLayout.findViewById(R.id.img_close3);
-//        ImageView img_close4 = customLayout.findViewById(R.id.img_close4);
-//
-//        img1 = customLayout.findViewById(R.id.img1);
-//        img2 = customLayout.findViewById(R.id.img2);
-//        img3 = customLayout.findViewById(R.id.img3);
-//        img4 = customLayout.findViewById(R.id.img4);
-//
-//        RelativeLayout rl_camera1 = customLayout.findViewById(R.id.rl_camera1);
-//        RelativeLayout rl_camera2 = customLayout.findViewById(R.id.rl_camera2);
-//        RelativeLayout rl_camera3 = customLayout.findViewById(R.id.rl_camera3);
-//        RelativeLayout rl_camera4 = customLayout.findViewById(R.id.rl_camera4);
-//
-//        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-//        builder.setView(customLayout);
-//
-//        //create dialog and set background transparent
-//        android.app.AlertDialog dialog = builder.create();
-//        if (dialog.getWindow() != null) {
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        }
-//        dialog.setCancelable(false);
-//        dialog.setCanceledOnTouchOutside(false);
-//
-//
-//        rl_camera1.setOnClickListener(v -> {
-//            status = 1;
-//            choose_pic(newRegisterActivity);
-//        });
-//        rl_camera2.setOnClickListener(v -> {
-//            status = 2;
-//            choose_pic(newRegisterActivity);
-//        });
-//        rl_camera3.setOnClickListener(v -> {
-//            status = 3;
-//            choose_pic(newRegisterActivity);
-//        });
-//        rl_camera4.setOnClickListener(v -> {
-//            status = 4;
-//            choose_pic(newRegisterActivity);
-//        });
-//
-//
-//        img_close.setOnClickListener(v -> dialog.dismiss());
-//        btn_close.setOnClickListener(v -> dialog.dismiss());
-//
-//
-//        dialog.show();
-//    }
-//
-//    private void choose_pic(NewRegisterActivity newRegisterActivity) {
-//
-//        PickSetup setup = new PickSetup()
-//                .setTitle("settitle")
-//                .setProgressText("progress text")
-//                .setPickTypes(EPickType.CAMERA)
-//                .setSystemDialog(true);
-//        PickImageDialog.build(setup).show(newRegisterActivity);
-//    }
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDialog);
 
-//    @Override
-//    public void onPickResult(PickResult r) {
-//        if (r.getError() == null) {
-//            if (status == 1) {
-//
-//                img1.setImageBitmap(r.getBitmap());
-//                bm1 = r.getBitmap();
-//
-//                strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
-//
-//            }
-//            if (status == 2) {
-//                img2.setImageBitmap(r.getBitmap());
-//                bm2 = r.getBitmap();
-//
-//                strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
-////                requestImageUpdate(bm2);
-//
-//            }
-//            if (status == 3) {
-//                img3.setImageBitmap(r.getBitmap());
-//                bm3 = r.getBitmap();
-//
-//                strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
-////                requestImageUpdate(bm3);
-//
-//            }
-//            if (status == 4) {
-//                img4.setImageBitmap(r.getBitmap());
-//                bm4 = r.getBitmap();
-//
-//                strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
-//
-////                requestImageUpdate(bm4);
-//
-//            }
-//        }
-//
-//    }
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        List<BarcodeData> barcodeList = new ArrayList<>();
+
+        for (int i = 0; i < barcode.getData().size(); i++) {
+
+            barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
+                    barcode.getData().get(i).getShow(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
+                    barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail()));
+        }
+
+
+        //set recyclerview
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog);
+        adapter.setListener(qRcodeActivity1);
+        recyclerView.setAdapter(adapter);
+
+
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+            listener.onDeniedButtonClicked(false);
+        });
+
+
+        dialog.show();
+
+    }
+
 
 }
