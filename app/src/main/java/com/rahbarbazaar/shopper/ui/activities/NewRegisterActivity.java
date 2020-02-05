@@ -24,7 +24,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,7 +44,6 @@ import com.rahbarbazaar.shopper.models.api_error.APIError422;
 import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
 import com.rahbarbazaar.shopper.models.register.GetShopId;
 import com.rahbarbazaar.shopper.models.register.Member;
-import com.rahbarbazaar.shopper.models.register.Prize;
 import com.rahbarbazaar.shopper.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.shopper.models.register.RegisterModel;
 import com.rahbarbazaar.shopper.models.register.SendPrize;
@@ -1365,7 +1363,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
     @Override
-    public void searchListItemOnClick(SearchModel model, AlertDialog dialog) {
+    public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
         txt_spinner_title.setText(model.getTitle());
         str_spnItemId = model.getId();
         dialog.dismiss();

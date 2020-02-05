@@ -167,8 +167,8 @@ public interface Service {
     @GET("Search/Main")
     Call<GroupsData> getGroupsSpnData();
 
-    @POST("Search/Category")
-    Call<GroupsData> getCategorySpnData(@Query("category_id") String category_id);
+    @GET("Search/Category")
+    Call<GroupsData> getCategorySpnData();
 
     @POST("Search/Subcategory")
     Call<GroupsData> getSubCategorySpnData(@Query("category_id") String category_id);

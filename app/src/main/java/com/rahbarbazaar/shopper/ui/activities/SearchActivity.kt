@@ -109,7 +109,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                                 category_id = ""
                                 sub_category_id = ""
                                 brand_id = ""
-                                getCategoryList(group_id)
+//                                getCategoryList(group_id)
 
                                 emptySpnSubCategory_spnBrand()
                             }
@@ -143,43 +143,40 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
 
     }
 
-
-    private fun getCategoryList(spnGroupID: String) {
-
-        avi_category_spn.visibility = View.VISIBLE
-
-        val service = ServiceProvider(this).getmService()
-        val call = service.getCategorySpnData(spnGroupID)
-        call.enqueue(object : Callback<GroupsData> {
-            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
-
-                if (response.code() == 200) {
-                    var groupsData = GroupsData()
-                    groupsData = response.body()!!
-                    setSpnCategory(groupsData)
-                    avi_category_spn.visibility = View.GONE
-
-                } else if (response.code() == 204) {
-//                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
-//                    intent.putExtra("no_searchedList", "no_searchedList")
-//                    startActivity(intent)
-                    showNoSearchResultDialog()
-                    btn_register_search.visibility = View.VISIBLE
-                    avi_register_search.visibility = View.GONE
-                    avi_category_spn.visibility = View.GONE
-                } else {
-                    Toast.makeText(this@SearchActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-                    avi_category_spn.visibility = View.GONE
-                }
-            }
-
-            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
-                Toast.makeText(this@SearchActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-                avi_category_spn.visibility = View.GONE
-            }
-        })
-
-    }
+//
+//    private fun getCategoryList(spnGroupID: String) {
+//
+//        avi_category_spn.visibility = View.VISIBLE
+//
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.getCategorySpnData(spnGroupID)
+//        call.enqueue(object : Callback<GroupsData> {
+//            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
+//
+//                if (response.code() == 200) {
+//                    var groupsData = GroupsData()
+//                    groupsData = response.body()!!
+//                    setSpnCategory(groupsData)
+//                    avi_category_spn.visibility = View.GONE
+//
+//                } else if (response.code() == 204) {
+//                    showNoSearchResultDialog()
+//                    btn_register_search.visibility = View.VISIBLE
+//                    avi_register_search.visibility = View.GONE
+//                    avi_category_spn.visibility = View.GONE
+//                } else {
+//                    Toast.makeText(this@SearchActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                    avi_category_spn.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
+//                Toast.makeText(this@SearchActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//                avi_category_spn.visibility = View.GONE
+//            }
+//        })
+//
+//    }
 
 
     private fun setSpnCategory(groupsData: GroupsData) {

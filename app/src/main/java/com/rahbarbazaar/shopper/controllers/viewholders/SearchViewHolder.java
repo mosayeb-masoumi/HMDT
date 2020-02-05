@@ -24,9 +24,9 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void setOnPrizeHolderListener(SearchItemInteraction listener, SearchModel model, AlertDialog dialog) {
+    public void setOnPrizeHolderListener(SearchItemInteraction listener, SearchModel model, AlertDialog dialog, String spn_name) {
 
         itemView.setOnClickListener(v ->
-                listener.searchListItemOnClick(model , dialog));
+                listener.searchListItemOnClick(model , dialog,spn_name));
     }
 }

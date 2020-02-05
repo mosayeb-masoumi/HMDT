@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -40,6 +40,7 @@ import com.rahbarbazaar.shopper.models.searchable.SearchModel;
 import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
+import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivityNew;
 import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
 import com.rahbarbazaar.shopper.ui.activities.ScanActivity;
 
@@ -54,6 +55,8 @@ import java.util.Objects;
 public class DialogFactory {
 
     private Context context;
+
+
 
 
 //    private int status;
@@ -861,10 +864,10 @@ public class DialogFactory {
 
 
         //set recyclerview
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog);
-        adapter.setListener(newRegisterActivity);
-        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+//        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
+//        adapter.setListener(newRegisterActivity);
+//        recyclerView.setAdapter(adapter);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -876,7 +879,7 @@ public class DialogFactory {
             @Override
             public boolean onQueryTextChange(String query) {
                 //FILTER AS YOU TYPE
-                adapter.getFilter().filter(query);
+//                adapter.getFilter().filter(query);
                 return false;
             }
         });
@@ -1037,8 +1040,8 @@ public class DialogFactory {
         for (int i = 0; i < barcode.getData().size(); i++) {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
-                    barcode.getData().get(i).getShow(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
-                    barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail()));
+                    barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
+                    barcode.getData().get(i).getUnit(),barcode.getData().get(i).getBarcodeDetail()));
         }
 
 
@@ -1057,6 +1060,44 @@ public class DialogFactory {
 
         dialog.show();
 
+    }
+
+
+    public void createSpnListDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,
+                                    List<SearchModel> searchList, PurchasedItemActivityNew purchasedItemActivityNew, String spn_name) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
+
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+
+        //set recyclerview
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog,spn_name);
+        adapter.setListener(purchasedItemActivityNew);
+        recyclerView.setAdapter(adapter);
+
+
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+//            listener.onDeniedButtonClicked(false);
+        });
+
+
+        dialog.show();
     }
 
 

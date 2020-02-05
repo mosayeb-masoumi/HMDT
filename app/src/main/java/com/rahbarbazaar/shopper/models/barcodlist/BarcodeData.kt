@@ -11,9 +11,9 @@ class BarcodeData {
     @SerializedName("mygroup")
     @Expose
     var mygroup: String? = null
-    @SerializedName("show")
+    @SerializedName("barcode")
     @Expose
-    var show: String? = null
+    var barcode: String? = null
     @SerializedName("decription")
     @Expose
     var decription: String? = null
@@ -22,23 +22,19 @@ class BarcodeData {
     @Expose
     var unit: String? = null
 
-    @SerializedName("image")
-    @Expose
-    var image: String? = null
 
     @SerializedName("detail")
     @Expose
     var barcodeDetail: List<BarcodeDetail>? = null
 
 
-    constructor(id: String?, mygroup: String?, show: String?, decription: String?, unit: String?, image: String?,
+    constructor(id: String?, mygroup: String?, barcode: String?, decription: String?, unit: String?,
                 barcodeDetail: List<BarcodeDetail>?) {
         this.id = id
         this.mygroup = mygroup
-        this.show = show
+        this.barcode = barcode
         this.decription = decription
         this.unit = unit
-        this.image = image
         this.barcodeDetail = barcodeDetail
     }
 }

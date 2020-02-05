@@ -35,11 +35,11 @@ import org.jetbrains.annotations.NotNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickListener , BarcodeItemInteraction {
+public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickListener, BarcodeItemInteraction {
 
-    LinearLayout linear_return_qrcode,ll_root;
+    LinearLayout linear_return_qrcode, ll_root;
     RelativeLayout rl_home_qrcode;
-    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8 , btn_finish;
+    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish, btn_unreadable_barcode;
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -91,7 +91,7 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
     private void initView() {
 
         linear_return_qrcode = findViewById(R.id.linear_return_qrcode);
-        rl_home_qrcode=findViewById(R.id.rl_home_qrcode);
+        rl_home_qrcode = findViewById(R.id.rl_home_qrcode);
         ll_root = findViewById(R.id.root_qrcode_scanner);
 
         btn_1 = findViewById(R.id.btn1_register_barcode);
@@ -103,6 +103,8 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
         btn_7 = findViewById(R.id.btn7_register_barcode);
         btn_8 = findViewById(R.id.btn8_register_barcode);
         btn_finish = findViewById(R.id.btn_finish_purchase_qrcode);
+        btn_unreadable_barcode = findViewById(R.id.btn_unreadable_barcode);
+        avi_qrcode = findViewById(R.id.avi_qrcode);
 
         btn_1.setText(initMemberPrizeLists.data.categories.get(0).name);
         btn_2.setText(initMemberPrizeLists.data.categories.get(1).name);
@@ -113,11 +115,9 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
         btn_7.setText(initMemberPrizeLists.data.categories.get(6).name);
         btn_8.setText(initMemberPrizeLists.data.categories.get(7).name);
 
-        avi_qrcode = findViewById(R.id.avi_qrcode);
 
         btn_finish.setOnClickListener(this);
-
-
+        btn_unreadable_barcode.setOnClickListener(this);
         linear_return_qrcode.setOnClickListener(this);
         rl_home_qrcode.setOnClickListener(this);
         btn_1.setOnClickListener(this);
@@ -139,14 +139,14 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
                 break;
 
             case R.id.rl_home_qrcode:
-                startActivity(new Intent(QRcodeActivity1.this,MainActivity.class));
+                startActivity(new Intent(QRcodeActivity1.this, MainActivity.class));
                 finish();
                 break;
 
             case R.id.btn1_register_barcode:
                 description = initMemberPrizeLists.data.categories.get(0).description;
                 name = initMemberPrizeLists.data.categories.get(0).name;
-                showInfoDialog(description,name);
+                showInfoDialog(description, name);
                 break;
 
             case R.id.btn2_register_barcode:
@@ -192,7 +192,14 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
                 break;
 
             case R.id.btn_finish_purchase_qrcode:
-                startActivity(new Intent(QRcodeActivity1.this,MainActivity.class));
+                startActivity(new Intent(QRcodeActivity1.this, MainActivity.class));
+                finish();
+                break;
+
+            case R.id.btn_unreadable_barcode:
+                Intent intent = new Intent(QRcodeActivity1.this, PurchasedItemActivityNew.class);
+                intent.putExtra("unreadable_barcode", "unreadable_barcode");
+                startActivity(intent);
                 finish();
                 break;
 
@@ -200,17 +207,17 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onEventMainThread(BarcodeLoadingState state){
+    public void onEventMainThread(BarcodeLoadingState state) {
 
-        if(state.getState().equals("show_loading")){
+        if (state.getState().equals("show_loading")) {
             avi_qrcode.show();
-        }else if(state.getState().equals("stop_loading")){
-           avi_qrcode.hide();
+        } else if (state.getState().equals("stop_loading")) {
+            avi_qrcode.hide();
         }
     }
 
     @Subscribe
-    public void onEvent(Barcode barcode){
+    public void onEvent(Barcode barcode) {
 
 //        Toast.makeText(this, ""+barcode.getData().get(0).getDecription(), Toast.LENGTH_SHORT).show();
         showBarcodeListDialog(barcode);
@@ -229,7 +236,7 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
             @Override
             public void onDeniedButtonClicked(boolean bool) {
             }
-        }, ll_root , description,name);
+        }, ll_root, description, name);
 
     }
 
@@ -245,7 +252,7 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
             public void onDeniedButtonClicked(boolean bool) {
                 onResume();
             }
-        },ll_root, barcode,this);
+        }, ll_root, barcode, this);
     }
 
     @Override
@@ -264,8 +271,8 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
     @Override
     public void barcodeListOnClicked(@NotNull BarcodeData model, int position) {
 
-        Intent intent = new Intent(QRcodeActivity1.this,PurchasedItemActivityNew.class);
-        intent.putExtra("position",position);
+        Intent intent = new Intent(QRcodeActivity1.this, PurchasedItemActivityNew.class);
+        intent.putExtra("position", position);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         finish();

@@ -26,12 +26,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
     Context context;
     AlertDialog dialog;
     CustomFilter filter;
+    String spn_name;
 
-    public SearchAdapter(List<SearchModel> searchList, Context context, AlertDialog dialog) {
+    public SearchAdapter(List<SearchModel> searchList, Context context, AlertDialog dialog, String spn_name) {
         this.searchList = searchList;
         this.context = context;
         this.filterList = searchList;
         this.dialog = dialog;
+        this.spn_name = spn_name;
     }
 
 
@@ -47,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         SearchModel model = searchList.get(position);
         holder.bindData(model);
-        holder.setOnPrizeHolderListener(listener, model, dialog);
+        holder.setOnPrizeHolderListener(listener, model, dialog ,spn_name);
 
     }
 

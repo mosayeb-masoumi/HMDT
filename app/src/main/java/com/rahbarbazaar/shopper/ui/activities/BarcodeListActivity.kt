@@ -82,8 +82,11 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
 //            if (lists[i].name == "reza") {
 ////                lists.removeAt(i)
 ////            }
-            barcodeList.add(BarcodeData(barcode.data!![i].id, barcode.data!![i].mygroup, barcode.data!![i].show, barcode.data!![i].decription,
-                    barcode.data!![i].unit,barcode.data!![i].image,barcode.data!![i].barcodeDetail))
+
+
+            barcodeList.add(BarcodeData(barcode.data!![i].id,barcode.data!![i].mygroup,
+                    barcode.data!![i].barcode,barcode.data!![i].decription,barcode.data!![i].unit,barcode.data!![i].barcodeDetail))
+
         }
 
         val recyclerview: RecyclerView = findViewById(R.id.recycler_barcodelist)

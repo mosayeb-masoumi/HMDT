@@ -2,82 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_purchased_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.PurchasedItemActivityNew">
 
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="54dp"
+        android:background="@drawable/bg_toolbar">
 
-        <RelativeLayout
-            android:id="@+id/rl_header"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:background="@drawable/bg_toolbar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/register_new_barcodeList"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/register_new_barcodeList"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/arrow_blue" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:background="@drawable/bg_prize_item">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/barcode"
-                    android:textColor="@color/blue_dark"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="2635145896523"
-                    android:textColor="@color/blue_dark"
-                    android:textSize="15sp" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom_regiser"
+        android:layout_below="@+id/rl_header">
 
         <LinearLayout
-            android:id="@+id/ll_spinners"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -85,146 +38,670 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="10dp">
-
+                android:id="@+id/ll_barcode"
+                android:layout_height="45dp"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/rl_spn_brand"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_prize_item"
-                    android:layoutDirection="rtl"
-                    android:padding="3dp">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                    <Spinner
-                        android:id="@+id/spn_brand"
+                    <ImageView
+                        android:id="@+id/img_search"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true">
+                        android:src="@drawable/arrow_blue" />
 
-                        <requestFocus />
-                    </Spinner>
                 </RelativeLayout>
-
 
                 <RelativeLayout
-                    android:id="@+id/rl_spn_group"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_prize_item"
-                    android:layoutDirection="rtl"
-                    android:padding="3dp">
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:background="@drawable/bg_prize_item">
 
-                    <Spinner
-                        android:id="@+id/spn_group"
+                    <RelativeLayout
+                        android:id="@+id/rl_readable_barcode"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true">
+                        android:layout_height="match_parent">
 
-                        <requestFocus />
-                    </Spinner>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="20dp"
+                            android:text="@string/barcode"
+                            android:textColor="@color/blue_dark"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="621547896542658"
+                            android:id="@+id/txt_barcode"
+                            android:textColor="@color/blue_dark"
+                            android:textSize="15sp" />
+
+                    </RelativeLayout>
+
+
+                    <EditText
+                        android:id="@+id/edt_barcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:hint="بارکد را وارد نمایید"
+                        android:textColor="@color/blue_dark"
+                        android:textColorHint="@color/blue"
+                        android:textSize="14sp" />
+
+
                 </RelativeLayout>
+
             </LinearLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:id="@+id/ll_spinners"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                   >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="10dp">
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_spn_brand"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_inactive_spn"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/select"
+                                android:id="@+id/txt_brand_spn_title"
+                                android:layout_marginStart="10dp"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="15dp"
+                                android:src="@drawable/arrow_drop_down"/>
+                            <!--<Spinner-->
+                                <!--android:id="@+id/spn_brand"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:focusable="true"-->
+                                <!--android:focusableInTouchMode="true">-->
+
+                                <!--<requestFocus />-->
+                            <!--</Spinner>-->
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_spn_group"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_prize_item"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/select"
+                                android:id="@+id/txt_group_spn_title"
+                                android:layout_marginStart="10dp"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="15dp"
+                                android:src="@drawable/arrow_drop_down"/>
+
+                            <!--<Spinner-->
+                                <!--android:id="@+id/spn_group"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:focusable="true"-->
+                                <!--android:focusableInTouchMode="true">-->
+
+                                <!--<requestFocus />-->
+                            <!--</Spinner>-->
+                        </RelativeLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp">
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_spn_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_inactive_spn"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/select"
+                                android:id="@+id/txt_amount_spn_title"
+                                android:layout_marginStart="10dp"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="15dp"
+                                android:src="@drawable/arrow_drop_down"/>
+
+                            <!--<Spinner-->
+                                <!--android:id="@+id/spn_amount"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:focusable="true"-->
+                                <!--android:focusableInTouchMode="true">-->
+
+                                <!--<requestFocus />-->
+                            <!--</Spinner>-->
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_spn_type"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginBottom="3dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_inactive_spn"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/select"
+                                android:id="@+id/txt_type_spn_title"
+                                android:layout_marginStart="10dp"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="14sp"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="15dp"
+                                android:src="@drawable/arrow_drop_down"/>
+                            <!--<Spinner-->
+                                <!--android:id="@+id/spn_type"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="match_parent"-->
+                                <!--android:layout_centerInParent="true"-->
+                                <!--android:focusable="true"-->
+                                <!--android:focusableInTouchMode="true">-->
+
+                                <!--<requestFocus />-->
+                            <!--</Spinner>-->
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_texts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginEnd="10dp">
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_prize_item"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="type"
+                                android:id="@+id/txt_type_purchase"
+                                android:textSize="14sp"
+                                android:textColor="@color/blue_dark"
+                                android:layout_centerInParent="true"/>
+
+
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_prize_item"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="group"
+                                android:id="@+id/txt_group_purchase"
+                                android:textSize="14sp"
+                                android:textColor="@color/blue_dark"
+                                android:layout_centerInParent="true"/>
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp">
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_prize_item"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="amount"
+                                android:id="@+id/txt_amount_purchase"
+                                android:textSize="14sp"
+                                android:textColor="@color/blue_dark"
+                                android:layout_centerInParent="true"/>
+
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_prize_item"
+                            android:layoutDirection="rtl"
+                            android:padding="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="brand"
+                                android:id="@+id/txt_brand_purchase"
+                                android:textSize="14sp"
+                                android:textColor="@color/blue_dark"
+                                android:layout_centerInParent="true"/>
+
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_description_purchased"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/bg_prize_item">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/txt_description_purchased"
+                    android:layout_marginEnd="10dp"
+                    android:text="ذسنیتبنتسنب"
+                    android:padding="3dp"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_no_confirmed"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="اطلاعات مورد تایید نیست"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_confirmed"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_btn_prize"
+                    android:text="اطلاعات مورد تایید است"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edt_price_purchase"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_prize_item"
+                        android:gravity="center"
+                        android:hint="قیمت خرید"
+                        android:textColor="@color/blue_dark"
+                        android:textColorHint="@color/blue"
+                        android:textSize="13sp" />
+
+
+                    <EditText
+                        android:id="@+id/edt_amount_purchased"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_prize_item"
+                        android:gravity="center"
+                        android:hint="تعداد خرید"
+                        android:textColor="@color/blue_dark"
+                        android:textColorHint="@color/blue"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="10dp">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_addmember"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="60dp"
+                        android:layout_marginEnd="60dp"
+                        android:background="@drawable/bg_btn_prize">
+
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:padding="10dp"
+                            android:src="@drawable/img_member" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/familymember"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_info_member_new_register"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/bg_info_btn_prize">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/bg_info_btn_prize" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="8dp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_info2" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_edited_members"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layoutDirection="rtl"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp">
 
-
                 <RelativeLayout
-                    android:id="@+id/rl_spn_etc"
-                    android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_prize_item"
-                    android:layoutDirection="rtl"
-                    android:padding="3dp">
+                    android:id="@+id/rl_img_purchased"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/bg_btn_prize">
 
-                    <Spinner
-                        android:id="@+id/spn_etc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true">
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/camera" />
 
-                        <requestFocus />
-                    </Spinner>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="13dp"
+                        android:text="عکس محصول"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
-
                 <RelativeLayout
-                    android:id="@+id/rl_spn_volume"
-                    android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_prize_item"
-                    android:layoutDirection="rtl"
-                    android:padding="3dp">
+                    android:id="@+id/rl_info_img_new_register"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/bg_info_btn_prize">
 
-                    <Spinner
-                        android:id="@+id/spn_valume"
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true">
+                        android:src="@drawable/bg_info_btn_prize" />
 
-                        <requestFocus />
-                    </Spinner>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2" />
+
                 </RelativeLayout>
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/img_count_purchased"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:text="+2"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="70dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_button_add">
+
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi_register_purchased"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    app:indicatorColor="@color/white" />
+
+
+                <Button
+                    android:id="@+id/btn_register_purchased"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_button_add"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/bg_prize_item">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue_dark"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:textSize="15sp"
-                android:text="ذسنیتبنتسنب"/>
-
-
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
-        android:id="@+id/rl_bottom_qrcode"
+        android:id="@+id/rl_bottom_regiser"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
@@ -287,5 +764,6 @@
         </LinearLayout>
 
     </RelativeLayout>
+
 
 </RelativeLayout>
