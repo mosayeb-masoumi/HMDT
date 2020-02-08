@@ -30,37 +30,36 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class PurchasedItemActivityNew extends CustomBaseActivity implements View.OnClickListener , SearchItemInteraction {
+public class PurchasedItemActivityNew extends CustomBaseActivity implements View.OnClickListener, SearchItemInteraction {
 
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
-    RelativeLayout rl_home, rl_readable_barcode,rl_description_purchased,rl_spn_group,rl_spn_brand,rl_spn_type,rl_spn_amount,rl_root;
-    LinearLayout rl_return,ll_texts,ll_spinners,ll_barcode;
+    RelativeLayout rl_home, rl_readable_barcode, rl_description_purchased, rl_spn_group, rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root;
+    LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode;
     Integer position;
     String state;
 
     EditText edt_barcode;
     MemberPrize initMemberPrizeLists;
-    Barcode barcode;
 
-    String spn_name ,str_spn_group_id, str_spn_brand_id,str_spn_type_id,str_spn_amount_id;
-    String str_spn_group_title, str_spn_brand_title,str_spn_type_title,str_spn_amount_title;
-
+    String spn_name, str_spn_group_id, str_spn_brand_id, str_spn_type_id, str_spn_amount_id;
+    String str_spn_group_title, str_spn_brand_title, str_spn_type_title, str_spn_amount_title;
 
 
+    int barcodeListSize;
 
     GroupsData spinnerList;
+    Barcode barcodeList;
 
-    TextView txt_description_purchased ,txt_group_purchase,txt_type_purchase,txt_brand_purchase,
-            txt_amount_purchase,txt_barcode,txt_spn_group_title,txt_spn_brand_title,txt_spn_type_title,txt_spn_amount_title;
+    TextView txt_description_purchased, txt_group_purchase, txt_type_purchase, txt_brand_purchase,
+            txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_spn_brand_title, txt_spn_type_title, txt_spn_amount_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchased_item_new);
-
 
 
         // to check internet connection
@@ -74,11 +73,12 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         };
 
         //get data from register fragment
-        disposable = RxBus.BarcodeList.subscribeBarcodeList(result -> {
-            if (result instanceof Barcode) {
-                barcode = (Barcode) result;
-            }
-        });
+//        barcode = new Barcode();
+//        disposable = RxBus.BarcodeList.subscribeBarcodeList(result -> {
+//            if (result instanceof Barcode) {
+//                barcode = (Barcode) result;
+//            }
+//        });
 
         disposable = RxBus.MemberPrizeLists.subscribeMemberPrizeLists(result -> {
             if (result instanceof MemberPrize) {
@@ -89,95 +89,146 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         initView();
 
         Intent intent = getIntent();
-        position = intent.getIntExtra("position", 5000);
+        position = intent.getIntExtra("position", 0);
         state = intent.getStringExtra("unreadable_barcode");
 
+
+        spinnerList = new GroupsData();
         spinnerList = intent.getParcelableExtra("groupsData");
-
-
-
-
+        barcodeList = intent.getParcelableExtra("barcodeList");
 
 
         if (state != null && state.equals("unreadable_barcode")) {
             edt_barcode.setVisibility(View.VISIBLE);
             rl_readable_barcode.setVisibility(View.GONE);
+
+            ll_spinners.setVisibility(View.GONE);
+            ll_texts.setVisibility(View.GONE);
+            rl_description_purchased.setVisibility(View.GONE);
+
+
         } else {
             edt_barcode.setVisibility(View.GONE);
             rl_readable_barcode.setVisibility(View.VISIBLE);
         }
 
-        if(position == 5000){ // list just has one item
 
-            if(spinnerList==null && state.equals(null)){
-                if(barcode.getData().get(0).getMygroup().equals("product")){
-                    ll_texts.setVisibility(View.VISIBLE);
-                    ll_spinners.setVisibility(View.GONE);
+        // if wait , just show description
+        if (barcodeList != null) {
+            barcodeListSize = barcodeList.getData().size();
+            if (barcodeListSize == 1 && barcodeList.getData().get(0).getMygroup().equals("wait")) {
+                rl_description_purchased.setVisibility(View.VISIBLE);
+                ll_spinners.setVisibility(View.GONE);
+                ll_texts.setVisibility(View.GONE);
+                txt_description_purchased.setText(barcodeList.getData().get(0).getDecription());
 
-                    txt_group_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(0).getValue());
-                    txt_type_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(1).getValue());
-                    txt_brand_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(2).getValue());
-                    txt_amount_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(3).getValue());
-
-                    txt_barcode.setText(barcode.getData().get(0).getBarcode());
-
-                }else if(barcode.getData().get(0).getMygroup().equals("wait")){
-                    ll_texts.setVisibility(View.GONE);
-                    ll_spinners.setVisibility(View.GONE);
-                    rl_description_purchased.setVisibility(View.VISIBLE);
-                    txt_description_purchased.setText(barcode.getData().get(0).getDecription());
-                    txt_barcode.setText(barcode.getData().get(0).getBarcode());
-                }
-                int a = 5;
             }
 
-        }else if(position != 5000 && state.equals(null)){  //selected from list
-            if(barcode.getData().get(position).getMygroup().equals("wait")){
-                ll_texts.setVisibility(View.GONE);
+            if (barcodeListSize == 1 && barcodeList.getData().get(0).getMygroup().equals("product")) {
+                rl_description_purchased.setVisibility(View.GONE);
                 ll_spinners.setVisibility(View.GONE);
-                rl_description_purchased.setVisibility(View.VISIBLE);
-                txt_description_purchased.setText(barcode.getData().get(position).getDecription());
-                txt_barcode.setText(barcode.getData().get(position).getBarcode());
-            }else if(barcode.getData().get(position).getMygroup().equals("product")){
                 ll_texts.setVisibility(View.VISIBLE);
+
+                txt_group_purchase.setText(barcodeList.getData().get(0).getBarcodeDetail().get(0).getValue());
+                txt_type_purchase.setText(barcodeList.getData().get(0).getBarcodeDetail().get(1).getValue());
+                txt_brand_purchase.setText(barcodeList.getData().get(0).getBarcodeDetail().get(2).getValue());
+                txt_amount_purchase.setText(barcodeList.getData().get(0).getBarcodeDetail().get(3).getValue());
+                txt_barcode.setText(barcodeList.getData().get(0).getBarcode());
+
+            }
+
+
+
+            if (barcodeListSize > 1 && barcodeList.getData().get(position).getMygroup().equals("wait")) {
+                rl_description_purchased.setVisibility(View.VISIBLE);
                 ll_spinners.setVisibility(View.GONE);
+                ll_texts.setVisibility(View.GONE);
+                txt_description_purchased.setText(barcodeList.getData().get(position).getDecription());
 
-                txt_group_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(0).getValue());
-                txt_type_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(1).getValue());
-                txt_brand_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(2).getValue());
-                txt_amount_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(3).getValue());
+            }
 
-                txt_barcode.setText(barcode.getData().get(position).getBarcode());
+            if (barcodeListSize > 1 && barcodeList.getData().get(position).getMygroup().equals("product")) {
+                rl_description_purchased.setVisibility(View.GONE);
+                ll_spinners.setVisibility(View.GONE);
+                ll_texts.setVisibility(View.VISIBLE);
+
+                txt_group_purchase.setText(barcodeList.getData().get(position).getBarcodeDetail().get(0).getValue());
+                txt_type_purchase.setText(barcodeList.getData().get(position).getBarcodeDetail().get(1).getValue());
+                txt_brand_purchase.setText(barcodeList.getData().get(position).getBarcodeDetail().get(2).getValue());
+                txt_amount_purchase.setText(barcodeList.getData().get(position).getBarcodeDetail().get(3).getValue());
+                txt_barcode.setText(barcodeList.getData().get(position).getBarcode());
+
             }
         }
+
 
 
         if(spinnerList!=null){
-
+            rl_description_purchased.setVisibility(View.GONE);
             ll_texts.setVisibility(View.GONE);
             ll_spinners.setVisibility(View.VISIBLE);
-            ll_barcode.setVisibility(View.GONE);
-            rl_description_purchased.setVisibility(View.GONE);
-
-            setGroupsSpn(spinnerList);
         }
 
 
-    }
 
-    private void setGroupsSpn(GroupsData spinnerList) {
 
-//        ArrayList<String> groupsTitleList = new ArrayList<>();
-//        for (int i = 0; i <spinnerList.getData().size() ; i++) {
-//            groupsTitleList.add(spinnerList.getData().get(i).getTitle());
+
+
+//        if(position == 5000){ // list just has one item
+//
+////            if(spinnerList.getData()==null && state.equals(null)){
+//                if(barcode.getData().get(0).getMygroup().equals("product")){
+//                    ll_texts.setVisibility(View.VISIBLE);
+//                    ll_spinners.setVisibility(View.GONE);
+//
+//                    txt_group_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(0).getValue());
+//                    txt_type_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(1).getValue());
+//                    txt_brand_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(2).getValue());
+//                    txt_amount_purchase.setText(barcode.getData().get(0).getBarcodeDetail().get(3).getValue());
+//
+//                    txt_barcode.setText(barcode.getData().get(0).getBarcode());
+//
+//                }else if(barcode.getData().get(0).getMygroup().equals("wait")){
+//                    ll_texts.setVisibility(View.GONE);
+//                    ll_spinners.setVisibility(View.GONE);
+//                    rl_description_purchased.setVisibility(View.VISIBLE);
+//                    txt_description_purchased.setText(barcode.getData().get(0).getDecription());
+//                    txt_barcode.setText(barcode.getData().get(0).getBarcode());
+//                }
+//                int a = 5;
+////            }
+//
+//        }else if(position != 5000 && state.equals(null)){  //selected from list
+//            if(barcode.getData().get(position).getMygroup().equals("wait")){
+//                ll_texts.setVisibility(View.GONE);
+//                ll_spinners.setVisibility(View.GONE);
+//                rl_description_purchased.setVisibility(View.VISIBLE);
+//                txt_description_purchased.setText(barcode.getData().get(position).getDecription());
+//                txt_barcode.setText(barcode.getData().get(position).getBarcode());
+//            }else if(barcode.getData().get(position).getMygroup().equals("product")){
+//                ll_texts.setVisibility(View.VISIBLE);
+//                ll_spinners.setVisibility(View.GONE);
+//
+//                txt_group_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(0).getValue());
+//                txt_type_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(1).getValue());
+//                txt_brand_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(2).getValue());
+//                txt_amount_purchase.setText(barcode.getData().get(position).getBarcodeDetail().get(3).getValue());
+//
+//                txt_barcode.setText(barcode.getData().get(position).getBarcode());
+//            }
 //        }
 //
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.custom_spinner, groupsTitleList);
-//        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
-//        spn_group.setAdapter(adapter);
+//
+//        if(spinnerList.getData()!=null){
+//
+////            ll_texts.setVisibility(View.GONE);
+////            ll_spinners.setVisibility(View.VISIBLE);
+////            ll_barcode.setVisibility(View.GONE);
+////            rl_description_purchased.setVisibility(View.GONE);
+//        }
+
+
     }
-
-
 
 
     private void initView() {
@@ -189,26 +240,26 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         ll_texts = findViewById(R.id.ll_texts);
         ll_spinners = findViewById(R.id.ll_spinners);
         rl_description_purchased = findViewById(R.id.rl_description_purchased);
-        txt_description_purchased=findViewById(R.id.txt_description_purchased);
-        txt_barcode=findViewById(R.id.txt_barcode);
-        ll_barcode=findViewById(R.id.ll_barcode);
+        txt_description_purchased = findViewById(R.id.txt_description_purchased);
+        txt_barcode = findViewById(R.id.txt_barcode);
+        ll_barcode = findViewById(R.id.ll_barcode);
         rl_root = findViewById(R.id.root_purchased_item);
 
-        txt_spn_group_title=findViewById(R.id.txt_group_spn_title);
-        txt_spn_brand_title=findViewById(R.id.txt_brand_spn_title);
-        txt_spn_type_title=findViewById(R.id.txt_type_spn_title);
-        txt_spn_amount_title=findViewById(R.id.txt_amount_spn_title);
+        txt_spn_group_title = findViewById(R.id.txt_group_spn_title);
+        txt_spn_brand_title = findViewById(R.id.txt_brand_spn_title);
+        txt_spn_type_title = findViewById(R.id.txt_type_spn_title);
+        txt_spn_amount_title = findViewById(R.id.txt_amount_spn_title);
 
 
-        txt_group_purchase=findViewById(R.id.txt_group_purchase);
-        txt_type_purchase=findViewById(R.id.txt_type_purchase);
-        txt_brand_purchase=findViewById(R.id.txt_brand_purchase);
-        txt_amount_purchase=findViewById(R.id.txt_amount_purchase);
+        txt_group_purchase = findViewById(R.id.txt_group_purchase);
+        txt_type_purchase = findViewById(R.id.txt_type_purchase);
+        txt_brand_purchase = findViewById(R.id.txt_brand_purchase);
+        txt_amount_purchase = findViewById(R.id.txt_amount_purchase);
 
-        rl_spn_group=findViewById(R.id.rl_spn_group);
-        rl_spn_brand=findViewById(R.id.rl_spn_brand);
-        rl_spn_type=findViewById(R.id.rl_spn_type);
-        rl_spn_amount=findViewById(R.id.rl_spn_amount);
+        rl_spn_group = findViewById(R.id.rl_spn_group);
+        rl_spn_brand = findViewById(R.id.rl_spn_brand);
+        rl_spn_type = findViewById(R.id.rl_spn_type);
+        rl_spn_amount = findViewById(R.id.rl_spn_amount);
 
         rl_home.setOnClickListener(this);
         rl_return.setOnClickListener(this);
@@ -239,7 +290,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 showSpnGroupListDialog(spn_name);
                 break;
             case R.id.rl_spn_brand:
-                 spn_name = "spn_brand";
+                spn_name = "spn_brand";
                 showSpnGroupListDialog(spn_name);
                 break;
             case R.id.rl_spn_type:
@@ -253,17 +304,20 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         }
     }
 
+
+
+
     private void showSpnGroupListDialog(String spn_name) {
 
         List<SearchModel> searchList = new ArrayList<>();
-        for (int i = 0; i <spinnerList.getData().size() ; i++) {
-            searchList.add(new SearchModel(spinnerList.getData().get(i).getTitle(),spinnerList.getData().get(i).getId()));
+        for (int i = 0; i < spinnerList.getData().size(); i++) {
+            searchList.add(new SearchModel(spinnerList.getData().get(i).getTitle(), spinnerList.getData().get(i).getId()));
         }
 
 
-       DialogFactory dialogFactory = new DialogFactory(PurchasedItemActivityNew.this);
+        DialogFactory dialogFactory = new DialogFactory(PurchasedItemActivityNew.this);
 
-       dialogFactory.createSpnListDialog(new DialogFactory.DialogFactoryInteraction() {
+        dialogFactory.createSpnListDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
 
@@ -274,7 +328,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
             public void onDeniedButtonClicked(boolean bool) {
 
             }
-        }, rl_root,searchList,this ,spn_name);
+        }, rl_root, searchList, this, spn_name);
 
     }
 
@@ -288,37 +342,43 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
     protected void onDestroy() {
         unregisterReceiver(connectivityReceiver);
         super.onDestroy();
-        disposable.dispose(); //very important  to avoid memory leak
+//        disposable.dispose(); //very important  to avoid memory leak
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        disposable.dispose();
+    }
 
     @Override
     public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
 
-        if(spn_name.equals("spn_group")){
+        if (spn_name.equals("spn_group")) {
 
             str_spn_group_title = model.getTitle();
             str_spn_group_id = model.getId();
             txt_spn_group_title.setText(model.getTitle());
             dialog.dismiss();
 
-        }else if(spn_name.equals("spn_brand")){
+        } else if (spn_name.equals("spn_brand")) {
 
             str_spn_brand_title = model.getTitle();
             str_spn_brand_id = model.getId();
             txt_spn_brand_title.setText(model.getTitle());
 
-        }else if(spn_name.equals("spn_type")){
+        } else if (spn_name.equals("spn_type")) {
             str_spn_type_title = model.getTitle();
             str_spn_type_id = model.getId();
             txt_spn_type_title.setText(model.getTitle());
 
-        }else if(spn_name.equals("spn_amount")){
+        } else if (spn_name.equals("spn_amount")) {
             str_spn_amount_title = model.getTitle();
             str_spn_amount_id = model.getId();
             txt_spn_amount_title.setText(model.getTitle());
         }
 
     }
+
 }

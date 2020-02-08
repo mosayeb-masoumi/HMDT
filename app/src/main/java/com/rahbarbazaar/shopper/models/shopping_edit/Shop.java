@@ -10,4 +10,8 @@ public class Shop {
     @SerializedName("id")
     @Expose
     public String id;
+    @SerializedName("online")
+    @Expose
+    public String online;
+
 }

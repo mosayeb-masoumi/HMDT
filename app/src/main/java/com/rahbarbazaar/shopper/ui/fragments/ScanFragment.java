@@ -82,7 +82,15 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                         EventBus.getDefault().post(barcode);
                         onResume();
                     }else if(size==1){
-                        startActivity(new Intent(getContext(),PurchasedItemActivityNew.class));
+
+//                        startActivity(new Intent(getContext(),PurchasedItemActivityNew.class));
+//                        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                        getActivity().finish();
+
+
+                        Intent intent = new Intent(getContext(),PurchasedItemActivityNew.class);
+                        intent.putExtra("barcodeList", barcode);
+                        startActivity(intent);
                         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                         getActivity().finish();
 

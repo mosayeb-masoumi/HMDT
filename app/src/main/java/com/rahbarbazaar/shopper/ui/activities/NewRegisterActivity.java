@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.EditPrizeAdapter;
@@ -70,9 +71,11 @@ import com.vansuita.pickimage.dialog.PickImageDialog;
 import com.vansuita.pickimage.enums.EPickType;
 import com.vansuita.pickimage.listeners.IPickResult;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
@@ -88,7 +91,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     DialogFactory dialogFactory;
     RegisterModel registerModel;
     ShoppingEdit shoppingEditModel;
-    Button btn_register, btn_update;
+    Button btn_register, btn_update, btn_present_purchase, btn_online_purchase;
     LinearLayout linear_return_new_register;
     AVLoadingIndicatorView avi;
     RegisterMemberDialogAdapter adapter_member;
@@ -98,16 +101,16 @@ public class NewRegisterActivity extends CustomBaseActivity
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info, rl_photo;
+    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info, rl_photo, rl_show_shop_result;
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
 
-    String str_spnItemId, info_type, checkbox_text = "";
+    String str_shop_id, info_type, checkbox_text = "";
     Context context;
 
     TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title,
-            txt_spinner_title, txt_checkBox_amount,txt_button_photo,txt_img_count;
+            txt_spinner_title, txt_checkBox_amount, txt_button_photo, txt_img_count, txt_shop_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -124,10 +127,13 @@ public class NewRegisterActivity extends CustomBaseActivity
     int status = 0;
 
 
-    int image_count1=0;
-    int image_count2=0;
-    int image_count3=0;
-    int image_count4=0;
+    int image_count1 = 0;
+    int image_count2 = 0;
+    int image_count3 = 0;
+    int image_count4 = 0;
+
+    String spn_name = "";
+    ImageView img_delete_shop_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +198,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             edtDate.setText(shoppingEditModel.data.shopping.date);
 
             txt_spinner_title.setText(shoppingEditModel.data.shopping.shop);
-            str_spnItemId = shoppingEditModel.data.shopping.shop_id; // get shop_id from model(after select spinner shop,shop_id will modified)
+            str_shop_id = shoppingEditModel.data.shopping.shop_id; // get shop_id from model(after select spinner shop,shop_id will modified)
 
             btn_register.setVisibility(View.GONE);
             btn_update.setVisibility(View.VISIBLE);
@@ -214,7 +220,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 //        setSpinner();
 
-        txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
+        txt_total_amount_title.setText(getResources().getString(R.string.tottal_amount));
+//        txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
 //        txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.paid_amount)));
 //        txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
 //                getResources().getString(R.string.discount_amount)));
@@ -229,41 +236,41 @@ public class NewRegisterActivity extends CustomBaseActivity
 
 
         // to count the number of images at first run while in editModel
-        if(shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_1.equals("")){
+        if (shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_1.equals("")) {
                 image_count1 = 1;
-            }else{
+            } else {
                 image_count1 = 0;
             }
         }
-        if(shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_2.equals("")){
+        if (shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_2.equals("")) {
                 image_count2 = 1;
-            }else{
+            } else {
                 image_count2 = 0;
             }
         }
-        if(shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_3.equals("")){
+        if (shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_3.equals("")) {
                 image_count3 = 1;
-            }else{
+            } else {
                 image_count3 = 0;
             }
         }
-        if(shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_4.equals("")){
+        if (shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_4.equals("")) {
                 image_count4 = 1;
-            }else{
-                image_count4= 0;
+            } else {
+                image_count4 = 0;
             }
         }
 
-        int total_img_count1 = image_count1+image_count2+image_count3+image_count4;
+        int total_img_count1 = image_count1 + image_count2 + image_count3 + image_count4;
         String img_count1 = ConvertEnDigitToFa.convert(String.valueOf(total_img_count1));
-        if(total_img_count1>0){
+        if (total_img_count1 > 0) {
             txt_img_count.setVisibility(View.VISIBLE);
             txt_img_count.setText(String.format("+%s", img_count1));
-        }else{
+        } else {
             txt_img_count.setVisibility(View.GONE);
         }
 
@@ -300,10 +307,12 @@ public class NewRegisterActivity extends CustomBaseActivity
         rl_addmember = findViewById(R.id.rl_addmember);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
 //        recycler_prize = findViewById(R.id.recycler_prize);
-        rl_spn_shop = findViewById(R.id.rl_spn_shop);
-        spn_shop = findViewById(R.id.spn_shop);
+//        rl_spn_shop = findViewById(R.id.rl_spn_shop);
+//        spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
         btn_update = findViewById(R.id.btn_update);
+        btn_present_purchase = findViewById(R.id.btn_present_purchase);
+        btn_online_purchase = findViewById(R.id.btn_online_purchase);
 //        rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
         rl_member_info = findViewById(R.id.rl_info_member_new_register);
@@ -320,12 +329,16 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_header = findViewById(R.id.header_new_register);
         linear_return_new_register = findViewById(R.id.linear_return_new_register);
         txt_total_amount_title = findViewById(R.id.txt_total_amount_title);
-        txt_spinner_title = findViewById(R.id.txt_spinner_title_new_register);
+        txt_shop_title = findViewById(R.id.txt_shop_title);
+//        txt_spinner_title = findViewById(R.id.txt_spinner_title_new_register);
 //        txt_paid_title = findViewById(R.id.txt_paid_title);
 //        txt_discount_title = findViewById(R.id.txt_discount_title);
 //        txt_checkBox_amount = findViewById(R.id.checkBox_amount_txt_new_register);
         txt_button_photo = findViewById(R.id.txt_button_photo);
-        txt_img_count=findViewById(R.id.txt_img_count);
+        txt_img_count = findViewById(R.id.txt_img_count);
+        rl_show_shop_result = findViewById(R.id.rl_show_shop_result);
+        img_delete_shop_item = findViewById(R.id.img_delete_shop_item);
+
 
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
@@ -333,17 +346,21 @@ public class NewRegisterActivity extends CustomBaseActivity
         edtDate.setOnClickListener(this);
 //        rl_prize.setOnClickListener(this);
         rl_calander.setOnClickListener(this);
+        btn_present_purchase.setOnClickListener(this);
+        btn_online_purchase.setOnClickListener(this);
+        img_delete_shop_item.setOnClickListener(this);
+
+
 //        checkBox_precentage.setOnCheckedChangeListener(this);
 //        checkBox_amount.setOnCheckedChangeListener(this);
         linear_return_new_register.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
 //        rl_prize_info.setOnClickListener(this);
-        rl_spn_shop.setOnClickListener(this);
+//        rl_spn_shop.setOnClickListener(this);
         rl_photo.setOnClickListener(this);
 //        edt_discount.setEnabled(false);
 //        edt_discount.setText("");
     }
-
 
 
     @Override
@@ -355,14 +372,12 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.btn_register:
-                if(cameraPermissionGranted()){
+                if (cameraPermissionGranted()) {
                     sendRegisterData();
-                }else{
+                } else {
                     int request_code = 21;
                     askCameraPermission(request_code);
                 }
-
-
 
                 break;
 
@@ -405,15 +420,114 @@ public class NewRegisterActivity extends CustomBaseActivity
                 showInfoDialog(info_type);
                 break;
 
+
+            case R.id.btn_present_purchase:
+                spn_name = "present";
+                showShopListDialog(spn_name);
+                break;
+
+            case R.id.btn_online_purchase:
+                spn_name = "online";
+                showShopListDialog(spn_name);
+                break;
+
+            case R.id.img_delete_shop_item:
+                str_shop_id = "";
+                txt_shop_title.setText("");
+                rl_show_shop_result.setVisibility(View.GONE);
+                btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_active));
+                btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));
+
+                btn_online_purchase.setClickable(true);
+                btn_present_purchase.setClickable(true);
+
+                break;
+
+
 //            case R.id.rl_info_prize_new_register:
 //                info_type = "prize_info_new_register";
 //                showInfoDialog(info_type);
 //                break;
 
-            case R.id.rl_spn_shop:
-                showSearchableDialog();
-                break;
+//            case R.id.rl_spn_shop:
+//                showSearchableDialog();
+//                break;
         }
+    }
+
+    private void showShopListDialog(String spn_name) {
+
+//        List<SearchModel> searchList = new ArrayList<>();
+//        for (int i = 0; i <spinnerList.getData().size() ; i++) {
+//            searchList.add(new SearchModel(spinnerList.getData().get(i).getTitle(),spinnerList.getData().get(i).getId()));
+//        }
+
+
+        List<SearchModel> searchList = null;
+        if (spn_name.equals("online")) {
+            searchList = new ArrayList<>();
+            if (registerModel.data != null) {
+                for (int i = 0; i < registerModel.data.shop.size(); i++) {
+                    for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+                        if (registerModel.data.shop.get(i).get(j).online.equals("yes")) {
+                            searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
+                                    registerModel.data.shop.get(i).get(j).id));
+                        }
+
+                    }
+                }
+            } else if (shoppingEditModel.data != null) {
+                for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+                    for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+                        if (registerModel.data.shop.get(i).get(j).online.equals("yes")) {
+                            searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
+                                    shoppingEditModel.data.shop.get(i).get(j).id));
+                        }
+
+                    }
+                }
+            }
+
+        } else if (spn_name.equals("present")) {
+
+            searchList = new ArrayList<>();
+            if (registerModel.data != null) {
+                for (int i = 0; i < registerModel.data.shop.size(); i++) {
+                    for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+                        if (registerModel.data.shop.get(i).get(j).online.equals("no")) {
+                            searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
+                                    registerModel.data.shop.get(i).get(j).id));
+                        }
+
+                    }
+                }
+            } else if (shoppingEditModel.data != null) {
+                for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+                    for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+                        if (registerModel.data.shop.get(i).get(j).online.equals("no")) {
+                            searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
+                                    shoppingEditModel.data.shop.get(i).get(j).id));
+                        }
+                    }
+                }
+            }
+        }
+
+
+        DialogFactory dialogFactory = new DialogFactory(NewRegisterActivity.this);
+
+        dialogFactory.createOnline_Present_PurchaseListDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register, searchList, this, spn_name);
     }
 
 
@@ -456,15 +570,15 @@ public class NewRegisterActivity extends CustomBaseActivity
             img1.setImageBitmap(bm1);
             img_delete1.setVisibility(View.VISIBLE);
             image_count1 = 1;
-        }else if(bm1==null && shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_1.equals("")){
+        } else if (bm1 == null && shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_1.equals("")) {
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_1).centerCrop().into(img1);
                 strBm1 = null;
                 img_delete1.setVisibility(View.VISIBLE);
 
                 image_count1 = 1;
             }
-        }else if(bm1!=null && shoppingEditModel.data!=null){
+        } else if (bm1 != null && shoppingEditModel.data != null) {
             img1.setImageBitmap(bm1);
             img_delete1.setVisibility(View.VISIBLE);
             image_count1 = 1;
@@ -478,66 +592,60 @@ public class NewRegisterActivity extends CustomBaseActivity
         if (bm2 != null && shoppingEditModel.data == null) {
             img2.setImageBitmap(bm2);
             img_delete2.setVisibility(View.VISIBLE);
-            image_count2= 1;
-        }else if(bm2==null && shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_2.equals("")){
+            image_count2 = 1;
+        } else if (bm2 == null && shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_2.equals("")) {
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_2).centerCrop().into(img2);
                 strBm2 = null;
                 img_delete2.setVisibility(View.VISIBLE);
                 image_count2 = 1;
             }
-        }else if(bm2!=null && shoppingEditModel.data!=null){
+        } else if (bm2 != null && shoppingEditModel.data != null) {
             img2.setImageBitmap(bm2);
             img_delete2.setVisibility(View.VISIBLE);
-            image_count2= 1;
+            image_count2 = 1;
         }
-
 
 
         if (bm3 != null && shoppingEditModel.data == null) {
             img3.setImageBitmap(bm3);
             img_delete3.setVisibility(View.VISIBLE);
-            image_count3= 1;
-        }else if(bm3==null && shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_3.equals("")){
+            image_count3 = 1;
+        } else if (bm3 == null && shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_3.equals("")) {
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_3).centerCrop().into(img3);
                 strBm3 = null;
                 img_delete3.setVisibility(View.VISIBLE);
-                image_count3= 1;
+                image_count3 = 1;
             }
-        }else if(bm3!=null && shoppingEditModel.data!=null){
+        } else if (bm3 != null && shoppingEditModel.data != null) {
             img3.setImageBitmap(bm3);
             img_delete3.setVisibility(View.VISIBLE);
-            image_count3= 1;
+            image_count3 = 1;
         }
-
 
 
         if (bm4 != null && shoppingEditModel.data == null) {
             img4.setImageBitmap(bm4);
             img_delete4.setVisibility(View.VISIBLE);
-            image_count4= 1;
-        }else if(bm4==null && shoppingEditModel.data!=null){
-            if(!shoppingEditModel.data.shopping.image_4.equals("")){
+            image_count4 = 1;
+        } else if (bm4 == null && shoppingEditModel.data != null) {
+            if (!shoppingEditModel.data.shopping.image_4.equals("")) {
                 Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_4).centerCrop().into(img4);
                 strBm4 = null;
                 img_delete4.setVisibility(View.VISIBLE);
-                image_count4= 1;
+                image_count4 = 1;
             }
-        }else if(bm4!=null && shoppingEditModel.data!=null){
+        } else if (bm4 != null && shoppingEditModel.data != null) {
             img4.setImageBitmap(bm4);
             img_delete4.setVisibility(View.VISIBLE);
-            image_count4= 1;
+            image_count4 = 1;
         }
 
 
 //        if(bm1==null && !shoppingEditModel.data.shopping.image1.equals("")){
 //            Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image1).centerCrop().into(img1);
 //        }
-
-
-
-
 
 
         if (dialog.getWindow() != null) {
@@ -569,9 +677,9 @@ public class NewRegisterActivity extends CustomBaseActivity
             img1.setImageDrawable(null);
             img_delete1.setVisibility(View.GONE);
 
-            image_count1= 0;
+            image_count1 = 0;
 
-            if(shoppingEditModel.data!=null){
+            if (shoppingEditModel.data != null) {
                 shoppingEditModel.data.shopping.image_1 = ""; // to dosent download url again
             }
 
@@ -583,9 +691,9 @@ public class NewRegisterActivity extends CustomBaseActivity
             bm2 = null;
             img2.setImageDrawable(null);
             img_delete2.setVisibility(View.GONE);
-            image_count2= 0;
+            image_count2 = 0;
 
-            if(shoppingEditModel.data!=null) {
+            if (shoppingEditModel.data != null) {
                 shoppingEditModel.data.shopping.image_2 = ""; // to dosent download url again
             }
 
@@ -596,9 +704,9 @@ public class NewRegisterActivity extends CustomBaseActivity
             bm3 = null;
             img3.setImageDrawable(null);
             img_delete3.setVisibility(View.GONE);
-            image_count3= 0;
+            image_count3 = 0;
 
-            if(shoppingEditModel.data!=null) {
+            if (shoppingEditModel.data != null) {
                 shoppingEditModel.data.shopping.image_3 = ""; // to dosent download url again
             }
 
@@ -609,27 +717,25 @@ public class NewRegisterActivity extends CustomBaseActivity
             strBm4 = "deleted";
             img4.setImageDrawable(null);
             img_delete4.setVisibility(View.GONE);
-            image_count4= 0;
+            image_count4 = 0;
 
-            if(shoppingEditModel.data!=null) {
+            if (shoppingEditModel.data != null) {
                 shoppingEditModel.data.shopping.image_4 = ""; // to dosent download url again
             }
         });
 
 
-
-
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
 
-            int total_img_count = image_count1+image_count2+image_count3+image_count4;
+            int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
 
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
 
-            if(total_img_count >0){
+            if (total_img_count > 0) {
                 txt_img_count.setVisibility(View.VISIBLE);
                 txt_img_count.setText(String.format("+%s", img_count));
-            }else {
+            } else {
                 txt_img_count.setVisibility(View.GONE);
             }
 
@@ -638,25 +744,21 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         btn_close.setOnClickListener(v -> {
             dialog.dismiss();
-            int total_img_count = image_count1+image_count2+image_count3+image_count4;
+            int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
 
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
 
-            if(total_img_count >0){
+            if (total_img_count > 0) {
                 txt_img_count.setVisibility(View.VISIBLE);
                 txt_img_count.setText(String.format("+%s", img_count));
-            }else {
+            } else {
                 txt_img_count.setVisibility(View.GONE);
             }
 
-                });
+        });
 
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-
-
-
-
 
 
     }
@@ -680,63 +782,63 @@ public class NewRegisterActivity extends CustomBaseActivity
                 bm1 = r.getBitmap();
                 strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
                 img_delete1.setVisibility(View.VISIBLE);
-                image_count1=1;
+                image_count1 = 1;
             } else if (status == 2) {
                 img2.setImageBitmap(r.getBitmap());
                 bm2 = r.getBitmap();
                 strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
                 img_delete2.setVisibility(View.VISIBLE);
-                image_count2=1;
+                image_count2 = 1;
             } else if (status == 3) {
                 img3.setImageBitmap(r.getBitmap());
                 bm3 = r.getBitmap();
                 strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
                 img_delete3.setVisibility(View.VISIBLE);
-                image_count3=1;
+                image_count3 = 1;
             } else if (status == 4) {
                 img4.setImageBitmap(r.getBitmap());
                 bm4 = r.getBitmap();
                 strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
                 img_delete4.setVisibility(View.VISIBLE);
-                image_count4=1;
+                image_count4 = 1;
             }
 
         }
     }
 
 
-    private void showSearchableDialog() {
-
-        List<SearchModel> searchList = new ArrayList<>();
-        if (registerModel.data != null) {
-            for (int i = 0; i < registerModel.data.shop.size(); i++) {
-                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
-                    searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
-                            registerModel.data.shop.get(i).get(j).id));
-                }
-            }
-        } else if (shoppingEditModel.data != null) {
-            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
-                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-                    searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
-                            shoppingEditModel.data.shop.get(i).get(j).id));
-                }
-            }
-        }
-
-        dialogFactory.createSearchableDialog(new DialogFactory.DialogFactoryInteraction() {
-            @Override
-            public void onAcceptButtonClicked(String... params) {
-
-
-            }
-
-            @Override
-            public void onDeniedButtonClicked(boolean bool) {
-
-            }
-        }, layout_register, searchList, this);
-    }
+//    private void showSearchableDialog() {
+//
+//        List<SearchModel> searchList = new ArrayList<>();
+//        if (registerModel.data != null) {
+//            for (int i = 0; i < registerModel.data.shop.size(); i++) {
+//                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
+//                    searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
+//                            registerModel.data.shop.get(i).get(j).id));
+//                }
+//            }
+//        } else if (shoppingEditModel.data != null) {
+//            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
+//                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
+//                    searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
+//                            shoppingEditModel.data.shop.get(i).get(j).id));
+//                }
+//            }
+//        }
+//
+//        dialogFactory.createSearchableDialog(new DialogFactory.DialogFactoryInteraction() {
+//            @Override
+//            public void onAcceptButtonClicked(String... params) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onDeniedButtonClicked(boolean bool) {
+//
+//            }
+//        }, layout_register, searchList, this);
+//    }
 
 
     private void showInfoDialog(String info_type) {
@@ -929,7 +1031,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         SendRegisterTotalData sendData = new SendRegisterTotalData();
         sendData.setMember(editMembers);
         sendData.setPrize(sendPrizes);
-        sendData.setShop_id(str_spnItemId);
+        sendData.setShop_id(str_shop_id);
         sendData.setCost(total_amount);
 //        sendData.setPaid(total_paid);
         sendData.setLat(Cache.getString(NewRegisterActivity.this, "lat"));
@@ -1094,24 +1196,24 @@ public class NewRegisterActivity extends CustomBaseActivity
         SendUpdateTotalData sendData = new SendUpdateTotalData();
         sendData.setMember(editMembers);
         sendData.setPrize(sendPrizes);
-        sendData.setShop_id(str_spnItemId);
+        sendData.setShop_id(str_shop_id);
         sendData.setCost(total_amount);
 //        sendData.setPaid(total_paid);
 
 
-        if(strBm1!=null){
+        if (strBm1 != null) {
             sendData.setImage_1(strBm1);
         }
 
-        if(strBm2!=null){
+        if (strBm2 != null) {
             sendData.setImage_2(strBm2);
         }
 
-        if(strBm3!=null){
+        if (strBm3 != null) {
             sendData.setImage_3(strBm3);
         }
 
-        if(strBm4!=null){
+        if (strBm4 != null) {
             sendData.setImage_4(strBm4);
         }
 
@@ -1337,7 +1439,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             } else {
                 Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
             }
-        }else if(requestCode == 21){
+        } else if (requestCode == 21) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 sendRegisterData();
             } else {
@@ -1364,9 +1466,27 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     @Override
     public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
-        txt_spinner_title.setText(model.getTitle());
-        str_spnItemId = model.getId();
+        rl_show_shop_result.setVisibility(View.VISIBLE);
+        txt_shop_title.setText(model.getTitle());
+        str_shop_id = model.getId();
         dialog.dismiss();
+
+        if(spn_name.equals("online")){
+            btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));
+            btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_deactive));
+            btn_online_purchase.setClickable(true);
+            btn_present_purchase.setClickable(false);
+
+        }
+
+        if(spn_name.equals("present")){
+            btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_active));
+            btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_deactive));
+            btn_present_purchase.setClickable(true);
+            btn_online_purchase.setClickable(false);
+        }
+
+
     }
 }
 

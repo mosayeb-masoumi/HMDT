@@ -196,7 +196,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
 //        recycler_prize = findViewById(R.id.recycler_prize);
         rl_addmember = findViewById(R.id.rl_addmember);
-        rl_spn_shop = findViewById(R.id.rl_spn_shop);
+//        rl_spn_shop = findViewById(R.id.rl_spn_shop);
 //        rl_prize = findViewById(R.id.rl_prize);
         rl_root = findViewById(R.id.layout_edit_product_detail);
         rl_home = findViewById(R.id.rl_home_edit_product_detail);

@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp">
+        android:layout_height="400dp">
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -46,5 +46,18 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_exit_dialog_shop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/dialog_btn_shape"
+        android:gravity="center"
+        android:text="@string/pushe_close_dialog"
+        android:textColor="@color/blue"
+        android:textSize="14sp" />
 
 </LinearLayout>

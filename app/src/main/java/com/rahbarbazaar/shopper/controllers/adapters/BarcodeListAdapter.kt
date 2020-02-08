@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.shopper.controllers.interfaces.BarcodeItemInteraction
 import com.rahbarbazaar.shopper.controllers.viewholders.BarcodeListViewHolder
+import com.rahbarbazaar.shopper.models.barcodlist.Barcode
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData
 
 class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val context: Context, dialog: AlertDialog) :
@@ -28,7 +29,7 @@ class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val 
 
         val model = barcodeList[position]
         holder.bindUserData(model)
-        holder.setOnBarcodeListHolderListener(listener, model,position)
+        holder.setOnBarcodeListHolderListener(listener, model,position )
     }
 
     private var listener: BarcodeItemInteraction? = null

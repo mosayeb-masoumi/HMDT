@@ -273,6 +273,7 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
 
         Intent intent = new Intent(QRcodeActivity1.this, PurchasedItemActivityNew.class);
         intent.putExtra("position", position);
+        intent.putExtra("barcodeList", model);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         finish();

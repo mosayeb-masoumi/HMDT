@@ -864,10 +864,10 @@ public class DialogFactory {
 
 
         //set recyclerview
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
-//        adapter.setListener(newRegisterActivity);
-//        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, "searchable");
+        adapter.setListener(newRegisterActivity);
+        recyclerView.setAdapter(adapter);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -1096,6 +1096,47 @@ public class DialogFactory {
 //            listener.onDeniedButtonClicked(false);
         });
 
+
+        dialog.show();
+    }
+
+
+
+    public void createOnline_Present_PurchaseListDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,
+                                                        List<SearchModel> searchList, NewRegisterActivity newRegisterActivity, String spn_name) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
+
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
+        Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+
+        //set recyclerview
+        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog,spn_name);
+        adapter.setListener(newRegisterActivity);
+        recyclerView.setAdapter(adapter);
+
+
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+//            listener.onDeniedButtonClicked(false);
+        });
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }

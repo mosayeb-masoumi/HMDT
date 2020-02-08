@@ -87,6 +87,8 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
             barcodeList.add(BarcodeData(barcode.data!![i].id,barcode.data!![i].mygroup,
                     barcode.data!![i].barcode,barcode.data!![i].decription,barcode.data!![i].unit,barcode.data!![i].barcodeDetail))
 
+
+
         }
 
         val recyclerview: RecyclerView = findViewById(R.id.recycler_barcodelist)
