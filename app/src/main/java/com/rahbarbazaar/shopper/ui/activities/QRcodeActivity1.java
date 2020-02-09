@@ -1,5 +1,6 @@
 package com.rahbarbazaar.shopper.ui.activities;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -269,11 +270,11 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
     }
 
     @Override
-    public void barcodeListOnClicked(@NotNull BarcodeData model, int position) {
+    public void barcodeListOnClicked(@NotNull BarcodeData model, int position, @NotNull Barcode barcode, @NotNull AlertDialog dialog) {
 
         Intent intent = new Intent(QRcodeActivity1.this, PurchasedItemActivityNew.class);
         intent.putExtra("position", position);
-        intent.putExtra("barcodeList", model);
+        intent.putExtra("barcodeList", barcode);
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         finish();

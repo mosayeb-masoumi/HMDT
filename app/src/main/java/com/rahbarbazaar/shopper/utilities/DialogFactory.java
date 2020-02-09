@@ -58,7 +58,6 @@ public class DialogFactory {
 
 
 
-
 //    private int status;
 //    private Bitmap bm1, bm2, bm3, bm4;
 //    private String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
@@ -1047,7 +1046,7 @@ public class DialogFactory {
 
         //set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog);
+        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog ,barcode);
         adapter.setListener(qRcodeActivity1);
         recyclerView.setAdapter(adapter);
 
@@ -1061,6 +1060,52 @@ public class DialogFactory {
         dialog.show();
 
     }
+
+
+    public void createBarcodeResultListUnreadableDialog(DialogFactoryInteraction listener, RelativeLayout view, Barcode barcode,
+                                                        PurchasedItemActivityNew purchasedItemActivityNew) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_result_list_dialog, (ViewGroup) view, false);
+
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDialog);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        List<BarcodeData> barcodeList = new ArrayList<>();
+
+        for (int i = 0; i < barcode.getData().size(); i++) {
+
+            barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
+                    barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
+                    barcode.getData().get(i).getUnit(),barcode.getData().get(i).getBarcodeDetail()));
+        }
+
+
+        //set recyclerview
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog ,barcode);
+        adapter.setListener(purchasedItemActivityNew);
+        recyclerView.setAdapter(adapter);
+
+
+        img_close.setOnClickListener(v -> {
+            dialog.dismiss();
+            listener.onDeniedButtonClicked(false);
+        });
+
+
+        dialog.show();
+    }
+
 
 
     public void createSpnListDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,

@@ -1,5 +1,6 @@
 package com.rahbarbazaar.shopper.ui.activities
 
+import android.app.AlertDialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -103,7 +104,7 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
     }
 
 
-    override fun barcodeListOnClicked(model: BarcodeData, state: Int) {
+    override fun barcodeListOnClicked(model: BarcodeData, state: Int, barcode: Barcode, dialog: AlertDialog) {
 
 //        when (state) {
 //            "btnDetail" -> {
