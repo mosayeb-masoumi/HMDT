@@ -1012,7 +1012,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     // initializing edited member list
     public void updateEditMemberList(ArrayList<RegisterMemberEditModel> editMembers) {
 
-        recyclerEditedMember.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 3));
+        recyclerEditedMember.setLayoutManager(new GridLayoutManager(NewRegisterActivity.this, 2));
         adapter_edited = new RegisterMemberEditAdapter(editMembers, NewRegisterActivity.this);
         recyclerEditedMember.setAdapter(adapter_edited);
     }

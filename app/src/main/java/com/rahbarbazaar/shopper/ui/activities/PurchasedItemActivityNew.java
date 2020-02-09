@@ -217,6 +217,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         GroupsData spinnerList_unreadable = new GroupsData();
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
 
+        ll_questions.setVisibility(View.GONE);
+
 
     }
 
