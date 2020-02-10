@@ -1065,7 +1065,6 @@ public class DialogFactory {
             listener.onDeniedButtonClicked(false);
         });
 
-
         btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
