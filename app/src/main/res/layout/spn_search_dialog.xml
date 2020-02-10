@@ -46,18 +46,60 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_exit_dialog_shop"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:background="@drawable/dialog_btn_shape"
-        android:gravity="center"
-        android:text="@string/pushe_close_dialog"
-        android:textColor="@color/blue"
-        android:textSize="14sp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ll_etc">
+
+            <Button
+                android:id="@+id/btn_exit_dialog_shop"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/dialog_btn_shape"
+                android:text="@string/pushe_close_dialog"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btn_etc"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginStart="2dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/dialog_btn_shape"
+                android:text="سایر"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+
+
+            <Button
+                android:id="@+id/btn_exit_dialog_shop1"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/dialog_btn_shape"
+                android:text="@string/pushe_close_dialog"
+                android:textColor="@color/blue"
+                android:textSize="14sp" />
+
+
+
+    </RelativeLayout>
 
 </LinearLayout>

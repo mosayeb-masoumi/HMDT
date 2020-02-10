@@ -58,6 +58,7 @@ public class DialogFactory {
 
 
 
+
 //    private int status;
 //    private Bitmap bm1, bm2, bm3, bm4;
 //    private String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
@@ -1024,6 +1025,9 @@ public class DialogFactory {
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDialog);
 
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        Button btn_new_registeration = customLayout.findViewById(R.id.btn_new_register_barcode_list_dialog);
+
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1051,11 +1055,18 @@ public class DialogFactory {
         recyclerView.setAdapter(adapter);
 
 
+        btn_new_registeration.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
             listener.onDeniedButtonClicked(false);
         });
 
+
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
 
@@ -1069,6 +1080,9 @@ public class DialogFactory {
 
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDialog);
+
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        Button btn_new_registeration = customLayout.findViewById(R.id.btn_new_register_barcode_list_dialog);
 
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -1097,25 +1111,46 @@ public class DialogFactory {
         recyclerView.setAdapter(adapter);
 
 
+        btn_new_registeration.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
             listener.onDeniedButtonClicked(false);
         });
 
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
 
 
-
-    public void createSpnListDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,
-                                    List<SearchModel> searchList, PurchasedItemActivityNew purchasedItemActivityNew, String spn_name) {
+    public void createSpnListDialog(DialogFactoryInteraction listner, RelativeLayout view,
+                                    List<SearchModel> searchList, PurchasedItemActivityNew purchasedItemActivityNew,
+                                    String spn_name ,String title) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
 
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
+        Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
+        Button btn_close1 = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
+        Button btn_etc = customLayout.findViewById(R.id.btn_etc);
 
+        LinearLayout ll_etc = customLayout.findViewById(R.id.ll_etc);
+
+        if(spn_name.equals("spn_group")){
+            ll_etc.setVisibility(View.GONE);
+            btn_close1.setVisibility(View.VISIBLE);
+        }else{
+            ll_etc.setVisibility(View.VISIBLE);
+            btn_close1.setVisibility(View.GONE);
+        }
+
+        txt_header.setText(title);
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1126,8 +1161,6 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
-
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -1136,11 +1169,18 @@ public class DialogFactory {
         recyclerView.setAdapter(adapter);
 
 
+        btn_etc.setOnClickListener(v -> {
+            listner.onAcceptButtonClicked(spn_name,title);
+            dialog.dismiss();
+        });
+
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
 //            listener.onDeniedButtonClicked(false);
         });
 
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close1.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
@@ -1184,6 +1224,49 @@ public class DialogFactory {
         btn_close.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
+    }
+
+
+    public void createEtcSpnListDialog(DialogFactoryInteraction listener, RelativeLayout view,
+                                       PurchasedItemActivityNew purchasedItemActivityNew, String spn_nam, String dialog_title) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) view, false);
+
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        EditText edt_description = customLayout.findViewById(R.id.edt_description);
+        Button btn_close = customLayout.findViewById(R.id.btn_cancel_dialog);
+        Button btn_register = customLayout.findViewById(R.id.btn_send_dialog);
+
+
+        btn_register.setText("ثبت");
+
+        txt_header.setText(dialog_title);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+
+        btn_register.setOnClickListener(v -> {
+            String description = edt_description.getText().toString();
+            listener.onAcceptButtonClicked(description);
+            dialog.dismiss();
+        });
+
+
+        dialog.show();
+
+
     }
 
 

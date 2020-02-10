@@ -46,6 +46,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/rl_register_barcode"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -245,7 +246,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:text="مقدار/تعداد"
                                 android:textColor="@color/grey"
                                 android:textSize="14sp" />
 
@@ -287,7 +287,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_marginStart="10dp"
-                                android:text="نوع"
                                 android:textColor="@color/grey"
                                 android:textSize="14sp" />
 
@@ -613,7 +612,7 @@
                 android:layout_marginEnd="10dp">
 
                 <RelativeLayout
-                    android:id="@+id/rl_img_purchased"
+                    android:id="@+id/rl_photo_purchased"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
@@ -668,12 +667,11 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/img_count_purchased"
+                    android:id="@+id/txt_img_count_purchased"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
-                    android:text="+2"
                     android:textColor="@color/blue_dark"
                     android:textSize="16sp" />
 

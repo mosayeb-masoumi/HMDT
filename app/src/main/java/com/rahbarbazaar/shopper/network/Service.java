@@ -24,6 +24,7 @@ import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemNoProductResul
 import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemData;
 import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemNoProductData;
+import com.rahbarbazaar.shopper.models.purchased_spinners.SpinnersModel;
 import com.rahbarbazaar.shopper.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.shopper.models.register.GetShopId;
 import com.rahbarbazaar.shopper.models.register.RegisterModel;
@@ -174,7 +175,7 @@ public interface Service {
     Call<GroupsData> getSubCategorySpnData(@Query("category_id") String category_id);
 
     @POST("Search/Brand")
-    Call<GroupsData> getBrandSpnData(@Query("category_id") String category_id);
+    Call<SpinnersModel> getSpinnersData(@Query("category_id") String category_id);
 
 
     @POST("Search/Product")

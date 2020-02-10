@@ -244,7 +244,7 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
                     var groupsData = GroupsData()
 
                     groupsData = response.body()!!
-                    setSpnSubCategory(groupsData)
+//                    setSpnSubCategory(groupsData)
                     avi_subCategory_spn.visibility = View.GONE
 
                 } else if (response.code() == 204) {
@@ -268,79 +268,76 @@ class SearchActivity : CustomBaseActivity(), View.OnClickListener {
         })
     }
 
-    private fun setSpnSubCategory(groupsData: GroupsData) {
-        txt_spn_subCategory.setTextColor(resources.getColor(R.color.blue_dark))
-        rl_spn_sub_category.setBackgroundResource(R.drawable.bg_prize_item)
+//    private fun setSpnSubCategory(groupsData: GroupsData) {
+//        txt_spn_subCategory.setTextColor(resources.getColor(R.color.blue_dark))
+//        rl_spn_sub_category.setBackgroundResource(R.drawable.bg_prize_item)
+//
+//        val subCategoryTitleList: MutableList<String> = ArrayList()
+//
+//        for (i in groupsData.data!!.indices) {
+//            subCategoryTitleList.add(groupsData.data!![i].title!!)
+//        }
+//
+//        val adapter = ArrayAdapter(this, R.layout.custom_spinner, subCategoryTitleList)
+//        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
+//        spn_sub_category.adapter = adapter
+//
+//        spn_sub_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//
+//                val title = spn_sub_category.selectedItem.toString()
+//
+//                when {
+//                    position > 0 -> {
+//
+//                        for (i in groupsData.data!!.indices) {
+//                            if (groupsData.data!![i].title == title) {
+//                                sub_category_id = groupsData.data!![i].id!!
+//                                getBrandList(sub_category_id)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//
+//            }
+//        }
+//
+//    }
 
-        val subCategoryTitleList: MutableList<String> = ArrayList()
-
-        for (i in groupsData.data!!.indices) {
-            subCategoryTitleList.add(groupsData.data!![i].title!!)
-        }
-
-        val adapter = ArrayAdapter(this, R.layout.custom_spinner, subCategoryTitleList)
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown)
-        spn_sub_category.adapter = adapter
-
-        spn_sub_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                val title = spn_sub_category.selectedItem.toString()
-
-                when {
-                    position > 0 -> {
-
-                        for (i in groupsData.data!!.indices) {
-                            if (groupsData.data!![i].title == title) {
-                                sub_category_id = groupsData.data!![i].id!!
-                                getBrandList(sub_category_id)
-                            }
-                        }
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-
-    }
-
-    private fun getBrandList(spnSub_categoryID: String) {
-        avi_brand_spn.visibility = View.VISIBLE
-        val service = ServiceProvider(this).getmService()
-        val call = service.getBrandSpnData(spnSub_categoryID)
-        call.enqueue(object : Callback<GroupsData> {
-            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
-                if (response.code() == 200) {
-
-                    var groupsData = GroupsData()
-                    groupsData = response.body()!!
-                    setSpnBrand(groupsData)
-                    avi_brand_spn.visibility = View.GONE
-
-                } else if (response.code() == 204) {
-//                    val intent = Intent(this@SearchActivity, PurchasedItemsActivity::class.java)
-//                    intent.putExtra("no_searchedList", "no_searchedList")
-//                    startActivity(intent)
-//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    showNoSearchResultDialog()
-                    btn_register_search.visibility = View.VISIBLE
-                    avi_register_search.visibility = View.GONE
-                    avi_brand_spn.visibility = View.GONE
-                } else {
-                    Toast.makeText(this@SearchActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-                    avi_brand_spn.visibility = View.GONE
-                }
-            }
-
-            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
-                Toast.makeText(this@SearchActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-                avi_brand_spn.visibility = View.GONE
-            }
-        })
-    }
+//    private fun getBrandList(spnSub_categoryID: String) {
+//        avi_brand_spn.visibility = View.VISIBLE
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.getBrandSpnData(spnSub_categoryID)
+//        call.enqueue(object : Callback<GroupsData> {
+//            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
+//                if (response.code() == 200) {
+//
+//                    var groupsData = GroupsData()
+//                    groupsData = response.body()!!
+//                    setSpnBrand(groupsData)
+//                    avi_brand_spn.visibility = View.GONE
+//
+//                } else if (response.code() == 204) {
+//
+//                    showNoSearchResultDialog()
+//                    btn_register_search.visibility = View.VISIBLE
+//                    avi_register_search.visibility = View.GONE
+//                    avi_brand_spn.visibility = View.GONE
+//                } else {
+//                    Toast.makeText(this@SearchActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                    avi_brand_spn.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
+//                Toast.makeText(this@SearchActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//                avi_brand_spn.visibility = View.GONE
+//            }
+//        })
+//    }
 
     private fun showNoSearchResultDialog() {
 

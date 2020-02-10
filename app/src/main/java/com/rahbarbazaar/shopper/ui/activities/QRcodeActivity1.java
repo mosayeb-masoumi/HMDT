@@ -247,6 +247,11 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
             @Override
             public void onAcceptButtonClicked(String... params) {
 
+                Intent intent = new Intent(QRcodeActivity1.this, PurchasedItemActivityNew.class);
+                intent.putExtra("unreadable_barcode", "unreadable_barcode");
+                startActivity(intent);
+                finish();
+
             }
 
             @Override
