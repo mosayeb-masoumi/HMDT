@@ -69,8 +69,6 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     Barcode barcode = new Barcode();
                     barcode = response.body();
 
-
-
                     RxBus.BarcodeList.publishBarcodeList(barcode);
 
                     int size = barcode.getData().size();
@@ -90,8 +88,15 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
                         Intent intent = new Intent(getContext(),PurchasedItemActivityNew.class);
                         intent.putExtra("barcodeList", barcode);
+                        intent.putExtra("product_id",barcode.getData().get(0).getId());
+                        intent.putExtra("mygroup",barcode.getData().get(0).getMygroup());
+
                         startActivity(intent);
                         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                        state.setState("stop_loading");
+                        EventBus.getDefault().postSticky(state);
+
                         getActivity().finish();
 
                     }

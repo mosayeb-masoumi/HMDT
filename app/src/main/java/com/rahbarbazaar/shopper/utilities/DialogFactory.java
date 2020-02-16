@@ -57,8 +57,6 @@ public class DialogFactory {
     private Context context;
 
 
-
-
 //    private int status;
 //    private Bitmap bm1, bm2, bm3, bm4;
 //    private String strBm1 = "", strBm2 = "", strBm3 = "", strBm4 = "";
@@ -1044,13 +1042,13 @@ public class DialogFactory {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
-                    barcode.getData().get(i).getUnit(),barcode.getData().get(i).getBarcodeDetail()));
+                    barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }
 
 
         //set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog ,barcode);
+        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog, barcode);
         adapter.setListener(qRcodeActivity1);
         recyclerView.setAdapter(adapter);
 
@@ -1064,6 +1062,7 @@ public class DialogFactory {
             dialog.dismiss();
             listener.onDeniedButtonClicked(false);
         });
+
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
 
@@ -1099,13 +1098,13 @@ public class DialogFactory {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
-                    barcode.getData().get(i).getUnit(),barcode.getData().get(i).getBarcodeDetail()));
+                    barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }
 
 
         //set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog ,barcode);
+        BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog, barcode);
         adapter.setListener(purchasedItemActivityNew);
         recyclerView.setAdapter(adapter);
 
@@ -1128,7 +1127,7 @@ public class DialogFactory {
 
     public void createSpnListDialog(DialogFactoryInteraction listner, RelativeLayout view,
                                     List<SearchModel> searchList, PurchasedItemActivityNew purchasedItemActivityNew,
-                                    String spn_name ,String title) {
+                                    String spn_name, String title) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
 
@@ -1141,10 +1140,10 @@ public class DialogFactory {
 
         LinearLayout ll_etc = customLayout.findViewById(R.id.ll_etc);
 
-        if(spn_name.equals("spn_group")){
+        if (spn_name.equals("spn_group")) {
             ll_etc.setVisibility(View.GONE);
             btn_close1.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             ll_etc.setVisibility(View.VISIBLE);
             btn_close1.setVisibility(View.GONE);
         }
@@ -1163,13 +1162,13 @@ public class DialogFactory {
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog,spn_name);
+        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(purchasedItemActivityNew);
         recyclerView.setAdapter(adapter);
 
 
         btn_etc.setOnClickListener(v -> {
-            listner.onAcceptButtonClicked(spn_name,title);
+            listner.onAcceptButtonClicked(spn_name, title);
             dialog.dismiss();
         });
 
@@ -1183,7 +1182,6 @@ public class DialogFactory {
 
         dialog.show();
     }
-
 
 
     public void createOnline_Present_PurchaseListDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,
@@ -1206,11 +1204,10 @@ public class DialogFactory {
         }
 
 
-
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog,spn_name);
+        SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(newRegisterActivity);
         recyclerView.setAdapter(adapter);
 
@@ -1242,6 +1239,8 @@ public class DialogFactory {
 
         txt_header.setText(dialog_title);
 
+        edt_description.setHint(("لطفا عنوان ") + (dialog_title) + (" را بصورت کامل تایپ کنید"));
+
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1261,6 +1260,47 @@ public class DialogFactory {
             listener.onAcceptButtonClicked(description);
             dialog.dismiss();
         });
+
+
+        dialog.show();
+
+
+    }
+
+
+    public void createImageInfoDialog(DialogFactoryInteraction listener, RelativeLayout view,
+                                      String img1_link, String img2_link) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.image_info_dialog, (ViewGroup) view, false);
+
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        TextView txt_img1_info = customLayout.findViewById(R.id.txt_img1_info);
+        TextView txt_img2_info = customLayout.findViewById(R.id.txt_img2_info);
+        ImageView img1_info = customLayout.findViewById(R.id.img1_info);
+        ImageView img2_info = customLayout.findViewById(R.id.img2_info);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        Glide.with(Objects.requireNonNull(context)).load(img1_link).centerCrop().into(img1_info);
+        Glide.with(Objects.requireNonNull(context)).load(img2_link).centerCrop().into(img2_info);
+
+        txt_img1_info.setText("عکس از نمای بالا");
+        txt_img2_info.setText("عکس از نمای روبرو");
+        txt_header.setText("راهنمای عکس");
+
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
 
 
         dialog.show();

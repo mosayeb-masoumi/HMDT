@@ -225,9 +225,10 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
 
     private fun initView() {
         val unit: String? = intent.getStringExtra("unit")
-        product_id = intent.getStringExtra("product_id")
+
         mygroup = intent.getStringExtra("mygroup")
 //        shopping_id = Cache.getString("shopping_id")
+        product_id = intent.getStringExtra("product_id")
         shopping_id = Cache.getString(this@PurchasedItemsActivity, "shopping_id")
         txt_unit.text = unit
 
@@ -342,24 +343,24 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
         sendData.shopping_id = shopping_id
         sendData.amount = edt_amount.text.toString()
         sendData.cost = edt_price.text.toString()
-        sendData.paid = edt_paid.text.toString()
+//        sendData.paid = edt_paid.text.toString()
         sendData.product_id = product_id
         sendData.member = editMembers
 
-        if (sendPrizes.size != 0) {
-            sendData.prize = sendPrizes
-        }
+//        if (sendPrizes.size != 0) {
+//            sendData.prize = sendPrizes
+//        }
 
 
-        sendData.type = mygroup
+//        sendData.type = mygroup
 
-        if (checkBox_precentage.isChecked) {
-            sendData.discount_type = "percent"
-            sendData.discount_amount = edt_discount.text.toString()
-        } else if (checkBox_amount.isChecked) {
-            sendData.discount_type = "amount"
-            sendData.discount_amount = edt_discount.text.toString()
-        }
+//        if (checkBox_precentage.isChecked) {
+//            sendData.discount_type = "percent"
+//            sendData.discount_amount = edt_discount.text.toString()
+//        } else if (checkBox_amount.isChecked) {
+//            sendData.discount_type = "amount"
+//            sendData.discount_amount = edt_discount.text.toString()
+//        }
 
         val service = ServiceProvider(this).getmService()
         val call = service.getPurchaseItemResult(sendData)

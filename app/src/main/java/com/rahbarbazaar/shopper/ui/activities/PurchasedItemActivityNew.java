@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,9 +37,15 @@ import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberEditAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.BarcodeItemInteraction;
 import com.rahbarbazaar.shopper.controllers.interfaces.RegisterItemInteraction;
 import com.rahbarbazaar.shopper.controllers.interfaces.SearchItemInteraction;
+import com.rahbarbazaar.shopper.models.api_error.APIError422;
+import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
+import com.rahbarbazaar.shopper.models.api_error403.APIError403;
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
+import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemResult;
+import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemData;
 import com.rahbarbazaar.shopper.models.purchased_spinners.SpinnersModel;
+import com.rahbarbazaar.shopper.models.register.GetShopId;
 import com.rahbarbazaar.shopper.models.register.Member;
 import com.rahbarbazaar.shopper.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.shopper.models.search_goods.GroupsData;
@@ -46,6 +53,7 @@ import com.rahbarbazaar.shopper.models.searchable.SearchModel;
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
+import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.shopper.utilities.ConvertorBitmapToString;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
@@ -71,14 +79,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PurchasedItemActivityNew extends CustomBaseActivity implements View.OnClickListener,
-        SearchItemInteraction, BarcodeItemInteraction, RegisterItemInteraction, IPickResult {
+        SearchItemInteraction, BarcodeItemInteraction, RegisterItemInteraction, IPickResult, CompoundButton.OnCheckedChangeListener {
 
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
-    RelativeLayout rl_home, rl_readable_barcode, rl_description_purchased, rl_spn_group,
-            rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root, rl_add_member, rl_photo_purchased, rl_register_barcode;
+    RelativeLayout rl_home, rl_readable_barcode, rl_description_purchased, rl_spn_group, rl_info_img_new_register,
+            rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root, rl_add_member, rl_photo_purchased, rl_register_barcode, rl_photo_purchase_total, rl_info_member_new_register;
 
 
     LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode, ll_questions;
@@ -91,7 +99,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     String spn_name, str_spn_group_id, str_spn_brand_id, str_spn_type_id, str_spn_amount_id;
     String str_spn_group_title, str_spn_brand_title, str_spn_type_title, str_spn_amount_title;
-
+    String product_id, shopping_id, type;
 
     int barcodeListSize;
 
@@ -101,7 +109,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
     TextView txt_description_purchased, txt_group_purchase, txt_type_purchase, txt_brand_purchase, txt_img_count_purchased,
             txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_spn_brand_title, txt_spn_type_title, txt_spn_amount_title;
 
-    Button btn_confirmed, btn_no_confirmed;
+    //    Button btn_confirmed, btn_no_confirmed;
     ImageView img_register_barcode;
     AVLoadingIndicatorView avi_register_barcode;
 
@@ -117,6 +125,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     Context context;
 
+    EditText edt_cost_purchase, edt_amount_purchased;
 
     ImageView img1, img2, img3, img4, img_delete1, img_delete2, img_delete3, img_delete4;
     Bitmap bm1, bm2, bm3, bm4;
@@ -133,6 +142,15 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
 
     SpinnersModel spinnersModel = new SpinnersModel();
+
+
+    CheckBox chk_confirmed, chk_no_confirmed;
+    Button btn_register_purchased;
+    AVLoadingIndicatorView avi_register_purchased;
+
+
+    StringBuilder builderMember, builderCost, buliderAmount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,6 +274,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
 
         ll_questions.setVisibility(View.GONE);
+        rl_photo_purchase_total.setVisibility(View.GONE);
 
         img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
         img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
@@ -374,6 +393,11 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     private void initView() {
 
+        Intent intent = getIntent();
+        product_id = intent.getStringExtra("product_id");
+        type = intent.getStringExtra("mygroup");
+        shopping_id = Cache.getString(PurchasedItemActivityNew.this, "shopping_id");
+
         rl_home = findViewById(R.id.rl_home_Purchased_items);
         rl_return = findViewById(R.id.linear_return_qrcode);
         edt_barcode = findViewById(R.id.edt_barcode);
@@ -392,8 +416,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         img_register_barcode = findViewById(R.id.img_register_barcode);
 
 
-        btn_confirmed = findViewById(R.id.btn_confirmed);
-        btn_no_confirmed = findViewById(R.id.btn_no_confirmed);
+//        btn_confirmed = findViewById(R.id.btn_confirmed);
+//        btn_no_confirmed = findViewById(R.id.btn_no_confirmed);
         avi_register_barcode = findViewById(R.id.avi_register_barcode);
 
 
@@ -424,17 +448,40 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
 
+        rl_info_img_new_register = findViewById(R.id.rl_info_img_new_register);
+        chk_confirmed = findViewById(R.id.chk_confirmed);
+        chk_no_confirmed = findViewById(R.id.chk_no_confirmed);
+
+        btn_register_purchased = findViewById(R.id.btn_register_purchased);
+        avi_register_purchased = findViewById(R.id.avi_register_purchased);
+
+
+        edt_amount_purchased = findViewById(R.id.edt_amount_purchased);
+        edt_cost_purchase = findViewById(R.id.edt_cost_purchase);
+
+        rl_photo_purchase_total = findViewById(R.id.rl_photo_purchase_total);
+        rl_info_member_new_register = findViewById(R.id.rl_info_member_new_register);
+
         rl_home.setOnClickListener(this);
         rl_return.setOnClickListener(this);
         rl_spn_group.setOnClickListener(this);
         rl_spn_brand.setOnClickListener(this);
         rl_spn_type.setOnClickListener(this);
         rl_spn_amount.setOnClickListener(this);
-        btn_confirmed.setOnClickListener(this);
-        btn_no_confirmed.setOnClickListener(this);
+//        btn_confirmed.setOnClickListener(this);
+//        btn_no_confirmed.setOnClickListener(this);
         img_register_barcode.setOnClickListener(this);
         rl_add_member.setOnClickListener(this);
         rl_photo_purchased.setOnClickListener(this);
+
+
+        chk_confirmed.setOnCheckedChangeListener(this);
+        chk_no_confirmed.setOnCheckedChangeListener(this);
+
+        rl_info_img_new_register.setOnClickListener(this);
+
+        btn_register_purchased.setOnClickListener(this);
+        rl_info_member_new_register.setOnClickListener(this);
 
 
     }
@@ -537,13 +584,13 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 break;
 
 
-            case R.id.btn_confirmed:
-                ll_questions.setVisibility(View.VISIBLE);
-                break;
+//            case R.id.btn_confirmed:
+//                ll_questions.setVisibility(View.VISIBLE);
+//                break;
 
-            case R.id.btn_no_confirmed:
-                ll_questions.setVisibility(View.GONE);
-                break;
+//            case R.id.btn_no_confirmed:
+//                ll_questions.setVisibility(View.GONE);
+//                break;
 
             case R.id.img_register_barcode:
                 getListOfProducts();
@@ -567,9 +614,131 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 }
                 break;
 
+            case R.id.rl_info_img_new_register:
+                showImageInfoDialog();
+                break;
 
+
+            case R.id.btn_register_purchased:
+                send_product_data();
+                break;
+
+            case R.id.rl_info_member_new_register:
+
+                String info_type = "member_info_new_register";
+                showInfoDialog(info_type);
+                break;
         }
     }
+
+    private void showInfoDialog(String info_type) {
+
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createInfoMemberPrizeDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, rl_root, info_type);
+    }
+
+    private void send_product_data() {
+
+        avi_register_purchased.setVisibility(View.VISIBLE);
+        btn_register_purchased.setVisibility(View.GONE);
+
+
+        SendPurchasedItemData sendData = new SendPurchasedItemData();
+
+        sendData.setMember(editMembers);
+        sendData.setCost(edt_cost_purchase.getText().toString().trim());
+        sendData.setAmount(edt_amount_purchased.getText().toString().trim());
+        sendData.setProduct_id(product_id);
+        sendData.setShopping_id(shopping_id);
+        sendData.setType(type);
+
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<PurchaseItemResult> call = service.getPurchaseItemResult(sendData);
+        call.enqueue(new Callback<PurchaseItemResult>() {
+            @Override
+            public void onResponse(Call<PurchaseItemResult> call, Response<PurchaseItemResult> response) {
+
+                avi_register_purchased.setVisibility(View.GONE);
+                btn_register_purchased.setVisibility(View.VISIBLE);
+
+                if (response.code() == 200) {
+                    Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(PurchasedItemActivityNew.this, QRcodeActivity1.class));
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    finish();
+                } else if (response.code() == 422) {
+
+                    builderMember = null;
+                    builderCost = null;
+                    buliderAmount = null;
+
+
+                    APIError422 apiError = ErrorUtils.parseError422(response);
+
+
+                    if (apiError.errors.member != null) {
+                        builderMember = new StringBuilder();
+                        for (String a : apiError.errors.member) {
+                            builderMember.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.cost != null) {
+                        builderCost = new StringBuilder();
+                        for (String a : apiError.errors.cost) {
+                            builderCost.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (apiError.errors.amount != null) {
+                        buliderAmount = new StringBuilder();
+                        for (String a : apiError.errors.amount) {
+                            buliderAmount.append("").append(a).append(" ");
+                        }
+                    }
+
+                    if (builderMember != null) {
+                        Toast.makeText(PurchasedItemActivityNew.this, "" + builderMember, Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (builderCost != null) {
+                        Toast.makeText(PurchasedItemActivityNew.this, "" + builderCost, Toast.LENGTH_SHORT).show();
+                    }
+
+                    if (buliderAmount != null) {
+                        Toast.makeText(PurchasedItemActivityNew.this, "" + buliderAmount, Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PurchaseItemResult> call, Throwable t) {
+                avi_register_purchased.setVisibility(View.GONE);
+                btn_register_purchased.setVisibility(View.VISIBLE);
+                Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
 
     private void showPhotoDialog() {
 
@@ -821,6 +990,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     private void getListOfProducts() {
 
+
         img_register_barcode.setVisibility(View.GONE);
         avi_register_barcode.setVisibility(View.VISIBLE);
 
@@ -843,6 +1013,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
                         GroupsData spinnerList_unreadable = new GroupsData();
                         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
+                        product_id = barcodeList_unreadable.getData().get(0).getId();
+                        type = barcodeList_unreadable.getData().get(0).getMygroup();
 
 
                     } else if (barcodeList_unreadable.getData().size() > 1) {
@@ -851,16 +1023,25 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                         showBarcodeListDialog(barcode);
                     }
 
+                    rl_photo_purchase_total.setVisibility(View.GONE);
+                    chk_no_confirmed.setChecked(false);
+                    chk_confirmed.setChecked(false);
+
 
                 } else if (response.code() == 204) {
 
                     getSpinneList();
+                    rl_photo_purchase_total.setVisibility(View.VISIBLE);
+
+                    initializeSpinners();
+
 
                 } else if (response.code() == 406) {
                     Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(PurchasedItemActivityNew.this, MainActivity.class));
                     img_register_barcode.setVisibility(View.VISIBLE);
                     avi_register_barcode.setVisibility(View.GONE);
+                    rl_photo_purchase_total.setVisibility(View.GONE);
 
 
                 } else {
@@ -868,6 +1049,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                     Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                     img_register_barcode.setVisibility(View.VISIBLE);
                     avi_register_barcode.setVisibility(View.GONE);
+                    rl_photo_purchase_total.setVisibility(View.GONE);
 
                 }
 
@@ -880,8 +1062,32 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                         "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
                 img_register_barcode.setVisibility(View.VISIBLE);
                 avi_register_barcode.setVisibility(View.GONE);
+                rl_photo_purchase_total.setVisibility(View.GONE);
             }
         });
+
+    }
+
+    private void initializeSpinners() {
+
+        rl_spn_group.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
+        img_arrow_spinner_group.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
+        txt_spn_group_title.setTextColor(getResources().getColor(R.color.blue_dark));
+        txt_spn_group_title.setText("گروه");
+
+        rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));
+        img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
+        txt_spn_brand_title.setTextColor(getResources().getColor(R.color.grey));
+        txt_spn_brand_title.setText("برند");
+
+        rl_spn_type.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));
+        img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
+        txt_spn_type_title.setText("");
+
+
+        rl_spn_amount.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));
+        img_arrow_spinner_amount.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
+        txt_spn_amount_title.setText("");
 
     }
 
@@ -958,7 +1164,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 String spn_nam = params[0];
                 String dialog_title = params[1];
 
-                showEtcDialog(spn_nam,dialog_title);
+                showEtcDialog(spn_nam, dialog_title);
 
             }
 
@@ -972,8 +1178,6 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     private void showEtcDialog(String spn_nam, String dialog_title) {
 
-
-
         DialogFactory dialogFactory = new DialogFactory(PurchasedItemActivityNew.this);
         dialogFactory.createEtcSpnListDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
@@ -981,13 +1185,31 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
                 String description = params[0];
 
-                if(spn_nam.equals("spn_brand")){
+                if (spn_nam.equals("spn_brand")) {
                     txt_spn_brand_title.setText(description);
-                }else if(spn_nam.equals("spn_type")){
+                } else if (spn_nam.equals("spn_type")) {
                     txt_spn_type_title.setText(description);
-                }else if(spn_nam.equals("spn_group")){
+                } else if (spn_nam.equals("spn_amount")) {
                     txt_spn_amount_title.setText(description);
                 }
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, rl_root, this, spn_nam, dialog_title);
+    }
+
+    private void showImageInfoDialog() {
+
+        String img1_link = initMemberPrizeLists.data.help_pic_1;
+        String img2_link = initMemberPrizeLists.data.help_pic_2;
+
+        DialogFactory dialogFactory = new DialogFactory(PurchasedItemActivityNew.this);
+        dialogFactory.createImageInfoDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
 
 
             }
@@ -996,28 +1218,10 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
             public void onDeniedButtonClicked(boolean bool) {
 
             }
-        }, rl_root, this,spn_nam,dialog_title);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(connectivityReceiver);
-        super.onDestroy();
-//        disposable.dispose(); //very important  to avoid memory leak
+        }, rl_root, img1_link, img2_link);
 
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        disposable.dispose();
-    }
 
     @Override
     public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
@@ -1084,6 +1288,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
                     avi_register_barcode.setVisibility(View.GONE);
                     img_register_barcode.setVisibility(View.VISIBLE);
+                    ll_spinners.setVisibility(View.VISIBLE);
+                    ll_texts.setVisibility(View.GONE);
 
                 } else {
                     Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -1139,9 +1345,17 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                     txt_spn_group_title.setTextColor(getResources().getColor(R.color.blue_dark));
 
 
-                    rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
-                    img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
-                    txt_spn_brand_title.setTextColor(getResources().getColor(R.color.blue_dark));
+                    if (spinnersModel.data.brand.size() == 0) {
+                        rl_spn_brand.setClickable(false);
+                        rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));
+                        img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
+
+                    } else {
+
+                        rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
+                        img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
+                        txt_spn_brand_title.setTextColor(getResources().getColor(R.color.blue_dark));
+                    }
 
 
                     if (spinnersModel.data.oneData.size() == 0) {
@@ -1172,6 +1386,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                         txt_spn_amount_title.setText(spinnersModel.data.twoTitle);
                     }
 
+                    chk_confirmed.setChecked(false);
+                    chk_no_confirmed.setChecked(false);
 
                 } else {
                     Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -1202,6 +1418,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         Barcode barcodeList_unreadable = new Barcode();
         GroupsData spinnerList_unreadable = new GroupsData();
         barcodeList_unreadable = barcode;
+        product_id = barcode.getData().get(position1).getId();
+        type = barcode.getData().get(position1).getMygroup();
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
 
         dialog.dismiss();
@@ -1229,4 +1447,72 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
     }
 
 
+    @Override
+    public void onCheckedChanged(CompoundButton view, boolean isChecked) {
+
+        switch (view.getId()) {
+
+            case R.id.chk_confirmed:
+
+                if (chk_confirmed.isChecked()) {
+                    ll_questions.setVisibility(View.VISIBLE);
+
+                    rl_description_purchased.setVisibility(View.GONE);
+                    chk_confirmed.setChecked(true);
+                    chk_no_confirmed.setChecked(false);
+                } else if (!chk_confirmed.isChecked()) {
+                    ll_questions.setVisibility(View.GONE);
+                    chk_confirmed.setChecked(false);
+                    chk_no_confirmed.setChecked(false);
+                }
+
+                break;
+
+            case R.id.chk_no_confirmed:
+
+                if (chk_no_confirmed.isChecked()) {
+                    ll_questions.setVisibility(View.GONE);
+                    chk_confirmed.setChecked(false);
+                    chk_no_confirmed.setChecked(true);
+                    ll_texts.setVisibility(View.GONE);
+
+                    category_request++;  // to prevent crash
+                    ll_spinners.setVisibility(View.VISIBLE);
+
+                    initializeSpinners();
+
+
+
+
+
+                } else if (!chk_confirmed.isChecked()) {
+                    chk_no_confirmed.setChecked(false);
+                    chk_confirmed.setChecked(false);
+                }
+
+                break;
+
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(connectivityReceiver);
+        super.onDestroy();
+//        disposable.dispose(); //very important  to avoid memory leak
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        disposable.dispose();
+    }
 }

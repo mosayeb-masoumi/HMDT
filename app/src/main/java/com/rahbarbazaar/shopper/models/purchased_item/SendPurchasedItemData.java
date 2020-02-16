@@ -8,24 +8,24 @@ import java.util.List;
 
 public class SendPurchasedItemData {
 
-    private List<SendPrize> prize = new ArrayList<>();
+//    private List<SendPrize> prize = new ArrayList<>();
     private List<RegisterMemberEditModel> member = new ArrayList<>();
     private String shopping_id;
     private String cost;
-    private String discount_amount;
-    private String discount_type;
-    private String paid;
+//    private String discount_amount;
+//    private String discount_type;
+//    private String paid;
     private String amount;
     private String product_id;
     private String type;
 
-    public List<SendPrize> getPrize() {
-        return prize;
-    }
-
-    public void setPrize(List<SendPrize> prize) {
-        this.prize = prize;
-    }
+//    public List<SendPrize> getPrize() {
+//        return prize;
+//    }
+//
+//    public void setPrize(List<SendPrize> prize) {
+//        this.prize = prize;
+//    }
 
     public List<RegisterMemberEditModel> getMember() {
         return member;
@@ -51,29 +51,29 @@ public class SendPurchasedItemData {
         this.cost = cost;
     }
 
-    public String getDiscount_amount() {
-        return discount_amount;
-    }
-
-    public void setDiscount_amount(String discount_amount) {
-        this.discount_amount = discount_amount;
-    }
-
-    public String getDiscount_type() {
-        return discount_type;
-    }
-
-    public void setDiscount_type(String discount_type) {
-        this.discount_type = discount_type;
-    }
-
-    public String getPaid() {
-        return paid;
-    }
-
-    public void setPaid(String paid) {
-        this.paid = paid;
-    }
+//    public String getDiscount_amount() {
+//        return discount_amount;
+//    }
+//
+//    public void setDiscount_amount(String discount_amount) {
+//        this.discount_amount = discount_amount;
+//    }
+//
+//    public String getDiscount_type() {
+//        return discount_type;
+//    }
+//
+//    public void setDiscount_type(String discount_type) {
+//        this.discount_type = discount_type;
+//    }
+//
+//    public String getPaid() {
+//        return paid;
+//    }
+//
+//    public void setPaid(String paid) {
+//        this.paid = paid;
+//    }
 
     public String getAmount() {
         return amount;

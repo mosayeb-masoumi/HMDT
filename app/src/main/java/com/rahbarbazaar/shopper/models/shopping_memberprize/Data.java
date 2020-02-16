@@ -25,4 +25,11 @@ public class Data {
     @SerializedName("categories")
     @Expose
     public List<Category> categories = null;
+
+    @SerializedName("help_pic_1")
+    @Expose
+    public String help_pic_1;
+    @SerializedName("help_pic_2")
+    @Expose
+    public String help_pic_2;
 }
