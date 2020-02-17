@@ -52,6 +52,21 @@ class BarcodeData() :Parcelable{
     @SerializedName("mygroup")
     @Expose
     var mygroup: String? = null
+
+
+    @SerializedName("min_price")
+    @Expose
+    var minPrice: Int? = null
+    @SerializedName("max_price")
+    @Expose
+    var maxPrice: Int? = null
+    @SerializedName("max_amount")
+    @Expose
+    var maxAmount: Int? = null
+
+
+
+
     @SerializedName("barcode")
     @Expose
     var barcode: String? = null

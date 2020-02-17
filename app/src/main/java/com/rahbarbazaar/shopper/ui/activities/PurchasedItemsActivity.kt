@@ -28,10 +28,10 @@ import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberEditAdapter
 import com.rahbarbazaar.shopper.controllers.interfaces.PrizeItemInteraction
 import com.rahbarbazaar.shopper.controllers.interfaces.RegisterItemInteraction
 import com.rahbarbazaar.shopper.models.api_error.ErrorUtils
-import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemNoProductResult
+import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemNewProductResult
 import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemResult
 import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemData
-import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemNoProductData
+import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemNewData
 import com.rahbarbazaar.shopper.models.register.*
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.shopper.network.ServiceProvider
@@ -473,34 +473,34 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
     private fun sendDataNo_product() {
         showLoading()
 
-        val sendData = SendPurchasedItemNoProductData()
+        val sendData = SendPurchasedItemNewData()
         sendData.shopping_id = shopping_id
         sendData.amount = edt_amount.text.toString()
         sendData.cost = edt_price.text.toString()
-        sendData.paid = edt_paid.text.toString()
+//        sendData.paid = edt_paid.text.toString()
         sendData.member = editMembers
-        sendData.prize = sendPrizes
-        sendData.description = edt_desc_no_product.text.toString()
-        sendData.brand = edt_brand_no_product.text.toString()
-        sendData.size = edt_size_no_product.text.toString()
-        sendData.unit = edt_unit_no_product.text.toString()
+//        sendData.prize = sendPrizes
+//        sendData.description = edt_desc_no_product.text.toString()
+//        sendData.brand = edt_brand_no_product.text.toString()
+//        sendData.size = edt_size_no_product.text.toString()
+//        sendData.unit = edt_unit_no_product.text.toString()
         sendData.barcode = barcode
 
 
-        if (checkBox_precentage.isChecked) {
-            sendData.discount_type = "percent"
-            sendData.discount_amount = edt_discount.text.toString()
-        } else if (checkBox_amount.isChecked) {
-            sendData.discount_type = "amount"
-            sendData.discount_amount = edt_discount.text.toString()
-        }
+//        if (checkBox_precentage.isChecked) {
+//            sendData.discount_type = "percent"
+//            sendData.discount_amount = edt_discount.text.toString()
+//        } else if (checkBox_amount.isChecked) {
+//            sendData.discount_type = "amount"
+//            sendData.discount_amount = edt_discount.text.toString()
+//        }
 
 
         val service = ServiceProvider(this).getmService()
         val call = service.getPurchaseItemNoProductResult(sendData)
-        call.enqueue(object : Callback<PurchaseItemNoProductResult> {
+        call.enqueue(object : Callback<PurchaseItemNewProductResult> {
 
-            override fun onResponse(call: Call<PurchaseItemNoProductResult>, response: Response<PurchaseItemNoProductResult>) {
+            override fun onResponse(call: Call<PurchaseItemNewProductResult>, response: Response<PurchaseItemNewProductResult>) {
 
                 hideLoading()
                 if (response.code() == 200) {
@@ -664,7 +664,7 @@ class PurchasedItemsActivity : CustomBaseActivity(), View.OnClickListener,
                 }
             }
 
-            override fun onFailure(call: Call<PurchaseItemNoProductResult>, t: Throwable) {
+            override fun onFailure(call: Call<PurchaseItemNewProductResult>, t: Throwable) {
 
                 Toast.makeText(this@PurchasedItemsActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 hideLoading()

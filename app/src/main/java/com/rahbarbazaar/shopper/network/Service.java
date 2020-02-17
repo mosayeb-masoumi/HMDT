@@ -20,10 +20,10 @@ import com.rahbarbazaar.shopper.models.message.MessageRead;
 import com.rahbarbazaar.shopper.models.profile.MemberDetail;
 import com.rahbarbazaar.shopper.models.profile.ProfileChange;
 import com.rahbarbazaar.shopper.models.profile.ProfileData;
-import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemNoProductResult;
+import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemNewProductResult;
 import com.rahbarbazaar.shopper.models.purchased_item.PurchaseItemResult;
 import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemData;
-import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemNoProductData;
+import com.rahbarbazaar.shopper.models.purchased_item.SendPurchasedItemNewData;
 import com.rahbarbazaar.shopper.models.purchased_spinners.SpinnersModel;
 import com.rahbarbazaar.shopper.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.shopper.models.register.GetShopId;
@@ -40,7 +40,6 @@ import com.rahbarbazaar.shopper.models.verify.VerifyModel;
 
 import java.util.List;
 
-import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -146,7 +145,7 @@ public interface Service {
     Call<ProfileChange> profileChange(@Query("body") String body);
 
     @POST("Bought/New")
-    Call<PurchaseItemNoProductResult> getPurchaseItemNoProductResult(@Body SendPurchasedItemNoProductData sendPurchasedItemNoProductData);
+    Call<PurchaseItemNewProductResult> getPurchaseItemNoProductResult(@Body SendPurchasedItemNewData sendPurchasedItemNewData);
 
     @GET("Shopping/MemberPrize")
     Call<MemberPrize> getMemberPrizeLists();

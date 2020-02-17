@@ -432,6 +432,33 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_edt_description_purchased"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/bg_prize_item">
+
+                <EditText
+                    android:id="@+id/edt_description_purchased"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:hint="توضیحات"
+                    android:textColorHint="@color/blue"
+                    android:padding="3dp"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="15sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/rl_description_purchased"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -457,6 +484,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_chkboxes"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
@@ -465,41 +493,40 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/chk_no_confirmed"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="1dp"
-                    android:id="@+id/chk_no_confirmed"
                     android:layout_weight="1"
-                    android:textSize="12sp"
                     android:layoutDirection="rtl"
+                    android:text="عدم تطابق با محصول خریداری شده"
                     android:textColor="@color/blue_dark"
-                    app:buttonTint="@color/blue_dark"
-                    android:text="عدم تطابق با محصول خریداری شده" />
+                    android:textSize="12sp"
+                    app:buttonTint="@color/blue_dark" />
 
                 <!--<Button-->
-                    <!--android:id="@+id/btn_no_confirmed"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginEnd="1dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@drawable/bg_btn_prize"-->
-                    <!--android:text="عدم تطابق با محصول خریداری شده"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:textSize="12sp" />-->
-
+                <!--android:id="@+id/btn_no_confirmed"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginEnd="1dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/bg_btn_prize"-->
+                <!--android:text="عدم تطابق با محصول خریداری شده"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="12sp" />-->
 
 
                 <CheckBox
+                    android:id="@+id/chk_confirmed"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="1dp"
-                    android:id="@+id/chk_confirmed"
                     android:layout_weight="1"
                     android:layoutDirection="rtl"
-                    android:textSize="12sp"
+                    android:text="مطابق با محصول خریداری شده"
                     android:textColor="@color/blue_dark"
-                    app:buttonTint="@color/blue_dark"
-                    android:text="مطابق با محصول خریداری شده" />
+                    android:textSize="12sp"
+                    app:buttonTint="@color/blue_dark" />
 
 
                 <!--<Button-->
@@ -538,23 +565,43 @@
                         android:background="@drawable/bg_prize_item"
                         android:gravity="center"
                         android:hint="قیمت خرید"
+                        android:inputType="number"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
                         android:textSize="13sp" />
 
 
-                    <EditText
-                        android:id="@+id/edt_amount_purchased"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="2dp"
-                        android:layout_weight="1"
                         android:background="@drawable/bg_prize_item"
                         android:gravity="center"
-                        android:hint="تعداد خرید"
-                        android:textColor="@color/blue_dark"
-                        android:textColorHint="@color/blue"
-                        android:textSize="13sp" />
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edt_amount_purchased"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:hint="تعداد خرید"
+                            android:textColor="@color/blue_dark"
+                            android:textColorHint="@color/blue"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="5dp"
+                            android:textColor="@color/blue_dark"
+                            android:layout_toStartOf="@+id/edt_amount_purchased"
+                            android:id="@+id/txt_unit"
+                            android:text="واحد"/>
+
+
+                    </RelativeLayout>
 
 
                 </LinearLayout>
@@ -632,10 +679,10 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_photo_purchase_total"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginStart="10dp"
-                android:id="@+id/rl_photo_purchase_total"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp">
 
