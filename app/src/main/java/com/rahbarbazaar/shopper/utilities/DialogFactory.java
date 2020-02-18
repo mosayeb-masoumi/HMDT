@@ -1132,23 +1132,30 @@ public class DialogFactory {
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
 
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_explanation = customLayout.findViewById(R.id.txt_explanation);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
         Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
-        Button btn_close1 = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
+        Button btn_scan = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
         Button btn_etc = customLayout.findViewById(R.id.btn_etc);
+
+        LinearLayout ll_explanation = customLayout.findViewById(R.id.ll_explanation);
 
         LinearLayout ll_etc = customLayout.findViewById(R.id.ll_etc);
 
         if (spn_name.equals("spn_group")) {
             ll_etc.setVisibility(View.GONE);
-            btn_close1.setVisibility(View.VISIBLE);
+            ll_explanation.setVisibility(View.VISIBLE);
+            txt_explanation.setVisibility(View.VISIBLE);
+            btn_scan.setText("ثبت کالای جدید");
         } else {
             ll_etc.setVisibility(View.VISIBLE);
-            btn_close1.setVisibility(View.GONE);
+            btn_scan.setVisibility(View.GONE);
+            ll_explanation.setVisibility(View.GONE);
+            txt_explanation.setVisibility(View.GONE);
         }
 
-        txt_header.setText(title);
+
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1158,6 +1165,10 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
+
+        txt_header.setText(title);
+        txt_explanation.setText("اگر کالای شما در لیست فوق نیست کالای جدید را اسکن نمایید");
+
 
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
@@ -1178,7 +1189,10 @@ public class DialogFactory {
         });
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
-        btn_close1.setOnClickListener(v -> dialog.dismiss());
+        btn_scan.setOnClickListener(v -> {
+            context.startActivity(new Intent(context,QRcodeActivity1.class));
+            dialog.dismiss();
+        });
 
         dialog.show();
     }

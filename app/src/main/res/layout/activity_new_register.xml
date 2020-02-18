@@ -182,24 +182,32 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/edt_total_amount"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
+                android:background="@drawable/bg_prize_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:cursorVisible="true"
-                android:gravity="center"
-                android:hint="ریال"
-                android:inputType="numberDecimal"
-                android:padding="5sp"
-                android:textColor="@color/blue_dark"
-                android:textColorHint="@color/blue"
-                android:textDirection="rtl"
-                android:textSize="14sp" />
+                android:layout_marginEnd="5dp">
+
+                <EditText
+                    android:id="@+id/edt_total_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:hint="ریال"
+                    android:backgroundTint="@color/blue_light"
+                    android:inputType="numberDecimal"
+                    android:padding="5sp"
+                    android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
+                    android:textDirection="rtl"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
 
 
             <!--<TextView-->

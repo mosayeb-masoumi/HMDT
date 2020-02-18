@@ -55,16 +55,25 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginEnd="3dp">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/img7"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/bg_square"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_barcoselist_item"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/img7"
                 android:padding="3dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="30dp"
+                android:layout_marginEnd="3dp"
                 android:textSize="13sp"
                 android:layout_centerVertical="true"
                 android:text="fgdsg"
