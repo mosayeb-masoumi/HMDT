@@ -22,6 +22,13 @@ import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.ActiveListAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.ActiveListItemInteraction;
@@ -53,12 +60,19 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -232,17 +246,30 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     private void requestRegistration() {
 
-        if (checkGpsPermission()) {
+        if (hasLocationPermission()) {
             if (checkGpsON()) {
-
                 sendLatLng();
-//                        getNewRegisterData();
             } else {
-                displayLocationSettingsRequest(getContext(), 123);
+                gpsDialog();
             }
         } else {
-            askGpsPermission();
+            askLocationPermission();
         }
+
+
+
+
+//        if (checkGpsPermission()) {
+//            if (checkGpsON()) {
+//
+//                sendLatLng();
+////                        getNewRegisterData();
+//            } else {
+//                displayLocationSettingsRequest(getContext(), 123);
+//            }
+//        } else {
+//            askGpsPermission();
+//        }
     }
 
     private void sendLatLng() {
@@ -308,9 +335,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     }
 
     private void getNewRegisterData() {
-
-
-
         Service service = new ServiceProvider(getContext()).getmService();
         Call<RegisterModel> call = service.getRegisterData();
         call.enqueue(new Callback<RegisterModel>() {
@@ -364,54 +388,68 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         }, rl_fr_register , message);
     }
 
-
-
     private void hideLoading() {
         rl_btn_register.setVisibility(View.VISIBLE);
         avi.setVisibility(View.GONE);
     }
 
-    private void displayLocationSettingsRequest(Context context, int requestCode) {
 
+    private void gpsDialog() {
 
-        rl_btn_register.setVisibility(View.GONE);
-        avi.setVisibility(View.VISIBLE);
+        //     show waiting AVI
+        Toast.makeText(getContext(), "برای ثبت خرید لازم است GPS خود را روشن نمایید, صبور باشید ...", Toast.LENGTH_SHORT).show();
 
-        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
-                .addApi(LocationServices.API).build();
-        googleApiClient.connect();
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(10000 / 2);
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        LocationRequest mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1000)
+                .setNumUpdates(2);
+
+        final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
         builder.setAlwaysShow(true);
-        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
-        result.setResultCallback(result1 -> {
-            final Status status = result1.getStatus();
-            if (status.getStatusCode() == LocationSettingsStatusCodes.RESOLUTION_REQUIRED)
-                try {
-                    status.startResolutionForResult((Activity) context, requestCode);
+        builder.setNeedBle(true);
+        SettingsClient client = LocationServices.getSettingsClient(getContext());
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+        task.addOnSuccessListener(getActivity(), new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                hasLocationPermission();
 
-                    rl_btn_register.setVisibility(View.VISIBLE);
-                    avi.setVisibility(View.GONE);
+                sendLatLng();
+//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
 
-                } catch (IntentSender.SendIntentException ignored) {
+                //     hide waiting AVI
 
-                }
+            }
         });
+        task.addOnFailureListener(getActivity(), new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+                    // Location settings are not satisfied, but this can be fixed
+                    // by showing the user a dialog.
+                    try {
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        ResolvableApiException resolvable = (ResolvableApiException) e;
+                        resolvable.startResolutionForResult(getActivity(),
+                                12);
+                    } catch (IntentSender.SendIntentException e1) {
 
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 
 
-
-    private void askGpsPermission() {
+    private void askLocationPermission() {
         ActivityCompat.requestPermissions((Activity) Objects.requireNonNull(getContext())
                 , new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 3);
     }
 
-    private boolean checkGpsPermission() {
+    private boolean hasLocationPermission() {
         return ContextCompat.checkSelfPermission(Objects.requireNonNull(getContext()), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
@@ -425,6 +463,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
 
 
+    int a = 0;
     public void getLocation() {
         gpsTracker = new GpsTracker(getContext());
         if (gpsTracker.canGetLocation()) {
@@ -432,6 +471,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             double longitude = gpsTracker.getLongitude();
             strLat = (String.valueOf(latitude));
             strLng = (String.valueOf(longitude));
+
+            // to handle getting gps in first calculate after turning on gps
+            if(a < 2){
+                a ++;
+                getLocation();
+            }
+
         } else {
             gpsTracker.showSettingsAlert();
         }
@@ -536,23 +582,43 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 12) {
 
-        switch (requestCode) {
-            case 3:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                hasLocationPermission();
+//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
+                sendLatLng();
 
-                    if (checkGpsON()) {
-                    } else {
-                        displayLocationSettingsRequest(getContext(), 123);
-                    }
-                }
-
-
+            } else {
+                //User clicks No
+            }
         }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(String gps_avi_loading){
+
+        if(gps_avi_loading.equals("show_loading")){
+            rl_btn_register.setVisibility(View.GONE);
+            avi.setVisibility(View.VISIBLE);
+
+        }else if(gps_avi_loading.equals("hide_loading")){
+            rl_btn_register.setVisibility(View.VISIBLE);
+            avi.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public void onResume() {
@@ -560,6 +626,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
         activeListModel = new ArrayList<>();
         getActiveList(page);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
 }

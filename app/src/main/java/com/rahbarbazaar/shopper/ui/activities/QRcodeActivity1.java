@@ -256,7 +256,7 @@ public class QRcodeActivity1 extends CustomBaseActivity implements View.OnClickL
 
             @Override
             public void onDeniedButtonClicked(boolean bool) {
-                onResume();
+//                onResume();
             }
         }, ll_root, barcode, this);
     }

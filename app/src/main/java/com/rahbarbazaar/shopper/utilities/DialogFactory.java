@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -55,6 +56,8 @@ import java.util.Objects;
 public class DialogFactory {
 
     private Context context;
+
+
 
 
 //    private int status;
@@ -209,6 +212,29 @@ public class DialogFactory {
         dialog.show();
     }
 
+    public void createOutOfAreaDialog2(DialogFactoryInteraction listener, DrawerLayout view) {
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.out_area_dialog, (ViewGroup) view, false);
+        //define views inside of dialog
+        Button btn_exit = customLayout.findViewById(R.id.btn_exit_dialog);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        btn_exit.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+
     public void createChooseScannerDialog(DialogFactoryInteraction listener, View view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
@@ -346,6 +372,47 @@ public class DialogFactory {
 
 
     public void createError406Dialog(DialogFactoryInteraction listener, View view, String message) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
+
+
+        //define views inside of dialog
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        Button btn_close = customLayout.findViewById(R.id.btn);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+
+        btn_close.setText(context.getResources().getString(R.string.close));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        txt_header.setText(context.getResources().getString(R.string.system_error));
+        txt_description.setText(message);
+
+//        btn_close.setOnClickListener(v ->
+//                listener.onAcceptButtonClicked()
+//                dialog.dismiss());
+
+        btn_close.setOnClickListener(v -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+
+    }
+
+    public void createError406Dialog2(DialogFactoryInteraction listener, DrawerLayout view, String message) {
+
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
 
@@ -1060,7 +1127,7 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
-            listener.onDeniedButtonClicked(false);
+//            listener.onDeniedButtonClicked(false);
         });
 
 

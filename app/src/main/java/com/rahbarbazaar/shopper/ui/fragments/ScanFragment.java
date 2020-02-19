@@ -119,9 +119,6 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     getSpinneList();
 
 
-                } else if (response.code() == 406) {
-                    Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getContext(), MainActivity.class));
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
 

@@ -6,8 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ShareCompat;
@@ -33,15 +36,29 @@ import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.rahbarbazaar.shopper.BuildConfig;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.DrawerAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.DrawerItemClicked;
+import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
+import com.rahbarbazaar.shopper.models.api_error206.APIError406;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DrawerItems;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_update.DashboardUpdateData;
 import com.rahbarbazaar.shopper.models.issue.ReportIssue;
+import com.rahbarbazaar.shopper.models.latlng.LatLng;
 import com.rahbarbazaar.shopper.models.profile.ProfileData;
+import com.rahbarbazaar.shopper.models.register.RegisterModel;
+import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.fragments.ShopFragment;
@@ -54,10 +71,14 @@ import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.rahbarbazaar.shopper.utilities.DownloadManager;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
+import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import co.ronash.pushe.Pushe;
 import io.reactivex.disposables.CompositeDisposable;
@@ -73,12 +94,13 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     AHBottomNavigation bottom_navigation;
+    private GpsTracker gpsTracker;
 
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_report_issue, linear_faq,linear_edu, linear_submenu, linear_profile_drawer, ll_drawer;
+            linear_support, linear_report_issue, linear_faq, linear_edu, linear_submenu, linear_profile_drawer, ll_drawer;
     RelativeLayout ll_notify_count;
 
     TextView txt_exit, text_notify_count, text_follow_us;
@@ -457,7 +479,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
 
-
             case R.id.linear_edu:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.education_page);
@@ -592,7 +613,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 Cache.setString(MainActivity.this, "access_token", "");
                 Cache.setString(MainActivity.this, "refresh_token", "");
                 Cache.setString(MainActivity.this, "expireAt", "");
-                Cache.setString(MainActivity.this,"agreement","undone");
+                Cache.setString(MainActivity.this, "agreement", "undone");
 
                 startActivity(new Intent(context, SplashActivity.class));
                 MainActivity.this.finish();
@@ -675,19 +696,264 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     new DownloadManager().DownloadUpdateApp(MainActivity.this);
                 }
+                break;
 
             case 25:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MainActivity.this, QRcodeActivity1.class);
-                    intent.putExtra("static_barcode","static_barcode");
+                    intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
-                   overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                }else{
-                    Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }
+
+                break;
+
+            case 3:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (checkGpsON()) {
+                        sendLatLng();
+                    } else {
+                        gpsDialog();
+                    }
+
+                }
+
+
+//                else{
+//                    Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
+//                }
+
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 12) {
+
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+
+                sendLatLng();
+//                getLocation();
+
+            } else {
+                //User clicks No
+            }
+        }
+
+    }
+
+    private void gpsDialog() {
+
+        Toast.makeText(MainActivity.this, "برای ثبت خرید لازم است GPS خود را روشن نمایید, صبور باشید ...", Toast.LENGTH_LONG).show();
+
+        //     show waiting AVI
+        LocationRequest mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(1000)
+                .setNumUpdates(2);
+
+        final LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
+        builder.setAlwaysShow(true);
+        builder.setNeedBle(true);
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
+        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+            @Override
+            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                hasLocationPermission();
+
+//                getLocation();
+
+                sendLatLng();
+
+
+//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
+
+                //     hide waiting AVI
+
+            }
+        });
+        task.addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+                    // Location settings are not satisfied, but this can be fixed
+                    // by showing the user a dialog.
+                    try {
+                        // Show the dialog by calling startResolutionForResult(),
+                        // and check the result in onActivityResult().
+                        ResolvableApiException resolvable = (ResolvableApiException) e;
+                        resolvable.startResolutionForResult(MainActivity.this,
+                                12);
+                    } catch (IntentSender.SendIntentException e1) {
+
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    String strLat, strLng;
+    private void sendLatLng() {
+
+        getLocation();
+
+        String gps_avi_loading = "show_loading";
+        EventBus.getDefault().postSticky(gps_avi_loading);
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<LatLng> call = service.latLng(strLat, strLng);
+        call.enqueue(new Callback<LatLng>() {
+            @Override
+            public void onResponse(Call<LatLng> call, Response<LatLng> response) {
+                if (response.code() == 200) {
+                    Boolean validate = response.body().data;
+                    String validate_area = String.valueOf(response.body().data);
+
+                    Cache.setString(MainActivity.this,"lat", strLat);
+                    Cache.setString(MainActivity.this,"lng", strLng);
+                    Cache.setString(MainActivity.this,"validate_area", validate_area);
+
+
+                    if (validate) {
+                        getNewRegisterData();
+                    } else {
+                       outOfAreaDialog();
+                    }
+
+
+                } else {
+                    Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LatLng> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void getNewRegisterData() {
+        Service service = new ServiceProvider(this).getmService();
+        Call<RegisterModel> call = service.getRegisterData();
+        call.enqueue(new Callback<RegisterModel>() {
+            @Override
+            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+                if (response.code() == 200) {
+
+
+                    String gps_avi_loading = "hide_loading";
+                    EventBus.getDefault().postSticky(gps_avi_loading);
+
+                    // publish null
+                    ShoppingEdit shoppingEdit = new ShoppingEdit();
+                    RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
+
+                    RegisterModel registerModel;
+                    registerModel = response.body();
+                    RxBus.RegisterModel.publishRegisterModel(registerModel);
+                    startActivity(new Intent(MainActivity.this, NewRegisterActivity.class));
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+
+                } else if (response.code() == 406) {
+                    APIError406 apiError = ErrorUtils.parseError406(response);
+                    showError406Dialog(apiError.message);
+
+                } else {
+                    Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterModel> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showError406Dialog(String message) {
+        //initial Dialog factory
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createError406Dialog2(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, drawer_layout_home , message);
+    }
+
+    private void outOfAreaDialog() {
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createOutOfAreaDialog2(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+                getNewRegisterData();
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        }, drawer_layout_home);
+    }
+
+
+    int a =0;
+    public void getLocation() {
+        gpsTracker = new GpsTracker(this);
+        if (gpsTracker.canGetLocation()) {
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
+            strLat = (String.valueOf(latitude));
+            strLng = (String.valueOf(longitude));
+
+            // to handle getting gps in first calculate after turning on gps
+            if(a < 2){
+                a ++;
+                getLocation();
+            }
+
+        } else {
+            gpsTracker.showSettingsAlert();
+        }
+    }
+
+
+    private void askLocationPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION}, 3);
+    }
+
+    private boolean hasLocationPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private boolean checkGpsON() {
+        final LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+
+
+
 
 
     @Override
