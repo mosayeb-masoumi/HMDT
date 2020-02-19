@@ -1655,11 +1655,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 } else if (!chk_confirmed.isChecked()) {
                     chk_no_confirmed.setChecked(false);
                     chk_confirmed.setChecked(false);
-
                 }
-
                 break;
-
         }
 
     }
