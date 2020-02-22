@@ -44,7 +44,7 @@ import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.EditProductsActivity;
 import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
-import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
+//import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
 import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;

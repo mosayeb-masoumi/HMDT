@@ -13,17 +13,17 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="2dp"
-            android:id="@+id/btn_detail_history_item"
-            android:text="@string/detail"
-            android:textSize="13sp"
-            android:background="@drawable/bg_btn_prize"
-            android:textColor="@color/white"
-            android:layout_weight="1.1"/>
+        <!--<Button-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginStart="5dp"-->
+            <!--android:layout_marginEnd="2dp"-->
+            <!--android:id="@+id/btn_detail_history_item"-->
+            <!--android:text="@string/detail"-->
+            <!--android:textSize="13sp"-->
+            <!--android:background="@drawable/bg_btn_prize"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:layout_weight="1.1"/>-->
 
         <RelativeLayout
             android:layout_width="0dp"

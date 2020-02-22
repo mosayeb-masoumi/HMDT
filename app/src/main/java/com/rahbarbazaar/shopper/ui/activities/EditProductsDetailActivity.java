@@ -65,7 +65,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditProductsDetailActivity extends CustomBaseActivity
-        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction, CompoundButton.OnCheckedChangeListener {
+        implements View.OnClickListener, RegisterItemInteraction, PrizeItemInteraction {
 
 
     GeneralTools tools;
@@ -140,7 +140,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
 
         setEditMemberRecyclere(editProducts.boughtMemberData.data);
-        setEditPrizeRecycler(editProducts.boughtPrizeData.data);
+//        setEditPrizeRecycler(editProducts.boughtPrizeData.data);
 
 
         if (editProducts.discount_type.equals("مبلغی")) {
@@ -150,17 +150,17 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         }
 
 
-        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
-            edt_discount.setHint(getResources().getString(R.string.percent_amount));
-            edt_discount.setEnabled(false);
-        }
+//        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
+//            edt_discount.setHint(getResources().getString(R.string.percent_amount));
+//            edt_discount.setEnabled(false);
+//        }
 
 //        txt_amount_title.setText(String.format("%s(%s) ", getResources().getString(R.string.amount), editProducts.currency));
-        txt_amount_title_chkbox.setText(String.format("%s (%s)", getResources().getString(R.string.amount), editProducts.currency));
+//        txt_amount_title_chkbox.setText(String.format("%s (%s)", getResources().getString(R.string.amount), editProducts.currency));
 
         edt_amount.setText(editProducts.amount);
-        edt_discount.setText(editProducts.discount);
-        edt_paid.setText(editProducts.paid);
+//        edt_discount.setText(editProducts.discount);
+//        edt_paid.setText(editProducts.paid);
         edt_total_amount.setText(editProducts.cost);
         txt_unit.setText(editProducts.unit);
 
@@ -168,7 +168,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.unit_price), editProducts.currency));
         txt_paid_edit_product.setText(String.format("%s (%s)", getResources().getString(R.string.paid_amount), editProducts.currency));
 
-        txt_discount_edit_product_detail.setText(String.format("%s (در صورت تخفیف داشتن کالا)", getResources().getString(R.string.discount_amount)));
+//        txt_discount_edit_product_detail.setText(String.format("%s (در صورت تخفیف داشتن کالا)", getResources().getString(R.string.discount_amount)));
 
         txt_desc.setText(description);
 
@@ -178,14 +178,14 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
         edt_amount.setTypeface(tf);
         edt_total_amount.setTypeface(tf);
-        edt_paid.setTypeface(tf);
-        edt_discount.setTypeface(tf);
+//        edt_paid.setTypeface(tf);
+//        edt_discount.setTypeface(tf);
 
 
         edt_amount.addTextChangedListener(new EditTextWatcher(edt_amount));
         edt_total_amount.addTextChangedListener(new EditTextWatcher(edt_total_amount));
-        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
-        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
+//        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
+//        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
 
 
 
@@ -207,28 +207,28 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         btn_register = findViewById(R.id.btn_register_edit_product_detail);
 
         avi = findViewById(R.id.avi_edit_product_detail);
-        edt_discount = findViewById(R.id.edt_discount);
+//        edt_discount = findViewById(R.id.edt_discount);
         edt_total_amount = findViewById(R.id.edt_total_amount);
-        edt_paid = findViewById(R.id.edt_paid);
+//        edt_paid = findViewById(R.id.edt_paid);
         edt_amount = findViewById(R.id.edt_amount);
-        txt_amount_title_chkbox = findViewById(R.id.txt_amount_title_chkbox);
+//        txt_amount_title_chkbox = findViewById(R.id.txt_amount_title_chkbox);
         txt_paid_edit_product = findViewById(R.id.txt_paid_edit_product);
-        txt_discount_edit_product_detail=findViewById(R.id.txt_discount_edit_product_detail);
+//        txt_discount_edit_product_detail=findViewById(R.id.txt_discount_edit_product_detail);
 
         txt_desc = findViewById(R.id.txt_desc_editProductDetail);
         txt_total_amount_title_edit = findViewById(R.id.txt_total_amount_title_edit);
 
         txt_unit = findViewById(R.id.txt_unit);
-        checkBox_precentage = findViewById(R.id.checkBox_precentage);
-        checkBox_amount = findViewById(R.id.checkBox_amount);
+//        checkBox_precentage = findViewById(R.id.checkBox_precentage);
+//        checkBox_amount = findViewById(R.id.checkBox_amount);
 
         rl_addmember.setOnClickListener(this);
 //        rl_prize.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
 //        rl_prize_info.setOnClickListener(this);
 
-        checkBox_precentage.setOnCheckedChangeListener(this);
-        checkBox_amount.setOnCheckedChangeListener(this);
+//        checkBox_precentage.setOnCheckedChangeListener(this);
+//        checkBox_amount.setOnCheckedChangeListener(this);
         btn_register.setOnClickListener(this);
         ll_return.setOnClickListener(this);
         rl_home.setOnClickListener(this);
@@ -365,10 +365,10 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             if (isChecked) {
                 editMembers = new ArrayList<>();
 
-                for (int i = 0; i < totalEditProductData.data.member.size(); i++) {
-                    for (int j = 0; j < totalEditProductData.data.member.get(i).size(); j++) {
-                        editMembers.add(new RegisterMemberEditModel(totalEditProductData.data.member.get(i).get(j).name,
-                                totalEditProductData.data.member.get(i).get(j).id));
+                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+                                initMemberPrizeLists.data.member.get(i).get(j).id));
                     }
                 }
 
@@ -416,38 +416,38 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 //        dialog.show();
 //    }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
-            edt_discount.setHint(getResources().getString(R.string.percent_amount));
-            edt_discount.setEnabled(false);
-            edt_discount.setText("");
-        }
-
-        switch (buttonView.getId()) {
-            case R.id.checkBox_amount:
-                if (isChecked) {
-                    checkBox_precentage.setChecked(false);
-                    edt_discount.setHint(getResources().getString(R.string.amount2));
-                    edt_discount.setText("");
-                    checkbox_text = getResources().getString(R.string.amount2_);
-                    edt_discount.setEnabled(true);
-                }
-                break;
-
-            case R.id.checkBox_precentage:
-
-                if (isChecked) {
-                    checkBox_amount.setChecked(false);
-                    edt_discount.setHint(getResources().getString(R.string.percent));
-                    edt_discount.setText("");
-                    checkbox_text = getResources().getString(R.string.percent);
-                    edt_discount.setEnabled(true);
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
+//            edt_discount.setHint(getResources().getString(R.string.percent_amount));
+//            edt_discount.setEnabled(false);
+//            edt_discount.setText("");
+//        }
+//
+//        switch (buttonView.getId()) {
+//            case R.id.checkBox_amount:
+//                if (isChecked) {
+//                    checkBox_precentage.setChecked(false);
+//                    edt_discount.setHint(getResources().getString(R.string.amount2));
+//                    edt_discount.setText("");
+//                    checkbox_text = getResources().getString(R.string.amount2_);
+//                    edt_discount.setEnabled(true);
+//                }
+//                break;
+//
+//            case R.id.checkBox_precentage:
+//
+//                if (isChecked) {
+//                    checkBox_amount.setChecked(false);
+//                    edt_discount.setHint(getResources().getString(R.string.percent));
+//                    edt_discount.setText("");
+//                    checkbox_text = getResources().getString(R.string.percent);
+//                    edt_discount.setEnabled(true);
+//                }
+//                break;
+//        }
+//    }
 
     @Override
     public void prizeOnClicked(String title, String id, Boolean chkbox) {
@@ -519,35 +519,35 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         }
 
 
-        if(!edt_paid.getText().toString().equals("ثبت نشده")){
-            sendData.setPaid(edt_paid.getText().toString());
-        }
+//        if(!edt_paid.getText().toString().equals("ثبت نشده")){
+//            sendData.setPaid(edt_paid.getText().toString());
+//        }
 
         sendData.setBought_id(bought_id);
 
 
-        if (checkBox_precentage.isChecked()) {
-            sendData.setDiscount_type("percent");
-
-            if(!edt_discount.getText().toString().equals("ثبت نشده")){
-                sendData.setDiscount_amount(edt_discount.getText().toString());
-            }else{
-                sendData.setDiscount_amount("not_set");
-            }
-
-
-        } else if (checkBox_amount.isChecked()) {
-            sendData.setDiscount_type("amount");
-            if(!edt_discount.getText().toString().equals("ثبت نشده")){
-                sendData.setDiscount_amount(edt_discount.getText().toString());
-            }else{
-                sendData.setDiscount_amount("not_set");
-            }
-
-
-        }else{
-            sendData.setDiscount_type("not_set");
-        }
+//        if (checkBox_precentage.isChecked()) {
+//            sendData.setDiscount_type("percent");
+//
+//            if(!edt_discount.getText().toString().equals("ثبت نشده")){
+//                sendData.setDiscount_amount(edt_discount.getText().toString());
+//            }else{
+//                sendData.setDiscount_amount("not_set");
+//            }
+//
+//
+//        } else if (checkBox_amount.isChecked()) {
+//            sendData.setDiscount_type("amount");
+//            if(!edt_discount.getText().toString().equals("ثبت نشده")){
+//                sendData.setDiscount_amount(edt_discount.getText().toString());
+//            }else{
+//                sendData.setDiscount_amount("not_set");
+//            }
+//
+//
+//        }else{
+//            sendData.setDiscount_type("not_set");
+//        }
 
 
         Service service = new ServiceProvider(this).getmService();

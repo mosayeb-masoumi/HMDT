@@ -35,9 +35,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="5dp">
 
         <LinearLayout
@@ -49,10 +50,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
                 android:orientation="horizontal">
 
                 <TextView
@@ -60,11 +57,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:padding="5sp"
                     android:text="dgh"
+                    android:layout_marginEnd="10dp"
+                    android:padding="5dp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
@@ -72,11 +69,10 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
-                    android:padding="5sp"
                     android:text="@string/shop2"
                     android:gravity="center_vertical"
                     android:textColor="@color/blue_dark"
@@ -89,11 +85,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -101,7 +93,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:padding="5sp"
@@ -115,7 +107,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
                     android:padding="5sp"
                     android:text="@string/purchase_date"
@@ -129,11 +121,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -141,7 +129,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:padding="5sp"
@@ -155,7 +143,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
                     android:padding="5sp"
                     android:text="تاریخ ثبت:"
@@ -170,21 +158,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txt_total_purchased_amount"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:padding="5sp"
+                    android:layout_marginEnd="10dp"
                     android:text="dgh"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -195,7 +179,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
                     android:padding="5sp"
                     android:text="@string/tottal_amount2"
@@ -206,133 +190,10 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_paid"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:padding="5sp"
-                    android:text="dgh"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="0.5"
-                    android:padding="5sp"
-                    android:text="@string/paid_amount2"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_discount_type"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:padding="5sp"
-                    android:text="dgh"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="0.5"
-                    android:padding="5sp"
-                    android:text="@string/discount3"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/ll_discount_amount"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_discount_amount"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:padding="5sp"
-                    android:text="dgh"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="0.5"
-                    android:padding="5sp"
-                    android:text="@string/discount2"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
                 android:orientation="horizontal">
 
                 <TextView
@@ -340,7 +201,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:padding="5sp"
@@ -352,11 +213,11 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="0.5"
-                    android:padding="5sp"
+                    android:layout_gravity="center"
                     android:text="@string/familymember2"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
@@ -365,46 +226,6 @@
 
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txt_gifts"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:padding="5sp"
-                    android:text="dgh"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="0.5"
-                    android:padding="5sp"
-                    android:text="@string/gifts"
-                    android:textColor="@color/blue_dark"
-                    android:textColorHint="@color/blue"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
 
 
 

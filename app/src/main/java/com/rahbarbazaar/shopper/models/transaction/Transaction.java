@@ -19,6 +19,9 @@ public class Transaction {
     @SerializedName("date")
     @Expose
     public String date;
+    @SerializedName("time")
+    @Expose
+    public String time;
     @SerializedName("extra")
     @Expose
     public String extra;

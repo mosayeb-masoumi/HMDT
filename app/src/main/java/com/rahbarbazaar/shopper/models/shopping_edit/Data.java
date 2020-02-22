@@ -14,16 +14,27 @@ public class Data {
     @SerializedName("shopping_member")
     @Expose
     public ShoppingMember shoppingMember;
-    @SerializedName("shopping_prize")
-    @Expose
-    public ShoppingPrize shoppingPrize;
+//    @SerializedName("shopping_prize")
+//    @Expose
+//    public ShoppingPrize shoppingPrize;
     @SerializedName("shop")
     @Expose
     public List<List<Shop>> shop = null;
-    @SerializedName("prize")
-    @Expose
-    public List<List<Prize>> prize = null;
+//    @SerializedName("prize")
+//    @Expose
+//    public List<List<Prize>> prize = null;
     @SerializedName("member")
     @Expose
     public List<List<Member>> member = null;
+
+
+
+
+    @SerializedName("shopping_prize")
+    @Expose
+    public List<Object> shoppingPrize = null;
+    @SerializedName("prize")
+    @Expose
+    public List<Object> prize = null;
+
 }

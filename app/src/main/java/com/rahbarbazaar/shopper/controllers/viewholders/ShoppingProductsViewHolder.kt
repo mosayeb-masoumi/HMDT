@@ -13,7 +13,7 @@ class ShoppingProductsViewHolder (view: View, val context: Context) : RecyclerVi
 
 
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_title_shopping_products)
-    private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_shopping_product)
+//    private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_shopping_product)
 
 
 
@@ -24,7 +24,7 @@ class ShoppingProductsViewHolder (view: View, val context: Context) : RecyclerVi
 
     fun setOnShoppingProductsListHolderListener(listener: ShoppingProductsItemInteraction?, model: ShoppingProductList, position: Int) {
 
-        btn_detail.setOnClickListener {
+        itemView.setOnClickListener {
 
             listener?.shoppingProductsListOnClicked(model,position)
         }

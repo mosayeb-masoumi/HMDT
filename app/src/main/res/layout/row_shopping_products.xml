@@ -13,34 +13,34 @@
         android:padding="5dp"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_prize"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="2dp"
-            android:gravity="center"
-            android:layout_weight="1">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/bg_btn_prize"-->
+            <!--android:layout_marginStart="5dp"-->
+            <!--android:layout_marginEnd="2dp"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="1">-->
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_detail_shopping_product"
-                android:background="@drawable/bg_btn_prize"
-                android:text="@string/detail"
-                android:textSize="13sp"
-                android:textColor="@color/white" />
+            <!--<Button-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/btn_detail_shopping_product"-->
+                <!--android:background="@drawable/bg_btn_prize"-->
+                <!--android:text="@string/detail"-->
+                <!--android:textSize="13sp"-->
+                <!--android:textColor="@color/white" />-->
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/avi_delete_edit_product"
-                android:padding="5dp"
-                android:visibility="gone"
-                android:layout_marginStart="5dp"
-                app:indicatorColor="@color/white"/>
+            <!--<com.wang.avi.AVLoadingIndicatorView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/avi_delete_edit_product"-->
+                <!--android:padding="5dp"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_marginStart="5dp"-->
+                <!--app:indicatorColor="@color/white"/>-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
 
 

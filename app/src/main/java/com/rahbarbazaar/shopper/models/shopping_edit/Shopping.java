@@ -43,6 +43,4 @@ public class Shopping {
     @Expose
     public String image_4;
 
-
-
 }

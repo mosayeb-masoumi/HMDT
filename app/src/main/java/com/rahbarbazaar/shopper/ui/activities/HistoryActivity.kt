@@ -148,7 +148,7 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
     }
 
     override fun historyListOnClicked(model: History, btn_title: String) {
-        if (btn_title == "btn_detail"){
+        if (btn_title == "item_detail"){
 
             val dialogFactory = DialogFactory(this)
             dialogFactory.createHistoryDetailDialog(object : DialogFactory.DialogFactoryInteraction {

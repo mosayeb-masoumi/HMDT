@@ -24,6 +24,7 @@ import com.rahbarbazaar.shopper.models.transaction.Transaction;
 import com.rahbarbazaar.shopper.models.transaction.TransactionData;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
+import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONException;
@@ -297,7 +298,18 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     @Override
     public void transactionItemOnClicked(Transaction model, int position) {
 
-//        Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+            DialogFactory dialogFactory = new DialogFactory(getContext());
+            dialogFactory.createTransactionItemDialog(new DialogFactory.DialogFactoryInteraction() {
+                @Override
+                public void onAcceptButtonClicked(String... params) {
+
+                }
+
+                @Override
+                public void onDeniedButtonClicked(boolean bool) {
+
+                }
+            }, rl_root , model,position);
 
     }
 

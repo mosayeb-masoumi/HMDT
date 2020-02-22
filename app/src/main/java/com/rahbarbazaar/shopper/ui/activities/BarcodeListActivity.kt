@@ -66,11 +66,11 @@ class BarcodeListActivity : CustomBaseActivity(), BarcodeItemInteraction {
         }
 
         rl_register_barcodeList.setOnClickListener {
-            val intent = Intent(this@BarcodeListActivity, PurchasedItemsActivity::class.java)
-            intent.putExtra("no_product", "no_product")
-            intent.putExtra("barcode", getBarcode)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//            val intent = Intent(this@BarcodeListActivity, PurchasedItemsActivity::class.java)
+//            intent.putExtra("no_product", "no_product")
+//            intent.putExtra("barcode", getBarcode)
+//            startActivity(intent)
+//            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
     }
 

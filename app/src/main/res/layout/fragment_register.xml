@@ -99,6 +99,10 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclere_register_fragment"
+                android:scrollbarSize="3dp"
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@color/pink"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

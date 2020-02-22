@@ -101,7 +101,8 @@ public class NewRegisterActivity extends CustomBaseActivity
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info, rl_prize_info, rl_photo, rl_show_shop_result;
+    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info,
+            rl_prize_info, rl_photo, rl_show_shop_result,rl_info_img_new_register;
     Spinner spn_shop;
     EditText edtDate, edt_discount, edt_total_amount, edt_paid;
     CheckBox checkBox_precentage, checkBox_amount;
@@ -197,7 +198,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 //            edt_discount.setText(shoppingEditModel.data.shopping.discount_amount);
             edtDate.setText(shoppingEditModel.data.shopping.date);
 
-            txt_spinner_title.setText(shoppingEditModel.data.shopping.shop);
+//           txt_spinner_title.setText(shoppingEditModel.data.shopping.shop);
             str_shop_id = shoppingEditModel.data.shopping.shop_id; // get shop_id from model(after select spinner shop,shop_id will modified)
 
             btn_register.setVisibility(View.GONE);
@@ -295,12 +296,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     private void setEditPrizeRecycler(Data shoppingEditModel) {
 
-        sendPrizes = new ArrayList<>();
-        for (int i = 0; i < shoppingEditModel.shoppingPrize.shoppingPrizeData.size(); i++) {
-            sendPrizes.add(new SendPrize(shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prize,
-                    shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prizeTypeId));
-        }
-        updateEditPrizeList(sendPrizes);
+//        sendPrizes = new ArrayList<>();
+//        for (int i = 0; i < shoppingEditModel.shoppingPrize.shoppingPrizeData.size(); i++) {
+//            sendPrizes.add(new SendPrize(shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prize,
+//                    shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prizeTypeId));
+//        }
+//        updateEditPrizeList(sendPrizes);
     }
 
     private void initView() {
@@ -338,6 +339,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_img_count = findViewById(R.id.txt_img_count);
         rl_show_shop_result = findViewById(R.id.rl_show_shop_result);
         img_delete_shop_item = findViewById(R.id.img_delete_shop_item);
+        rl_info_img_new_register = findViewById(R.id.rl_info_img_new_register);
 
 
         rl_addmember.setOnClickListener(this);
@@ -349,6 +351,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_present_purchase.setOnClickListener(this);
         btn_online_purchase.setOnClickListener(this);
         img_delete_shop_item.setOnClickListener(this);
+
+        rl_info_img_new_register.setOnClickListener(this);
 
 
 //        checkBox_precentage.setOnCheckedChangeListener(this);
@@ -444,6 +448,12 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
 
+            case R.id.rl_info_img_new_register:
+                showImageInfoDialog();
+                break;
+
+
+
 //            case R.id.rl_info_prize_new_register:
 //                info_type = "prize_info_new_register";
 //                showInfoDialog(info_type);
@@ -453,6 +463,27 @@ public class NewRegisterActivity extends CustomBaseActivity
 //                showSearchableDialog();
 //                break;
         }
+    }
+
+    private void showImageInfoDialog() {
+
+        String img1_link = initMemberPrizeLists.data.help_pic_1;
+        String img2_link = initMemberPrizeLists.data.help_pic_2;
+
+        DialogFactory dialogFactory = new DialogFactory(NewRegisterActivity.this);
+        dialogFactory.createImageInfoDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+            }
+        }, layout_register, img1_link, img2_link);
+
     }
 
     private void showShopListDialog(String spn_name) {
@@ -479,7 +510,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             } else if (shoppingEditModel.data != null) {
                 for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
                     for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-                        if (registerModel.data.shop.get(i).get(j).online.equals("yes")) {
+                        if (shoppingEditModel.data.shop.get(i).get(j).online.equals("yes")) {
                             searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
                                     shoppingEditModel.data.shop.get(i).get(j).id));
                         }
@@ -504,7 +535,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             } else if (shoppingEditModel.data != null) {
                 for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
                     for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-                        if (registerModel.data.shop.get(i).get(j).online.equals("no")) {
+                        if (shoppingEditModel.data.shop.get(i).get(j).online.equals("no")) {
                             searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
                                     shoppingEditModel.data.shop.get(i).get(j).id));
                         }

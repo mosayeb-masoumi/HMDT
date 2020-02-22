@@ -23,13 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.PurchasedItemActivityNew"></activity>
+        <activity android:name=".ui.activities.PurchasedItemActivityNew"/>
         <activity android:name=".ui.activities.QRcodeActivity1" />
         <activity android:name=".ui.activities.NewRegisterActivity" />
-        <activity android:name=".ui.activities.ScanActivity" />
-        <activity android:name=".ui.activities.QRcodeActivity" />
+
+
         <activity android:name=".ui.activities.BarcodeListActivity" />
-        <activity android:name=".ui.activities.PurchasedItemsActivity" />
+
         <activity android:name=".ui.activities.HtmlLoaderActivity" />
         <activity android:name=".ui.activities.AgreementActivity" />
         <activity android:name=".ui.activities.MessageActivity" />
@@ -38,7 +38,7 @@
         <activity android:name=".ui.activities.EditProductsDetailActivity" />
         <activity android:name=".ui.activities.ProfileActivity" />
         <activity android:name=".ui.activities.ShoppingProducts" />
-        <activity android:name=".ui.activities.SearchActivity" />
+
         <activity android:name=".ui.activities.VerificationActivity" />
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.LanguageActivity" />

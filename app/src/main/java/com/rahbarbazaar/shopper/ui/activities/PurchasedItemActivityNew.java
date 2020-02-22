@@ -89,7 +89,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
     Disposable disposable = new CompositeDisposable();
     RelativeLayout rl_home, rl_readable_barcode, rl_description_purchased, rl_spn_group, rl_info_img_new_register,
             rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root, rl_add_member, rl_photo_purchased, rl_register_barcode,
-            rl_photo_purchase_total, rl_info_member_new_register,rl_edt_description_purchased;
+            rl_photo_purchase_total, rl_info_member_new_register,rl_edt_description_purchased,rl_register_result;
 
 
     LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode, ll_questions,ll_chkboxes;
@@ -324,6 +324,10 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
             ll_texts.setVisibility(View.GONE);
             rl_description_purchased.setVisibility(View.GONE);
 
+            ll_chkboxes.setVisibility(View.GONE);
+            rl_register_result.setVisibility(View.GONE);
+
+
 
         } else {
             edt_barcode.setVisibility(View.GONE);
@@ -429,6 +433,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
         ll_questions = findViewById(R.id.ll_questions);
         img_register_barcode = findViewById(R.id.img_register_barcode);
+
+        rl_register_result=findViewById(R.id.rl_register_result);
 
 
 //        btn_confirmed = findViewById(R.id.btn_confirmed);
@@ -1144,6 +1150,14 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
     private void getListOfProducts() {
 
+        ll_spinners.setVisibility(View.GONE);
+        ll_texts.setVisibility(View.GONE);
+        rl_edt_description_purchased.setVisibility(View.GONE);
+        ll_chkboxes.setVisibility(View.GONE);
+        ll_questions.setVisibility(View.GONE);
+        chk_no_confirmed.setChecked(false);
+        chk_confirmed.setChecked(false);
+
 
         img_register_barcode.setVisibility(View.GONE);
         avi_register_barcode.setVisibility(View.VISIBLE);
@@ -1170,11 +1184,15 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                         product_id = barcodeList_unreadable.getData().get(0).getId();
                         type = barcodeList_unreadable.getData().get(0).getMygroup();
 
+                        ll_chkboxes.setVisibility(View.VISIBLE);
+
 
                     } else if (barcodeList_unreadable.getData().size() > 1) {
 
                         Barcode barcode = response.body();
                         showBarcodeListDialog(barcode);
+
+
                     }
 
                     rl_photo_purchase_total.setVisibility(View.GONE);
@@ -1198,6 +1216,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
                     initializeSpinners();
 
+                    ll_chkboxes.setVisibility(View.VISIBLE);
 
                 } else if (response.code() == 406) {
                     Toast.makeText(PurchasedItemActivityNew.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -1213,6 +1232,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                     img_register_barcode.setVisibility(View.VISIBLE);
                     avi_register_barcode.setVisibility(View.GONE);
                     rl_photo_purchase_total.setVisibility(View.GONE);
+                    ll_chkboxes.setVisibility(View.GONE);
 
                 }
 
@@ -1226,6 +1246,7 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                 img_register_barcode.setVisibility(View.VISIBLE);
                 avi_register_barcode.setVisibility(View.GONE);
                 rl_photo_purchase_total.setVisibility(View.GONE);
+                ll_chkboxes.setVisibility(View.GONE);
             }
         });
 
@@ -1585,6 +1606,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
         type = barcode.getData().get(position1).getMygroup();
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
 
+        ll_chkboxes.setVisibility(View.VISIBLE);
+
         dialog.dismiss();
 
 
@@ -1619,10 +1642,11 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
 
                 if (chk_confirmed.isChecked()) {
                     ll_questions.setVisibility(View.VISIBLE);
-
 //                    rl_description_purchased.setVisibility(View.GONE);
                     chk_confirmed.setChecked(true);
                     chk_no_confirmed.setChecked(false);
+                    rl_register_result.setVisibility(View.VISIBLE);
+
                 } else if (!chk_confirmed.isChecked()) {
                     ll_questions.setVisibility(View.GONE);
                     chk_confirmed.setChecked(false);
@@ -1646,6 +1670,8 @@ public class PurchasedItemActivityNew extends CustomBaseActivity implements View
                     ll_questions.setVisibility(View.VISIBLE);
                     rl_edt_description_purchased.setVisibility(View.VISIBLE);
                     rl_description_purchased.setVisibility(View.GONE);
+
+                    rl_register_result.setVisibility(View.VISIBLE);
 
                     sendData_type = "new";
                     barcode_type="no_match_barcode";

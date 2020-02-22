@@ -16,7 +16,7 @@ class HistoryViewHolder (view: View, val context: Context) : RecyclerView.ViewHo
 
     private val txtDate: TextView = itemView.findViewById(R.id.txt_date_historyitem)
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_title_historyitem)
-    private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_history_item)
+//    private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_history_item)
     private val btn_shop_item: Button = itemView.findViewById(R.id.btn_history_shopitem)
     private val avi: AVLoadingIndicatorView = itemView.findViewById(R.id.avi_history_shopitem)
 
@@ -39,8 +39,8 @@ class HistoryViewHolder (view: View, val context: Context) : RecyclerView.ViewHo
 
     fun setOnMessageListHolderListener(listener: HistoryItemInteraction?, model: History, position: Int) {
 
-        btn_detail.setOnClickListener {
-            listener?.historyListOnClicked(model,"btn_detail")
+        itemView.setOnClickListener {
+            listener?.historyListOnClicked(model,"item_detail")
         }
 
        btn_shop_item.setOnClickListener {

@@ -51,7 +51,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_present_purchase_active"
-                    android:text="خرید حضوری"
+                    android:text="خرید حضوری/تلفنی"
                     android:textColor="@color/white" />
 
                 <Button
@@ -561,6 +561,31 @@
                     android:textColor="@color/blue_dark"
                     android:textSize="16sp"
                     android:visibility="gone" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_info_img_new_register"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/bg_info_btn_prize">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/bg_info_btn_prize" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:padding="8dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_info2" />
+
+                </RelativeLayout>
 
 
             </RelativeLayout>
