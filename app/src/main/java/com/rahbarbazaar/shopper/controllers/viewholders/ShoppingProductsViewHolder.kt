@@ -11,25 +11,16 @@ import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList
 
 class ShoppingProductsViewHolder (view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
-
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_title_shopping_products)
-//    private val btn_detail: Button = itemView.findViewById(R.id.btn_detail_shopping_product)
-
-
 
     fun bindUserData(model: ShoppingProductList) {
         txtTitle.text = model.description
-
     }
 
     fun setOnShoppingProductsListHolderListener(listener: ShoppingProductsItemInteraction?, model: ShoppingProductList, position: Int) {
 
         itemView.setOnClickListener {
-
             listener?.shoppingProductsListOnClicked(model,position)
         }
-
     }
-
-
 }

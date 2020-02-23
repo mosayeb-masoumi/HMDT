@@ -17,6 +17,5 @@ class ProfileMemberDetailViewHolder (view: View, val context: Context) : Recycle
     fun bindUserData(model: MemberDetailObj) {
         txt_lable.text = model.label +":"
         txt_value.text=model.value
-
     }
 }

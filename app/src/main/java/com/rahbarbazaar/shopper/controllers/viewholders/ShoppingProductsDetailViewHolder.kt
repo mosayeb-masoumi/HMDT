@@ -19,8 +19,4 @@ class ShoppingProductsDetailViewHolder (view: View, val context: Context) : Recy
         txt_value.text= model.value!!.trim()
     }
 
-//    fun setOnShoppingProductsListHolderListener(model: Detail, position: Int) {
-//
-//    }
-
 }

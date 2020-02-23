@@ -31,7 +31,6 @@ import retrofit2.Response
 
 class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMemberItemInteraction {
 
-
     private var connectivityReceiver: BroadcastReceiver? = null
     var disposable: Disposable = CompositeDisposable()
 
@@ -59,8 +58,6 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             }
         }
 
-
-
         // get data from rxbus
         disposable = CompositeDisposable()
         disposable = RxBus.ProfileInfo.subscribeProfileInfo{ result ->
@@ -69,16 +66,9 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             }
         }
 
-
-
-
-
-//        getProfileData()
-
         // message must be initialize
         family = ArrayList<Family>()
         member = ArrayList<Member>()
-
 
         familyListVisibility = "unseen"
         if (familyListVisibility.equals("unseen")) {
@@ -87,44 +77,15 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
         rl_family_info.setOnClickListener(this)
         btn_profile_change.setOnClickListener(this)
 
-
         linear_exit_profile.setOnClickListener {
             finish()
         }
 
-
-
         setPersonalProfile(profileData)
         setRecyclerviewFamily(profileData)
         setRecyclerviewMember(profileData)
-
     }
 
-//    private fun getProfileData() {
-//
-//        val service = ServiceProvider(this).getmService()
-//        val call = service.profileList
-//        call.enqueue(object : Callback<ProfileData> {
-//            override fun onResponse(call: Call<ProfileData>, response: Response<ProfileData>) {
-//                if (response.code() == 200) {
-//
-//                    profileData = response.body()!!
-//
-//                    setPersonalProfile(profileData)
-//                    setRecyclerviewFamily(profileData)
-//                    setRecyclerviewMember(profileData)
-//
-//                } else {
-//                    Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ProfileData>, t: Throwable) {
-//                Toast.makeText(this@ProfileActivity, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
-//
-//            }
-//        })
-//    }
 
     private fun setPersonalProfile(profileData: ProfileData) {
         txt_name_title_profile.text = "نام:"
@@ -132,7 +93,6 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
         txt_phone_title_profile.text = "موبایل:"
         txt_phone_value_profile.text = profileData.data?.personal?.mobile
         txt_code_value_profile.text = profileData.data?.personal?.code
-
     }
 
     private fun setRecyclerviewFamily(profileData: ProfileData) {
@@ -141,44 +101,30 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             family.addAll(it)
         }
 
-
         member_detail = ArrayList<MemberDetail>()
-
         val rv_family: RecyclerView = findViewById(R.id.rv_family_profile)
-
         linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayout.VERTICAL, false)
         rv_family.layoutManager = linearLayoutManager
-
         adapter_family = ProfileFamilyAdapter(family, this@ProfileActivity)
 //        adapter.setListener(this)  // important to set or else the app will crashed (onClick)
         rv_family.adapter = adapter_family
         adapter_family.notifyDataSetChanged()
-
-
     }
 
     private fun setRecyclerviewMember(profileData: ProfileData) {
 
-//        memberDetail.addAll(profileData.data!!.member!!.data!!)
-
         member_detail.addAll(profileData.data?.member?.data!!)
-
         val rv_member: RecyclerView = findViewById(R.id.rv_member_profile)
-
         linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayout.VERTICAL, false)
         rv_member.layoutManager = linearLayoutManager
-
         adapter_member = ProfileMemberAdapter(member_detail, this@ProfileActivity)
         adapter_member.setListener(this)  // important to set (onClick)
         rv_member.adapter = adapter_member
         adapter_member.notifyDataSetChanged()
-
-
     }
 
 
     override fun onClick(view: View?) {
-
         when (view?.id) {
             R.id.rl_family_info -> {
                 if (familyListVisibility.equals("unseen")) {
@@ -191,23 +137,18 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
                     rv_family_profile.visibility = View.GONE
                     familyListVisibility = "unseen"
                 }
-
             }
 
             R.id.btn_profile_change-> {
                 showChangeProfileDialog()
             }
-
-
         }
-
     }
 
     private fun showChangeProfileDialog() {
         val dialogFactory = DialogFactory(this)
         dialogFactory.createChangeProfileDialog(object : DialogFactory.DialogFactoryInteraction {
             override fun onAcceptButtonClicked(vararg strings: String?) {
-
                 val body:String? = strings[0]
                 requestProfileChanges(body)
             }
@@ -226,11 +167,10 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             override fun onResponse(call: Call<ProfileChange>, response: Response<ProfileChange>) {
                 if (response.code() == 200) {
 
-                    var profileChange = ProfileChange()
-                    profileChange = response.body()!!
+//                    var profileChange = ProfileChange()
+//                    profileChange = response.body()!!
 
                     Toast.makeText(this@ProfileActivity, resources.getString(R.string.request_successfully), Toast.LENGTH_SHORT).show()
-
 
                 } else {
                     Toast.makeText(this@ProfileActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -265,9 +205,14 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         unregisterReceiver(connectivityReceiver)
         disposable.dispose()
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//
+//    }
 }

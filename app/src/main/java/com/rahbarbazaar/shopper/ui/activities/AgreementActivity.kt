@@ -34,7 +34,6 @@ class AgreementActivity : CustomBaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agreement)
 
-
         //check network broadcast reciever
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
@@ -44,8 +43,6 @@ class AgreementActivity : CustomBaseActivity() {
             }
         }
 
-
-
         // get data from rxbus
         disposable = CompositeDisposable()
         disposable = RxBus.DashboardModel.subscribeDashboardModel { result ->
@@ -53,8 +50,6 @@ class AgreementActivity : CustomBaseActivity() {
                 dashboardCreateData = result
             }
         }
-
-
 
         //config web view setting for support multi action and java scripts
         webview_agreement.settings.javaScriptEnabled = true
@@ -70,24 +65,8 @@ class AgreementActivity : CustomBaseActivity() {
         webview_agreement.isClickable = true
         webview_agreement.clearCache(true)
 
-
         webview_agreement.loadUrl(dashboardCreateData.data.agreementPage)
-
-//        var locale_name = ConfigurationCompat.getLocales(resources.configuration).get(0).language
-//
-//        var a =locale_name
-//        if(locale_name.equals("fa")){
-//            webview_agreement.loadUrl(ClientConfig.Html_URL+"content/agreement/fa")
-//        }else{
-//            webview_agreement.loadUrl(ClientConfig.Html_URL+"content/agreement/en")
-//        }
-
-
-
-
         webview_agreement.setBackgroundColor(Color.TRANSPARENT)
-
-
 
         webview_agreement.webViewClient = object : WebViewClient() {
 
@@ -104,8 +83,6 @@ class AgreementActivity : CustomBaseActivity() {
             }
         }
 
-
-//        btn_send.setOnClickListener(view -> {
         rl_login_dialog.setOnClickListener {
             if (checkbox_agreement.isChecked) {
                startActivity(Intent(this@AgreementActivity,MainActivity::class.java))
@@ -115,19 +92,16 @@ class AgreementActivity : CustomBaseActivity() {
             }
         }
 
-
         checkbox_agreement.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 img_rules_enter_icon.visibility = View.VISIBLE
                 img_page_icon_rules.visibility = View.GONE
-
 
             } else {
                 img_rules_enter_icon.visibility = View.GONE
                 img_page_icon_rules.visibility = View.VISIBLE
                 Cache.setString(this@AgreementActivity,"agreement","undone")
             }
-
         }
 
         if (checkbox_agreement.isChecked) {
@@ -137,8 +111,6 @@ class AgreementActivity : CustomBaseActivity() {
             img_page_icon_rules.visibility = View.VISIBLE
             img_rules_enter_icon.visibility = View.GONE
         }
-
-
     }
 
     override fun onResume() {

@@ -12,12 +12,10 @@ import com.wang.avi.AVLoadingIndicatorView
 
 class EditProductsViewHolder(view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
-
     private val txtTitle: TextView = itemView.findViewById(R.id.txt_title_edit_products)
     private val btn_delete: Button = itemView.findViewById(R.id.btn_delete_edit_product)
     private val btn_edit: Button = itemView.findViewById(R.id.btn_edit_edit_product)
     private val avi: AVLoadingIndicatorView = itemView.findViewById(R.id.avi_delete_edit_product)
-
 
     fun bindUserData(model: EditProducts) {
         txtTitle.text = model.description
@@ -27,10 +25,8 @@ class EditProductsViewHolder(view: View, val context: Context) : RecyclerView.Vi
     fun setOnEditProductsListHolderListener(listener: EditProductsItemInteraction?, model: EditProducts, position: Int) {
 
         btn_delete.setOnClickListener {
-
             listener?.editProductsListOnClicked(model,position, "delete" ,avi ,btn_delete)
         }
-
 
         btn_edit.setOnClickListener {
             listener?.editProductsListOnClicked(model, position, "edit", avi, btn_delete)

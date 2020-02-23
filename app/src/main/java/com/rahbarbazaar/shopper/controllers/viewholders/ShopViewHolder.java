@@ -26,17 +26,13 @@ public class ShopViewHolder extends RecyclerView.ViewHolder {
     public void bindData(ShopCenterModel model, int position) {
         txt_title.setText(model.title);
         Glide.with(itemView.getContext()).load(model.image).centerCrop().into(img);
-
-
     }
 
     public void setOnShopListHolderListener(ShopItemInteraction listener, ShopCenterModel model, int position) {
-
         itemView.setOnClickListener(v -> {
             if (model.status.equals("enable")) {
                 listener.shopItemOnClicked(model, position);
             }
         });
-
     }
 }

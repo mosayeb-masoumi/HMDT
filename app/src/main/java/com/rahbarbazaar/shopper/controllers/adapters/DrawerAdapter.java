@@ -13,7 +13,6 @@ import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DrawerItems;
 
 import java.util.List;
 
-
 public class DrawerAdapter extends RecyclerView.Adapter<DrawerViewHolder> {
 
     private List<DrawerItems> drawerItems ;
@@ -33,22 +32,15 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull DrawerViewHolder holder, int position) {
-
-
-
         DrawerItems model = drawerItems.get(position);
         holder.bindData(model);
         holder.setOnPrizeHolderListener(listener,model);
-
     }
-
 
     private DrawerItemClicked listener = null;
     public void setListener(DrawerItemClicked listener) {
         this.listener = listener;
     }
-
-//    DrawerItemClicked
 
     @Override
     public int getItemCount() {

@@ -16,7 +16,6 @@ class BarcodeListDetailAdapter (private val barcodeDetail: List<BarcodeDetail>, 
         return BarcodeListDetailViewHolder(view,context)
     }
 
-
     override fun onBindViewHolder(holder: BarcodeListDetailViewHolder, position: Int) {
         val model = barcodeDetail[position]
         holder.bindBarcodeDetailData(model)
@@ -25,6 +24,4 @@ class BarcodeListDetailAdapter (private val barcodeDetail: List<BarcodeDetail>, 
     override fun getItemCount(): Int {
         return barcodeDetail.size
     }
-
-
 }

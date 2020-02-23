@@ -13,9 +13,8 @@ import com.rahbarbazaar.shopper.models.register.Prize;
 
 public class PrizeViewHolder extends RecyclerView.ViewHolder {
 
-
-    TextView txt_title;
-    CheckBox checkbox;
+    private TextView txt_title;
+    private CheckBox checkbox;
 
     public PrizeViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -27,9 +26,7 @@ public class PrizeViewHolder extends RecyclerView.ViewHolder {
         txt_title.setText(model.title);
     }
 
-
     public void setOnPrizeHolderListener(PrizeItemInteraction listener, Prize model) {
-
         checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(checkbox.isChecked()){
                 checkbox.setChecked(true);

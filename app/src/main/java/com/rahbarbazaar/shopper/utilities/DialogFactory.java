@@ -27,27 +27,22 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListAdapter;
-import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListDetailAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ProfileMemberDetailAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ShoppingProductsDetailAdapter;
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
-import com.rahbarbazaar.shopper.models.barcodlist.BarcodeDetail;
 import com.rahbarbazaar.shopper.models.history.History;
 import com.rahbarbazaar.shopper.models.profile.MemberDetail;
 import com.rahbarbazaar.shopper.models.profile.MemberDetailObj;
 import com.rahbarbazaar.shopper.models.searchable.SearchModel;
 import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
-import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
-import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivityNew;
-import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
-
+import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivity;
+import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -55,8 +50,6 @@ import java.util.Objects;
 public class DialogFactory {
 
     private Context context;
-
-
 
     public interface DialogFactoryInteraction {
 
@@ -70,8 +63,6 @@ public class DialogFactory {
     }
 
     public void createNoInternetDialog(DialogFactoryInteraction listener, View root) {
-
-//        View customLayout = LayoutInflater.from(context).inflate(R.layout.no_internet_dialog, (ViewGroup) root, false);
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) root, false);
 
         Button btn_wifi_dialog = customLayout.findViewById(R.id.btn1);
@@ -227,147 +218,9 @@ public class DialogFactory {
     }
 
 
-    public void createChooseScannerDialog(DialogFactoryInteraction listener, View view) {
-
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
-        //define views inside of dialog
-        Button btn_scanner = customLayout.findViewById(R.id.btn1);
-        Button btn_search = customLayout.findViewById(R.id.btn2);
-        TextView txt_description = customLayout.findViewById(R.id.txt_description);
-        TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        ImageView img_close = customLayout.findViewById(R.id.img_close);
-
-        btn_scanner.setText(context.getResources().getString(R.string.scanner));
-        btn_search.setText(context.getResources().getString(R.string.search_product));
-        txt_header.setText("ثبت بارکد");
-        txt_description.setText("یکی از روشهای زیر را انتخاب کنید");
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setView(customLayout);
-
-        //create dialog and set background transparent
-        android.app.AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        btn_scanner.setOnClickListener(v -> {
-            listener.onAcceptButtonClicked();
-        });
-
-        btn_search.setOnClickListener(v -> {
-            listener.onDeniedButtonClicked(false);
-        });
-
-        img_close.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
-    }
-
-    public void createbarcodeListDetailDialog(DialogFactoryInteraction listener, View view, BarcodeData model) {
-
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcodelist_detaildialog, (ViewGroup) view, false);
-
-
-        ImageView img_close = customLayout.findViewById(R.id.img_close);
-        RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDetail);
-        Button btn_close = customLayout.findViewById(R.id.btn_close_barcodeListDialog);
-
-
-        //set recyclerview
-        BarcodeListDetailAdapter adapter;
-        List<BarcodeDetail> barcodeDetail = new ArrayList<>();
-        barcodeDetail.addAll(model.getBarcodeDetail());
-
-        adapter = new BarcodeListDetailAdapter(barcodeDetail, view.getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(adapter);
-
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setView(customLayout);
-
-        //create dialog and set background transparent
-        android.app.AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-//        Glide.with(Objects.requireNonNull(context)).load(model.getImage()).centerCrop().into(imageview);
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_close.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
-    }
-
-
-//    public void createRescanDialog(DialogFactoryInteraction listener, View view) {
-//
-//        View customLayout = LayoutInflater.from(context).inflate(R.layout.rescan_dialog, (ViewGroup) view, false);
-//
-//        //define views inside of dialog
-//        Button btn_home = customLayout.findViewById(R.id.btn_home);
-//        Button btn_search = customLayout.findViewById(R.id.btn_search);
-//        Button btn_scan = customLayout.findViewById(R.id.btn_scan);
-//        ImageView img_close = customLayout.findViewById(R.id.img_close);
-//
-//        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-//        builder.setView(customLayout);
-//
-//        //create dialog and set background transparent
-//        android.app.AlertDialog dialog = builder.create();
-//        if (dialog.getWindow() != null) {
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        }
-//
-//        btn_home.setOnClickListener(v -> context.startActivity(new Intent(context, MainActivity.class)));
-//        btn_scan.setOnClickListener(v -> context.startActivity(new Intent(context, ScanActivity.class)));
-//        btn_search.setOnClickListener(v -> {
-//        });
-//
-//        img_close.setOnClickListener(v -> dialog.dismiss());
-//        dialog.show();
-//    }
-
-
-    public void createDeactiveActionDialog(DialogFactoryInteraction listener, View view) {
-
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
-        //define views inside of dialog
-        TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        TextView txt_description = customLayout.findViewById(R.id.txt_description);
-        Button btn_close = customLayout.findViewById(R.id.btn);
-        ImageView img_close = customLayout.findViewById(R.id.img_close);
-
-        btn_close.setText(context.getResources().getString(R.string.close));
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setView(customLayout);
-
-        //create dialog and set background transparent
-        android.app.AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-
-        txt_header.setText(context.getResources().getString(R.string.system_message));
-        txt_description.setText(context.getResources().getString(R.string.unallowable_registeration));
-
-        btn_close.setOnClickListener(v -> dialog.dismiss());
-        img_close.setOnClickListener(v -> dialog.dismiss());
-
-        dialog.show();
-    }
-
-
     public void createError406Dialog(DialogFactoryInteraction listener, View view, String message) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
-
         //define views inside of dialog
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
@@ -388,27 +241,17 @@ public class DialogFactory {
         txt_header.setText(context.getResources().getString(R.string.system_error));
         txt_description.setText(message);
 
-//        btn_close.setOnClickListener(v ->
-//                listener.onAcceptButtonClicked()
-//                dialog.dismiss());
-
         btn_close.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
             dialog.dismiss();
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
 
     public void createError406Dialog2(DialogFactoryInteraction listener, DrawerLayout view, String message) {
-
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
-
         //define views inside of dialog
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
@@ -428,28 +271,17 @@ public class DialogFactory {
 
         txt_header.setText(context.getResources().getString(R.string.system_error));
         txt_description.setText(message);
-
-//        btn_close.setOnClickListener(v ->
-//                listener.onAcceptButtonClicked()
-//                dialog.dismiss());
-
         btn_close.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
             dialog.dismiss();
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
 
-
     public void createReportIssueDialog(DialogFactoryInteraction listener, View root) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) root, false);
-
-
         //define views inside of dialog
         EditText edt_description = customLayout.findViewById(R.id.edt_description);
         Button btn_send = customLayout.findViewById(R.id.btn_send_dialog);
@@ -468,21 +300,15 @@ public class DialogFactory {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
         //set click listener for views inside of dialog
-
         btn_send.setOnClickListener(view -> {
-
             listener.onAcceptButtonClicked(edt_description.getText().toString());
-
             if (edt_description.getText().toString().equals("")) {
 
             } else {
                 dialog.dismiss();
             }
-
         });
-
 
         btn_cancel_dialog.setOnClickListener(view -> {
             listener.onDeniedButtonClicked(false);
@@ -490,28 +316,20 @@ public class DialogFactory {
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
     }
-
 
     public void createHistoryDetailDialog(DialogFactoryInteraction listener, View root, History model) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.history_detaildialog, (ViewGroup) root, false);
-
-
         //define views inside of dialog
-
-//        Button btn_cancel_dialog = customLayout.findViewById(R.id.btn_cancel_dialog);
         TextView txt_header = customLayout.findViewById(R.id.txt_header_historydetail);
         TextView txt_shop = customLayout.findViewById(R.id.txt_shop);
         TextView txt_purchased_date = customLayout.findViewById(R.id.txt_purchased_date);
         TextView txt_register_date = customLayout.findViewById(R.id.txt_register_date);
         TextView txt_total_purchased_amount = customLayout.findViewById(R.id.txt_total_purchased_amount);
 
-
         TextView txt_members = customLayout.findViewById(R.id.txt_members);
-//        TextView txt_gifts = customLayout.findViewById(R.id.txt_gifts);
         CardView cardview1 = customLayout.findViewById(R.id.cardview1);
         CardView cardview2 = customLayout.findViewById(R.id.cardview2);
         CardView cardview3 = customLayout.findViewById(R.id.cardview3);
@@ -521,24 +339,12 @@ public class DialogFactory {
         ImageView image3 = customLayout.findViewById(R.id.image3);
         ImageView image4 = customLayout.findViewById(R.id.image4);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
-//        LinearLayout ll_discount_amount = customLayout.findViewById(R.id.ll_discount_amount);
-
-//        if (model.getDiscountType().equals("تخفیف ندارد")) {
-//            ll_discount_amount.setVisibility(View.GONE);
-//        }
-
-
         txt_header.setText("جزئیات خرید");
         txt_shop.setText(model.getTitle());
         txt_purchased_date.setText(model.getDate());
         txt_register_date.setText(model.getCreatedAt());
         txt_total_purchased_amount.setText(model.getCost());
-//        txt_paid.setText(model.getPaid());
-
-
         txt_members.setText(model.getShoppingMember());
-//        txt_gifts.setText(model.getShoppingPrize());
-
 
         if (!model.getShoppingImage1().equals("")) {
             cardview1.setVisibility(View.VISIBLE);
@@ -576,8 +382,6 @@ public class DialogFactory {
             image4.setVisibility(View.GONE);
         }
 
-
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -588,20 +392,12 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-//        //set click listener for views inside of dialog
-//        btn_cancel_dialog.setOnClickListener(view -> {
-//            listener.onDeniedButtonClicked(false);
-//            dialog.dismiss();
-//        });
-
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
     }
 
     public void createCalendarDialog(DialogFactoryInteraction listener, View view) {
         View customLayout = LayoutInflater.from(context).inflate(R.layout.calendar_dialog, (ViewGroup) view, false);
-
         //define views inside of dialog
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         Button btn_register = customLayout.findViewById(R.id.btn1);
@@ -671,7 +467,6 @@ public class DialogFactory {
             String month2 = (String.format("%s", month1.length() < 2 ? "۰" + month1 : month1));
             String day1 = ConvertEnDigitToFa.convert(String.valueOf(np_day.getValue()));
             String day2 = (String.format("%s", day1.length() < 2 ? "۰" + day1 : day1));
-
             String date = year1 + "/" + month2 + "/" + day2;
 
 //            String date = ConvertEnDigitToFa.convert(year+"/"+month+"/"+day) ;
@@ -681,13 +476,10 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
-
     }
-
 
     public void createProfileMemberDetailDialog(@NotNull DialogFactoryInteraction listener,
                                                 @Nullable View view, @NotNull MemberDetail member_detail) {
-
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.profile_member_detail_dialog, (ViewGroup) view, false);
 
@@ -695,7 +487,6 @@ public class DialogFactory {
         Button btn_close = customLayout.findViewById(R.id.btn_close);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_profile_member_detail);
-
 
         btn_close.setText(context.getResources().getString(R.string.close));
 
@@ -708,12 +499,10 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         //set recyclerview
         ProfileMemberDetailAdapter adapter;
         List<MemberDetailObj> memberDetailObj = new ArrayList<>();
         memberDetailObj.addAll(member_detail.getData());
-
 
         adapter = new ProfileMemberDetailAdapter(memberDetailObj, view.getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -721,15 +510,12 @@ public class DialogFactory {
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
 
     public void createChangeProfileDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) view, false);
-
         //define views inside of dialog
         Button btn_close = customLayout.findViewById(R.id.btn_cancel_dialog);
         Button btn_send = customLayout.findViewById(R.id.btn_send_dialog);
@@ -751,7 +537,6 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         btn_send.setOnClickListener(v -> {
             String body = edt_body.getText().toString();
             if (body.length() == 0) {
@@ -760,29 +545,21 @@ public class DialogFactory {
                 listener.onAcceptButtonClicked(body);
                 dialog.dismiss();
             }
-
         });
-
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
-
 
     public void createUpdateDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view, String update_type) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
         //define views inside of dialog
-
         Button btn_send = customLayout.findViewById(R.id.btn);
         TextView txt_body = customLayout.findViewById(R.id.txt_description);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
-
 
         txt_body.setText(context.getResources().getString(R.string.update_body_dialog));
         btn_send.setText(context.getResources().getString(R.string.update_app));
@@ -795,7 +572,6 @@ public class DialogFactory {
             txt_header.setText(context.getResources().getString(R.string.optional_update));
         }
 
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
         if (update_type.equals("force_update")) {
@@ -804,31 +580,24 @@ public class DialogFactory {
             builder.setCancelable(true);
         }
 
-
         //create dialog and set background transparent
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         btn_send.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
             dialog.dismiss();
-
         });
-
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
-
     }
 
 
     public void createInfoMemberPrizeDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view, String info_type) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
         //define views inside of dialog
         Button btn_cancel = customLayout.findViewById(R.id.btn);
         TextView txt_body = customLayout.findViewById(R.id.txt_description);
@@ -836,7 +605,6 @@ public class DialogFactory {
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
 
         btn_cancel.setText(context.getResources().getString(R.string.close));
-
 
         switch (info_type) {
             case "member_info_new_register":
@@ -887,13 +655,11 @@ public class DialogFactory {
     @SuppressLint("ClickableViewAccessibility")
     public void createSearchableDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view,
                                        List<SearchModel> searchList, NewRegisterActivity newRegisterActivity) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.searchable_dialog, (ViewGroup) view, false);
 
         //define views inside of dialog
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_searchable);
         SearchView searchView = customLayout.findViewById(R.id.searchView);
-
 
         EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.WHITE);
@@ -946,7 +712,6 @@ public class DialogFactory {
 
     public void createShoppingProductDetailDialog(@NotNull DialogFactoryInteraction listener,
                                                   @Nullable RelativeLayout view, @NotNull ShoppingProductList model) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.shopping_product_detail_dialog, (ViewGroup) view, false);
 
         //define views inside of dialog
@@ -962,78 +727,10 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
         img_close.setOnClickListener(v -> dialog.dismiss());
-
 //        set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         ShoppingProductsDetailAdapter adapter = new ShoppingProductsDetailAdapter(model.getDetail(), view.getContext());
         recyclerView.setAdapter(adapter);
-
-        dialog.show();
-
-    }
-
-
-    public void createRegisterBarcodeInfoDialog(@NotNull DialogFactoryInteraction dialogFactoryInteraction,
-                                                @Nullable RelativeLayout view) {
-
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_info_dialog, (ViewGroup) view, false);
-
-        //define views inside of dialog
-        ImageView img_close = customLayout.findViewById(R.id.img_close);
-        TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        Button btn_close = customLayout.findViewById(R.id.btn1);
-
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setView(customLayout);
-
-        //create dialog and set background transparent
-        android.app.AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_close.setOnClickListener(v -> dialog.dismiss());
-
-
-        dialog.show();
-
-    }
-
-
-    public void createNoSearchSpnResultDialog(@NotNull DialogFactoryInteraction listener, @Nullable RelativeLayout view) {
-
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
-
-        //define views inside of dialog
-        ImageView img_close = customLayout.findViewById(R.id.img_close);
-        TextView txt_header = customLayout.findViewById(R.id.txt_header);
-        TextView txt_description = customLayout.findViewById(R.id.txt_description);
-        Button btn_close = customLayout.findViewById(R.id.btn2);
-        Button btn_direct_registeration = customLayout.findViewById(R.id.btn1);
-
-        btn_close.setText(context.getResources().getString(R.string.close));
-        btn_direct_registeration.setText(context.getResources().getString(R.string.direct_registerarion));
-
-        txt_header.setText(context.getResources().getString(R.string.system_message));
-        txt_description.setText("کالایی با مشخصات فوق پیدا نشد!");
-
-        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
-        builder.setView(customLayout);
-
-        //create dialog and set background transparent
-        android.app.AlertDialog dialog = builder.create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-        img_close.setOnClickListener(v -> dialog.dismiss());
-        btn_close.setOnClickListener(v -> dialog.dismiss());
-
-        btn_direct_registeration.setOnClickListener(v -> {
-            listener.onAcceptButtonClicked();
-            dialog.dismiss();
-        });
-
         dialog.show();
     }
 
@@ -1042,13 +739,11 @@ public class DialogFactory {
     public void createQrcodeInfoBtnsDialog(DialogFactoryInteraction listener, View view, String description, String name) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog2, (ViewGroup) view, false);
-
         //define views inside of dialog
         Button btn_close = customLayout.findViewById(R.id.btn);
         TextView txt_body = customLayout.findViewById(R.id.txt_description);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1065,24 +760,17 @@ public class DialogFactory {
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
     }
 
 
     public void createBarcodeResultListDialog(DialogFactoryInteraction listener, LinearLayout view, Barcode barcode,
-                                              QRcodeActivity1 qRcodeActivity1) {
-
-
+                                              QRcodeActivity qRcodeActivity) {
         View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_result_list_dialog, (ViewGroup) view, false);
-
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_barcodeListDialog);
-
         Button btn_close = customLayout.findViewById(R.id.btn_close);
         Button btn_new_registeration = customLayout.findViewById(R.id.btn_new_register_barcode_list_dialog);
-
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1101,13 +789,11 @@ public class DialogFactory {
                     barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }
 
-
         //set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog, barcode);
-        adapter.setListener(qRcodeActivity1);
+        adapter.setListener(qRcodeActivity);
         recyclerView.setAdapter(adapter);
-
 
         btn_new_registeration.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
@@ -1119,17 +805,13 @@ public class DialogFactory {
 //            listener.onDeniedButtonClicked(false);
         });
 
-
         btn_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
-
     }
 
 
     public void createBarcodeResultListUnreadableDialog(DialogFactoryInteraction listener, RelativeLayout view, Barcode barcode,
-                                                        PurchasedItemActivityNew purchasedItemActivityNew) {
-
+                                                        PurchasedItemActivity purchasedItemActivity) {
         View customLayout = LayoutInflater.from(context).inflate(R.layout.barcode_result_list_dialog, (ViewGroup) view, false);
 
         ImageView img_close = customLayout.findViewById(R.id.img_close);
@@ -1137,7 +819,6 @@ public class DialogFactory {
 
         Button btn_close = customLayout.findViewById(R.id.btn_close);
         Button btn_new_registeration = customLayout.findViewById(R.id.btn_new_register_barcode_list_dialog);
-
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1151,19 +832,16 @@ public class DialogFactory {
         List<BarcodeData> barcodeList = new ArrayList<>();
 
         for (int i = 0; i < barcode.getData().size(); i++) {
-
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
                     barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }
 
-
         //set recyclerview
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         BarcodeListAdapter adapter = new BarcodeListAdapter(barcodeList, context, dialog, barcode);
-        adapter.setListener(purchasedItemActivityNew);
+        adapter.setListener(purchasedItemActivity);
         recyclerView.setAdapter(adapter);
-
 
         btn_new_registeration.setOnClickListener(v -> {
             listener.onAcceptButtonClicked();
@@ -1176,17 +854,14 @@ public class DialogFactory {
         });
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
-
         dialog.show();
     }
 
 
     public void createSpnListDialog(DialogFactoryInteraction listner, RelativeLayout view,
-                                    List<SearchModel> searchList, PurchasedItemActivityNew purchasedItemActivityNew,
+                                    List<SearchModel> searchList, PurchasedItemActivity purchasedItemActivity,
                                     String spn_name, String title) {
-
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
-
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         TextView txt_explanation = customLayout.findViewById(R.id.txt_explanation);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
@@ -1194,9 +869,7 @@ public class DialogFactory {
         Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
         Button btn_scan = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
         Button btn_etc = customLayout.findViewById(R.id.btn_etc);
-
         LinearLayout ll_explanation = customLayout.findViewById(R.id.ll_explanation);
-
         LinearLayout ll_etc = customLayout.findViewById(R.id.ll_etc);
 
         if (spn_name.equals("spn_group")) {
@@ -1211,8 +884,6 @@ public class DialogFactory {
             txt_explanation.setVisibility(View.GONE);
         }
 
-
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1225,14 +896,12 @@ public class DialogFactory {
         txt_header.setText(title);
         txt_explanation.setText("اگر کالای شما در لیست فوق نیست کالای جدید را اسکن نمایید");
 
-
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 //        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
-        adapter.setListener(purchasedItemActivityNew);
+        adapter.setListener(purchasedItemActivity);
         recyclerView.setAdapter(adapter);
-
 
         btn_etc.setOnClickListener(v -> {
             listner.onAcceptButtonClicked(spn_name, title);
@@ -1241,24 +910,20 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
-//            listener.onDeniedButtonClicked(false);
         });
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
         btn_scan.setOnClickListener(v -> {
-            context.startActivity(new Intent(context,QRcodeActivity1.class));
+            context.startActivity(new Intent(context, QRcodeActivity.class));
             dialog.dismiss();
         });
-
         dialog.show();
     }
-
 
     public void createOnline_Present_PurchaseListDialog(DialogFactoryInteraction listener, RelativeLayout view,
                                                         List<SearchModel> searchList, NewRegisterActivity newRegisterActivity, String spn_name) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
-
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
         Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
@@ -1270,7 +935,6 @@ public class DialogFactory {
             txt_header.setText("لیست فروشگاههای حضوری/تلفنی");
         }
 
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1280,18 +944,14 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-
         //set recyclerview
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(newRegisterActivity);
         recyclerView.setAdapter(adapter);
 
-
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
-//            listener.onDeniedButtonClicked(false);
         });
 
         btn_close.setOnClickListener(v -> dialog.dismiss());
@@ -1301,24 +961,19 @@ public class DialogFactory {
 
 
     public void createEtcSpnListDialog(DialogFactoryInteraction listener, RelativeLayout view,
-                                       PurchasedItemActivityNew purchasedItemActivityNew, String spn_nam, String dialog_title) {
+                                       PurchasedItemActivity purchasedItemActivity, String spn_nam, String dialog_title) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.report_issue_dialog, (ViewGroup) view, false);
-
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         EditText edt_description = customLayout.findViewById(R.id.edt_description);
         Button btn_close = customLayout.findViewById(R.id.btn_cancel_dialog);
         Button btn_register = customLayout.findViewById(R.id.btn_send_dialog);
 
-
         btn_register.setText("ثبت");
 
         txt_header.setText(dialog_title);
-
         edt_description.setHint(("لطفا عنوان ") + (dialog_title) + (" را بصورت کامل تایپ کنید"));
-
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1327,7 +982,6 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
-
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_close.setOnClickListener(v -> dialog.dismiss());
@@ -1338,10 +992,7 @@ public class DialogFactory {
             dialog.dismiss();
         });
 
-
         dialog.show();
-
-
     }
 
 
@@ -1349,7 +1000,6 @@ public class DialogFactory {
                                       String img1_link, String img2_link) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.image_info_dialog, (ViewGroup) view, false);
-
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         Button btn_close = customLayout.findViewById(R.id.btn_close);
@@ -1358,10 +1008,8 @@ public class DialogFactory {
         ImageView img1_info = customLayout.findViewById(R.id.img1_info);
         ImageView img2_info = customLayout.findViewById(R.id.img2_info);
 
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
-
         //create dialog and set background transparent
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
@@ -1384,7 +1032,6 @@ public class DialogFactory {
                                             Transaction model, int position) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.transaction_info_dialog, (ViewGroup) view, false);
-
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         Button btn_close = customLayout.findViewById(R.id.btn_close);
@@ -1405,10 +1052,8 @@ public class DialogFactory {
         txt_amount.setText(model.amount);
         txt_extra.setText(model.extra);
 
-
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
-
         //create dialog and set background transparent
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
@@ -1419,6 +1064,4 @@ public class DialogFactory {
           btn_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
-
-
 }

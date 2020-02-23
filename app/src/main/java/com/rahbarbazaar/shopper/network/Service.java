@@ -48,11 +48,8 @@ import retrofit2.http.Query;
 
 public interface Service {
 
-    //    @POST("Login/Login")
-//    Single<LoginModel> login(@Query("mobile") String mobile);
     @POST("Login/Login")
     Call<LoginModel> login(@Query("mobile") String mobile);
-
 
     @POST("Login/Verify")
     Call<VerifyModel> verify(@Query("code") String code);
@@ -130,16 +127,8 @@ public interface Service {
     Call<TransactionData> getTransactionList(@Query("page") Integer page ,
                                                @Query("type") String type);
 
-    @GET("Shopcenter/Index")
-    Call<ShopCenter> getShopcenter();
-
-
     @GET("Profile/Index")
     Call<ProfileData> getProfileList();
-
-    @POST("Profile/Detail")
-    Call<List<MemberDetail>> getProfileMemberDetail(@Query("member_id") String member_id);
-
 
     @POST("Profile/Change")
     Call<ProfileChange> profileChange(@Query("body") String body);
@@ -164,23 +153,10 @@ public interface Service {
     Call<TotalShoppingProductData> getShoppingProductList(@Query("shopping_id") String shopping_id,
                                                           @Query("page") Integer page);
 
-    @GET("Search/Main")
-    Call<GroupsData> getGroupsSpnData();
-
     @GET("Search/Category")
     Call<GroupsData> getCategorySpnData();
-
-    @POST("Search/Subcategory")
-    Call<GroupsData> getSubCategorySpnData(@Query("category_id") String category_id);
 
     @POST("Search/Brand")
     Call<SpinnersModel> getSpinnersData(@Query("category_id") String category_id);
 
-
-    @POST("Search/Product")
-    Call<Barcode> getSearchedList(@Query("group_id") String group_id,
-                                  @Query("category_id") String category_id,
-                                     @Query("sub_category_id") String sub_category_id,
-                                     @Query("brand_id") String brand_id,
-                                     @Query("page") Integer page);
 }

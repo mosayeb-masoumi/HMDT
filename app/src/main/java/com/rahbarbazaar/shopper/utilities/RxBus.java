@@ -12,7 +12,6 @@ public final class RxBus {
         //this how to create our bus
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeDashboardModel(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -26,7 +25,6 @@ public final class RxBus {
     public static class RegisterModel {
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeRegisterModel(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -37,10 +35,8 @@ public final class RxBus {
     }
 
     public static class ShoppingEdit {
-
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeShoppingEdit(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -51,10 +47,8 @@ public final class RxBus {
     }
 
     public static class BarcodeList {
-
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeBarcodeList(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -66,10 +60,8 @@ public final class RxBus {
 
 
     public static class TotalEditProductData {
-
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeTotalEditProductData(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -81,10 +73,8 @@ public final class RxBus {
 
 
     public static class MemberPrizeLists {
-
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeMemberPrizeLists(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -96,10 +86,8 @@ public final class RxBus {
 
 
     public static class ProfileInfo {
-
         private static final BehaviorSubject<Object> behaviorSubject
                 = BehaviorSubject.create();
-
         public static Disposable subscribeProfileInfo(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
@@ -108,19 +96,5 @@ public final class RxBus {
             behaviorSubject.onNext(message);
         }
     }
-
-//    public static class GroupsSpnData {
-//
-//        private static final BehaviorSubject<Object> behaviorSubject
-//                = BehaviorSubject.create();
-//
-//        public static Disposable subscribeGroupsSpnData(@NonNull Consumer<Object> action) {
-//            return behaviorSubject.subscribe(action);
-//        }
-//
-//        public static void publishGroupsSpnData(@NonNull Object message) {
-//            behaviorSubject.onNext(message);
-//        }
-//    }
 
 }

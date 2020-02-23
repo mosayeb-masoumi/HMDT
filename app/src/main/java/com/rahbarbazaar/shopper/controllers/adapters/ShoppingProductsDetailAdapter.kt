@@ -16,7 +16,6 @@ class ShoppingProductsDetailAdapter (private val detail: List<Detail>, val conte
         return ShoppingProductsDetailViewHolder(view,context)
     }
 
-
     override fun onBindViewHolder(holder: ShoppingProductsDetailViewHolder, position: Int) {
         val model = detail[position]
         holder.bindUserData(model)
@@ -26,5 +25,4 @@ class ShoppingProductsDetailAdapter (private val detail: List<Detail>, val conte
     override fun getItemCount(): Int {
         return  detail.size
     }
-
 }

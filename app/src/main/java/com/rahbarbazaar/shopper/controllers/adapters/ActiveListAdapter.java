@@ -34,7 +34,7 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder
     public void onBindViewHolder(@NonNull ActiveListViewHolder holder, int position) {
         ActiveListModel model = activeListModels.get(position);
         holder.bindData(model , position);
-        holder.setOnActiveListHolderListener(listener,model , position);
+        holder.setOnActiveListHolderListener(listener,model);
 
     }
 
@@ -48,6 +48,5 @@ public class ActiveListAdapter extends RecyclerView.Adapter<ActiveListViewHolder
     public int getItemCount() {
         return activeListModels.size();
     }
-
 
 }

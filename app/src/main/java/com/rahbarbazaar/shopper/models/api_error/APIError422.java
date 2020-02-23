@@ -8,10 +8,7 @@ public class APIError422 {
     @SerializedName("message")
     @Expose
     public String message;
-
     @SerializedName("errors")
     @Expose
     public ErrorsMessage422 errors;
-
-
 }

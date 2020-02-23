@@ -23,12 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.PurchasedItemActivityNew"/>
-        <activity android:name=".ui.activities.QRcodeActivity1" />
+        <activity android:name=".ui.activities.PurchasedItemActivity"/>
+        <activity android:name=".ui.activities.QRcodeActivity" />
         <activity android:name=".ui.activities.NewRegisterActivity" />
-
-
-        <activity android:name=".ui.activities.BarcodeListActivity" />
 
         <activity android:name=".ui.activities.HtmlLoaderActivity" />
         <activity android:name=".ui.activities.AgreementActivity" />

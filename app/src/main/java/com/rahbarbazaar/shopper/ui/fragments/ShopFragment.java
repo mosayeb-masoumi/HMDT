@@ -1,6 +1,5 @@
 package com.rahbarbazaar.shopper.ui.fragments;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import com.rahbarbazaar.shopper.controllers.adapters.ShopAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.ShopItemInteraction;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.shop.ShopCenterModel;
-import com.rahbarbazaar.shopper.models.shop.ShopCenter;
 import com.rahbarbazaar.shopper.ui.activities.HtmlLoaderActivity;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -36,10 +34,9 @@ public class ShopFragment extends Fragment implements ShopItemInteraction {
     Disposable disposable = new CompositeDisposable();
     DashboardCreateData dashboardCreateData;
 
-    RecyclerView  recyclerView;
+    RecyclerView recyclerView;
     AVLoadingIndicatorView avi;
 
-    ShopCenter shopCenter;
     List<ShopCenterModel> shopCenterModels;
     LinearLayoutManager linearLayoutManager;
     ShopAdapter adapter;
@@ -63,59 +60,46 @@ public class ShopFragment extends Fragment implements ShopItemInteraction {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_shop, container, false);
-        
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
         initView(view);
-
-    setRecyclerview();
-
+        setRecyclerview();
         return view;
     }
 
     private void initView(View view) {
-
         recyclerView = view.findViewById(R.id.rv_shopcenter);
         avi = view.findViewById(R.id.avi_loading_fr_shop);
-
     }
-
-
 
 
     private void setRecyclerview() {
 
         shopCenterModels = new ArrayList<>();
-        shopCenterModels.addAll(dashboardCreateData.data.shopCenter.data) ;
+        shopCenterModels.addAll(dashboardCreateData.data.shopCenter.data);
 
-        linearLayoutManager = new GridLayoutManager(getContext(),2);
+        linearLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ShopAdapter(shopCenterModels, getContext());
         recyclerView.setAdapter(adapter);
         adapter.setListener(this);  // important to set onclick or else the app will crashed
         adapter.notifyDataSetChanged();
-
     }
-
 
     @Override
     public void shopItemOnClicked(ShopCenterModel model, int position) {
-
         goToHtmlActivity(model.url);
     }
 
     private void goToHtmlActivity(String url) {
-
         Intent intent = new Intent(getContext(), HtmlLoaderActivity.class);
         intent.putExtra("url", url);
         startActivity(intent);
-       getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         disposable.dispose(); //very important
-
     }
-
 }

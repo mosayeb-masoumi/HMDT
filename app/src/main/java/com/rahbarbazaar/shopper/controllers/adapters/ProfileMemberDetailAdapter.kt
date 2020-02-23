@@ -19,7 +19,6 @@ class ProfileMemberDetailAdapter (private val memberDetailObj: List<MemberDetail
     override fun onBindViewHolder(holder: ProfileMemberDetailViewHolder, position: Int) {
         val model = memberDetailObj[position]
         holder.bindUserData(model)
-
     }
 
     override fun getItemCount(): Int {

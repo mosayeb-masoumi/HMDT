@@ -184,5 +184,6 @@
     <string name="taking_clear_photo">لطفا از فاکتور خرید خود بصورت خوانا عکس بگیرید.</string>
     <string name="factor_image">عکس فاکتور خرید</string>
     <string name="consumers">مصرف کنندگان</string>
+    <string name="no_product">کالایی با این بارکد یافت نشد. لطفا مشخصات کالا و محصول را درج نمایید.</string>
 
 </resources>

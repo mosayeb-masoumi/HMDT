@@ -16,7 +16,6 @@ class EditProductsAdapter(private val editProducts: List<EditProducts>, val cont
         return EditProductsViewHolder(view,context)
     }
 
-
     override fun onBindViewHolder(holder: EditProductsViewHolder, position: Int) {
 
         val model = editProducts[position]
@@ -27,14 +26,10 @@ class EditProductsAdapter(private val editProducts: List<EditProducts>, val cont
     private var listener: EditProductsItemInteraction? = null
     fun setListener(listener: EditProductsItemInteraction) {
         this.listener = listener
-
     }
-
 
     override fun getItemCount(): Int {
 
         return  editProducts.size
     }
-
-
 }

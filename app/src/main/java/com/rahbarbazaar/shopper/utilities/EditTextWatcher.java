@@ -9,21 +9,16 @@ import java.util.StringTokenizer;
 public class EditTextWatcher implements TextWatcher {
     EditText editText;
 
-
     public EditTextWatcher(EditText editText) {
         this.editText = editText;
-
-
     }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-
     }
 
     @Override
@@ -44,7 +39,6 @@ public class EditTextWatcher implements TextWatcher {
                     editText.setText("");
 
                 }
-
 
                 String str = editText.getText().toString().replaceAll(",", "");
                 if (!value.equals(""))
@@ -96,7 +90,6 @@ public class EditTextWatcher implements TextWatcher {
             str3 = str1.charAt(k) + str3;
             i++;
         }
-
     }
 
     public static String trimCommaOfString(String string) {

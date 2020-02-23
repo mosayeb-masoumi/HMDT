@@ -33,10 +33,6 @@ class MessageViewHolder(view: View, val context: Context) : RecyclerView.ViewHol
             // Set the visibility based on state
             sub_item.visibility = if (expanded!!) View.VISIBLE else View.GONE
 
-
-
-
-
             if(!expanded){
                 if(model.status.equals("seen")){
                     img_open.background = ContextCompat.getDrawable(context, R.drawable.plus_blue)
@@ -76,17 +72,13 @@ class MessageViewHolder(view: View, val context: Context) : RecyclerView.ViewHol
             // to check just unread messages Id send to server
             var status :String? = model.status
 
-
-
             //to change background to seen state while clicking(must be before notifyItemChanged() method)
             model.status = "seen"
-
 
             val expanded = model.expanded
             // Change the state
             model.expanded = (!expanded!!)
             listener?.messageListOnClicked(model,position, status!!)
-
 
         }
     }

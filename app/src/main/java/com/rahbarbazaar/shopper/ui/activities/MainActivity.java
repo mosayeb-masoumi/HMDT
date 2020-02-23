@@ -42,8 +42,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.rahbarbazaar.shopper.BuildConfig;
 import com.rahbarbazaar.shopper.R;
@@ -75,12 +73,9 @@ import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import co.ronash.pushe.Pushe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
@@ -89,7 +84,6 @@ import retrofit2.Response;
 
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
-
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -106,7 +100,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     TextView txt_exit, text_notify_count, text_follow_us;
     DialogFactory dialogFactory;
 
-    RelativeLayout rl_notification, rl_curvedbottom;
+    RelativeLayout rl_notification;
     DrawerLayout drawer_layout_home;
 
     RecyclerView drawer_rv;
@@ -119,19 +113,25 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     Disposable disposable = new CompositeDisposable();
     DashboardCreateData dashboardCreateData;
-
     ProfileData profileData;
-
     String locale_name;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Pushe.initialize(this, true);
-        String pusheId = Pushe.getPusheId(MainActivity.this);
+//        co.pushe.plus.Pushe.initialize();
+//        if(co.pushe.plus.Pushe.isInitialized()){
+//            String pusheId2 = co.pushe.plus.Pushe.getPusheId();
+//            Toast.makeText(MainActivity.this, ""+pusheId2, Toast.LENGTH_SHORT).show();
+//        }
+
+
+        //ronash
+//        Pushe.initialize(this, true);
+//        String pusheId = Pushe.getPusheId(MainActivity.this);
+
 
 
         locale_name = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
@@ -146,9 +146,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             }
         };
 
-
         initView();
-
         disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
             if (result instanceof DashboardCreateData) {
                 dashboardCreateData = (DashboardCreateData) result;
@@ -157,7 +155,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         //initial Dialog factory
         dialogFactory = new DialogFactory(MainActivity.this);
-
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
         ll_drawer.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
@@ -168,14 +165,12 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //        else
 //            img_arrow.setImageResource(R.drawable.arrow_right);
 
-
         if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
             image_telegram.setVisibility(View.INVISIBLE);
         }
         if (tools.checkPackageInstalled("com.instagram.android", this)) {
             image_instagram.setVisibility(View.INVISIBLE);
         }
-
 
         if (tools.checkPackageInstalled("org.telegram.messenger", this)) { //no telegram
             if (tools.checkPackageInstalled("com.instagram.android", this)) { // no instagram
@@ -189,12 +184,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
 
         checkUpdate();
-
         getProfileInfo();
-
         setDrawerRecycler();
-
-
     }
 
     private void getProfileInfo() {
@@ -222,26 +213,21 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         });
     }
 
-
     private void checkUpdate() {
         int device_version = BuildConfig.VERSION_CODE;
         int minVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "minVersionCode"));
         int currentVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "currentVersionCode"));
-
 
         // force update
         if (device_version < minVersionCode) {
             String update_type = "force_update";
             showUpdateDialog(update_type);
         }
-
         // optional update
         if (device_version >= minVersionCode && device_version < currentVersionCode) {
             String update_type = "optional_update";
             showUpdateDialog(update_type);
         }
-
-
     }
 
     private void showUpdateDialog(String update_type) {
@@ -249,7 +235,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         dialogFactory.createUpdateDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... strings) {
-
 
                 if (checkStoragePermissionGranted()) {
                     new DownloadManager().DownloadUpdateApp(MainActivity.this);
@@ -275,7 +260,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         ActivityCompat.requestPermissions((MainActivity.this)
                 , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 444);
     }
-
 
     private void initView() {
 
@@ -324,10 +308,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_profile_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
-
-
     }
-
 
     @Override
     protected void onResume() {
@@ -335,12 +316,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         drawer_layout_home.closeDrawer(Gravity.END);
         updateDashboard();
-
-
     }
 
     private void updateDashboard() {
-
         Service service = new ServiceProvider(MainActivity.this).getmService();
         Call<DashboardUpdateData> call = service.dashboardUpdateData();
         call.enqueue(new Callback<DashboardUpdateData>() {
@@ -359,13 +337,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             @Override
             public void onFailure(Call<DashboardUpdateData> call, Throwable t) {
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
 
     private void setNotifyCount(DashboardUpdateData updateData) {
-
         if (updateData.data.getUnread() > 0) {
             ll_notify_count.setVisibility(View.VISIBLE);
             if (updateData.data.getUnread() > 999) {
@@ -379,29 +355,17 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
     }
 
-
     private void setDrawerRecycler() {
 
         drawerItems = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-        // to show list of member items
-//        List<ActiveList> activeList = new ArrayList<>();
-
         drawerItems.addAll(dashboardCreateData.data.drawerMenu.data);
-
-//        for (int i = 0; i < activeListData.data.size(); i++) {
-//            activeList.add(new ActiveList(activeListData.data.get(i).id, activeListData.data.get(i).date
-//                    , activeListData.data.get(i).title));
-//        }
-
         drawer_rv.setLayoutManager(linearLayoutManager);
         adapter_drawer = new DrawerAdapter(drawerItems, MainActivity.this);
         drawer_rv.setAdapter(adapter_drawer);
         adapter_drawer.setListener(MainActivity.this);  // important to set or else the app will crashed
         adapter_drawer.notifyDataSetChanged();
-
     }
-
 
     private void initializeBottomNavigation() {
         // Create items
@@ -416,12 +380,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         bottom_navigation.addItem(item3);
         bottom_navigation.addItem(item4);
 
-
         bottom_navigation.setAccentColor(Color.parseColor("#212b5e"));
         bottom_navigation.setInactiveColor(Color.parseColor("#FFFFFF"));
-
         bottom_navigation.setDefaultBackgroundResource(R.drawable.bg_toolbar);
-
 
         //requred api level min 21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -454,7 +415,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 drawer_layout_home.openDrawer(Gravity.END);
                 break;
 
-
             case R.id.linear_support:
 
                 if (!isSupportLayoutClicked) {
@@ -462,28 +422,21 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     img_arrow.setImageResource(R.drawable.arrow_down);
                 } else {
                     tools.collapse(linear_submenu);
-//                    if (locale_name.equals("fa"))
                     img_arrow.setImageResource(R.drawable.arrow_left);
-//                    else
-//                        img_arrow.setImageResource(R.drawable.arrow_right);
-
                 }
 
                 isSupportLayoutClicked = !isSupportLayoutClicked;
                 break;
-
 
             case R.id.linear_faq:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.faqPage);
                 break;
 
-
             case R.id.linear_edu:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.education_page);
                 break;
-
 
             case R.id.linear_report_issue:
                 drawer_layout_home.closeDrawers();
@@ -519,16 +472,12 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
-
             case R.id.rl_notification:
                 startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-
                 break;
 
-
             case R.id.image_instagram:
-
                 drawer_layout_home.closeDrawers();
                 Uri uriInstagram = Uri.parse("http://instagram.com/_u/poller.ir");
                 Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
@@ -556,7 +505,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                     e.printStackTrace();
                 }
-
                 break;
         }
     }
@@ -565,7 +513,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         String user_name = Cache.getString(MainActivity.this, "user_name");
         String share_url = Cache.getString(MainActivity.this, "share_url");
-
         ShareCompat.IntentBuilder
                 .from(MainActivity.this)
                 .setText(new StringBuilder().append(getString(R.string.text_invite_from)).append(" ").append(user_name).append(" ").
@@ -601,9 +548,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         });
     }
 
-
     private void createConfirmExitDialog() {
-
         Context context = MainActivity.this;
         dialogFactory.createConfirmExitDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
@@ -614,7 +559,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 Cache.setString(MainActivity.this, "refresh_token", "");
                 Cache.setString(MainActivity.this, "expireAt", "");
                 Cache.setString(MainActivity.this, "agreement", "undone");
-
                 startActivity(new Intent(context, SplashActivity.class));
                 MainActivity.this.finish();
             }
@@ -669,24 +613,17 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         return true;
     }
 
-
     @Override
     public void onDrawerItemClicked(String url) {
-
         goToHtmlActivity(url);
-
     }
 
     private void goToHtmlActivity(String url) {
-
         Intent intent = new Intent(MainActivity.this, HtmlLoaderActivity.class);
         intent.putExtra("url", url);
-//        intent.putExtra("surveyDetails", false);
-//        intent.putExtra("isShopping", shouldBeLoadUrl);
         startActivity(intent);
         MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -700,12 +637,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             case 25:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent intent = new Intent(MainActivity.this, QRcodeActivity1.class);
+                    Intent intent = new Intent(MainActivity.this, QRcodeActivity.class);
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 }
-
                 break;
 
             case 3:
@@ -716,43 +652,26 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     } else {
                         gpsDialog();
                     }
-
                 }
-
-
-//                else{
-//                    Toast.makeText(this, "نیاز به اجازه ی دسترسی دوربین", Toast.LENGTH_SHORT).show();
-//                }
-
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 12) {
-
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-
                 sendLatLng();
-//                getLocation();
-
-            } else {
-                //User clicks No
             }
         }
-
     }
 
     private void gpsDialog() {
 
         Toast.makeText(MainActivity.this, "برای ثبت خرید لازم است GPS خود را روشن نمایید, صبور باشید ...", Toast.LENGTH_LONG).show();
-
         //     show waiting AVI
         LocationRequest mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -764,38 +683,23 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         builder.setNeedBle(true);
         SettingsClient client = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-        task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-            @Override
-            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                hasLocationPermission();
-
-//                getLocation();
-
-                sendLatLng();
-
-
-//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
-
-                //     hide waiting AVI
-
-            }
+        task.addOnSuccessListener(this, locationSettingsResponse -> {
+            hasLocationPermission();
+            sendLatLng();
         });
-        task.addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    // Location settings are not satisfied, but this can be fixed
-                    // by showing the user a dialog.
-                    try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(MainActivity.this,
-                                12);
-                    } catch (IntentSender.SendIntentException e1) {
+        task.addOnFailureListener(this, e -> {
+            if (e instanceof ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(MainActivity.this,
+                            12);
+                } catch (IntentSender.SendIntentException e1) {
 
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
             }
         });
@@ -822,13 +726,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     Cache.setString(MainActivity.this,"lng", strLng);
                     Cache.setString(MainActivity.this,"validate_area", validate_area);
 
-
                     if (validate) {
                         getNewRegisterData();
                     } else {
                        outOfAreaDialog();
                     }
-
 
                 } else {
                     Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -837,9 +739,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<LatLng> call, Throwable t) {
-
                 Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -852,10 +752,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 if (response.code() == 200) {
 
-
                     String gps_avi_loading = "hide_loading";
                     EventBus.getDefault().postSticky(gps_avi_loading);
-
                     // publish null
                     ShoppingEdit shoppingEdit = new ShoppingEdit();
                     RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
@@ -865,7 +763,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     RxBus.RegisterModel.publishRegisterModel(registerModel);
                     startActivity(new Intent(MainActivity.this, NewRegisterActivity.class));
                     overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-
 
                 } else if (response.code() == 406) {
                     APIError406 apiError = ErrorUtils.parseError406(response);
@@ -952,21 +849,15 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     }
 
 
-
-
-
-
     @Override
-    protected void onDestroy() {
+    protected void onStop() {
+        super.onStop();
         unregisterReceiver(connectivityReceiver);
-        super.onDestroy();
         disposable.dispose();
     }
 
-
     @Override
     public void onBackPressed() {
-
 
         if (drawer_layout_home.isDrawerOpen(Gravity.END)) {
             drawer_layout_home.closeDrawers();
@@ -996,6 +887,5 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         Process.killProcess(Process.myPid());
         super.finish();
     }
-
 
 }

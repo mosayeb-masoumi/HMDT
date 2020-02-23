@@ -37,8 +37,6 @@ import retrofit2.Response
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
     private var connectivityReceiver: BroadcastReceiver? = null
-
-
     var mobile: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,20 +51,15 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
         }
 
-
         mobile = intent.getStringExtra("mobile")
         text_user_mobile.text = mobile
-
         reverseTimer(90, text_min)
-
         ll_txt_user_mobile.setOnClickListener(this)
         linear_recode.setOnClickListener(this)
         button_verify.setOnClickListener(this)
 
-
         val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
         et_user_verify.typeface = tf
-
 
         // event on done keyboard
         et_user_verify.setOnEditorActionListener { v, actionId, event ->
@@ -120,7 +113,6 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                 linear_recode.visibility = View.GONE
                 rl_recode_number.visibility = View.VISIBLE
                 reverseTimer(10, text_min)
-
                 recodeRequest()
             }
 
@@ -143,18 +135,13 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onResponse(call: Call<VerifyModel>, response: Response<VerifyModel>) {
 
                 if (response.code() == 200) {
-
                     val expireAt: Int
-
                     val access_token = response.body()?.accessToken
                     val refresh_token = response.body()?.refreshToken
                     expireAt = response.body()?.expireAt!!
-
-
                     Cache.setString(this@VerificationActivity, "access_token", access_token)
                     Cache.setString(this@VerificationActivity, "refresh_token", refresh_token)
                     Cache.setInt(this@VerificationActivity, "expireAt", expireAt)
-
 
                     requestDashboardData()
 
@@ -203,11 +190,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
 
             override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
-
             }
 
         }, splash_root, message)
-
     }
 
     private fun requestDashboardData() {
@@ -218,7 +203,6 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onResponse(call: Call<DashboardCreateData>, response: Response<DashboardCreateData>) {
 
                 if (response.code() == 200) {
-
                     var dashboardCreateData: DashboardCreateData
                     dashboardCreateData = response.body()!!
                     RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
@@ -252,13 +236,10 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onResponse(call: Call<MemberPrize>, response: Response<MemberPrize>) {
 
                 if (response.code() == 200) {
-
                     var memberPrize = MemberPrize()
                     memberPrize = response.body()!!
                     RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
-
                     sendDeviceInfo()
-
 
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -299,15 +280,11 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         val service = ServiceProvider(this).getmService()
         val call = service.sendDeviceInfo(device_brand,device_model,os_type,os_version,version_code,version_name,ip,network_type)
         call.enqueue(object : Callback<DashboardHistory> {
-
             override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
-
                 if (response.code() == 200) {
-
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     finish()
-
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
@@ -318,7 +295,6 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
         })
     }
-
 
     private fun recodeRequest() {
 
@@ -357,9 +333,8 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         unregisterReceiver(connectivityReceiver)
-
     }
 }

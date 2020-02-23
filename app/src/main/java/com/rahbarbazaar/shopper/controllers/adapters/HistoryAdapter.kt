@@ -18,7 +18,6 @@ class HistoryAdapter(private val history: List<History>, val context: Context) :
         return HistoryViewHolder(view,context)
     }
 
-
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val model = history[position]
         holder.bindUserData(model)
@@ -28,7 +27,6 @@ class HistoryAdapter(private val history: List<History>, val context: Context) :
     private var listener: HistoryItemInteraction? = null
     fun setListener(listener: HistoryItemInteraction) {
         this.listener = listener
-
     }
 
     override fun getItemCount(): Int {

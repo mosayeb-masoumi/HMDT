@@ -1,18 +1,14 @@
 package com.rahbarbazaar.shopper.network;
 
-
 import android.content.Context;
 import android.content.Intent;
-
 import com.rahbarbazaar.shopper.models.refresh.RefreshTokenModel;
 import com.rahbarbazaar.shopper.ui.activities.LoginActivity;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.ClientConfig;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Authenticator;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,8 +30,6 @@ public class ServiceProvider {
         clientBuilder.connectTimeout(3, TimeUnit.MINUTES)
                 .readTimeout(3, TimeUnit.MINUTES);
         clientBuilder.cache(null);
-
-
 
         String accessToken = Cache.getString(context,"access_token");
          if(accessToken==null){
@@ -65,17 +59,11 @@ public class ServiceProvider {
             });
         }
 
-
-
-
         // handle error 401
         clientBuilder.authenticator(new Authenticator() {
 
             @Override
             public Request authenticate(Route route, Response response) throws IOException {
-
-//                String access_token = Cache.getString("access_token");
-//                String refresh_token = Cache.getString("refresh_token");
                 String access_token = Cache.getString(context,"access_token");
                 String refresh_token = Cache.getString(context,"refresh_token");
 
@@ -85,8 +73,6 @@ public class ServiceProvider {
                 //sync request
                 if (tokenModelResponse.isSuccessful()) {
 
-
-
                     //save token
                     Cache.setString(context,"access_token",tokenModelResponse.body().accessToken);
                     Cache.setString(context,"refresh_token",tokenModelResponse.body().refreshToken);
@@ -95,11 +81,9 @@ public class ServiceProvider {
                     return response.request().newBuilder()
                             .removeHeader("Authorization")
                             .removeHeader("Accept")
-//                            .addHeader("Authorization", "Bearer " + Cache.getString("access_token"))
                             .addHeader("Authorization", "Bearer " + Cache.getString(context,"access_token"))
                             .addHeader("language", "fa")
                             .addHeader("Accept", "application/json")
-
                             .build();
                 } else {
                     // todo check it
@@ -111,35 +95,19 @@ public class ServiceProvider {
             }
         });
 
-
-
         //error handlong
         clientBuilder.addInterceptor(chain -> {
             Request request = chain.request();
             Response response = chain.proceed(request);
-
 //            int a = response.code();
-
             return response;
-
-
         }).build();
-
-
-
-
-//        Gson gson = new GsonBuilder()
-//                .setLenient()
-//                .create();
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ClientConfig.ServerURL).client(clientBuilder.build()).
                 addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build();
-
         mService = retrofit.create(Service.class);
     }
-
     public Service getmService() {
         return mService;
     }
-
 }

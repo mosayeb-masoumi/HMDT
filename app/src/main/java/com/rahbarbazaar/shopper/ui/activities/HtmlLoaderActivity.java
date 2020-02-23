@@ -16,7 +16,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
@@ -24,19 +23,12 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnClickListener {
 
-
-    //region of view
-
     WebView webView;
     AVLoadingIndicatorView av_loading;
     LinearLayout linear_exit , web_btnbar;
-    //end of region
-
-    //region of property
     int id, url_type;
     BroadcastReceiver connectivityReceiver = null;
     boolean isSurveyDetails, isShopping, isUserStartSurvey = false;
-    //end of region
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -46,8 +38,6 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
         //initialize view
         defineView();
-
-
         String locale_name = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
         if (locale_name.equals("fa")) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
@@ -56,10 +46,6 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             web_btnbar.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
-
-        //config web view for show url content
-        String pish = "<html><head><style type=\"text/css\">@font-face {font-family: MyFont;src: url(\"file:///android_asset/fonts/BYekan.ttf\")}body {font-family: MyFont;font-size: medium;text-align: justify;}</style></head><body>";
-        String pas = "</body></html>";
 
         //check intent and get url
         String url = null;
@@ -70,11 +56,9 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
             isSurveyDetails = getIntent().getBooleanExtra("surveyDetails", false);
             url_type = getIntent().getIntExtra("type", 1);
             isShopping = getIntent().getBooleanExtra("isShopping", false);
-
         }
 
         //config web view setting for support multi action and java scripts
-
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setDatabaseEnabled(true);
@@ -87,25 +71,7 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
         webView.getSettings().setMinimumLogicalFontSize(1);
         webView.setClickable(true);
         webView.clearCache(true);
-
-
         webView.loadUrl(url);
-
-//        if (isSurveyDetails) {
-//
-////            //check for show token dialog
-////            if (url_type != 2)
-////                createTokenDialog();
-//
-//            webView.loadUrl(url);
-//
-//        } else {
-//
-//            if (isShopping)
-//                webView.loadUrl(url);
-//            else
-//                webView.loadDataWithBaseURL("", pish + url + pas, "text/html", "UTF-8", "");
-//        }
 
         webView.setWebViewClient(new WebViewClient() {
 
@@ -137,13 +103,10 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
                 tools.doCheckNetwork(HtmlLoaderActivity.this, findViewById(R.id.rl_root));
             }
         };
-
     }
-
 
     //define views of activity here
     private void defineView() {
-
         webView = findViewById(R.id.web_view);
         av_loading = findViewById(R.id.av_loading);
         linear_exit = findViewById(R.id.linear_exit);
@@ -151,21 +114,13 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
         linear_exit.setOnClickListener(this);
     }
 
-
-
-
-
-
     @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.linear_exit) {
-
             if (isSurveyDetails) {
-
                 if (webView.canGoBack())
                     isUserStartSurvey = true;
-
                 Intent intent = new Intent();
                 intent.putExtra("id", id);
                 intent.putExtra("isUserStartSurvey", isUserStartSurvey);
@@ -173,17 +128,12 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
                 //get q status from current web view url if is not empty so:
                 Uri uri = Uri.parse(webView.getUrl());
                 String qStatus = uri.getQueryParameter("qstatus");
-
                 if (qStatus == null || qStatus.equals(""))
                     qStatus = "1";
-
                 intent.putExtra("qstatus", qStatus);
                 setResult(RESULT_OK, intent);
-
-//                createConfirmExitDialog();
             } else
                 finish();
-
         }
     }
 
@@ -201,12 +151,9 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         if (isSurveyDetails) {
-
             if (webView.canGoBack())
                 isUserStartSurvey = true;
-
             Intent intent = new Intent();
             intent.putExtra("id", id);
             intent.putExtra("isUserStartSurvey", isUserStartSurvey);
@@ -220,11 +167,7 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
             intent.putExtra("qstatus", qStatus);
             setResult(RESULT_OK, intent);
-
-//            createConfirmExitDialog();
         } else
             finish();
     }
-
-
 }

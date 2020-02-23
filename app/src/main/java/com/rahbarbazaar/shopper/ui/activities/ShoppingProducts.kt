@@ -27,19 +27,14 @@ import kotlinx.android.synthetic.main.activity_shopping_products.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
-
-
     private lateinit var dialogFactory: DialogFactory
     private var connectivityReceiver: BroadcastReceiver? = null
     lateinit var totalShoppingProductData: TotalShoppingProductData
     lateinit var detail: ArrayList<Detail>
     lateinit var shoppingProductList: ArrayList<ShoppingProductList>
     private lateinit var adapter: ShoppingProductsAdapter
-
     var shopping_id:String? =""
-
     private var linearLayoutManager: LinearLayoutManager? = null
     private var isScrolling: Boolean = false
 
@@ -63,17 +58,10 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
 
         //initial Dialog factory
         dialogFactory = DialogFactory(this@ShoppingProducts)
-
         shopping_id = intent.getStringExtra("shopping_product_id")
-
-
         linear_exit_shopping_product.setOnClickListener {
-
             finish()
         }
-
-
-
     }
 
     private fun getShoppiongProductList(page: Int) {
@@ -98,17 +86,14 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
                     }
 
                 } else {
-
                     Toast.makeText(this@ShoppingProducts, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
-
             }
 
             override fun onFailure(call: Call<TotalShoppingProductData>, t: Throwable) {
                 Toast.makeText(this@ShoppingProducts, resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
                 avi_edit_products.visibility = View.GONE
             }
-
         })
     }
 
@@ -118,16 +103,12 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
         if (page == 0) {
             detail.clear()
 
-
             if (totalShoppingProductData.data!!.bought!!.data!!.isEmpty()) {
                 txt_no_shopping_product.visibility = View.VISIBLE
             }
         }
 
-
         shoppingProductList.addAll(totalShoppingProductData.data!!.bought?.data!!)
-
-
         linearLayoutManager = LinearLayoutManager(this@ShoppingProducts, LinearLayout.VERTICAL, false)
         val rv_shopping_products: RecyclerView = findViewById(R.id.rv_shopping_products)
         rv_shopping_products.layoutManager = linearLayoutManager
@@ -136,8 +117,6 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
         adapter.setListener(this)
         rv_shopping_products.adapter = adapter
         adapter.notifyDataSetChanged()
-
-
 
         rv_shopping_products.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -156,33 +135,26 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
                 scrollOutItems = linearLayoutManager!!.findFirstVisibleItemPosition()
 
                 if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
-
                     isScrolling = false
                     page++
 
                     if (page <= totalPages) {
                     getShoppiongProductList(page)
                     }
-
                 }
             }
         })
     }
 
-
     override fun shoppingProductsListOnClicked(model: ShoppingProductList, position: Int) {
-
         dialogFactory.createShoppingProductDetailDialog(object : DialogFactory.DialogFactoryInteraction {
             override fun onAcceptButtonClicked(vararg params: String) {
-
             }
 
             override fun onDeniedButtonClicked(bool: Boolean) {
-
             }
         },rl_root_shopping_product,model)
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -190,13 +162,10 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
         shoppingProductList = ArrayList<ShoppingProductList>()
         detail = ArrayList<Detail>()
         getShoppiongProductList(page)
-
-
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         unregisterReceiver(connectivityReceiver)
-
     }
 }

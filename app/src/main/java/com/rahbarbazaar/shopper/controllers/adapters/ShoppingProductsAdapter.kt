@@ -16,7 +16,6 @@ class ShoppingProductsAdapter (private val shoppingProductList: List<ShoppingPro
         return ShoppingProductsViewHolder(view,context)
     }
 
-
     override fun onBindViewHolder(holder: ShoppingProductsViewHolder, position: Int) {
 
         val model = shoppingProductList[position]
@@ -29,7 +28,6 @@ class ShoppingProductsAdapter (private val shoppingProductList: List<ShoppingPro
         this.listener = listener
 
     }
-
 
     override fun getItemCount(): Int {
 

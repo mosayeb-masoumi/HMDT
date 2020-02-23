@@ -28,14 +28,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.EditPrizeAdapter;
-import com.rahbarbazaar.shopper.controllers.adapters.PrizeAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberDialogAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberEditAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.PrizeItemInteraction;
@@ -96,22 +94,21 @@ public class NewRegisterActivity extends CustomBaseActivity
     AVLoadingIndicatorView avi;
     RegisterMemberDialogAdapter adapter_member;
     RegisterMemberEditAdapter adapter_edited;
-    PrizeAdapter adapter_prize;
     EditPrizeAdapter editPrizeAdapter;
     List<SendPrize> sendPrizes;
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
-    RelativeLayout rl_spn_shop, rl_addmember, rl_prize, rl_calander, layout_register, rl_member_info,
-            rl_prize_info, rl_photo, rl_show_shop_result,rl_info_img_new_register;
-    Spinner spn_shop;
-    EditText edtDate, edt_discount, edt_total_amount, edt_paid;
-    CheckBox checkBox_precentage, checkBox_amount;
+    RelativeLayout rl_addmember, rl_calander, layout_register, rl_member_info,
+            rl_photo, rl_show_shop_result, rl_info_img_new_register;
 
-    String str_shop_id, info_type, checkbox_text = "";
+    EditText edtDate, edt_total_amount;
+
+
+    String str_shop_id, info_type;
     Context context;
 
-    TextView txt_header, txt_total_amount_title, txt_paid_title, txt_discount_title,
-            txt_spinner_title, txt_checkBox_amount, txt_button_photo, txt_img_count, txt_shop_title;
+    TextView txt_header, txt_total_amount_title,
+            txt_button_photo, txt_img_count, txt_shop_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
@@ -194,47 +191,20 @@ public class NewRegisterActivity extends CustomBaseActivity
         } else if (shoppingEditModel.data != null) {
             txt_header.setText("ویرایش خرید");
             edt_total_amount.setText(shoppingEditModel.data.shopping.cost);
-//            edt_paid.setText(shoppingEditModel.data.shopping.paid);
-//            edt_discount.setText(shoppingEditModel.data.shopping.discount_amount);
             edtDate.setText(shoppingEditModel.data.shopping.date);
-
-//           txt_spinner_title.setText(shoppingEditModel.data.shopping.shop);
             str_shop_id = shoppingEditModel.data.shopping.shop_id; // get shop_id from model(after select spinner shop,shop_id will modified)
 
             btn_register.setVisibility(View.GONE);
             btn_update.setVisibility(View.VISIBLE);
-
-//            if (shoppingEditModel.data.shopping.discount_type.equals("percent")) {
-//                checkBox_precentage.setChecked(true);
-//                checkBox_amount.setChecked(false);
-
-//            } else if (shoppingEditModel.data.shopping.discount_type.equals("amount")) {
-//                checkBox_precentage.setChecked(false);
-//                checkBox_amount.setChecked(true);
-//            }
-
             setEditMemberRecyclere(shoppingEditModel.data);
-//            setEditPrizeRecycler(shoppingEditModel.data);
-
             txt_button_photo.setText("ویرایش عکس");
-
         }
-//        setSpinner();
 
         txt_total_amount_title.setText(getResources().getString(R.string.tottal_amount));
-//        txt_total_amount_title.setText(String.format("%s (ریال)", getResources().getString(R.string.tottal_amount)));
-//        txt_paid_title.setText(String.format("%s (ریال)", getResources().getString(R.string.paid_amount)));
-//        txt_discount_title.setText(String.format("%s (در صورت تخفیف داشتن خرید از فروشگاه)",
-//                getResources().getString(R.string.discount_amount)));
-//        txt_checkBox_amount.setText(String.format("%s (ریال)", getResources().getString(R.string.amount)));
-
 
         Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
         edt_total_amount.setTypeface(tf);
-//        edt_paid.setTypeface(tf);
-//        edt_discount.setTypeface(tf);
         edtDate.setTypeface(tf);
-
 
         // to count the number of images at first run while in editModel
         if (shoppingEditModel.data != null) {
@@ -278,9 +248,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         // to add comma after 3 digits
         edt_total_amount.addTextChangedListener(new EditTextWatcher(edt_total_amount));
-//        edt_paid.addTextChangedListener(new EditTextWatcher(edt_paid));
-//        edt_discount.addTextChangedListener(new EditTextWatcher(edt_discount));
-
 
     }
 
@@ -294,47 +261,25 @@ public class NewRegisterActivity extends CustomBaseActivity
         updateEditMemberList(editMembers);
     }
 
-    private void setEditPrizeRecycler(Data shoppingEditModel) {
-
-//        sendPrizes = new ArrayList<>();
-//        for (int i = 0; i < shoppingEditModel.shoppingPrize.shoppingPrizeData.size(); i++) {
-//            sendPrizes.add(new SendPrize(shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prize,
-//                    shoppingEditModel.shoppingPrize.shoppingPrizeData.get(i).prizeTypeId));
-//        }
-//        updateEditPrizeList(sendPrizes);
-    }
 
     private void initView() {
         rl_addmember = findViewById(R.id.rl_addmember);
         recyclerEditedMember = findViewById(R.id.recycler_edited_members);
-//        recycler_prize = findViewById(R.id.recycler_prize);
-//        rl_spn_shop = findViewById(R.id.rl_spn_shop);
-//        spn_shop = findViewById(R.id.spn_shop);
         btn_register = findViewById(R.id.btn_register);
         btn_update = findViewById(R.id.btn_update);
         btn_present_purchase = findViewById(R.id.btn_present_purchase);
         btn_online_purchase = findViewById(R.id.btn_online_purchase);
-//        rl_prize = findViewById(R.id.rl_prize);
         rl_calander = findViewById(R.id.rl_calander);
         rl_member_info = findViewById(R.id.rl_info_member_new_register);
-//        rl_prize_info = findViewById(R.id.rl_info_prize_new_register);
         rl_photo = findViewById(R.id.rl_photo);
         avi = findViewById(R.id.avi_register);
         edtDate = findViewById(R.id.edtDate);
-//        edt_discount = findViewById(R.id.edt_discount);
         edt_total_amount = findViewById(R.id.edt_total_amount);
-//        edt_paid = findViewById(R.id.edt_paid);
-//        checkBox_precentage = findViewById(R.id.checkBox_precentage);
-//        checkBox_amount = findViewById(R.id.checkBox_amount);
         layout_register = findViewById(R.id.layout_new_register);
         txt_header = findViewById(R.id.header_new_register);
         linear_return_new_register = findViewById(R.id.linear_return_new_register);
         txt_total_amount_title = findViewById(R.id.txt_total_amount_title);
         txt_shop_title = findViewById(R.id.txt_shop_title);
-//        txt_spinner_title = findViewById(R.id.txt_spinner_title_new_register);
-//        txt_paid_title = findViewById(R.id.txt_paid_title);
-//        txt_discount_title = findViewById(R.id.txt_discount_title);
-//        txt_checkBox_amount = findViewById(R.id.checkBox_amount_txt_new_register);
         txt_button_photo = findViewById(R.id.txt_button_photo);
         txt_img_count = findViewById(R.id.txt_img_count);
         rl_show_shop_result = findViewById(R.id.rl_show_shop_result);
@@ -346,7 +291,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_register.setOnClickListener(this);
         btn_update.setOnClickListener(this);
         edtDate.setOnClickListener(this);
-//        rl_prize.setOnClickListener(this);
         rl_calander.setOnClickListener(this);
         btn_present_purchase.setOnClickListener(this);
         btn_online_purchase.setOnClickListener(this);
@@ -354,16 +298,10 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         rl_info_img_new_register.setOnClickListener(this);
 
-
-//        checkBox_precentage.setOnCheckedChangeListener(this);
-//        checkBox_amount.setOnCheckedChangeListener(this);
         linear_return_new_register.setOnClickListener(this);
         rl_member_info.setOnClickListener(this);
-//        rl_prize_info.setOnClickListener(this);
-//        rl_spn_shop.setOnClickListener(this);
         rl_photo.setOnClickListener(this);
-//        edt_discount.setEnabled(false);
-//        edt_discount.setText("");
+
     }
 
 
@@ -391,17 +329,11 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.rl_calander:
-//                showCalander();
                 showCalendarDialog();
                 break;
             case R.id.edtDate:
-//                showCalander();
                 showCalendarDialog();
                 break;
-
-//            case R.id.rl_prize:
-//                showPrizeDialog();
-//                break;
 
             case R.id.rl_photo:
 
@@ -414,7 +346,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                 break;
 
-
             case R.id.linear_return_new_register:
                 finish();
                 break;
@@ -423,7 +354,6 @@ public class NewRegisterActivity extends CustomBaseActivity
                 info_type = "member_info_new_register";
                 showInfoDialog(info_type);
                 break;
-
 
             case R.id.btn_present_purchase:
                 spn_name = "present";
@@ -447,21 +377,10 @@ public class NewRegisterActivity extends CustomBaseActivity
 
                 break;
 
-
             case R.id.rl_info_img_new_register:
                 showImageInfoDialog();
                 break;
 
-
-
-//            case R.id.rl_info_prize_new_register:
-//                info_type = "prize_info_new_register";
-//                showInfoDialog(info_type);
-//                break;
-
-//            case R.id.rl_spn_shop:
-//                showSearchableDialog();
-//                break;
         }
     }
 
@@ -487,12 +406,6 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
     private void showShopListDialog(String spn_name) {
-
-//        List<SearchModel> searchList = new ArrayList<>();
-//        for (int i = 0; i <spinnerList.getData().size() ; i++) {
-//            searchList.add(new SearchModel(spinnerList.getData().get(i).getTitle(),spinnerList.getData().get(i).getId()));
-//        }
-
 
         List<SearchModel> searchList = null;
         if (spn_name.equals("online")) {
@@ -615,10 +528,6 @@ public class NewRegisterActivity extends CustomBaseActivity
             image_count1 = 1;
         }
 
-        //        if (bm2 != null) {
-//            img2.setImageBitmap(bm2);
-//            img_delete2.setVisibility(View.VISIBLE);
-//        }
 
         if (bm2 != null && shoppingEditModel.data == null) {
             img2.setImageBitmap(bm2);
@@ -674,11 +583,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 
 
-//        if(bm1==null && !shoppingEditModel.data.shopping.image1.equals("")){
-//            Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image1).centerCrop().into(img1);
-//        }
-
-
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -702,7 +606,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
 
         img_delete1.setOnClickListener(v -> {
-//            strBm1 = "";
             strBm1 = "deleted";
             bm1 = null;
             img1.setImageDrawable(null);
@@ -717,7 +620,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
 
         img_delete2.setOnClickListener(v -> {
-//            strBm2 = "";
             strBm2 = "deleted";
             bm2 = null;
             img2.setImageDrawable(null);
@@ -730,7 +632,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         });
         img_delete3.setOnClickListener(v -> {
-//            strBm3 = "";
             strBm3 = "deleted";
             bm3 = null;
             img3.setImageDrawable(null);
@@ -743,7 +644,6 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         });
         img_delete4.setOnClickListener(v -> {
-//            strBm4 = "";
             bm4 = null;
             strBm4 = "deleted";
             img4.setImageDrawable(null);
@@ -838,40 +738,6 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
 
-//    private void showSearchableDialog() {
-//
-//        List<SearchModel> searchList = new ArrayList<>();
-//        if (registerModel.data != null) {
-//            for (int i = 0; i < registerModel.data.shop.size(); i++) {
-//                for (int j = 0; j < registerModel.data.shop.get(i).size(); j++) {
-//                    searchList.add(new SearchModel(registerModel.data.shop.get(i).get(j).title,
-//                            registerModel.data.shop.get(i).get(j).id));
-//                }
-//            }
-//        } else if (shoppingEditModel.data != null) {
-//            for (int i = 0; i < shoppingEditModel.data.shop.size(); i++) {
-//                for (int j = 0; j < shoppingEditModel.data.shop.get(i).size(); j++) {
-//                    searchList.add(new SearchModel(shoppingEditModel.data.shop.get(i).get(j).title,
-//                            shoppingEditModel.data.shop.get(i).get(j).id));
-//                }
-//            }
-//        }
-//
-//        dialogFactory.createSearchableDialog(new DialogFactory.DialogFactoryInteraction() {
-//            @Override
-//            public void onAcceptButtonClicked(String... params) {
-//
-//
-//            }
-//
-//            @Override
-//            public void onDeniedButtonClicked(boolean bool) {
-//
-//            }
-//        }, layout_register, searchList, this);
-//    }
-
-
     private void showInfoDialog(String info_type) {
         dialogFactory.createInfoMemberPrizeDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
@@ -920,20 +786,11 @@ public class NewRegisterActivity extends CustomBaseActivity
         // to show list of member items
         List<Member> members = new ArrayList<>();
 
-//        if (registerModel.data != null) {
         for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
             for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
                 members.add(new Member(initMemberPrizeLists.data.member.get(i).get(j).name
                         , initMemberPrizeLists.data.member.get(i).get(j).id));
             }
-//            }
-//        } else if (shoppingEditModel.data != null) {
-//            for (int i = 0; i < shoppingEditModel.data.member.size(); i++) {
-//                for (int j = 0; j < shoppingEditModel.data.member.get(i).size(); j++) {
-//                    members.add(new Member(shoppingEditModel.data.member.get(i).get(j).name
-//                            , shoppingEditModel.data.member.get(i).get(j).id));
-//                }
-//            }
         }
 
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
@@ -950,29 +807,12 @@ public class NewRegisterActivity extends CustomBaseActivity
             if (isChecked) {
                 editMembers = new ArrayList<>();
 
-//                if (registerModel.data != null) {
-//                    for (int i = 0; i < registerModel.data.member.size(); i++) {
-//                        for (int j = 0; j < registerModel.data.member.get(i).size(); j++) {
-//                            editMembers.add(new RegisterMemberEditModel(registerModel.data.member.get(i).get(j).name,
-//                                    registerModel.data.member.get(i).get(j).id));
-//                        }
-//                    }
-//                } else if (shoppingEditModel.data != null) {
-//                    for (int i = 0; i < shoppingEditModel.data.member.size(); i++) {
-//                        for (int j = 0; j < shoppingEditModel.data.member.get(i).size(); j++) {
-//                            editMembers.add(new RegisterMemberEditModel(shoppingEditModel.data.member.get(i).get(j).name,
-//                                    shoppingEditModel.data.member.get(i).get(j).id));
-//                        }
-//                    }
-//                }
-
                 for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
                     for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
                         editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
                                 initMemberPrizeLists.data.member.get(i).get(j).id));
                     }
                 }
-
 
                 updateEditMemberList(editMembers);
                 dialog.dismiss();
@@ -985,40 +825,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         dialog.show();
     }
 
-//    private void showPrizeDialog() {
-//        sendPrizes = new ArrayList<>();
-//        final Dialog dialog = new Dialog(NewRegisterActivity.this);
-//        dialog.setContentView(R.layout.prize_dialog);
-//
-//        if (dialog.getWindow() != null) {
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        }
-//
-//        // to show list of member items
-//        List<Prize> prizes = new ArrayList<>();
-//
-//        for (int i = 0; i < initMemberPrizeLists.data.prize.size(); i++) {
-//            for (int j = 0; j < initMemberPrizeLists.data.prize.get(i).size(); j++) {
-//                prizes.add(new Prize(initMemberPrizeLists.data.prize.get(i).get(j).title
-//                        , initMemberPrizeLists.data.prize.get(i).get(j).id));
-//            }
-//        }
-//
-//
-//        RecyclerView recycler_prize = dialog.findViewById(R.id.recycler_prize);
-//        Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
-//        ImageView img_close = dialog.findViewById(R.id.img_close);
-//        recycler_prize.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-//        adapter_prize = new PrizeAdapter(prizes, NewRegisterActivity.this);
-//        adapter_prize.setListener(this);  // important or else the app will crashed
-////        adapter_prize.setListener(this);  // important or else the app will crashed
-//        recycler_prize.setAdapter(adapter_prize);
-//
-//        img_close.setOnClickListener(v -> dialog.dismiss());
-//        btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
-//
-//        dialog.show();
-//    }
 
     // to setCheck single checkbox and show in list
     @Override
@@ -1055,8 +861,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         avi.setVisibility(View.VISIBLE);
 
         String total_amount = edt_total_amount.getText().toString();
-//        String total_paid = edt_paid.getText().toString();
-//        String discount_amount = edt_discount.getText().toString();
         String date = edtDate.getText().toString();
 
         SendRegisterTotalData sendData = new SendRegisterTotalData();
@@ -1064,7 +868,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setPrize(sendPrizes);
         sendData.setShop_id(str_shop_id);
         sendData.setCost(total_amount);
-//        sendData.setPaid(total_paid);
         sendData.setLat(Cache.getString(NewRegisterActivity.this, "lat"));
         sendData.setLng(Cache.getString(NewRegisterActivity.this, "lng"));
 
@@ -1073,21 +876,12 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setImage_3(strBm3);
         sendData.setImage_4(strBm4);
 
-//        if (Cache.getString("validate_area").equals("true")) {
         if (Cache.getString(NewRegisterActivity.this, "validate_area").equals("true")) {
             sendData.setValidate_area("yes");
         } else {
             sendData.setValidate_area("no");
         }
 
-
-//        if (checkBox_precentage.isChecked()) {
-//            sendData.setDiscount_type("percent");
-//            sendData.setDiscount_amount(discount_amount);
-//        } else if (checkBox_amount.isChecked()) {
-//            sendData.setDiscount_type("amount");
-//            sendData.setDiscount_amount(discount_amount);
-//        }
 
         sendData.setDate(date);
 
@@ -1099,10 +893,9 @@ public class NewRegisterActivity extends CustomBaseActivity
                 if (response.code() == 200) {
 
                     String shopping_id = response.body().data;
-//                    Cache.setString("shopping_id",shopping_id);
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
-                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity1.class);
+                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
                     intent.putExtra("static_barcode", "static_barcode");
                     startActivity(intent);
                     NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -1125,7 +918,6 @@ public class NewRegisterActivity extends CustomBaseActivity
                     buliderPrize = null;
 
                     APIError422 apiError = ErrorUtils.parseError422(response);
-
 
                     if (apiError.errors.shopId != null) {
                         builderShopId = new StringBuilder();
@@ -1218,20 +1010,13 @@ public class NewRegisterActivity extends CustomBaseActivity
         btn_update.setVisibility(View.GONE);
         btn_register.setVisibility(View.GONE);
         avi.setVisibility(View.VISIBLE);
-
         String total_amount = edt_total_amount.getText().toString();
-//        String total_paid = edt_paid.getText().toString();
-//        String discount_amount = edt_discount.getText().toString();
         String date = edtDate.getText().toString();
-
         SendUpdateTotalData sendData = new SendUpdateTotalData();
         sendData.setMember(editMembers);
         sendData.setPrize(sendPrizes);
         sendData.setShop_id(str_shop_id);
         sendData.setCost(total_amount);
-//        sendData.setPaid(total_paid);
-
-
         if (strBm1 != null) {
             sendData.setImage_1(strBm1);
         }
@@ -1248,25 +1033,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             sendData.setImage_4(strBm4);
         }
 
-
-//        sendData.setShopping_id(Cache.getString("shopping_id"));
         sendData.setShopping_id(Cache.getString(NewRegisterActivity.this, "shopping_id"));
-
-//        String chechBox_type = checkbox_text;
-//        if (!checkBox_amount.isChecked() && !checkBox_precentage.isChecked()) {
-//            chechBox_type = "";
-//        }
-
-
-//        if (chechBox_type.equals("مبلغ") || chechBox_type.equals("amount")) {
-//            sendData.setDiscount_type("amount");
-//            sendData.setDiscount_amount(discount_amount);
-//        } else if (chechBox_type.equals("درصد") || chechBox_type.equals("percent")) {
-//            sendData.setDiscount_type("percent");
-//            sendData.setDiscount_amount(discount_amount);
-//        } else {
-//            sendData.setDiscount_type("not_set");
-//        }
 
         sendData.setDate(date);
 
@@ -1280,7 +1047,6 @@ public class NewRegisterActivity extends CustomBaseActivity
                     btn_update.setVisibility(View.VISIBLE);
                     btn_register.setVisibility(View.GONE);
                     avi.setVisibility(View.GONE);
-//                    String id = response.body().data;
                     Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.update_done), Toast.LENGTH_SHORT).show();
                     finish();
 
@@ -1431,35 +1197,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         recycler_prize.setAdapter(editPrizeAdapter);
     }
 
-//    @Override
-//    public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-//
-//        if (!checkBox_precentage.isChecked() && !checkBox_amount.isChecked()) {
-//            edt_discount.setHint(getResources().getString(R.string.percent_amount));
-//            edt_discount.setEnabled(false);
-//            edt_discount.setText("");
-//        }
-//
-//        switch (view.getId()) {
-//            case R.id.checkBox_amount:
-//                if (isChecked) {
-//                    checkBox_precentage.setChecked(false);
-//                    edt_discount.setHint(getResources().getString(R.string.amount2_));
-//                    checkbox_text = getResources().getString(R.string.amount2_);
-//                    edt_discount.setEnabled(true);
-//                }
-//                break;
-//
-//            case R.id.checkBox_precentage:
-//                if (isChecked) {
-//                    checkBox_amount.setChecked(false);
-//                    edt_discount.setHint(getResources().getString(R.string.percent));
-//                    checkbox_text = getResources().getString(R.string.percent);
-//                    edt_discount.setEnabled(true);
-//                }
-//                break;
-//        }
-//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -1489,11 +1226,16 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
     @Override
-    protected void onDestroy() {
-        unregisterReceiver(connectivityReceiver);
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         disposable.dispose(); //very important  to avoid memory leak
+        unregisterReceiver(connectivityReceiver);
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//    }
 
     @Override
     public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
@@ -1502,7 +1244,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         str_shop_id = model.getId();
         dialog.dismiss();
 
-        if(spn_name.equals("online")){
+        if (spn_name.equals("online")) {
             btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));
             btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_deactive));
             btn_online_purchase.setClickable(true);
@@ -1510,13 +1252,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         }
 
-        if(spn_name.equals("present")){
+        if (spn_name.equals("present")) {
             btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_active));
             btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_deactive));
             btn_present_purchase.setClickable(true);
             btn_online_purchase.setClickable(false);
         }
-
 
     }
 }

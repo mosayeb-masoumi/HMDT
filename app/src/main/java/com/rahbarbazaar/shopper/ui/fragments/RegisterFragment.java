@@ -22,12 +22,9 @@ import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.ActiveListAdapter;
@@ -42,29 +39,19 @@ import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.EditProductsActivity;
-import com.rahbarbazaar.shopper.ui.activities.MainActivity;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
-//import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
-import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity1;
+import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
-import com.rahbarbazaar.shopper.utilities.DownloadManager;
 import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResult;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.wang.avi.AVLoadingIndicatorView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -111,14 +98,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-
         initView(view);
-
         return view;
     }
 
     private void initView(View view) {
-
         avi = view.findViewById(R.id.avi);
         avi_load_list = view.findViewById(R.id.avi_loading_fr_register);
         recyclerView = view.findViewById(R.id.recyclere_register_fragment);
@@ -149,7 +133,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                         txt_no_shop.setVisibility(View.VISIBLE);
                     } else {
                         txt_no_shop.setVisibility(View.GONE);
-//                       Toast.makeText(getContext(), "پایان لیست", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -162,35 +145,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             public void onFailure(Call<ActiveListData> call, Throwable t) {
                 avi_load_list.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
             }
         });
-
     }
 
     private void setRecyclerview(ActiveListData activeListData) {
-
-
         totalPage = activeListData.total;
-
-        // todo check below clause
-        // to clear list ites of the fragment for first time
         if (page == 0) {
             activeListModel.clear();
         }
-
-
         linearLayoutManager = new LinearLayoutManager(getContext());
-        // to show list of member items
-
-//        for (int i = 0; i < activeListData.data.size(); i++) {
-//            activeListModel.add(new ActiveListModel(activeListData.data.get(i).id, activeListData.data.get(i).date
-//                    , activeListData.data.get(i).title));
-//        }
-
 
         activeListModel.addAll(activeListData.data);
-
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ActiveListAdapter(activeListModel, getContext());
         recyclerView.setAdapter(adapter);
@@ -220,12 +186,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     isScrolling = false;
                     page++;
 
-
                     if(page<=totalPage){
                         //data fetch
                           getActiveList(page);
                     }
-
                 }
             }
         });
@@ -233,13 +197,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-
             case R.id.rl_btn_register:
-
                 requestRegistration();
-
                 break;
         }
     }
@@ -255,21 +215,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         } else {
             askLocationPermission();
         }
-
-
-
-
-//        if (checkGpsPermission()) {
-//            if (checkGpsON()) {
-//
-//                sendLatLng();
-////                        getNewRegisterData();
-//            } else {
-//                displayLocationSettingsRequest(getContext(), 123);
-//            }
-//        } else {
-//            askGpsPermission();
-//        }
     }
 
     private void sendLatLng() {
@@ -292,7 +237,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                     Cache.setString(getContext(),"lng", strLng);
                     Cache.setString(getContext(),"validate_area", validate_area);
 
-
                     if (validate) {
                         getNewRegisterData();
                     } else {
@@ -300,7 +244,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                         rl_btn_register.setVisibility(View.VISIBLE);
                         avi.setVisibility(View.GONE);
                     }
-
 
                 } else {
                     rl_btn_register.setVisibility(View.VISIBLE);
@@ -314,7 +257,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                 rl_btn_register.setVisibility(View.VISIBLE);
                 avi.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -378,12 +320,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         dialogFactory.createError406Dialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
-
             }
 
             @Override
             public void onDeniedButtonClicked(boolean bool) {
-
             }
         }, rl_fr_register , message);
     }
@@ -395,10 +335,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
 
     private void gpsDialog() {
-
         //     show waiting AVI
         Toast.makeText(getContext(), "برای ثبت خرید لازم است GPS خود را روشن نمایید, صبور باشید ...", Toast.LENGTH_SHORT).show();
-
         LocationRequest mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(1000)
@@ -409,40 +347,27 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         builder.setNeedBle(true);
         SettingsClient client = LocationServices.getSettingsClient(getContext());
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-        task.addOnSuccessListener(getActivity(), new OnSuccessListener<LocationSettingsResponse>() {
-            @Override
-            public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                hasLocationPermission();
-
-                sendLatLng();
-//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
-
-                //     hide waiting AVI
-
-            }
+        task.addOnSuccessListener(getActivity(), locationSettingsResponse -> {
+            hasLocationPermission();
+            sendLatLng();
         });
-        task.addOnFailureListener(getActivity(), new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    // Location settings are not satisfied, but this can be fixed
-                    // by showing the user a dialog.
-                    try {
-                        // Show the dialog by calling startResolutionForResult(),
-                        // and check the result in onActivityResult().
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(getActivity(),
-                                12);
-                    } catch (IntentSender.SendIntentException e1) {
+        task.addOnFailureListener(getActivity(), e -> {
+            if (e instanceof ResolvableApiException) {
+                // Location settings are not satisfied, but this can be fixed
+                // by showing the user a dialog.
+                try {
+                    // Show the dialog by calling startResolutionForResult(),
+                    // and check the result in onActivityResult().
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(getActivity(),
+                            12);
+                } catch (IntentSender.SendIntentException e1) {
 
-                        e.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
             }
         });
     }
-
-
 
     private void askLocationPermission() {
         ActivityCompat.requestPermissions((Activity) Objects.requireNonNull(getContext())
@@ -459,10 +384,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
         return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-
-
-
-
     int a = 0;
     public void getLocation() {
         gpsTracker = new GpsTracker(getContext());
@@ -471,13 +392,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             double longitude = gpsTracker.getLongitude();
             strLat = (String.valueOf(latitude));
             strLng = (String.valueOf(longitude));
-
             // to handle getting gps in first calculate after turning on gps
             if(a < 2){
                 a ++;
                 getLocation();
             }
-
         } else {
             gpsTracker.showSettingsAlert();
         }
@@ -488,17 +407,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
         shopping_id = id;
         Cache.setString(getContext(),"shopping_id",shopping_id);
-
         if(action.equals("edit_shop")){
-
             getShoppingEditInfo(shopping_id);
-
         }else if(action.equals("register")){
 
-
             if (cameraPermissionGranted()) {
-
-                Intent intent = new Intent(getContext(), QRcodeActivity1.class);
+                Intent intent = new Intent(getContext(), QRcodeActivity.class);
                 Cache.setString(getContext(),"shopping_id",shopping_id);
                 intent.putExtra("static_barcode","static_barcode");
                 startActivity(intent);
@@ -507,10 +421,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
                 askCameraPermission();
             }
 
-
-
         }else if(action.equals("edit_product")){
-
             Intent intent = new Intent(getContext(), EditProductsActivity.class);
             intent.putExtra("shopping_id",shopping_id);
             startActivity(intent);
@@ -519,7 +430,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     }
 
     private boolean cameraPermissionGranted() {
-
         return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED;
     }
@@ -527,16 +437,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     private void askCameraPermission() {
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 25);
     }
-
-//    private void getMemberPrizeLists() {
-//
-//        Intent intent = new Intent(getContext(), QRcodeActivity.class);
-////            intent.putExtra("shopping_id",id);
-//        Cache.setString(getContext(),"shopping_id",id);
-//        intent.putExtra("static_barcode","static_barcode");
-//        startActivity(intent);
-//        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//    }
 
     private void getShoppingEditInfo(String id) {
 
@@ -553,10 +453,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
 
                     ShoppingEdit shoppingEdit;
                     shoppingEdit = response.body();
-
-//                    Cache.setString("shopping_id",id);
                     Cache.setString(getContext(),"shopping_id",id);
-
                     RxBus.ShoppingEdit.publishShoppingEdit(shoppingEdit);
                     getContext().startActivity(new Intent(getContext(), NewRegisterActivity.class));
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -589,16 +486,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 hasLocationPermission();
-//                Toast.makeText(getContext(), "Second Activity", Toast.LENGTH_SHORT).show();
                 sendLatLng();
-
             } else {
                 //User clicks No
             }
         }
-
     }
-
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void onEventMainThread(String gps_avi_loading){
@@ -611,7 +504,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
             rl_btn_register.setVisibility(View.VISIBLE);
             avi.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -623,7 +515,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener ,
     @Override
     public void onResume() {
         super.onResume();
-
         activeListModel = new ArrayList<>();
         getActiveList(page);
     }

@@ -14,11 +14,6 @@ import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData
 class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val context: Context,  val dialog: AlertDialog, val barcode: Barcode) :
         RecyclerView.Adapter<BarcodeListViewHolder>() {
 
-//class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val context: Context, dialog: AlertDialog) :
-//        RecyclerView.Adapter<BarcodeListViewHolder>() {
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): BarcodeListViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_barcodelist, parent, false)
@@ -41,5 +36,4 @@ class BarcodeListAdapter(private val barcodeList: MutableList<BarcodeData>, val 
     override fun getItemCount(): Int {
         return barcodeList.size
     }
-
 }

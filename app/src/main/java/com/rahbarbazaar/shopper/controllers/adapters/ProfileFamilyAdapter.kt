@@ -16,8 +16,6 @@ class ProfileFamilyAdapter (private val family: List<Family>, val context: Conte
         return ProfileFamilyViewHolder(view,context)
     }
 
-
-
     override fun onBindViewHolder(holder: ProfileFamilyViewHolder, position: Int) {
         val model = family[position]
         holder.bindUserData(model)

@@ -1,12 +1,10 @@
 package com.rahbarbazaar.shopper.ui.fragments;
 
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
@@ -26,21 +22,9 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.wang.avi.AVLoadingIndicatorView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableSingleObserver;
-import io.reactivex.schedulers.Schedulers;
-
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +33,6 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
-
 
     RecyclerView rv_transaction;
     TextView txt_no_transaction, txt_btnpapasi, txt_btntoman;
@@ -68,14 +51,9 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     ImageView img_line;
     String type = "";
 
-
-    CompositeDisposable disposable;
-    ServiceProvider provider = null;
-
     public TransactionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,15 +63,10 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
         initView(view);
 
-        provider = new ServiceProvider(getContext());
-        disposable = new CompositeDisposable();
-
         return view;
     }
 
-
     private void initView(View view) {
-
         rv_transaction = view.findViewById(R.id.recyclere_transaction_fragment);
         txt_no_transaction = view.findViewById(R.id.txt_no_transaction);
         txt_btnpapasi = view.findViewById(R.id.txt_btnpapasi);
@@ -109,55 +82,6 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     private void getTransactionList(int page, String type) {
 
         avi.setVisibility(View.VISIBLE);
-
-
-//        Service service = new ServiceProvider(getContext()).getmService();
-//        disposable.add(service.getTransactionList(page, type).subscribeOn(Schedulers.io()).
-//                observeOn(AndroidSchedulers.mainThread()).
-//                subscribeWith(new DisposableSingleObserver<TransactionData>() {
-//                    @Override
-//                    public void onSuccess(TransactionData result) {
-//
-//                        transactionData = result;
-//                        avi.setVisibility(View.GONE);
-//                        setRecyclerView(transactionData, type);
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        avi.setVisibility(View.GONE);
-//                        String message = "";
-//                        try {
-//                            if (e instanceof IOException) {
-//                                message = "No internet connection!";
-//                            }
-//                            if (e instanceof HttpException) {
-//                                HttpException error = (HttpException) e;
-//                                String errorBody = error.response().errorBody().string();
-//                                JSONObject jObj = new JSONObject(errorBody);
-//
-//                                message = jObj.getString("error");
-//                            }
-//                            if (e instanceof NoSuchElementException) {
-//                                NoSuchElementException error = (NoSuchElementException) e;
-//
-//                            }
-//
-//                        } catch (IOException e1) {
-//                            e1.printStackTrace();
-//                        } catch (JSONException e1) {
-//                            e1.printStackTrace();
-//                        } catch (NoSuchElementException e1){
-//                            e1.printStackTrace();
-//                        } catch (Exception e1) {
-//                            e1.printStackTrace();
-//                        }
-//
-//
-//                    }
-//                }));
-
 
         Service service = new ServiceProvider(getContext()).getmService();
         Call<TransactionData> call = service.getTransactionList(this.page, type);
@@ -239,23 +163,18 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
                         isScrolling = false;
                         page++;
-
                         if (page <= totalPage) {
                             //data fetch
                             getTransactionList(page, type);
                         }
-
                     }
                 }
             });
     }
 
-
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-
             case R.id.txt_btntoman:
                 txt_btntoman.setBackground(getResources().getDrawable(R.drawable.bg_transaction_toman_select));
                 txt_btntoman.setTextColor(getResources().getColor(R.color.white));
@@ -265,8 +184,6 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 page = 0;
                 type = "amount";
                 getTransactionList(page, type);
-
-
                 break;
 
             case R.id.txt_btnpapasi:
@@ -274,14 +191,10 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btnpapasi.setTextColor(getResources().getColor(R.color.white));
                 txt_btntoman.setBackground(getResources().getDrawable(R.drawable.bg_transaction_toman_unselect));
                 txt_btntoman.setTextColor(getResources().getColor(R.color.colorText));
-
                 img_line.setBackgroundColor(getResources().getColor(R.color.pink_dark));
-
                 page = 0;
                 type = "papasi";
                 getTransactionList(page, type);
-
-
                 break;
         }
     }
@@ -290,7 +203,6 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     public void onResume() {
         super.onResume();
         transactions = new ArrayList<>();
-
         type = "amount";
         getTransactionList(page, type);
     }
@@ -310,8 +222,5 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
                 }
             }, rl_root , model,position);
-
     }
-
-
 }

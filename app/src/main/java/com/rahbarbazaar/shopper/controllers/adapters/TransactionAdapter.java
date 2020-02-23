@@ -26,7 +26,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionViewHold
         this.type = type;
     }
 
-
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {

@@ -16,7 +16,6 @@ import java.util.List;
 
 public class RegisterMemberDialogAdapter extends RecyclerView.Adapter<RegisterMemberViewHolderDialog> {
 
-//    public List<RegisterMemberModel> members;
     public List<Member> members;
     public Context context;
 

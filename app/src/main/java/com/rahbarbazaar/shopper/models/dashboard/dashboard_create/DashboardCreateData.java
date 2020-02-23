@@ -7,6 +7,4 @@ public class DashboardCreateData {
     @SerializedName("data")
     @Expose
     public DashboardCreateModel data;
-
-
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 public class CustomFilter extends Filter {
 
-
     SearchAdapter adapter;
     List<SearchModel> filterList;
 
@@ -18,8 +17,6 @@ public class CustomFilter extends Filter {
         this.adapter = adapter;
         this.filterList = filterList;
     }
-
-
 
     //FILTERING OCURS
     @Override
@@ -49,15 +46,12 @@ public class CustomFilter extends Filter {
             results.count=filterList.size();
             results.values=filterList;
         }
-
         return  results;
     }
 
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
-
         adapter.searchList = (ArrayList<SearchModel>) results.values;
-
         //REFRESH
         adapter.notifyDataSetChanged();
     }

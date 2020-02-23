@@ -10,9 +10,6 @@ import com.rahbarbazaar.shopper.models.profile.Family
 
 class ProfileFamilyViewHolder (view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
-//    private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable_profile_family_item)
-//    private val txt_value: TextView = itemView.findViewById(R.id.txt_value_profile_family_item)
-
     private val txt_lable: TextView = itemView.findViewById(R.id.txt_lable)
     private val txt_value: TextView = itemView.findViewById(R.id.txt_value)
 
@@ -21,6 +18,5 @@ class ProfileFamilyViewHolder (view: View, val context: Context) : RecyclerView.
 
         txt_lable.text = model.label +":"
         txt_value.text=model.value
-
     }
 }

@@ -49,7 +49,6 @@ class LoginActivity : CustomBaseActivity() {
             false
         }
 
-
         val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
         edt_phone.typeface = tf
 
@@ -62,7 +61,6 @@ class LoginActivity : CustomBaseActivity() {
     }
 
     private fun submitRequest() {
-
         btn_submit_login.visibility = View.GONE
         avi_login.visibility = View.VISIBLE
         avi_login.show()
@@ -70,9 +68,7 @@ class LoginActivity : CustomBaseActivity() {
 
     }
 
-
     private fun requestLogin() {
-
         val mobile = edt_phone.text.toString()
         val service = ServiceProvider(this).getmService()
         val call = service.login(mobile)
@@ -90,8 +86,6 @@ class LoginActivity : CustomBaseActivity() {
 
                     var data = response.body()?.data
                     Toast.makeText(this@LoginActivity, "" + data, Toast.LENGTH_LONG).show()
-//                    Toasty.success(context, ""+data, Toast.LENGTH_SHORT, true).show()
-
                     avi_login.hide()
                     btn_submit_login.visibility = View.VISIBLE
                     finish()
@@ -111,7 +105,6 @@ class LoginActivity : CustomBaseActivity() {
                         Toast.makeText(this@LoginActivity, "" + builderMobile, Toast.LENGTH_SHORT).show()
                     }
 
-
                 } else {
                     Toast.makeText(this@LoginActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     btn_submit_login.visibility = View.VISIBLE
@@ -124,9 +117,7 @@ class LoginActivity : CustomBaseActivity() {
                 avi_login.hide()
                 btn_submit_login.visibility = View.VISIBLE
             }
-
         })
-
     }
 
     override fun onResume() {

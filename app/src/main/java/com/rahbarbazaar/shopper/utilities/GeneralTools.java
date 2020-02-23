@@ -85,8 +85,6 @@ public class GeneralTools {
 
                         doCheckNetwork(context, view);
                     } else {
-
-
                         Intent intent = new Intent();
                         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity"));
                         context.startActivity(intent);
@@ -119,7 +117,6 @@ public class GeneralTools {
             }
         };
 
-        // 1dp/ms
         a.setDuration(300);
         v.startAnimation(a);
     }
@@ -144,8 +141,6 @@ public class GeneralTools {
             }
         };
 
-        // 1dp/ms
-        //a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
         a.setDuration(300);
         v.startAnimation(a);
     }

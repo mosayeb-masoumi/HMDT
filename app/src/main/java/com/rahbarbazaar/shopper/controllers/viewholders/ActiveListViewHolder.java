@@ -32,14 +32,12 @@ public class ActiveListViewHolder extends RecyclerView.ViewHolder {
 //        String month =model.date.substring(5,7);
 //        String day =model.date.substring(8,10);
 //        String date = year+"/"+month+"/"+day;
-
         String convert = ConvertEnDigitToFa.convert(model.date);
         txt_date.setText(convert);
 
     }
 
-    public void setOnActiveListHolderListener(ActiveListItemInteraction listener, ActiveListModel model, int position) {
-
+    public void setOnActiveListHolderListener(ActiveListItemInteraction listener, ActiveListModel model) {
         img_edit_shop.setOnClickListener(v -> listener.activeListOnClicked(model.title , model.id,"edit_shop"));
         img_register.setOnClickListener(v -> listener.activeListOnClicked(model.title , model.id,"register"));
         img_edit_product.setOnClickListener(v -> listener.activeListOnClicked(model.title , model.id,"edit_product"));

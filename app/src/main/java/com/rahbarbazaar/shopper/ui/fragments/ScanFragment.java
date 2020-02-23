@@ -15,12 +15,9 @@ import com.rahbarbazaar.shopper.models.barcodlist.BarcodeLoadingState;
 import com.rahbarbazaar.shopper.models.search_goods.GroupsData;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
-import com.rahbarbazaar.shopper.ui.activities.MainActivity;
-import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivityNew;
+import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivity;
 import com.rahbarbazaar.shopper.utilities.RxBus;
-
 import org.greenrobot.eventbus.EventBus;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,8 +26,8 @@ import retrofit2.Response;
 public class ScanFragment extends Fragment implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
-
     String barcode;
+    BarcodeLoadingState state = new BarcodeLoadingState();
 
     public ScanFragment() {
         // Required empty public constructor
@@ -42,24 +39,17 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
         mScannerView = new ZXingScannerView(getActivity());  // Programmatically initialize the scanner view
         return mScannerView;// Set the scanner view as the content view
-
     }
-
 
     @Override
     public void handleResult(Result rawResult) {
-//        SecondActivity.ResultScan=rawResult.getText();
-//        startActivity(new Intent(getContext(), SecondActivity.class));
-
         barcode = rawResult.getText();
-
         getListOfProducts(barcode);
-
     }
 
     private void getListOfProducts(String barcode) {
 
-        BarcodeLoadingState state = new BarcodeLoadingState();
+
         state.setState("show_loading");
         EventBus.getDefault().postSticky(state);
 
@@ -75,21 +65,14 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     RxBus.BarcodeList.publishBarcodeList(barcode);
 
                     int size = barcode.getData().size();
-
                     if (size > 1) {
-
                         state.setState("stop_loading");
                         EventBus.getDefault().postSticky(state);
                         EventBus.getDefault().post(barcode);
                         onResume();
                     } else if (size == 1) {
 
-//                        startActivity(new Intent(getContext(),PurchasedItemActivityNew.class));
-//                        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//                        getActivity().finish();
-
-
-                        Intent intent = new Intent(getContext(), PurchasedItemActivityNew.class);
+                        Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
                         intent.putExtra("barcodeList", barcode);
                         intent.putExtra("product_id", barcode.getData().get(0).getId());
                         intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
@@ -99,29 +82,13 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
                         state.setState("stop_loading");
                         EventBus.getDefault().postSticky(state);
-
                         getActivity().finish();
-
                     }
-
-
                 } else if (response.code() == 204) {
-
-//                    Intent intent = new Intent(getContext(), PurchasedItemActivityNew.class);
-//                    intent.putExtra("no_product", "no_product");
-//                    intent.putExtra("barcode", barcode);
-//                    startActivity(intent);
-//                    getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-//                    getActivity().finish();
-
-//                    EventBus.getDefault().postSticky("stop_loading");
-
                     getSpinneList();
-
 
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-
                     state.setState("stop_loading");
                     EventBus.getDefault().postSticky(state);
                     onResume();
@@ -149,35 +116,34 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     GroupsData groupsData = new GroupsData();
                     groupsData = response.body();
 
-                    Intent intent = new Intent(getContext(), PurchasedItemActivityNew.class);
+                    Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
                     intent.putExtra("groupsData", groupsData);
                     startActivity(intent);
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     getActivity().finish();
-
-
+                    state.setState("stop_loading");
+                    EventBus.getDefault().postSticky(state);
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                    EventBus.getDefault().postSticky("stop_loading");
+                    state.setState("stop_loading");
+                    EventBus.getDefault().postSticky(state);
                     onResume();
                 }
             }
 
             @Override
             public void onFailure(Call<GroupsData> call, Throwable t) {
-
                 Toast.makeText(getContext(), "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-                EventBus.getDefault().postSticky("stop_loading");
+                state.setState("stop_loading");
+                EventBus.getDefault().postSticky(state);
                 onResume();
             }
         });
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
         mScannerView.startCamera();
     }
@@ -187,5 +153,4 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         super.onPause();
         mScannerView.stopCamera();
     }
-
 }

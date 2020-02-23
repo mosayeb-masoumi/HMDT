@@ -28,13 +28,10 @@ import retrofit2.Response
 
 class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
 
-
     private var connectivityReceiver: BroadcastReceiver? = null
-
     lateinit var historyData: HistoryData
     lateinit var history: ArrayList<History>
     private lateinit var adapter: HistoryAdapter
-
     private var linearLayoutManager: LinearLayoutManager? = null
     private var isScrolling: Boolean = false
     var page: Int = 0
@@ -42,7 +39,6 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
     var currentItems: Int = 0
     var totalItems: Int = 0
     var scrollOutItems: Int = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,15 +48,13 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                tools.doCheckNetwork(this@HistoryActivity, findViewById<View>(R.id.rl_root_barcodelist))
+                tools.doCheckNetwork(this@HistoryActivity, findViewById<View>(R.id.history_root))
             }
         }
-
 
         linear_exit_history_list.setOnClickListener {
             finish()
         }
-
     }
 
     private fun getHistoryList(page: Int) {
@@ -144,7 +138,6 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
                 }
             }
         })
-
     }
 
     override fun historyListOnClicked(model: History, btn_title: String) {
@@ -167,17 +160,12 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
             intent.putExtra("shopping_product_id", model.id)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-
         }
-
     }
-
-
 
     override fun onResume() {
         super.onResume()
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
-
         // message must be initialize
         history = ArrayList<History>()
         page=0
@@ -187,7 +175,5 @@ class HistoryActivity : CustomBaseActivity(), HistoryItemInteraction {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(connectivityReceiver)
-
     }
-
 }

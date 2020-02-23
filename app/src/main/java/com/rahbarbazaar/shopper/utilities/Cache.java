@@ -7,7 +7,6 @@ public class Cache {
 
     private static final String APP_SETTINGS = "UserNameAcrossApplication";
 
-
     private Cache() {}
 
     private static SharedPreferences getSharedPreferences(Context context) {
@@ -21,7 +20,6 @@ public class Cache {
     public static void setString(Context context,String key,String newValue) {
         getSharedPreferences(context).edit().putString(key , newValue).apply();
     }
-
 
     // cache integer
     public static Integer getInt(Context context,String key) {

@@ -19,13 +19,11 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(SearchModel model) {
-
         txt_title.setText(model.getTitle());
     }
 
 
     public void setOnPrizeHolderListener(SearchItemInteraction listener, SearchModel model, AlertDialog dialog, String spn_name) {
-
         itemView.setOnClickListener(v ->
                 listener.searchListItemOnClick(model , dialog,spn_name));
     }

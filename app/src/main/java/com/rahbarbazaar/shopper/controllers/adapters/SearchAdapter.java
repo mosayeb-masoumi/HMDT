@@ -21,7 +21,6 @@ import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
 
-
     public List<SearchModel> searchList, filterList;
     Context context;
     AlertDialog dialog;
@@ -35,8 +34,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
         this.dialog = dialog;
         this.spn_name = spn_name;
     }
-
-
 
     @NonNull
     @Override

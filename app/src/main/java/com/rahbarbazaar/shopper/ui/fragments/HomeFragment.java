@@ -1,6 +1,5 @@
 package com.rahbarbazaar.shopper.ui.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
-import com.rahbarbazaar.shopper.models.register.GetShopId;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.HistoryActivity;
@@ -26,9 +23,7 @@ import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
@@ -94,7 +89,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setContentView() {
-
         Glide.with(getActivity()).load(dashboardCreateData.data.news_image).centerCrop().into(img_news);
         Glide.with(getActivity()).load(dashboardCreateData.data.video_image).centerCrop().into(img_video);
         Glide.with(getActivity()).load(dashboardCreateData.data.myshop_image).centerCrop().into(img_myshop);
@@ -103,7 +97,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         txt_total_purchase.setText(dashboardCreateData.data.three);
         txt_left_days.setText(dashboardCreateData.data.four);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -123,22 +116,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 break;
         }
-
     }
 
-
-//    private void goToHtmlActivity(String url, boolean shouldBeLoadUrl) {
     private void goToHtmlActivity(String url) {
-
         Intent intent = new Intent(getContext(), HtmlLoaderActivity.class);
         intent.putExtra("url", url);
-//        intent.putExtra("surveyDetails", false);
-//        intent.putExtra("isShopping", shouldBeLoadUrl);
         startActivity(intent);
-//        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
-
 
     private void getRefreshHomeData() {
         Service service = new ServiceProvider(getContext()).getmService();
@@ -154,9 +139,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     txt_left_days.setText(response.body().data.four);
                 }else{
                     Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-
                 }
-
             }
 
             @Override
@@ -166,22 +149,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         });
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-
         getRefreshHomeData();
     }
 
-
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         disposable.dispose(); //very important
-
     }
 
-
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        disposable.dispose(); //very important
+//    }
 }

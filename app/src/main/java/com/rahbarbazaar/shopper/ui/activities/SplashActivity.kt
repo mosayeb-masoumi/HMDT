@@ -27,7 +27,6 @@ import java.util.*
 class SplashActivity : CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
-
     private lateinit var context: Context
     var agreement:String? = ""
 
@@ -46,7 +45,6 @@ class SplashActivity : CustomBaseActivity() {
         }
 
         txtVersion.setText(BuildConfig.VERSION_NAME)
-
         btn_reload.setOnClickListener {
             reload()
         }
@@ -59,13 +57,11 @@ class SplashActivity : CustomBaseActivity() {
     private fun startActivity() {
 
         agreement= Cache.getString(this@SplashActivity, "agreement")
-
         var accessToken = Cache.getString(this@SplashActivity, "access_token")
         // add this condition to remove unwanted bug for clause
         if (accessToken == null) {
             accessToken = ""
         }
-
 
         if(agreement.equals("done")){
 
@@ -93,11 +89,7 @@ class SplashActivity : CustomBaseActivity() {
                 }
             }, 2700)
         }
-
-
     }
-
-
 
     private fun requestDashboardData() {
 
@@ -106,9 +98,7 @@ class SplashActivity : CustomBaseActivity() {
         call.enqueue(object : Callback<DashboardCreateData> {
 
             override fun onResponse(call: Call<DashboardCreateData>, response: Response<DashboardCreateData>) {
-
                 if (response.code() == 200) {
-
                     val dashboardCreateData: DashboardCreateData
                     dashboardCreateData = response.body()!!
                     RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
@@ -116,7 +106,6 @@ class SplashActivity : CustomBaseActivity() {
                     Cache.setString(this@SplashActivity,"Update_URL",dashboardCreateData.data.updateUrl)
                     Cache.setString(this@SplashActivity,"minVersionCode",dashboardCreateData.data.minVersionCode)
                     Cache.setString(this@SplashActivity,"currentVersionCode",dashboardCreateData.data.currentVersionCode)
-
                     requestInitMemberPrizeLists()
 
                 } else if (response.code() == 403) {
@@ -149,13 +138,10 @@ class SplashActivity : CustomBaseActivity() {
             override fun onResponse(call: Call<MemberPrize>, response: Response<MemberPrize>) {
 
                 if (response.code() == 200) {
-
                     var memberPrize = MemberPrize()
                     memberPrize = response.body()!!
                     RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
                     sendDeviceInfo()
-
-
                 } else {
                     Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     hideLoading()
@@ -175,10 +161,8 @@ class SplashActivity : CustomBaseActivity() {
         val wm = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
         @Suppress("DEPRECATION")
         val ip = Formatter.formatIpAddress(wm.connectionInfo.ipAddress)
-
         val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val info = cm.activeNetworkInfo
-
         val network_type:String?
         @Suppress("DEPRECATION")
         if(info.typeName == "MOBILE"){
@@ -186,7 +170,6 @@ class SplashActivity : CustomBaseActivity() {
         }else{
              network_type = info.typeName
         }
-
 
         val sdk = Build.VERSION.SDK_INT
         val os_type = "Android"
@@ -203,7 +186,6 @@ class SplashActivity : CustomBaseActivity() {
             override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
 
                 if (response.code() == 200) {
-
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
@@ -229,13 +211,10 @@ class SplashActivity : CustomBaseActivity() {
             }
 
             override fun onDeniedButtonClicked(cancel_dialog: Boolean) {
-
             }
 
         }, splash_root, message)
-
     }
-
 
     private fun hideLoading() {
         avi.hide()
@@ -255,8 +234,8 @@ class SplashActivity : CustomBaseActivity() {
         startActivity()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         unregisterReceiver(connectivityReceiver)
     }
 

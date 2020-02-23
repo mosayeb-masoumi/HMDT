@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
 
 class BarcodeDetail(): Parcelable{
 
-
     @SerializedName("label")
     @Expose
     var label: String? = null
@@ -19,7 +18,6 @@ class BarcodeDetail(): Parcelable{
         label = parcel.readString()
         value = parcel.readString()
     }
-
 
     override fun describeContents(): Int {
         return 0
@@ -39,5 +37,4 @@ class BarcodeDetail(): Parcelable{
         dest!!.writeString(label)
         dest.writeString(value)
     }
-
 }

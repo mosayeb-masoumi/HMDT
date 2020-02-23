@@ -60,7 +60,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
         val tools = GeneralTools.getInstance()
         connectivityReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                tools.doCheckNetwork(this@EditProductsActivity, findViewById<View>(R.id.rl_root_barcodelist))
+                tools.doCheckNetwork(this@EditProductsActivity, findViewById<View>(R.id.rl_root_editproduct))
             }
         }
 
@@ -73,7 +73,6 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
     }
 
     private fun getEditList(page: Int) {
-
 
         avi_edit_products.visibility = View.VISIBLE
         val service = ServiceProvider(this@EditProductsActivity).getmService()
@@ -88,7 +87,6 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
                     totalEditProductData = response.body()!!
                     setRecyclerview(totalEditProductData)
 
-
                 } else if (response.code() == 204) {
 
                     if (this@EditProductsActivity.page == 0) {
@@ -99,7 +97,6 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
                     Toast.makeText(this@EditProductsActivity, resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
-
             }
 
             override fun onFailure(call: Call<TotalEditProductData>, t: Throwable) {
@@ -174,7 +171,6 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
         } else if (status == "edit") {
 
-
             //to send data to EditProductsDetailActivity
             RxBus.TotalEditProductData.publishTotalEditProductData(totalEditProductData)
             val intent = Intent(this@EditProductsActivity, EditProductsDetailActivity::class.java)
@@ -188,7 +184,6 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
     private fun sendDeleteItemId(id: String?, avi: AVLoadingIndicatorView, btn_delete: Button) {
 
-//        avi_edit_products.visibility = View.VISIBLE
         val service = ServiceProvider(this@EditProductsActivity).getmService()
         val call = service.deleteEditProductItem(id)
         call.enqueue(object : Callback<DeleteProduct> {
@@ -230,18 +225,14 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
         })
     }
 
-
     override fun onResume() {
         super.onResume()
-
         editProducts = ArrayList<EditProducts>()
         getEditList(page)
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
-
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(connectivityReceiver)
-//        disposable.dispose()
     }
 }

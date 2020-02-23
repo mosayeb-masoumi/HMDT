@@ -14,11 +14,4 @@ public class ActiveListModel {
     @SerializedName("title")
     @Expose
     public String title;
-
-
-//    public ActiveListModel(String id, String date, String title) {
-//        this.id = id;
-//        this.date = date;
-//        this.title = title;
-//    }
 }

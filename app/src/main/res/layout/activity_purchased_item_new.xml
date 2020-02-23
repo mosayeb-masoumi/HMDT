@@ -5,7 +5,7 @@
     android:id="@+id/root_purchased_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.PurchasedItemActivityNew">
+    tools:context=".ui.activities.PurchasedItemActivity">
 
 
     <RelativeLayout
@@ -450,7 +450,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:hint="توضیحات"
+                    android:hint="شرح کالا"
                     android:backgroundTint="@color/blue_light"
 
                     android:textColorHint="@color/blue"
