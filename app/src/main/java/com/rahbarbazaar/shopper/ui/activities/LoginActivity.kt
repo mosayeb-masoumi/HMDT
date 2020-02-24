@@ -5,6 +5,7 @@ import android.content.*
 import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -102,7 +103,16 @@ class LoginActivity : CustomBaseActivity() {
                         for (a in apiError.errors.mobile) {
                             builderMobile.append("$a ")
                         }
-                        Toast.makeText(this@LoginActivity, "" + builderMobile, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this@LoginActivity, "" + builderMobile, Toast.LENGTH_LONG).show()
+//                        Snackbar.make(login_root, "" + builderMobile, Snackbar.LENGTH_INDEFINITE).show()
+                        val snackbar = Snackbar.make(login_root,""+builderMobile,Snackbar.LENGTH_INDEFINITE)
+                        val snackView = snackbar.view
+                        snackView.setBackgroundColor(resources.getColor(R.color.blue_dark))
+                        snackView.layoutDirection = View.LAYOUT_DIRECTION_RTL
+                        snackbar.show()
+
+
+
                     }
 
                 } else {

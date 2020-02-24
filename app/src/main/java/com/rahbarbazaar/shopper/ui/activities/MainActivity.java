@@ -82,6 +82,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.pushpole.sdk.PushPole;
+
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
 
@@ -121,16 +123,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        co.pushe.plus.Pushe.initialize();
-//        if(co.pushe.plus.Pushe.isInitialized()){
-//            String pusheId2 = co.pushe.plus.Pushe.getPusheId();
-//            Toast.makeText(MainActivity.this, ""+pusheId2, Toast.LENGTH_SHORT).show();
-//        }
-
-
-        //ronash
-//        Pushe.initialize(this, true);
-//        String pusheId = Pushe.getPusheId(MainActivity.this);
+        PushPole.initialize(this,true);
 
 
 

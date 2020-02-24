@@ -99,7 +99,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                     avi.setVisibility(View.GONE);
                     if (page == 0) {
                         txt_no_transaction.setVisibility(View.VISIBLE);
-                        setRecyclerView(transactionData, type, response.code());
+//                        setRecyclerView(transactionData, type, response.code());
                     } else {
                         txt_no_transaction.setVisibility(View.GONE);
                     }

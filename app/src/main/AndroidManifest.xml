@@ -51,9 +51,12 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dee676583f984e8a93425ffcb3ac20bb0a0b2c34" />
-        <meta-data
-            android:name="co.ronash.pushe.token"
-            android:value="PUSHE_493773417507" />
+        <!--<meta-data-->
+            <!--android:name="co.ronash.pushe.token"-->
+            <!--android:value="PUSHE_493773417507" />-->
+
+        <!--<meta-data android:name="com.pushpole.sdk.token"-->
+            <!--android:value="PUSHPOLE_248305111574"/>-->
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -65,6 +68,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/picker_provider_paths" />
         </provider>
+
+
+
     </application>
 
 </manifest>
