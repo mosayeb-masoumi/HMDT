@@ -40,6 +40,10 @@
             android:id="@+id/rv_edit_products"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbarSize="3dp"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbVertical="@color/pink"
+            android:scrollbars="vertical"
             />
 
         <TextView
