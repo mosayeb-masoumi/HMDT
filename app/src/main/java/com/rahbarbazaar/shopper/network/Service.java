@@ -52,7 +52,8 @@ public interface Service {
     Call<LoginModel> login(@Query("mobile") String mobile);
 
     @POST("Login/Verify")
-    Call<VerifyModel> verify(@Query("code") String code);
+    Call<VerifyModel> verify(@Query("code") String code,
+                             @Query("pid") String pid);
 
     @GET("Dashboard/Create")
     Call<DashboardCreateData> getDashboardData();

@@ -34,14 +34,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+import com.pushpole.sdk.PushPole
+
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
     private var connectivityReceiver: BroadcastReceiver? = null
     var mobile: String = ""
+    var pid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verification)
+
+
+        PushPole.initialize(this, true)
+
+        pid = PushPole.getId(this)
+
 
         //check network broadcast reciever
         val tools = GeneralTools.getInstance()
@@ -129,7 +138,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
         var verifyCode = et_user_verify.text.toString().trim()
         val service = ServiceProvider(this).getmService()
-        val call = service.verify(verifyCode)
+        val call = service.verify(verifyCode ,pid)
         call.enqueue(object : Callback<VerifyModel> {
 
             override fun onResponse(call: Call<VerifyModel>, response: Response<VerifyModel>) {

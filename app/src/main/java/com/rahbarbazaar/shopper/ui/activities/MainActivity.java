@@ -82,7 +82,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.pushpole.sdk.PushPole;
 
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
@@ -122,10 +121,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        PushPole.initialize(this,true);
-
-
 
         locale_name = ConfigurationCompat.getLocales(getResources().getConfiguration()).get(0).getLanguage();
 
