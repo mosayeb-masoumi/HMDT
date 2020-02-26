@@ -17,8 +17,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/txt_title_purchased_item"
             android:layout_centerInParent="true"
-            android:text="@string/register_new_barcodeList"
             android:textColor="@color/white"
             android:textSize="17sp" />
 
@@ -572,7 +572,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="2dp"
                             android:layout_centerInParent="true"
-                            android:hint="قیمت خرید"
+                            android:hint="@string/goods_price"
                             android:gravity="center"
                             android:inputType="number"
                             android:backgroundTint="@color/blue_light"
@@ -600,7 +600,7 @@
                             android:layout_marginBottom="4dp"
                             android:backgroundTint="@color/blue_light"
                             android:layout_centerInParent="true"
-                            android:hint="تعداد خرید"
+                            android:hint="@string/goods_amount"
                             android:inputType="number"
                             android:gravity="center"
                             android:textColor="@color/blue_dark"

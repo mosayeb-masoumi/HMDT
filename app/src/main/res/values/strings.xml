@@ -27,7 +27,7 @@
     <string name="text_balance">موجودی</string>
     <string name="incomplete_purchase">خرید ناقص</string>
     <string name="total_purchase">تعداد کل خرید</string>
-    <string name="registered_products">محصولات ثبت شده</string>
+    <string name="registered_products">کالاهای ثبت شده</string>
 
     <string name="retuen">بازگشت</string>
     <string name="attention">اخطار!</string>
@@ -40,7 +40,7 @@
     <string name="accept_terms_conditions">قوانین و مقررات را مطالعه کرده و قبول دارم</string>
     <string name="shop">فروشگاه</string>
     <string name="shop2">فروشگاه:</string>
-    <string name="tottal_amount">مبلغ کل خرید</string>
+    <string name="tottal_amount">جمع کل مبلغ(ریال)</string>
     <string name="discount">مبلغ تخفیف</string>
     <string name="paid_amount">مبلغ پرداخت شده واحد</string>
     <string name="register_new">ثبت خرید جدید</string>
@@ -55,8 +55,8 @@
     <string name="outarea">شما خارج از محدوده ی مجاز برای ثبت خرید می باشید</string>
     <string name="purchasetitle">عنوان خریدها</string>
     <string name="purchaseedit">ویرایش خرید</string>
-    <string name="register_product">ثبت محصول</string>
-    <string name="productedit">ویرایش محصول</string>
+    <string name="register_product">ثبت کالا</string>
+    <string name="productedit">ویرایش کالا</string>
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">Powered By</string>
     <string name="familymember">اعضای خانواده همراه</string>
@@ -67,7 +67,7 @@
     <string name="update_done">بروز رسانی با موفقیت انجام شد</string>
     <string name="scanner">اسکن بارکد</string>
     <string name="search">جستجو</string>
-    <string name="search_product">جستجوی محصول</string>
+    <string name="search_product">جستجوی کالا</string>
     <string name="barcode">بارکد</string>
 
     <string name="no_internet_connection">برای استفاده از برنامه از اتصال به اینترنت مطمئن شوید و دوباره امتحان کنید</string>
@@ -127,8 +127,8 @@
     <string name="gifts">جوایز:</string>
     <string name="delete">حذف</string>
     <string name="edit">ویرایش</string>
-    <string name="no_edit_product">محصولی برای ویرایش وجود ندارد</string>
-    <string name="product_deleted">محصول با موفقیت حذف شد</string>
+    <string name="no_edit_product">کالایی برای ویرایش وجود ندارد</string>
+    <string name="product_deleted">کالا با موفقیت حذف شد</string>
     <string name="today">امروز</string>
     <string name="calendar">تقویم</string>
     <string name="no_transaction">هیچ تراکنشی ثبت نشده است</string>
@@ -162,7 +162,7 @@
     <string name="shop_date">فروشگاه/تاریخ</string>
     <string name="papasi">پاپاسی</string>
     <string name="left_days">روز مانده</string>
-    <string name="amount_valume_size">اندازه/حجم/مقدار</string>
+    <string name="amount_valume_size">تعداد</string>
     <string name="unit_price">قیمت واحد</string>
     <string name="papasi_transaction">تراکنش پاپاسی</string>
     <string name="amount_transaction">تراکنش مبالغ</string>
@@ -190,7 +190,12 @@
     <string name="taking_clear_photo">لطفا از فاکتور خرید خود بصورت خوانا عکس بگیرید.</string>
     <string name="factor_image">عکس فاکتور خرید</string>
     <string name="consumers">مصرف کنندگان</string>
+    <string name="orderer">سفارش دهنده</string>
     <string name="no_product">کالایی با این بارکد یافت نشد. لطفا مشخصات کالا و محصول را درج نمایید.</string>
+    <string name="goods_amount">تعداد کالا</string>
+    <string name="goods_price">قیمت کالا</string>
+    <string name="register_update">ثبت ویرایش</string>
+    <string name="edit_goods">ویرایش کالا</string>
 
 
 </resources>

@@ -106,7 +106,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     Barcode barcodeList;
 
     TextView txt_description_purchased, txt_group_purchase, txt_type_purchase, txt_brand_purchase, txt_img_count_purchased,txt_unit,
-            txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_spn_brand_title, txt_spn_type_title, txt_spn_amount_title;
+            txt_amount_purchase, txt_barcode, txt_spn_group_title,txt_title_purchased_item, txt_spn_brand_title, txt_spn_type_title, txt_spn_amount_title;
 
     ImageView img_register_barcode;
     AVLoadingIndicatorView avi_register_barcode;
@@ -143,7 +143,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_purchased_item_new);
+        setContentView(R.layout.activity_purchased_item);
 
         context = this;
 
@@ -213,6 +213,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             rl_description_purchased.setVisibility(View.GONE);
             ll_chkboxes.setVisibility(View.GONE);
             rl_register_result.setVisibility(View.VISIBLE);
+
+
 
         } else {
             edt_barcode.setVisibility(View.GONE);
@@ -284,6 +286,21 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             txt_spn_group_title.setTextColor(getResources().getColor(R.color.blue_dark));
             txt_spn_group_title.setText("گروه");
             sendData_type = "new";
+            String barcode_digit = intent.getStringExtra("barcode_digit");
+            if(barcode_digit!=null){
+                txt_barcode.setText(barcode_digit);
+            }
+
+            txt_title_purchased_item.setText(getResources().getString(R.string.register_new_barcodeList));
+
+        }else{
+
+            if(state!=null){
+                txt_title_purchased_item.setText("جستجوی بارکد");
+            }else{
+                txt_title_purchased_item.setText(getResources().getString(R.string.register_goods));
+            }
+
         }
     }
 
@@ -326,6 +343,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         txt_type_purchase = findViewById(R.id.txt_type_purchase);
         txt_brand_purchase = findViewById(R.id.txt_brand_purchase);
         txt_amount_purchase = findViewById(R.id.txt_amount_purchase);
+        txt_title_purchased_item = findViewById(R.id.txt_title_purchased_item);
 
         rl_spn_group = findViewById(R.id.rl_spn_group);
         rl_spn_brand = findViewById(R.id.rl_spn_brand);
@@ -1365,6 +1383,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     rl_register_result.setVisibility(View.VISIBLE);
                     sendData_type = "new";
                     barcode_type="no_match_barcode";
+                    txt_title_purchased_item.setText(getResources().getString(R.string.register_new_barcodeList));
+                    txt_unit.setText("");
                     initializeSpinners();
                 } else if (!chk_confirmed.isChecked()) {
                     chk_no_confirmed.setChecked(false);

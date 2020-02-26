@@ -81,7 +81,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
     RelativeLayout rl_addmember, rl_root;
     Button btn_register;
     EditText edt_total_amount, edt_amount;
-    TextView txt_unit,txt_total_amount_title_edit,txt_paid_edit_product;
+    TextView txt_unit,txt_total_amount_title_edit;
     JustifiedTextView txt_desc;
     LinearLayout ll_return;
     RelativeLayout rl_home,rl_member_info;
@@ -137,7 +137,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         edt_total_amount.setText(editProducts.cost);
         txt_unit.setText(editProducts.unit);
         txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.unit_price), editProducts.currency));
-        txt_paid_edit_product.setText(String.format("%s (%s)", getResources().getString(R.string.paid_amount), editProducts.currency));
         txt_desc.setText(description);
         Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
         edt_amount.setTypeface(tf);
@@ -157,7 +156,6 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         avi = findViewById(R.id.avi_edit_product_detail);
         edt_total_amount = findViewById(R.id.edt_total_amount);
         edt_amount = findViewById(R.id.edt_amount);
-        txt_paid_edit_product = findViewById(R.id.txt_paid_edit_product);
         txt_desc = findViewById(R.id.txt_desc_editProductDetail);
         txt_total_amount_title_edit = findViewById(R.id.txt_total_amount_title_edit);
         txt_unit = findViewById(R.id.txt_unit);

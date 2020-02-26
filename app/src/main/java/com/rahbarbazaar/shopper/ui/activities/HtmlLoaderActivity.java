@@ -16,6 +16,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
@@ -25,7 +26,7 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
     WebView webView;
     AVLoadingIndicatorView av_loading;
-    LinearLayout linear_exit , web_btnbar;
+    LinearLayout linear_exit, web_btnbar;
     int id, url_type;
     BroadcastReceiver connectivityReceiver = null;
     boolean isSurveyDetails, isShopping, isUserStartSurvey = false;
@@ -117,24 +118,27 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.linear_exit) {
-            if (isSurveyDetails) {
-                if (webView.canGoBack())
-                    isUserStartSurvey = true;
-                Intent intent = new Intent();
-                intent.putExtra("id", id);
-                intent.putExtra("isUserStartSurvey", isUserStartSurvey);
+//        if (view.getId() == R.id.linear_exit) {
+//            if (isSurveyDetails) {
+//                if (webView.canGoBack())
+//                    isUserStartSurvey = true;
+//                Intent intent = new Intent();
+//                intent.putExtra("id", id);
+//                intent.putExtra("isUserStartSurvey", isUserStartSurvey);
+//
+//                //get q status from current web view url if is not empty so:
+//                Uri uri = Uri.parse(webView.getUrl());
+//                String qStatus = uri.getQueryParameter("qstatus");
+//                if (qStatus == null || qStatus.equals(""))
+//                    qStatus = "1";
+//                intent.putExtra("qstatus", qStatus);
+//                setResult(RESULT_OK, intent);
+//            } else
 
-                //get q status from current web view url if is not empty so:
-                Uri uri = Uri.parse(webView.getUrl());
-                String qStatus = uri.getQueryParameter("qstatus");
-                if (qStatus == null || qStatus.equals(""))
-                    qStatus = "1";
-                intent.putExtra("qstatus", qStatus);
-                setResult(RESULT_OK, intent);
-            } else
-                finish();
-        }
+        webView.destroy();
+        finish();
+
+//        }
     }
 
     @Override
@@ -151,23 +155,27 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        if (isSurveyDetails) {
-            if (webView.canGoBack())
-                isUserStartSurvey = true;
-            Intent intent = new Intent();
-            intent.putExtra("id", id);
-            intent.putExtra("isUserStartSurvey", isUserStartSurvey);
+//        if (isSurveyDetails) {
+//            if (webView.canGoBack())
+//                isUserStartSurvey = true;
+//            Intent intent = new Intent();
+//            intent.putExtra("id", id);
+//            intent.putExtra("isUserStartSurvey", isUserStartSurvey);
+//
+//            //get q status from current web view url if is not empty so:
+//            Uri uri = Uri.parse(webView.getUrl());
+//            String qStatus = uri.getQueryParameter("qstatus");
+//
+//            if (qStatus == null || qStatus.equals(""))
+//                qStatus = "1";
+//
+//            intent.putExtra("qstatus", qStatus);
+//            setResult(RESULT_OK, intent);
+//        } else
 
-            //get q status from current web view url if is not empty so:
-            Uri uri = Uri.parse(webView.getUrl());
-            String qStatus = uri.getQueryParameter("qstatus");
+        webView.destroy();
+        finish();
 
-            if (qStatus == null || qStatus.equals(""))
-                qStatus = "1";
-
-            intent.putExtra("qstatus", qStatus);
-            setResult(RESULT_OK, intent);
-        } else
-            finish();
     }
+
 }

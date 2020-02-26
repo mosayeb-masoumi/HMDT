@@ -611,13 +611,20 @@ public class DialogFactory {
                 txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
                 txt_header.setText(context.getResources().getString(R.string.familymember));
                 break;
+
+            case "member_info_orderer":
+                txt_body.setText("کسی که به صورت آنلاین سفارش خرید داده است.");
+                txt_header.setText(context.getResources().getString(R.string.orderer));
+                break;
+
+
             case "prize_info_new_register":
                 txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
                 txt_header.setText(context.getResources().getString(R.string.prize_selection));
                 break;
             case "member_info_edit_product_detail":
                 txt_body.setText("افرادی از خانواده که جهت خرید با هم به فروشگاه مراجعه کرده اند.");
-                txt_header.setText(context.getResources().getString(R.string.familymember));
+                txt_header.setText(context.getResources().getString(R.string.consumers));
                 break;
             case "prize_info_edit_product_detail":
                 txt_body.setText("جوایزی می باشد که فروشگاه برای خرید(و نه کالا) در نظر گرفته است.");
@@ -632,6 +639,7 @@ public class DialogFactory {
                 txt_body.setText("جوایزی که برای این کالا در نظر گرفته شده است");
                 txt_header.setText(context.getResources().getString(R.string.prize_selection));
                 break;
+
         }
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);

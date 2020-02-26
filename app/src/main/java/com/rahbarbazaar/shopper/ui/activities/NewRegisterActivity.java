@@ -99,22 +99,20 @@ public class NewRegisterActivity extends CustomBaseActivity
     ArrayList<RegisterMemberEditModel> editMembers;
     RecyclerView recyclerEditedMember, recycler_prize;
     RelativeLayout rl_addmember, rl_calander, layout_register, rl_member_info,
-            rl_photo, rl_show_shop_result, rl_info_img_new_register;
+            rl_photo, rl_show_shop_result, rl_info_img_new_register,rl_shop_edit;
 
     EditText edtDate, edt_total_amount;
-
 
     String str_shop_id, info_type;
     Context context;
 
-    TextView txt_header, txt_total_amount_title,
+    TextView txt_header, txt_total_amount_title,txt_btn_member,txt_shop_edit,txt_shop_title_edit,
             txt_button_photo, txt_img_count, txt_shop_title;
     // for handling422
     private StringBuilder builderPaid, builderCost, builderDiscountAmount,
             builderShopId, builderMember, builderDate, buliderPrize;
 
     MemberPrize initMemberPrizeLists;
-
 
     ImageView img1, img2, img3, img4, img_delete1, img_delete2, img_delete3, img_delete4;
     Bitmap bm1, bm2, bm3, bm4;
@@ -188,6 +186,10 @@ public class NewRegisterActivity extends CustomBaseActivity
             btn_update.setVisibility(View.GONE);
             txt_button_photo.setText(getResources().getString(R.string.take_photo));
 
+            txt_shop_title_edit.setVisibility(View.GONE);
+            rl_shop_edit.setVisibility(View.GONE);
+
+
         } else if (shoppingEditModel.data != null) {
             txt_header.setText("ویرایش خرید");
             edt_total_amount.setText(shoppingEditModel.data.shopping.cost);
@@ -196,6 +198,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 
             btn_register.setVisibility(View.GONE);
             btn_update.setVisibility(View.VISIBLE);
+
+            txt_shop_title_edit.setVisibility(View.VISIBLE);
+            rl_shop_edit.setVisibility(View.VISIBLE);
+
+            txt_shop_edit.setText(shoppingEditModel.data.shopping.shop);
+
             setEditMemberRecyclere(shoppingEditModel.data);
             txt_button_photo.setText("ویرایش عکس");
         }
@@ -282,10 +290,13 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_shop_title = findViewById(R.id.txt_shop_title);
         txt_button_photo = findViewById(R.id.txt_button_photo);
         txt_img_count = findViewById(R.id.txt_img_count);
+        txt_btn_member=findViewById(R.id.txt_btn_member);
+        txt_shop_edit=findViewById(R.id.txt_shop_edit);
+        txt_shop_title_edit=findViewById(R.id.txt_shop_title_edit);
         rl_show_shop_result = findViewById(R.id.rl_show_shop_result);
         img_delete_shop_item = findViewById(R.id.img_delete_shop_item);
         rl_info_img_new_register = findViewById(R.id.rl_info_img_new_register);
-
+        rl_shop_edit =findViewById(R.id.rl_shop_edit);
 
         rl_addmember.setOnClickListener(this);
         btn_register.setOnClickListener(this);
@@ -351,18 +362,25 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.rl_info_member_new_register:
-                info_type = "member_info_new_register";
+                if(txt_btn_member.getText().toString().equals("سفارش دهنده")){
+                    info_type = "member_info_orderer";
+                }else{
+                    info_type = "member_info_new_register";
+                }
+
                 showInfoDialog(info_type);
                 break;
 
             case R.id.btn_present_purchase:
                 spn_name = "present";
+                txt_btn_member.setText(getResources().getString(R.string.familymember));
                 showShopListDialog(spn_name);
                 break;
 
             case R.id.btn_online_purchase:
                 spn_name = "online";
                 showShopListDialog(spn_name);
+                txt_btn_member.setText(getResources().getString(R.string.orderer));
                 break;
 
             case R.id.img_delete_shop_item:
@@ -371,6 +389,10 @@ public class NewRegisterActivity extends CustomBaseActivity
                 rl_show_shop_result.setVisibility(View.GONE);
                 btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_active));
                 btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));
+
+                if (shoppingEditModel.data != null) {
+                    txt_shop_edit.setText(shoppingEditModel.data.shopping.shop);
+                }
 
                 btn_online_purchase.setClickable(true);
                 btn_present_purchase.setClickable(true);
@@ -1243,6 +1265,8 @@ public class NewRegisterActivity extends CustomBaseActivity
         txt_shop_title.setText(model.getTitle());
         str_shop_id = model.getId();
         dialog.dismiss();
+
+        txt_shop_edit.setText(model.getTitle());
 
         if (spn_name.equals("online")) {
             btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));

@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class ScanFragment extends Fragment implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView mScannerView;
-    String barcode;
+    String barcode_digit;
     BarcodeLoadingState state = new BarcodeLoadingState();
 
     public ScanFragment() {
@@ -43,18 +43,18 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
     @Override
     public void handleResult(Result rawResult) {
-        barcode = rawResult.getText();
-        getListOfProducts(barcode);
+        barcode_digit = rawResult.getText();
+        getListOfProducts(barcode_digit);
     }
 
-    private void getListOfProducts(String barcode) {
+    private void getListOfProducts(String barcode_digit) {
 
 
         state.setState("show_loading");
         EventBus.getDefault().postSticky(state);
 
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<Barcode> call = service.getBarcodeList(barcode);
+        Call<Barcode> call = service.getBarcodeList(barcode_digit);
         call.enqueue(new Callback<Barcode>() {
             @Override
             public void onResponse(Call<Barcode> call, Response<Barcode> response) {
@@ -85,7 +85,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                         getActivity().finish();
                     }
                 } else if (response.code() == 204) {
-                    getSpinneList();
+                    getSpinneList(barcode_digit);
 
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -105,7 +105,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         });
     }
 
-    private void getSpinneList() {
+    private void getSpinneList(String barcode_digit) {
         Service service = new ServiceProvider(getContext()).getmService();
         Call<GroupsData> call = service.getCategorySpnData();
         call.enqueue(new Callback<GroupsData>() {
@@ -118,6 +118,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
                     Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
                     intent.putExtra("groupsData", groupsData);
+                    intent.putExtra("barcode_digit", barcode_digit);
                     startActivity(intent);
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     getActivity().finish();
