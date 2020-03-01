@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,22 +26,17 @@ import android.widget.Toast;
 //import com.codesgood.views.JustifiedTextView;
 import com.codesgood.views.JustifiedTextView;
 import com.rahbarbazaar.shopper.R;
-import com.rahbarbazaar.shopper.controllers.adapters.EditPrizeAdapter;
-import com.rahbarbazaar.shopper.controllers.adapters.PrizeAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberDialogAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.RegisterMemberEditAdapter;
-import com.rahbarbazaar.shopper.controllers.interfaces.PrizeItemInteraction;
 import com.rahbarbazaar.shopper.controllers.interfaces.RegisterItemInteraction;
 import com.rahbarbazaar.shopper.models.api_error.APIError422;
 import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
 import com.rahbarbazaar.shopper.models.edit_products.BoughtMember;
-import com.rahbarbazaar.shopper.models.edit_products.BoughtPrize;
 import com.rahbarbazaar.shopper.models.edit_products.EditProductDetailUpdateSendData;
 import com.rahbarbazaar.shopper.models.edit_products.EditProducts;
 import com.rahbarbazaar.shopper.models.edit_products.TotalEditProductData;
 import com.rahbarbazaar.shopper.models.edit_products.UpdateEditProductDetailResult;
 import com.rahbarbazaar.shopper.models.register.Member;
-import com.rahbarbazaar.shopper.models.register.Prize;
 import com.rahbarbazaar.shopper.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.shopper.models.register.SendPrize;
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize;
@@ -244,12 +238,16 @@ public class EditProductsDetailActivity extends CustomBaseActivity
             }
         }
 
+
+//        todo check this
+        String spn_name = "present";
+
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(EditProductsDetailActivity.this));
-        adapter_member = new RegisterMemberDialogAdapter(members, EditProductsDetailActivity.this);
+        adapter_member = new RegisterMemberDialogAdapter(members, spn_name, dialog, EditProductsDetailActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
 
@@ -277,7 +275,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 
 
     @Override
-    public void onClicked(String name, String id, Boolean chkbox) {
+    public void onClicked(String name, String id, String spn_name, Dialog dialog, Boolean chkbox) {
         if (chkbox) {
             editMembers.add(new RegisterMemberEditModel(name, id));
 

@@ -1,5 +1,6 @@
 package com.rahbarbazaar.shopper.controllers.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,10 +19,14 @@ public class RegisterMemberDialogAdapter extends RecyclerView.Adapter<RegisterMe
 
     public List<Member> members;
     public Context context;
+    public String spn_name;
+    Dialog dialog;
 
-    public RegisterMemberDialogAdapter(List<Member> members, Context context) {
+    public RegisterMemberDialogAdapter(List<Member> members, String spn_name, Dialog dialog, Context context) {
         this.members = members;
         this.context = context;
+        this.spn_name = spn_name;
+        this.dialog = dialog;
     }
 
     @NonNull
@@ -36,7 +41,7 @@ public class RegisterMemberDialogAdapter extends RecyclerView.Adapter<RegisterMe
 
         final Member model = members.get(position);
         holder.bindData(model);
-        holder.setOnRegisterHolderListener(listener,model);
+        holder.setOnRegisterHolderListener(listener,model,spn_name , dialog);
     }
 
     private RegisterItemInteraction listener = null;

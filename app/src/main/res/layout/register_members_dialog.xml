@@ -37,7 +37,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="10dp"
-        android:id="@+id/rl_chekc"
+        android:id="@+id/rl_check_all"
         android:layout_height="wrap_content">
 
         <TextView

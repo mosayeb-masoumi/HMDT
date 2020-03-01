@@ -128,7 +128,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     int image_count3 = 0;
     int image_count4 = 0;
 
-    String spn_name = "";
+    String spn_name = "online";
     ImageView img_delete_shop_item;
 
     @Override
@@ -321,7 +321,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         switch (view.getId()) {
             case R.id.rl_addmember:
-                showAddMemberDialog();
+                showAddMemberDialog(spn_name);
                 break;
 
             case R.id.btn_register:
@@ -795,7 +795,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     }
 
 
-    private void showAddMemberDialog() {
+    private void showAddMemberDialog(String spn_name) {
 
         editMembers = new ArrayList<>();
         final Dialog dialog = new Dialog(NewRegisterActivity.this);
@@ -817,10 +817,20 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
+        RelativeLayout rl_check_all = dialog.findViewById(R.id.rl_check_all);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
+
+
+        if(spn_name.equals("online")){
+            rl_check_all.setVisibility(View.GONE);
+        }else{
+            rl_check_all.setVisibility(View.VISIBLE);
+        }
+
+
         recyclerview_members.setLayoutManager(new LinearLayoutManager(NewRegisterActivity.this));
-        adapter_member = new RegisterMemberDialogAdapter(members, NewRegisterActivity.this);
+        adapter_member = new RegisterMemberDialogAdapter(members,spn_name ,dialog,NewRegisterActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
 
@@ -850,7 +860,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     // to setCheck single checkbox and show in list
     @Override
-    public void onClicked(String name, String id, Boolean chkbox) {
+    public void onClicked(String name, String id, String spn_name, Dialog dialog, Boolean chkbox) {
 
         if (chkbox) {
             editMembers.add(new RegisterMemberEditModel(name, id));
@@ -865,6 +875,11 @@ public class NewRegisterActivity extends CustomBaseActivity
                 }
             }
         }
+
+        if(spn_name.equals("online")){
+            dialog.dismiss();
+        }
+
         updateEditMemberList(editMembers);
     }
 

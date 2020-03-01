@@ -894,7 +894,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(PurchasedItemActivity.this));
-        adapter_member = new RegisterMemberDialogAdapter(members, PurchasedItemActivity.this);
+        adapter_member = new RegisterMemberDialogAdapter(members, spn_name, dialog, PurchasedItemActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
         // to select all members
@@ -1325,7 +1325,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     }
 
     @Override
-    public void onClicked(String name, String id, Boolean chkbox) {
+    public void onClicked(String name, String id, String spn_name, Dialog dialog, Boolean chkbox) {
 
         if (chkbox) {
             editMembers.add(new RegisterMemberEditModel(name, id));

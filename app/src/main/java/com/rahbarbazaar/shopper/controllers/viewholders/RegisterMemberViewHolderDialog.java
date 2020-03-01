@@ -1,5 +1,6 @@
 package com.rahbarbazaar.shopper.controllers.viewholders;
 
+import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,15 +27,15 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
         txt_name.setText(model.name);
     }
 
-    public void setOnRegisterHolderListener(RegisterItemInteraction listener, Member model) {
+    public void setOnRegisterHolderListener(RegisterItemInteraction listener, Member model, String spn_name, Dialog dialog) {
 
         checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (checkbox.isChecked()) {
                 checkbox.setChecked(true);
-                listener.onClicked(model.name, model.id, true);
+                listener.onClicked(model.name, model.id,spn_name,dialog, true);
             } else if (!checkbox.isChecked()) {
                 checkbox.setChecked(false);
-                listener.onClicked(model.name, model.id, false);
+                listener.onClicked(model.name, model.id,spn_name,dialog, false);
             }
         });
     }
