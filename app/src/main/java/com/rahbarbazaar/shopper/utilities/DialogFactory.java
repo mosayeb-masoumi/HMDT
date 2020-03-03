@@ -632,7 +632,7 @@ public class DialogFactory {
                 break;
             case "member_info_purchased_item":
                 txt_body.setText("کسانی که در خانواده از این کالا استفاده می کنند.");
-                txt_header.setText(context.getResources().getString(R.string.consumer));
+                txt_header.setText(context.getResources().getString(R.string.consumers));
 
                 break;
             case "prize_info_purchased_item":

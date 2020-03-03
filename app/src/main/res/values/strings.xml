@@ -163,7 +163,6 @@
     <string name="papasi">پاپاسی</string>
     <string name="left_days">روز مانده</string>
     <string name="amount_valume_size">تعداد</string>
-    <string name="unit_price">قیمت واحد</string>
     <string name="papasi_transaction">تراکنش پاپاسی</string>
     <string name="amount_transaction">تراکنش مبالغ</string>
     <string name="search_in_goods_list">جستجو در فهرست کالاها</string>
@@ -196,6 +195,8 @@
     <string name="goods_price">قیمت کالا</string>
     <string name="register_update">ثبت ویرایش</string>
     <string name="edit_goods">ویرایش کالا</string>
+    <string name="unit_price">قیمت واحد(ریال)</string>
+    <string name="search_goods">جستجوی کالا</string>
 
 
 </resources>

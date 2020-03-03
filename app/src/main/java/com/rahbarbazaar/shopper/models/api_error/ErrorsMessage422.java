@@ -85,4 +85,8 @@ public class ErrorsMessage422 {
     @Expose
     public List<String> group_id = null;
 
+    @SerializedName("category")
+    @Expose
+    public List<String> category = null;
+
 }
