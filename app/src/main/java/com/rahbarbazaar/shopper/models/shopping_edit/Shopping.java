@@ -15,6 +15,13 @@ public class Shopping {
     @SerializedName("shop_id")
     @Expose
     public String shop_id;
+
+
+    @SerializedName("online")
+    @Expose
+    public String online;
+
+
     @SerializedName("cost")
     @Expose
     public String cost;

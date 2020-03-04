@@ -252,6 +252,14 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 rl_description_purchased.setVisibility(View.VISIBLE);
                 ll_spinners.setVisibility(View.GONE);
                 ll_texts.setVisibility(View.GONE);
+
+                //add now
+                ll_questions.setVisibility(View.VISIBLE);
+                ll_chkboxes.setVisibility(View.GONE);
+
+
+
+
                 txt_description_purchased.setText(this.barcodeList.getData().get(position).getDecription());
                 txt_barcode.setText(this.barcodeList.getData().get(position).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(position).getUnit());
@@ -261,6 +269,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 rl_description_purchased.setVisibility(View.GONE);
                 ll_spinners.setVisibility(View.GONE);
                 ll_texts.setVisibility(View.VISIBLE);
+
+
+
+                //add now
+                ll_questions.setVisibility(View.VISIBLE);
+                ll_chkboxes.setVisibility(View.GONE);
+
 
                 txt_group_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(0).getValue());
                 txt_type_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(1).getValue());
@@ -1382,7 +1397,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         type = barcode.getData().get(position1).getMygroup();
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
 
-        ll_chkboxes.setVisibility(View.VISIBLE);
+        ll_chkboxes.setVisibility(View.GONE);
+        ll_questions.setVisibility(View.VISIBLE);
+        txt_title_purchased_item.setText(getResources().getString(R.string.register_goods));
+
         dialog.dismiss();
     }
 

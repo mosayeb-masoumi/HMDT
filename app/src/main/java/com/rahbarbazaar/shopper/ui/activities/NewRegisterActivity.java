@@ -244,6 +244,20 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         }
 
+        if(shoppingEditModel.data!=null){
+
+            String online_shopping = shoppingEditModel.data.shopping.online;
+
+            if(online_shopping.equals("yes")){
+                txt_btn_member.setText("سفارش دهنده");
+                spn_name="online";
+            }else if(online_shopping.equals("no")){
+                txt_btn_member.setText("اعضای خانواده همراه");
+                spn_name="present";
+            }
+
+        }
+
         int total_img_count1 = image_count1 + image_count2 + image_count3 + image_count4;
         String img_count1 = ConvertEnDigitToFa.convert(String.valueOf(total_img_count1));
         if (total_img_count1 > 0) {

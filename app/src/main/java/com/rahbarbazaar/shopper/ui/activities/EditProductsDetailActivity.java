@@ -130,7 +130,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         edt_amount.setText(editProducts.amount);
         edt_total_amount.setText(editProducts.cost);
         txt_unit.setText(editProducts.unit);
-        txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.unit_price), editProducts.currency));
+//        txt_total_amount_title_edit.setText(String.format("%s (%s)", getResources().getString(R.string.unit_price), editProducts.currency));
         txt_desc.setText(description);
         Typeface tf = Typeface.createFromAsset(getAssets(), "BYekan.ttf");
         edt_amount.setTypeface(tf);
@@ -197,8 +197,9 @@ public class EditProductsDetailActivity extends CustomBaseActivity
                 finish();
                 break;
 
+
             case R.id.rl_info_member_edit_detail:
-                info_type = "member_info_edit_product_detail";
+                info_type = "member_info_purchased_item";
                 showInfoDialog(info_type);
                 break;
 
