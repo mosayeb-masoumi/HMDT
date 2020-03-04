@@ -773,9 +773,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:id="@+id/rl_register_result"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="60dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginEnd="60dp"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/bg_button_add">
 

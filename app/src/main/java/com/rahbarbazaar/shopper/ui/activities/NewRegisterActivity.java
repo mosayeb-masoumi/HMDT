@@ -834,12 +834,15 @@ public class NewRegisterActivity extends CustomBaseActivity
         RelativeLayout rl_check_all = dialog.findViewById(R.id.rl_check_all);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
+        TextView txt_header = dialog.findViewById(R.id.txt_header_members_dialog);
 
 
         if(spn_name.equals("online")){
             rl_check_all.setVisibility(View.GONE);
+            txt_header.setText("سفارش دهنده");
         }else{
             rl_check_all.setVisibility(View.VISIBLE);
+            txt_header.setText("اعضای خانواده همراه");
         }
 
 
