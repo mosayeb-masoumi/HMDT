@@ -7,6 +7,4 @@ public class ClientConfig {
     public static String Html_URL = "https://test.rahbarbazar.com/cp/";
 
 
-    //test new
-
 }
