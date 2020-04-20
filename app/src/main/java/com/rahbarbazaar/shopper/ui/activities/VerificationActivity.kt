@@ -69,6 +69,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
         val tf = Typeface.createFromAsset(assets, "BYekan.ttf")
         et_user_verify.typeface = tf
+        text_min.typeface = tf
+        text_sec.typeface = tf
+        text_user_mobile.typeface = tf
 
         // event on done keyboard
         et_user_verify.setOnEditorActionListener { v, actionId, event ->
@@ -121,7 +124,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             R.id.linear_recode -> {
                 linear_recode.visibility = View.GONE
                 rl_recode_number.visibility = View.VISIBLE
-                reverseTimer(10, text_min)
+                reverseTimer(90, text_min)
                 recodeRequest()
             }
 
