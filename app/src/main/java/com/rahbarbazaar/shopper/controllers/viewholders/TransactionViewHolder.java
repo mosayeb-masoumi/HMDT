@@ -37,9 +37,9 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
             ll_root.setBackground(itemView.getResources().getDrawable(R.drawable.activelist_rv_bg));
         }
 
-        if(model.type.equals("debtor")){
+        if(model.type.equals("debtor") || model.type.equals("کاهش")){
             img_transaction.setImageResource(R.drawable.transaction_down_icon);
-        }else if(model.type.equals("creditor")){
+        }else if(model.type.equals("creditor") || model.type.equals("افزایش")){
             img_transaction.setImageResource(R.drawable.transaction_up_icon);
         }
     }
