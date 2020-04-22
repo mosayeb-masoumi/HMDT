@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:id="@+id/logo"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/splash_logo" />
+            android:src="@drawable/splash_logo2" />
 
     </RelativeLayout>
 
