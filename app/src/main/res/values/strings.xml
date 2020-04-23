@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shopper</string>
+    <string name="app_name">HomAdit</string>
     <string name="internet_setting">تنظیمات wifi</string>
     <string name="data_setting">تنظیمات دیتا</string>
     <string name="warning">اخطار</string>

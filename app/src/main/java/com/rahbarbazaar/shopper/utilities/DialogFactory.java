@@ -934,7 +934,7 @@ public class DialogFactory {
         View customLayout = LayoutInflater.from(context).inflate(R.layout.spn_search_dialog, (ViewGroup) view, false);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
-        Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop);
+        Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
 
         if(spn_name.equals("online")){
