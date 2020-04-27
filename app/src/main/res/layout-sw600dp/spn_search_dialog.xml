@@ -74,7 +74,7 @@
                 android:background="@drawable/dialog_btn_shape"
                 android:text="بستن"
                 android:textColor="@color/blue"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
             <Button
                 android:id="@+id/btn_etc"
@@ -85,7 +85,7 @@
                 android:background="@drawable/dialog_btn_shape"
                 android:text="سایر"
                 android:textColor="@color/blue"
-                android:textSize="14sp" />
+                android:textSize="17sp" />
 
 
         </LinearLayout>
@@ -113,10 +113,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                android:text="متناال"
                 android:visibility="gone"
                 android:textColor="@color/blue_dark"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
     </RelativeLayout>
