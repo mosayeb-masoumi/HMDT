@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class BarcodeData() :Parcelable{
+class BarcodeData() : Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -13,7 +13,6 @@ class BarcodeData() :Parcelable{
     @SerializedName("mygroup")
     @Expose
     var mygroup: String? = null
-
 
     @SerializedName("min_price")
     @Expose
@@ -24,9 +23,6 @@ class BarcodeData() :Parcelable{
     @SerializedName("max_amount")
     @Expose
     var maxAmount: Int? = null
-
-
-
 
     @SerializedName("barcode")
     @Expose
@@ -47,16 +43,27 @@ class BarcodeData() :Parcelable{
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
         mygroup = parcel.readString()
+
+        minPrice = parcel.readInt()
+        maxPrice = parcel.readInt()
+        maxAmount = parcel.readInt()
+
+
         barcode = parcel.readString()
         decription = parcel.readString()
         unit = parcel.readString()
 
         barcodeDetail = parcel.createTypedArrayList(BarcodeDetail.CREATOR)
     }
-        constructor(id: String?, mygroup: String?, barcode: String?, decription: String?, unit: String?,
+
+    constructor(id: String?, mygroup: String?, min_price: Int?, max_price: Int?, max_amount: Int?, barcode: String?, decription: String?, unit: String?,
                 barcodeDetail: List<BarcodeDetail>?) : this() {
         this.id = id
         this.mygroup = mygroup
+        this.minPrice = min_price
+        this.maxPrice = max_price
+        this.maxAmount = max_amount
+
         this.barcode = barcode
         this.decription = decription
         this.unit = unit
@@ -80,6 +87,12 @@ class BarcodeData() :Parcelable{
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(mygroup)
+
+        parcel.writeInt(this!!.minPrice!!)
+        parcel.writeInt(this!!.maxPrice!!)
+        parcel.writeInt(this!!.maxAmount!!)
+
+
         parcel.writeString(barcode)
         parcel.writeString(decription)
         parcel.writeString(unit)

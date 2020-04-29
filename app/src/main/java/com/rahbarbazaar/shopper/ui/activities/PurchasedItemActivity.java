@@ -144,6 +144,9 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     StringBuilder builderMember, builderCost, buliderAmount,
             buliderDescription, buliderBarcode,buliderCategory, buliderBrand;
 
+
+    int max_amount=0,min_price=0,max_price=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,6 +236,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 txt_description_purchased.setText(this.barcodeList.getData().get(0).getDecription());
                 txt_barcode.setText(this.barcodeList.getData().get(0).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(0).getUnit());
+
+                min_price = this.barcodeList.getData().get(0).getMinPrice();
+                max_price = this.barcodeList.getData().get(0).getMaxPrice();
+                max_amount = this.barcodeList.getData().get(0).getMaxAmount();
             }
 
             if (barcodeListSize == 1 && this.barcodeList.getData().get(0).getMygroup().equals("product")) {
@@ -246,6 +253,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 txt_amount_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(3).getValue());
                 txt_barcode.setText(this.barcodeList.getData().get(0).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(0).getUnit());
+
+                min_price = this.barcodeList.getData().get(0).getMinPrice();
+                max_price = this.barcodeList.getData().get(0).getMaxPrice();
+                max_amount = this.barcodeList.getData().get(0).getMaxAmount();
             }
 
             if (barcodeListSize > 1 && this.barcodeList.getData().get(position).getMygroup().equals("wait")) {
@@ -263,6 +274,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 txt_description_purchased.setText(this.barcodeList.getData().get(position).getDecription());
                 txt_barcode.setText(this.barcodeList.getData().get(position).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(position).getUnit());
+
+                min_price = this.barcodeList.getData().get(position).getMinPrice();
+                max_price = this.barcodeList.getData().get(position).getMaxPrice();
+                max_amount = this.barcodeList.getData().get(position).getMaxAmount();
             }
 
             if (barcodeListSize > 1 && this.barcodeList.getData().get(position).getMygroup().equals("product")) {
@@ -283,6 +298,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 txt_amount_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(3).getValue());
                 txt_barcode.setText(this.barcodeList.getData().get(position).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(position).getUnit());
+
+                min_price = this.barcodeList.getData().get(position).getMinPrice();
+                max_price = this.barcodeList.getData().get(position).getMaxPrice();
+                max_amount = this.barcodeList.getData().get(position).getMaxAmount();
             }
         }
 
@@ -558,16 +577,37 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     private void send_product_data() {
 
-        avi_register_purchased.setVisibility(View.VISIBLE);
-        btn_register_purchased.setVisibility(View.GONE);
+
         SendPurchasedItemData sendData = new SendPurchasedItemData();
 
         sendData.setMember(editMembers);
-        sendData.setCost(edt_cost_purchase.getText().toString().trim());
-        sendData.setAmount(edt_amount_purchased.getText().toString().trim());
+
+        String price = edt_cost_purchase.getText().toString().trim();
+        int price1 = Integer.parseInt(price);
+        String amount=edt_amount_purchased.getText().toString().trim();
+        int amount1 = Integer.parseInt(amount);
+
+        if(price1<min_price){
+            Toast.makeText(context, "مبلغ کمتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
+            return;
+        }else if(price1>max_price){
+            Toast.makeText(context, "مبلغ بیشتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
+            return;
+        }else if(amount1>max_amount){
+            Toast.makeText(context, "تعداد وارد شده بیشتر از تعداد مجاز است", Toast.LENGTH_LONG).show();
+            return;
+        }else {
+            sendData.setCost(price);
+            sendData.setAmount(amount);
+        }
+
         sendData.setProduct_id(product_id);
         sendData.setShopping_id(shopping_id);
         sendData.setType(type);
+
+
+        avi_register_purchased.setVisibility(View.VISIBLE);
+        btn_register_purchased.setVisibility(View.GONE);
 
         Service service = new ServiceProvider(this).getmService();
         Call<PurchaseItemResult> call = service.getPurchaseItemResult(sendData);
@@ -1031,6 +1071,11 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                         product_id = barcodeList_unreadable.getData().get(0).getId();
                         type = barcodeList_unreadable.getData().get(0).getMygroup();
                         ll_chkboxes.setVisibility(View.VISIBLE);
+                        min_price = barcodeList_unreadable.getData().get(0).getMinPrice();
+                        max_price = barcodeList_unreadable.getData().get(0).getMaxPrice();
+                        max_amount = barcodeList_unreadable.getData().get(0).getMaxAmount();
+
+
                     } else if (barcodeList_unreadable.getData().size() > 1) {
                         Barcode barcode = response.body();
                         showBarcodeListDialog(barcode);
@@ -1396,6 +1441,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         product_id = barcode.getData().get(position1).getId();
         type = barcode.getData().get(position1).getMygroup();
         detectStatus(barcodeList_unreadable, spinnerList_unreadable);
+
+        min_price = barcode.getData().get(position1).getMinPrice();
+        max_price = barcode.getData().get(position1).getMaxPrice();
+        max_amount = barcode.getData().get(position1).getMaxAmount();
 
         ll_chkboxes.setVisibility(View.GONE);
         ll_questions.setVisibility(View.VISIBLE);

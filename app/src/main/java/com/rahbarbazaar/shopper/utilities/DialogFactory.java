@@ -793,6 +793,8 @@ public class DialogFactory {
         for (int i = 0; i < barcode.getData().size(); i++) {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
+                    barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
+                    barcode.getData().get(i).getMaxAmount(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
                     barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }
@@ -841,6 +843,8 @@ public class DialogFactory {
 
         for (int i = 0; i < barcode.getData().size(); i++) {
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
+                    barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
+                    barcode.getData().get(i).getMaxAmount(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(),
                     barcode.getData().get(i).getUnit(), barcode.getData().get(i).getBarcodeDetail()));
         }

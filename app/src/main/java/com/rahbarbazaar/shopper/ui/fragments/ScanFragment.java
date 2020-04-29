@@ -76,6 +76,9 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                         intent.putExtra("barcodeList", barcode);
                         intent.putExtra("product_id", barcode.getData().get(0).getId());
                         intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
+//                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
+//                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
+//                        intent.putExtra("max_amount",barcode.getData().get(0).getMaxAmount());
 
                         startActivity(intent);
                         getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

@@ -258,9 +258,14 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         intent.putExtra("barcodeList", barcode);
         intent.putExtra("product_id",barcode.getData().get(position).getId());
         intent.putExtra("mygroup",barcode.getData().get(position).getMygroup());
+//        intent.putExtra("min_price",barcode.getData().get(position).getMinPrice());
+//        intent.putExtra("max_price",barcode.getData().get(position).getMaxPrice());
+//        intent.putExtra("max_amount",barcode.getData().get(position).getMaxAmount());
+
         startActivity(intent);
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         finish();
+
     }
 
     @Override
