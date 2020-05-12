@@ -33,6 +33,20 @@
 
 
 
+    <com.codesgood.views.JustifiedTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/splah_text"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+
+
+
     <RelativeLayout
         android:id="@+id/txtPoweredBy"
         android:layout_width="130dp"

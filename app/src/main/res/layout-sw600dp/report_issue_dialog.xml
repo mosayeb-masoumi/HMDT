@@ -40,9 +40,7 @@
         android:id="@+id/edt_description"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="30dp"
-
         android:textColor="@color/blue_dark"
         android:textColorHint="@color/blue"
         android:background="@null"

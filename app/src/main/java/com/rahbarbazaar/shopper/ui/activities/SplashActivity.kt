@@ -87,7 +87,7 @@ class SplashActivity : CustomBaseActivity() {
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
                 }
-            }, 2700)
+            }, 3000)
         }
     }
 

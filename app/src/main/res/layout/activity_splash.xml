@@ -2,34 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/splash_root"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.SplashActivity">
-
 
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
         android:layout_alignParentStart="true"
+        android:scaleType="fitXY"
         android:src="@drawable/bg_simple" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/rl10"
+        android:layout_width="match_parent"
         android:layout_height="300dp">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/logo"
             android:layout_centerHorizontal="true"
             android:src="@drawable/splash_logo2" />
 
     </RelativeLayout>
 
+
+    <com.codesgood.views.JustifiedTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl10"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="@string/splah_text"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
     <RelativeLayout
@@ -38,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp">
+        android:layout_marginBottom="60dp">
 
         <TextView
             android:id="@+id/txt"
@@ -74,11 +84,10 @@
     </RelativeLayout>
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_above="@+id/txtPoweredBy"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtPoweredBy">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi"
@@ -91,19 +100,17 @@
             app:indicatorColor="@color/white_gray" />
 
         <Button
+            android:id="@+id/btn_reload"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:text="@string/tryagain"
-            android:id="@+id/btn_reload"
-            android:textColor="@color/blue"
-            android:visibility="gone"
-            android:background="@drawable/bg_tryagain"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_tryagain"
+            android:text="@string/tryagain"
+            android:textColor="@color/blue"
+            android:visibility="gone" />
 
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

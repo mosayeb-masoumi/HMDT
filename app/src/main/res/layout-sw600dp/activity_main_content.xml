@@ -9,8 +9,7 @@
     <RelativeLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:gravity="center_horizontal">
+        android:layout_height="?attr/actionBarSize">
 
         <ImageView
             android:id="@+id/image_drawer"
@@ -22,14 +21,22 @@
             android:src="@drawable/drawer" />
 
 
-
-
         <ImageView
             android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:src="@drawable/logo_homadit" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:id="@+id/txt_date"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:text="25/11/1999 سه شنبه"
+            android:textColor="@color/blue_dark3"/>
 
         <RelativeLayout
             android:id="@+id/rl_notification"
@@ -38,6 +45,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="1dp"
             android:gravity="center"
+            android:visibility="gone"
             android:tint="@color/white">
 
             <ImageView
@@ -71,6 +79,9 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
+
+
     </RelativeLayout>
 
 

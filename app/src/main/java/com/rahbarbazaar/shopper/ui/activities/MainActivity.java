@@ -1,6 +1,7 @@
 package com.rahbarbazaar.shopper.ui.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -71,6 +72,7 @@ import com.rahbarbazaar.shopper.utilities.DownloadManager;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
 import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
+import com.rahbarbazaar.shopper.utilities.SolarCalendar;
 
 import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
@@ -95,10 +97,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_report_issue, linear_faq, linear_edu, linear_submenu, linear_profile_drawer, ll_drawer;
+            linear_support, linear_report_issue, linear_faq, linear_edu, linear_submenu,
+            linear_profile_drawer, ll_drawer,linear_news_drawer,linear_videos_drawer;
     RelativeLayout ll_notify_count;
 
-    TextView txt_exit, text_notify_count, text_follow_us;
+    TextView txt_exit, text_notify_count, text_follow_us,txt_date;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification;
@@ -117,6 +120,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     ProfileData profileData;
     String locale_name;
 
+    SolarCalendar solarCalendar;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +146,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 dashboardCreateData = (DashboardCreateData) result;
             }
         });
+
+
+        solarCalendar = new SolarCalendar();
+        String date = ConvertEnDigitToFa.convert(solarCalendar.getCurrentShamsiDate());
+        String day = solarCalendar.getStrWeekDay() ;
+        txt_date.setText(day+" "+date);
+
+
 
         //initial Dialog factory
         dialogFactory = new DialogFactory(MainActivity.this);
@@ -266,6 +280,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_support = findViewById(R.id.linear_support);
         linear_report_issue = findViewById(R.id.linear_report_issue);
         linear_profile_drawer = findViewById(R.id.linear_profile_drawer);
+        linear_news_drawer =findViewById(R.id.linear_news_drawer);
+        linear_videos_drawer = findViewById(R.id.linear_videos_drawer);
 
         linear_faq = findViewById(R.id.linear_faq);
         linear_edu = findViewById(R.id.linear_edu);
@@ -280,6 +296,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         text_notify_count = findViewById(R.id.text_notify_count);
         txt_exit = findViewById(R.id.txt_exit);
         text_follow_us = findViewById(R.id.text_follow_us);
+        txt_date = findViewById(R.id.txt_date);
 
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
@@ -294,6 +311,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_invite_friend.setOnClickListener(this);
         linear_message_drawer.setOnClickListener(this);
         linear_profile_drawer.setOnClickListener(this);
+        linear_news_drawer.setOnClickListener(this);
+        linear_videos_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
     }
@@ -460,6 +479,22 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
+
+
+            case R.id.linear_news_drawer:
+                goToHtmlActivity(dashboardCreateData.data.news_content);
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
+            case R.id.linear_videos_drawer:
+                goToHtmlActivity(dashboardCreateData.data.video_content);
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
+
+
+
+
             case R.id.rl_notification:
                 startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -507,7 +542,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                         append(getString(R.string.text_invite_friend))
                         .append("\n").append(share_url))
                 .setType("text/plain")
-                .setChooserTitle(R.string.share_shopper)
+                .setChooserTitle(R.string.share_homadit)
                 .startChooser();
     }
 

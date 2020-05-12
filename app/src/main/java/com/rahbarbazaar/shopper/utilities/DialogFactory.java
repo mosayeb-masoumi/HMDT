@@ -15,6 +15,8 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -151,6 +153,8 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // to show keyboard automatically while editText is in  dialog
+            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         btn_register.setOnClickListener(v -> {
@@ -299,6 +303,8 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // to show keyboard automatically while editText is in  dialog
+            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         //set click listener for views inside of dialog
         btn_send.setOnClickListener(view -> {
@@ -535,7 +541,21 @@ public class DialogFactory {
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // to show keyboard automatically while editText is in  dialog
+            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+
+//        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+//                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+
+
+//        edt_body.requestFocus();
+//        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.showSoftInput(edt_body, InputMethodManager.SHOW_IMPLICIT);
+
+
+
 
         btn_send.setOnClickListener(v -> {
             String body = edt_body.getText().toString();
@@ -550,6 +570,8 @@ public class DialogFactory {
         btn_close.setOnClickListener(v -> dialog.dismiss());
         img_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+
+
     }
 
     public void createUpdateDialog(@NotNull DialogFactoryInteraction listener, @Nullable View view, String update_type) {

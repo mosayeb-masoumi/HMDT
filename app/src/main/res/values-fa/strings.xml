@@ -16,7 +16,7 @@
     <!--Bottom navigation tabs-->
     <string name="home_tab">صفحه اصلی</string>
     <string name="register_tab">خریدهای جدید</string>
-    <string name="myaccount_tab">حساب من</string>
+    <string name="myaccount_tab">کیف پول</string>
     <string name="store_tab">بازارچه</string>
     <string name="text_news">اخبار</string>
     <string name="text_video">ویدئوها</string>
@@ -105,7 +105,7 @@
     <string name="support_center">مرکز پشتیبانی</string>
     <string name="faq">سوالات متداول</string>
     <string name="report_issue">گزارش مشکل</string>
-    <string name="share_shopper">شاپر را به اشتراک بگذارید</string>
+    <string name="share_homadit">همادیت را به اشتراک بگذارید</string>
     <string name="system_error">خطای سیستمی</string>
     <string name="text_title">عنوان</string>
     <string name="explanation2">توضیحات</string>
@@ -130,7 +130,7 @@
     <string name="no_transaction">هیچ تراکنشی ثبت نشده است</string>
     <string name="transaction">تراکنش ها</string>
     <string name="Shop">بازارچه</string>
-    <string name="personal_profile">پروفایل شخصی</string>
+    <string name="personal_profile">اطلاعات اصلی نماینده خانواده</string>
     <string name="request_profile_change">درخواست تغییرات پروفایل</string>
     <string name="family_code">کد خانواده:</string>
     <string name="family_member_info">مشخصات افراد خانواده</string>
@@ -191,6 +191,7 @@
     <string name="edit_goods">ویرایش کالا</string>
     <string name="unit_price">قیمت واحد(ریال)</string>
     <string name="search_goods">جستجوی کالا</string>
+    <string name="splah_text">شهروند گرامی ضمن قدردانی از احساس مسئولیت و مشارکت شما در پژوهش، امیدوارم با یاری یکدیگر بتوانیم در بهبود چرخ اقتصاد کشور عزیزمان ایران موثر باشیم.</string>
 
 
 </resources>
