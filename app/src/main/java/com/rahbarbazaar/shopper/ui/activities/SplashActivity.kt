@@ -44,7 +44,10 @@ class SplashActivity : CustomBaseActivity() {
             }
         }
 
-        txtVersion.setText(BuildConfig.VERSION_NAME)
+        val phoneNumber = "02157645888"
+        txt_phone.text = "تلفن: "+ ConvertEnDigitToFa.convert(phoneNumber);
+
+        txtVersion.setText("نسخه: "+BuildConfig.VERSION_NAME)
         btn_reload.setOnClickListener {
             reload()
         }

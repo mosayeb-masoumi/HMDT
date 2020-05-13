@@ -19,6 +19,8 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.HistoryActivity;
 import com.rahbarbazaar.shopper.ui.activities.HtmlLoaderActivity;
+import com.rahbarbazaar.shopper.ui.activities.MainActivity;
+import com.rahbarbazaar.shopper.ui.activities.NewRegisterListActivity;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 
@@ -103,12 +105,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         switch (view.getId()) {
 
-            case R.id.crd_news:
-                goToHtmlActivity(dashboardCreateData.data.news_content);
-                break;
 
+            // have been merged
+            case R.id.crd_news:
             case R.id.crd_video:
-                goToHtmlActivity(dashboardCreateData.data.video_content);
+                //                goToHtmlActivity(dashboardCreateData.data.news_content);
+                startActivity(new Intent(getContext(), NewRegisterListActivity.class));
                 break;
 
             case R.id.crd_purchases:

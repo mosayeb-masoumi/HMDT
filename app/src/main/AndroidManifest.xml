@@ -23,10 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.PurchasedItemActivity"/>
+        <activity android:name=".ui.activities.NewRegisterListActivity"></activity>
+        <activity android:name=".ui.activities.PurchasedItemActivity" />
         <activity android:name=".ui.activities.QRcodeActivity" />
         <activity android:name=".ui.activities.NewRegisterActivity" />
-
         <activity android:name=".ui.activities.HtmlLoaderActivity" />
         <activity android:name=".ui.activities.AgreementActivity" />
         <activity android:name=".ui.activities.MessageActivity" />
@@ -35,7 +35,6 @@
         <activity android:name=".ui.activities.EditProductsDetailActivity" />
         <activity android:name=".ui.activities.ProfileActivity" />
         <activity android:name=".ui.activities.ShoppingProducts" />
-
         <activity android:name=".ui.activities.VerificationActivity" />
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.LanguageActivity" />
@@ -51,10 +50,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="dee676583f984e8a93425ffcb3ac20bb0a0b2c34" />
-
-
-        <meta-data android:name="com.pushpole.sdk.token"
-            android:value="PUSHPOLE_484793000302"/>
+        <meta-data
+            android:name="com.pushpole.sdk.token"
+            android:value="PUSHPOLE_484793000302" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -67,4 +65,5 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
     </application>
+
 </manifest>

@@ -59,6 +59,7 @@
     <string name="productedit">ویرایش کالا</string>
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">Powered By</string>
+    <string name="powered_by2">توسعه داده شده توسط شرکت راهبر بازار</string>
     <string name="familymember">اعضای خانواده همراه</string>
     <string name="prize_selection">انتخاب جوایز فروشگاه</string>
     <string name="goods_selection">انتخاب جوایز کالا</string>
@@ -197,7 +198,16 @@
     <string name="edit_goods">ویرایش کالا</string>
     <string name="unit_price">قیمت واحد(ریال)</string>
     <string name="search_goods">جستجوی کالا</string>
-    <string name="splah_text">شهروند گرامی ضمن قدردانی از احساس مسئولیت و مشارکت شما در پژوهش، امیدوارم با یاری یکدیگر بتوانیم در بهبود چرخ اقتصاد کشور عزیزمان ایران موثر باشیم.</string>
+    <string name="splah_text">شهروند گرامی ضمن قدردانی از احساس مسئولیت و مشارکت شما در پژوهش، امیدواریم با یاری یکدیگر بتوانیم در حرکت چرخ اقتصاد کشور عزیزمان ایران موثر باشیم.</string>
+    <string name="website">وبسایت:</string>
+    <string name="reports">گزارش ها</string>
+    <string name="reports_text">شهروند عزیز: بزودی در این قسمت شما می تواند گزارش مقایسه ای مبلغ خرید های خود را درهرگروه از محصولات با متوسط خرید های سایر خانوارها در منطقه شهرداری، شهر سکونت
+        و کل کشور مقایسه کنید. بعنوان مثال شما خواهید توانست میزان خرید شیر را طی یک دوره در
+        مقایسه با متوسط خرید شیر توسط اهالی منطقه شهرداری خود، شهر محل سکونت و در ایران ملاحظه نمایید. بعبارت دیگر
+        در این بخش براحتی می توانید ملاحظه کنید که در خانواده شما چه محصولاتی را بیش از سایر هم منطقه ای ها، همشهری ها و یا هم وطنانتون خریداری شده است.</string>
+    <string name="toman">تومان</string>
+    <string name="new_messages">پیام های جدید</string>
+
 
 
 </resources>

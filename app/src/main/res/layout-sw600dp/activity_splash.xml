@@ -47,55 +47,113 @@
 
 
 
-    <RelativeLayout
-        android:id="@+id/txtPoweredBy"
-        android:layout_width="130dp"
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/txtPoweredBy"-->
+<!--        android:layout_width="130dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="75dp">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:text="@string/powered_by"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/white_gray" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/rahbartxt"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="17dp"-->
+<!--            android:layout_below="@+id/txt"-->
+<!--            android:src="@drawable/rahbartxt" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/vesion"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/rahbartxt"-->
+<!--            android:text="version "-->
+<!--            android:textSize="18sp"-->
+<!--            android:textColor="@color/white_gray" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtVersion"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/rahbartxt"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_toEndOf="@+id/vesion"-->
+<!--            android:textColor="@color/white_gray" />-->
+
+<!--    </RelativeLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="75dp">
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:id="@+id/ll_info">
 
         <TextView
-            android:id="@+id/txt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/powered_by"
-            android:textSize="18sp"
-            android:textColor="@color/white_gray" />
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="@string/powered_by2"/>
 
-        <ImageView
-            android:id="@+id/rahbartxt"
-            android:layout_width="100dp"
-            android:layout_height="17dp"
-            android:layout_below="@+id/txt"
-            android:src="@drawable/rahbartxt" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="https://rahbarbazaar.com/"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:text="@string/website"/>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/vesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rahbartxt"
-            android:text="version "
-            android:textSize="18sp"
-            android:textColor="@color/white_gray" />
+            android:textSize="14sp"
+            android:text="4666546"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:id="@+id/txt_phone"/>
 
         <TextView
-            android:id="@+id/txtVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rahbartxt"
-            android:textSize="18sp"
-            android:layout_toEndOf="@+id/vesion"
-            android:textColor="@color/white_gray" />
+            android:textSize="14sp"
+            android:text="222"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:id="@+id/txtVersion"/>
 
-    </RelativeLayout>
-
+    </LinearLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_above="@+id/txtPoweredBy"
+        android:layout_above="@+id/ll_info"
         android:layout_height="wrap_content">
 
         <com.wang.avi.AVLoadingIndicatorView

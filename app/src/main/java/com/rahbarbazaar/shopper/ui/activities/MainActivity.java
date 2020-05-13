@@ -377,7 +377,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private void initializeBottomNavigation() {
         // Create items
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home_icon, 0);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.register_tab, R.drawable.purchase_icon, 0);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.reports, R.drawable.report_icon, 0);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.transaction_icon, 0);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.shop_icon, 0);
 

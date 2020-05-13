@@ -47,7 +47,6 @@ android {
 }
 
 
-
 //configurations.all {
 //    resolutionStrategy {
 //        eachDependency { DependencyResolveDetails details ->
@@ -112,8 +111,6 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
 
-
-
 //    implementation 'com.google.firebase:firebase-analytics:17.6.0'
 
     //todo delete leakCanary
@@ -123,3 +120,4 @@ dependencies {
 }
 
 //apply plugin: 'com.google.gms.google-services'
+
