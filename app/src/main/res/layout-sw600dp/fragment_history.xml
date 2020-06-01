@@ -5,7 +5,7 @@
     android:id="@+id/rl_fr_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.RegisterFragment">
+    tools:context=".ui.fragments.HistoryFragment">
 
 
     <com.codesgood.views.JustifiedTextView

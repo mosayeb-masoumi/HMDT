@@ -14,7 +14,9 @@ import com.rahbarbazaar.shopper.models.api_error.ErrorUtils
 import com.rahbarbazaar.shopper.models.api_error403.ShowMessage403
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_history.DashboardHistory
+import com.rahbarbazaar.shopper.models.history.HistoryData
 import com.rahbarbazaar.shopper.models.shopping_memberprize.MemberPrize
+import com.rahbarbazaar.shopper.models.transaction.TransactionData
 import com.rahbarbazaar.shopper.network.ServiceProvider
 import com.rahbarbazaar.shopper.utilities.*
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -28,7 +30,7 @@ class SplashActivity : CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
     private lateinit var context: Context
-    var agreement:String? = ""
+    var agreement: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +47,9 @@ class SplashActivity : CustomBaseActivity() {
         }
 
         val phoneNumber = "02157645888"
-        txt_phone.text = "تلفن: "+ ConvertEnDigitToFa.convert(phoneNumber);
+        txt_phone.text = "تلفن: " + ConvertEnDigitToFa.convert(phoneNumber);
 
-        txtVersion.setText("نسخه: "+BuildConfig.VERSION_NAME)
+        txtVersion.setText("نسخه: " + BuildConfig.VERSION_NAME)
         btn_reload.setOnClickListener {
             reload()
         }
@@ -59,14 +61,14 @@ class SplashActivity : CustomBaseActivity() {
 
     private fun startActivity() {
 
-        agreement= Cache.getString(this@SplashActivity, "agreement")
+        agreement = Cache.getString(this@SplashActivity, "agreement")
         var accessToken = Cache.getString(this@SplashActivity, "access_token")
         // add this condition to remove unwanted bug for clause
         if (accessToken == null) {
             accessToken = ""
         }
 
-        if(agreement.equals("done")){
+        if (agreement.equals("done")) {
 
             if (accessToken != "") {
                 requestDashboardData()
@@ -83,7 +85,7 @@ class SplashActivity : CustomBaseActivity() {
                 }, 2700)
             }
 
-        }else if(agreement.equals("undone") || agreement==null){
+        } else if (agreement.equals("undone") || agreement == null) {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
@@ -106,9 +108,9 @@ class SplashActivity : CustomBaseActivity() {
                     dashboardCreateData = response.body()!!
                     RxBus.DashboardModel.publishDashboardModel(dashboardCreateData)
 
-                    Cache.setString(this@SplashActivity,"Update_URL",dashboardCreateData.data.updateUrl)
-                    Cache.setString(this@SplashActivity,"minVersionCode",dashboardCreateData.data.minVersionCode)
-                    Cache.setString(this@SplashActivity,"currentVersionCode",dashboardCreateData.data.currentVersionCode)
+                    Cache.setString(this@SplashActivity, "Update_URL", dashboardCreateData.data.updateUrl)
+                    Cache.setString(this@SplashActivity, "minVersionCode", dashboardCreateData.data.minVersionCode)
+                    Cache.setString(this@SplashActivity, "currentVersionCode", dashboardCreateData.data.currentVersionCode)
                     requestInitMemberPrizeLists()
 
                 } else if (response.code() == 403) {
@@ -144,7 +146,12 @@ class SplashActivity : CustomBaseActivity() {
                     var memberPrize = MemberPrize()
                     memberPrize = response.body()!!
                     RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
+
+                    getHistoryList0()
+                    getTransactionAmountList0()
                     sendDeviceInfo()
+
+
                 } else {
                     Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                     hideLoading()
@@ -158,6 +165,64 @@ class SplashActivity : CustomBaseActivity() {
         })
     }
 
+    private fun getTransactionAmountList0() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.getTransactionList(0, "amount")
+        call.enqueue(object : Callback<TransactionData> {
+
+            override fun onResponse(call: Call<TransactionData>, response: Response<TransactionData>) {
+                if (response.code() == 200) {
+
+                    var transactionAmountList0 = TransactionData()
+                    transactionAmountList0 = response.body()!!
+                    RxBus.TransactionAmountList0.publishTransactionAmountList0(transactionAmountList0)
+
+                } else if (response.code() == 204) {
+                    // send zero item
+                    var transactionAmountList0 = TransactionData()
+                    RxBus.TransactionAmountList0.publishTransactionAmountList0(transactionAmountList0)
+                }else{
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<TransactionData>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+
+    private fun getHistoryList0() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.getHistoryList(0)
+        call.enqueue(object : Callback<HistoryData> {
+
+            override fun onResponse(call: Call<HistoryData>, response: Response<HistoryData>) {
+
+                if (response.code() == 200) {
+                    var historyData = HistoryData()
+                    historyData = response.body()!!
+                    RxBus.HistoryList0.publishHistoryList0(historyData);
+
+                } else if (response.code() == 204) {
+                    // send zero item
+                    var historyData = HistoryData()
+                    RxBus.HistoryList0.publishHistoryList0(historyData)
+
+                } else {
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<HistoryData>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
 
     private fun sendDeviceInfo() {
 
@@ -166,12 +231,12 @@ class SplashActivity : CustomBaseActivity() {
         val ip = Formatter.formatIpAddress(wm.connectionInfo.ipAddress)
         val cm = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val info = cm.activeNetworkInfo
-        val network_type:String?
+        val network_type: String?
         @Suppress("DEPRECATION")
-        if(info.typeName == "MOBILE"){
-           network_type = info.extraInfo
-        }else{
-             network_type = info.typeName
+        if (info.typeName == "MOBILE") {
+            network_type = info.extraInfo
+        } else {
+            network_type = info.typeName
         }
 
         val sdk = Build.VERSION.SDK_INT
@@ -183,7 +248,7 @@ class SplashActivity : CustomBaseActivity() {
         val version_name = BuildConfig.VERSION_NAME
 
         val service = ServiceProvider(this).getmService()
-        val call = service.sendDeviceInfo(device_brand,device_model,os_type,os_version,version_code,version_name,ip,network_type)
+        val call = service.sendDeviceInfo(device_brand, device_model, os_type, os_version, version_code, version_name, ip, network_type)
         call.enqueue(object : Callback<DashboardHistory> {
 
             override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
@@ -194,12 +259,12 @@ class SplashActivity : CustomBaseActivity() {
                     this@SplashActivity.finish()
 
                 } else {
-                    Toast.makeText(  this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<DashboardHistory>, t: Throwable) {
-                Toast.makeText(  this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
         })
     }

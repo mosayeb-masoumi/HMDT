@@ -388,6 +388,7 @@ public class DialogFactory {
             image4.setVisibility(View.GONE);
         }
 
+
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 

@@ -2,7 +2,9 @@ package com.rahbarbazaar.shopper.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,18 +15,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
+import com.rahbarbazaar.shopper.models.history.HistoryData;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
 import com.rahbarbazaar.shopper.models.transaction.TransactionData;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
+import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +42,7 @@ import retrofit2.Response;
  */
 public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
 
+    Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
     TextView txt_no_transaction, txt_btnpapasi, txt_btntoman;
     AVLoadingIndicatorView avi;
@@ -48,11 +57,26 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     LinearLayoutManager linearLayoutManager;
     List<Transaction> transactions;
 
+    SwipeRefreshLayout swipeRefresh;
+    //    boolean swipe = false;
     ImageView img_line;
-    String type = "";
+    String type = "amount";
+
 
     public TransactionFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        disposable = RxBus.TransactionAmountList0.subscribeTransactionAmountList0(result -> {
+            if (result instanceof TransactionData) {
+                transactionData = (TransactionData) result;
+            }
+        });
+
     }
 
     @Override
@@ -60,8 +84,22 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_transaction, container, false);
-
         initView(view);
+
+        transactions = new ArrayList<>();
+        if (transactionData.data.size() == 0) {
+            txt_no_transaction.setVisibility(View.VISIBLE);
+        } else {
+            txt_no_transaction.setVisibility(View.GONE);
+            setRecyclerView(transactionData, "amount", 200);
+        }
+
+        swipeRefresh.setOnRefreshListener(() -> {
+            page = 0;
+//            swipe = true;
+            getTransactionList(page, type);
+
+        });
 
         return view;
     }
@@ -74,7 +112,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         img_line = view.findViewById(R.id.img_line);
         avi = view.findViewById(R.id.avi_loading_fr_transaction);
         rl_root = view.findViewById(R.id.rl_fr_transaction);
-
+        swipeRefresh = view.findViewById(R.id.swp_refresh_transaction);
         txt_btnpapasi.setOnClickListener(this);
         txt_btntoman.setOnClickListener(this);
     }
@@ -93,10 +131,18 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                     txt_no_transaction.setVisibility(View.GONE);
                     transactionData = response.body();
                     avi.setVisibility(View.GONE);
+                    swipeRefresh.setRefreshing(false);
+//                    swipe=false;
                     setRecyclerView(transactionData, type, response.code());
+
+                    if(page==0 && type.equals("amount")){  // to show the latest amount list0
+                        RxBus.TransactionAmountList0.publishTransactionAmountList0(response.body());
+                    }
 
                 } else if (response.code() == 204) {
                     avi.setVisibility(View.GONE);
+                    swipeRefresh.setRefreshing(false);
+//                    swipe=false;
                     if (page == 0) {
                         txt_no_transaction.setVisibility(View.VISIBLE);
 //                        setRecyclerView(transactionData, type, response.code());
@@ -106,6 +152,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
                 } else {
                     avi.setVisibility(View.GONE);
+                    swipeRefresh.setRefreshing(false);
+//                    swipe = false;
                     Toast.makeText(getContext(), getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -113,6 +161,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             @Override
             public void onFailure(Call<TransactionData> call, Throwable t) {
                 avi.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
+//                swipe = false;
                 Toast.makeText(getContext(), getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
@@ -120,56 +170,55 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
     private void setRecyclerView(TransactionData transactionData, String type, int code) {
 
-            totalPage = transactionData.total;
-            if (page == 0) {
-                transactions.clear();
+        totalPage = transactionData.total;
+        if (page == 0) {
+            transactions.clear();
+        }
+
+        transactions.addAll(transactionData.data);
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        rv_transaction.setLayoutManager(linearLayoutManager);
+        adapter = new TransactionAdapter(transactions, getContext(), type);
+
+        if (code == 204 && page == 0) {
+            rv_transaction.setAdapter(null);
+        } else {
+            rv_transaction.setAdapter(adapter);
+        }
+
+        adapter.setListener(this);  // important to set or else the app will crashed
+        adapter.notifyDataSetChanged();
+
+        rv_transaction.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    isScrolling = true;
+                }
             }
 
-            linearLayoutManager = new LinearLayoutManager(getContext());
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
-            transactions.addAll(transactionData.data);
+                currentItems = linearLayoutManager.getChildCount();
+                totalItems = linearLayoutManager.getItemCount();
+                scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
 
-            rv_transaction.setLayoutManager(linearLayoutManager);
-            adapter = new TransactionAdapter(transactions, getContext(), type);
+                if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
 
-            if(code==204 && page==0){
-                rv_transaction.setAdapter(null);
-            }else{
-                rv_transaction.setAdapter(adapter);
+                    isScrolling = false;
+                    page++;
+                    if (page <= (totalPage - 1)) {
+                        //data fetch
+                        getTransactionList(page, type);
+                    }
+                }
             }
-
-            adapter.setListener(this);  // important to set or else the app will crashed
-            adapter.notifyDataSetChanged();
-
-            rv_transaction.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-
-                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                        isScrolling = true;
-                    }
-                }
-
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-
-                    currentItems = linearLayoutManager.getChildCount();
-                    totalItems = linearLayoutManager.getItemCount();
-                    scrollOutItems = linearLayoutManager.findFirstVisibleItemPosition();
-
-                    if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
-
-                        isScrolling = false;
-                        page++;
-                        if (page <= totalPage) {
-                            //data fetch
-                            getTransactionList(page, type);
-                        }
-                    }
-                }
-            });
+        });
     }
 
     @Override
@@ -199,28 +248,35 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        transactions = new ArrayList<>();
-        type = "amount";
-        getTransactionList(page, type);
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+////        transactions = new ArrayList<>();
+////        type = "amount";
+////        getTransactionList(page, type);
+//    }
 
     @Override
     public void transactionItemOnClicked(Transaction model, int position) {
 
-            DialogFactory dialogFactory = new DialogFactory(getContext());
-            dialogFactory.createTransactionItemDialog(new DialogFactory.DialogFactoryInteraction() {
-                @Override
-                public void onAcceptButtonClicked(String... params) {
+        DialogFactory dialogFactory = new DialogFactory(getContext());
+        dialogFactory.createTransactionItemDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
 
-                }
+            }
 
-                @Override
-                public void onDeniedButtonClicked(boolean bool) {
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
 
-                }
-            }, rl_root , model,position);
+            }
+        }, rl_root, model, position);
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        disposable.dispose();
     }
 }

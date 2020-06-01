@@ -91,10 +91,43 @@ public final class RxBus {
         public static Disposable subscribeProfileInfo(@NonNull Consumer<Object> action) {
             return behaviorSubject.subscribe(action);
         }
-
         public static void publishProfileInfo(@NonNull Object message) {
             behaviorSubject.onNext(message);
         }
     }
+
+    public static class HistoryList0 {
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+        public static Disposable subscribeHistoryList0(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+        public static void publishHistoryList0(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
+    public static class TransactionAmountList0 {
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+        public static Disposable subscribeTransactionAmountList0(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+        public static void publishTransactionAmountList0(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
+//    public static class ActiveList0 {
+//        private static final BehaviorSubject<Object> behaviorSubject
+//                = BehaviorSubject.create();
+//        public static Disposable subscribeActiveList0(@NonNull Consumer<Object> action) {
+//            return behaviorSubject.subscribe(action);
+//        }
+//        public static void publishActiveList0(@NonNull Object message) {
+//            behaviorSubject.onNext(message);
+//        }
+//    }
+
 
 }

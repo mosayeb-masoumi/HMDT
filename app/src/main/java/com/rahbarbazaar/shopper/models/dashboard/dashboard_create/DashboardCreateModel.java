@@ -18,12 +18,17 @@ public class DashboardCreateModel {
     @SerializedName("two")
     @Expose
     public String two;
-    @SerializedName("three")
-    @Expose
-    public String three;
+//    @SerializedName("three")
+//    @Expose
+//    public String three;
     @SerializedName("four")
     @Expose
     public String four;
+
+    @SerializedName("board")
+    @Expose
+    public String board;
+
     @SerializedName("video_image")
     @Expose
     public String video_image;

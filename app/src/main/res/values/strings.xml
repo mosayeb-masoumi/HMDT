@@ -22,7 +22,7 @@
     <string name="text_news">اخبار</string>
     <string name="text_video">ویدئوها</string>
     <string name="my_shop">تاریخچه خریدهای من</string>
-    <string name="text_leftday">روز مانده</string>
+    <string name="text_leftday">روز تا قرعه کشی</string>
     <string name="text_your_point">امتیاز</string>
     <string name="text_balance">موجودی</string>
     <string name="incomplete_purchase">خرید ناقص</string>
@@ -207,7 +207,10 @@
         در این بخش براحتی می توانید ملاحظه کنید که در خانواده شما چه محصولاتی را بیش از سایر هم منطقه ای ها، همشهری ها و یا هم وطنانتون خریداری شده است.</string>
     <string name="toman">تومان</string>
     <string name="new_messages">پیام های جدید</string>
-
+    <string name="purchases">خرید ها</string>
+    <string name="my_account">حساب من</string>
+    <string name="rial">ریال</string>
+    <string name="iranian_consumer_panel">پنل مصرف کنندگان ایرانی</string>
 
 
 </resources>

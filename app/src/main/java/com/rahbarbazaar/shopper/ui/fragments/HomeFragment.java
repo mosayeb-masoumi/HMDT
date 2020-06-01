@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.shopper.R;
+import com.rahbarbazaar.shopper.models.activelist.ActiveListData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.shopper.network.Service;
@@ -25,7 +27,9 @@ import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
@@ -41,7 +45,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     DashboardCreateData dashboardCreateData;
     CardView crd_news, crd_video, crd_purchases;
     ImageView img_news, img_video, img_myshop;
-    TextView txt_balance, txt_papasi, txt_total_purchase, txt_left_days;
+    TextView txt_balance, txt_papasi, txt_total_purchase, txt_left_days,txt_msg;
+
+    ActiveListData activeListData;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -64,69 +70,85 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Cache.setString(getContext(),"user_name",dashboardCreateData.data.userName);
-        Cache.setString(getContext(),"share_url",dashboardCreateData.data.shareUrl);
+        Cache.setString(getContext(), "user_name", dashboardCreateData.data.userName);
+        Cache.setString(getContext(), "share_url", dashboardCreateData.data.shareUrl);
 
         initViews(view);
         setContentView();
+//        getNewPurchaseList0();
         return view;
     }
 
-    private void initViews(View view) {
 
-        crd_news = view.findViewById(R.id.crd_news);
-        crd_video = view.findViewById(R.id.crd_video);
+
+    private void initViews(View view) {
         crd_purchases = view.findViewById(R.id.crd_purchases);
-        img_news = view.findViewById(R.id.img_news);
-        img_video = view.findViewById(R.id.img_video);
         img_myshop = view.findViewById(R.id.img_myshop);
         txt_balance = view.findViewById(R.id.txt_balance);
         txt_papasi = view.findViewById(R.id.txt_papasi);
-        txt_total_purchase = view.findViewById(R.id.txt_total_purchase);
+        txt_msg = view.findViewById(R.id.txt_msg);
         txt_left_days = view.findViewById(R.id.txt_left_days);
-
-        crd_news.setOnClickListener(this);
-        crd_video.setOnClickListener(this);
         crd_purchases.setOnClickListener(this);
     }
 
     private void setContentView() {
-        Glide.with(getActivity()).load(dashboardCreateData.data.news_image).centerCrop().into(img_news);
-        Glide.with(getActivity()).load(dashboardCreateData.data.video_image).centerCrop().into(img_video);
+
         Glide.with(getActivity()).load(dashboardCreateData.data.myshop_image).centerCrop().into(img_myshop);
         txt_balance.setText(dashboardCreateData.data.one);
         txt_papasi.setText(dashboardCreateData.data.two);
-        txt_total_purchase.setText(dashboardCreateData.data.three);
         txt_left_days.setText(dashboardCreateData.data.four);
+        txt_msg.setText(dashboardCreateData.data.board);
     }
+
+//    private void getNewPurchaseList0() {
+//
+//        Service service = new ServiceProvider(getContext()).getmService();
+//        Call<ActiveListData> call = service.getActiveList(0);
+//        call.enqueue(new Callback<ActiveListData>() {
+//            @Override
+//            public void onResponse(Call<ActiveListData> call, Response<ActiveListData> response) {
+//                if (response.code() == 200) {
+//
+//                    activeListData = new ActiveListData();
+//                    activeListData = response.body();
+//                    RxBus.ActiveList0.publishActiveList0(activeListData);
+//
+//                } else if (response.code() == 204) {
+//                    // send zero item
+//                    activeListData = new ActiveListData();
+//                    RxBus.ActiveList0.publishActiveList0(activeListData);
+//
+//                } else {
+//                    Toast.makeText(getContext(), "" +getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ActiveListData> call, Throwable t) {
+//                Toast.makeText(getContext(), "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
 
-
-            // have been merged
-            case R.id.crd_news:
-            case R.id.crd_video:
-                //                goToHtmlActivity(dashboardCreateData.data.news_content);
-                startActivity(new Intent(getContext(), NewRegisterListActivity.class));
-                break;
-
             case R.id.crd_purchases:
-                getContext().startActivity(new Intent(getContext(), HistoryActivity.class));
+//                getContext().startActivity(new Intent(getContext(), HistoryActivity.class));
+                getContext().startActivity(new Intent(getContext(), NewRegisterListActivity.class));
                 getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 break;
         }
     }
 
-    private void goToHtmlActivity(String url) {
-        Intent intent = new Intent(getContext(), HtmlLoaderActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-    }
-
+//    private void goToHtmlActivity(String url) {
+//        Intent intent = new Intent(getContext(), HtmlLoaderActivity.class);
+//        intent.putExtra("url", url);
+//        startActivity(intent);
+//        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//    }
     private void getRefreshHomeData() {
         Service service = new ServiceProvider(getContext()).getmService();
         Call<HomeData> call = service.getRefreshHomeData();
@@ -134,19 +156,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<HomeData> call, Response<HomeData> response) {
 
-                if(response.code()==200){
+                if (response.code() == 200) {
+
                     txt_balance.setText(response.body().data.one);
                     txt_papasi.setText(response.body().data.two);
-                    txt_total_purchase.setText(response.body().data.three);
                     txt_left_days.setText(response.body().data.four);
-                }else{
-                    Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<HomeData> call, Throwable t) {
-                Toast.makeText(getContext(), ""+getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -163,9 +186,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         disposable.dispose(); //very important
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        disposable.dispose(); //very important
-//    }
+
 }

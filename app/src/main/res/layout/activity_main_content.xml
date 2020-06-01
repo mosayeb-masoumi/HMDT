@@ -18,16 +18,40 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/drawer" />
+            android:src="@drawable/drawer2" />
 
 
 
 
-        <ImageView
-            android:layout_width="90dp"
+        <LinearLayout
+            android:layout_width="115dp"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo_homadit" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo_homadit3" />
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:src="@drawable/logo_homadit2" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_horizontal"-->
+<!--                android:text="@string/iranian_consumer_panel"-->
+<!--                android:textSize="11sp"/>-->
+
+
+        </LinearLayout>
+
 
 
         <TextView
@@ -39,7 +63,7 @@
             android:textSize="13sp"
             android:textStyle="bold"
             android:text="25/11/1999 سه شنبه"
-            android:textColor="@color/blue_dark3"/>
+            android:textColor="@color/blue_light3"/>
 
 
         <RelativeLayout

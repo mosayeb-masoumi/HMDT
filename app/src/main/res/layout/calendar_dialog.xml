@@ -46,6 +46,7 @@
         <NumberPicker
             android:id="@+id/np_year"
             android:layout_width="80dp"
+            android:theme="@style/AppTheme.Picker"
             android:solidColor="@color/blue"
             android:descendantFocusability="blocksDescendants"
             android:layout_height="wrap_content">
@@ -55,6 +56,7 @@
             android:id="@+id/np_month"
             android:layout_width="80dp"
             android:solidColor="@color/blue"
+            android:theme="@style/AppTheme.Picker"
             android:descendantFocusability="blocksDescendants"
             android:layout_height="wrap_content">
 
@@ -62,6 +64,7 @@
         <NumberPicker
             android:id="@+id/np_day"
             android:layout_width="80dp"
+            android:theme="@style/AppTheme.Picker"
             android:solidColor="@color/blue"
             android:descendantFocusability="blocksDescendants"
             android:layout_height="wrap_content">
@@ -91,7 +94,7 @@
             android:gravity="center"
             android:text="@string/today"
             android:textColor="@color/blue"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/btn1"
@@ -104,7 +107,7 @@
             android:gravity="center"
             android:text="@string/register"
             android:textColor="@color/blue"
-            android:textSize="12sp" />
+            android:textSize="15sp" />
 
 
     </LinearLayout>

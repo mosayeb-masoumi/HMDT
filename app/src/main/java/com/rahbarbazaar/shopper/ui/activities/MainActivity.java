@@ -62,7 +62,7 @@ import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.fragments.ShopFragment;
 import com.rahbarbazaar.shopper.ui.fragments.HomeFragment;
-import com.rahbarbazaar.shopper.ui.fragments.RegisterFragment;
+import com.rahbarbazaar.shopper.ui.fragments.HistoryFragment;
 import com.rahbarbazaar.shopper.ui.fragments.TransactionFragment;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.ConvertEnDigitToFa;
@@ -377,9 +377,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private void initializeBottomNavigation() {
         // Create items
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home_icon, 0);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.reports, R.drawable.report_icon, 0);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.transaction_icon, 0);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.shop_icon, 0);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.purchases, R.drawable.purchases, 0);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.my_account, R.drawable.my_account, 0);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.bazarcheh, 0);
 
         // Add items
         bottom_navigation.addItem(item1);
@@ -610,9 +610,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             img_backbtmbar_centerleft.setVisibility(View.GONE);
             img_backbtmbar_centerright.setVisibility(View.VISIBLE);
             img_backbtmbar_left.setVisibility(View.GONE);
-            RegisterFragment registerFragment = new RegisterFragment();
+            HistoryFragment historyFragment = new HistoryFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.frame_layout, registerFragment, "tag").commit();
+            manager.beginTransaction().replace(R.id.frame_layout, historyFragment, "tag").commit();
 
         } else if (position == 1) {
             img_backbtmbar_right.setVisibility(View.GONE);

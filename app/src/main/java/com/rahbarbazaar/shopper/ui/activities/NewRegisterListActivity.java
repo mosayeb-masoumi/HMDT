@@ -40,6 +40,7 @@ import com.rahbarbazaar.shopper.models.activelist.ActiveListData;
 import com.rahbarbazaar.shopper.models.activelist.ActiveListModel;
 import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
 import com.rahbarbazaar.shopper.models.api_error206.APIError406;
+import com.rahbarbazaar.shopper.models.history.HistoryData;
 import com.rahbarbazaar.shopper.models.latlng.LatLng;
 import com.rahbarbazaar.shopper.models.register.RegisterModel;
 import com.rahbarbazaar.shopper.models.shopping_edit.ShoppingEdit;
@@ -61,12 +62,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class NewRegisterListActivity extends CustomBaseActivity implements View.OnClickListener , ActiveListItemInteraction {
 
+//    Disposable disposable = new CompositeDisposable();
 
     private GpsTracker gpsTracker;
     GeneralTools tools;
@@ -76,6 +80,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
     RecyclerView recyclerView;
     ActiveListAdapter adapter;
     ActiveListData activeListData = new ActiveListData();
+    List<ActiveListModel> activeListModel ;
 
     LinearLayout ll_return_newRegisterList;
     RelativeLayout root_new_register_list, rl_btn_register;
@@ -87,7 +92,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
     int page = 0;
     int currentItems, totalItems, scrollOutItems;
 
-    List<ActiveListModel> activeListModel ;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,9 +109,25 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
                 tools.doCheckNetwork(NewRegisterListActivity.this, findViewById(R.id.root_new_register_list));
             }
         };
-        
+
+
+//        disposable = RxBus.ActiveList0.subscribeActiveList0(result -> {
+//            if (result instanceof ActiveListData) {
+//                activeListData = (ActiveListData) result;
+//            }
+//        });
+
+
         initView();
-        
+
+//        if(activeListData.data==null){
+//            txt_no_shop.setVisibility(View.VISIBLE);
+//        }else{
+//            txt_no_shop.setVisibility(View.GONE);
+//            page=0;
+//            setRecyclerview(activeListData);
+//        }
+//
     }
 
     private void initView() {
@@ -165,9 +186,10 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
         if (page == 0) {
             activeListModel.clear();
         }
-        linearLayoutManager = new LinearLayoutManager(NewRegisterListActivity.this);
 
         activeListModel.addAll(activeListData.data);
+
+        linearLayoutManager = new LinearLayoutManager(NewRegisterListActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ActiveListAdapter(activeListModel, NewRegisterListActivity.this);
         recyclerView.setAdapter(adapter);
@@ -549,5 +571,6 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
         super.onStop();
         unregisterReceiver(connectivityReceiver);
         EventBus.getDefault().unregister(this);
+//        disposable.dispose();
     }
 }

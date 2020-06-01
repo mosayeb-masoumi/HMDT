@@ -354,8 +354,6 @@ public class NewRegisterActivity extends CustomBaseActivity
                 break;
 
             case R.id.rl_calander:
-                showCalendarDialog();
-                break;
             case R.id.edtDate:
                 showCalendarDialog();
                 break;

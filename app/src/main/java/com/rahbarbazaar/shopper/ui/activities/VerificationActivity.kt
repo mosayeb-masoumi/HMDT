@@ -35,6 +35,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 import com.pushpole.sdk.PushPole
+import com.rahbarbazaar.shopper.models.history.HistoryData
+import com.rahbarbazaar.shopper.models.transaction.TransactionData
 
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
@@ -251,6 +253,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     var memberPrize = MemberPrize()
                     memberPrize = response.body()!!
                     RxBus.MemberPrizeLists.publishMemberPrizeLists(memberPrize)
+
+                    getHistoryList0()
+                    getTransactionAmountList0()
                     sendDeviceInfo()
 
                 } else {
@@ -261,6 +266,62 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             override fun onFailure(call: Call<MemberPrize>, t: Throwable) {
                 Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
+        })
+    }
+
+    private fun getHistoryList0(){
+        val service = ServiceProvider(this).getmService()
+        val call = service.getHistoryList(0)
+        call.enqueue(object : Callback<HistoryData>{
+
+            override fun onResponse(call: Call<HistoryData>, response: Response<HistoryData>) {
+
+                if(response.code()==200){
+                    var historyData = HistoryData()
+                    historyData = response.body()!!
+                    RxBus.HistoryList0.publishHistoryList0(historyData);
+
+                }else if(response.code()==204){
+                    // send zero item
+                    var historyData = HistoryData()
+                    RxBus.HistoryList0.publishHistoryList0(historyData)
+
+                }else{
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<HistoryData>, t: Throwable) {
+                Toast.makeText(  this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun getTransactionAmountList0() {
+        val service = ServiceProvider(this).getmService()
+        val call = service.getTransactionList(0, "amount")
+        call.enqueue(object : Callback<TransactionData> {
+
+            override fun onResponse(call: Call<TransactionData>, response: Response<TransactionData>) {
+                if (response.code() == 200) {
+
+                    var transactionAmountList0 = TransactionData()
+                    transactionAmountList0 = response.body()!!
+                    RxBus.TransactionAmountList0.publishTransactionAmountList0(transactionAmountList0)
+
+                } else if (response.code() == 204) {
+                    // send zero item
+                    var transactionAmountList0 = TransactionData()
+                    RxBus.TransactionAmountList0.publishTransactionAmountList0(transactionAmountList0)
+                }else{
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<TransactionData>, t: Throwable) {
+                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 

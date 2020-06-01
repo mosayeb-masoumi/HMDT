@@ -22,10 +22,6 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -61,7 +57,6 @@
                     android:text="@string/amount_transaction"
                     android:textColor="@color/white" />
 
-
             </LinearLayout>
 
             <ImageView
@@ -74,46 +69,6 @@
         </RelativeLayout>
 
 
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:background="@drawable/bg_activelist_header"-->
-            <!--android:orientation="horizontal">-->
-
-
-            <!--<View-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="0.6"/>-->
-
-            <!--<TextView-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1.54"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/amount2_"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:textSize="14sp" />-->
-
-
-            <!--<TextView-->
-
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_marginEnd="20dp"-->
-                <!--android:layout_weight="2.4"-->
-                <!--android:gravity="start"-->
-                <!--android:text="@string/transaction"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:textSize="14sp" />-->
-
-        <!--</LinearLayout>-->
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,10 +77,19 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclere_transaction_fragment"
+
+            <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:id="@+id/swp_refresh_transaction">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclere_transaction_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
 
             <TextView
                 android:id="@+id/txt_no_transaction"
