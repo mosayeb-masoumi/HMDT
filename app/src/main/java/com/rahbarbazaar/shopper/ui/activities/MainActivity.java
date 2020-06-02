@@ -75,6 +75,7 @@ import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.rahbarbazaar.shopper.utilities.SolarCalendar;
 
 import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,14 +95,18 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private GpsTracker gpsTracker;
 
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
-            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow;
+            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about,img_arrow_account_management
+            ,img_arrow_purchase_management;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_report_issue, linear_faq, linear_edu, linear_submenu,
-            linear_profile_drawer, ll_drawer,linear_news_drawer,linear_videos_drawer;
-    RelativeLayout ll_notify_count;
+            linear_support, linear_about,linear_account_management, linear_report_issue, linear_faq,
+            linear_edu, linear_submenu, linear_submenu_about,linear_submenu_account_management,linear_transaction_list_drawer,
+            linear_papasi_to_rial_drawer,linear_my_wallet_drawer,linear_purchase_management,linear_submenu_purchase_management,
+            linear_register_new_purchase,linear_all_purchased_list,linear_new_purchased_list,
+            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer;
+    RelativeLayout ll_notify_count ,ll_notify_count_drawer;
 
-    TextView txt_exit, text_notify_count, text_follow_us,txt_date;
+    TextView txt_exit, text_notify_count, text_notify_count_drawer,text_follow_us, txt_date;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification;
@@ -114,6 +119,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     boolean doubleBackToExitPressedOnce = false;
     boolean isSupportLayoutClicked = false;
+    boolean isAboutLayoutClicked = false;
+    boolean isAccountManagementLayoutClicked = false;
+    boolean isPurchaseManagementLayoutClicked = false;
 
     Disposable disposable = new CompositeDisposable();
     DashboardCreateData dashboardCreateData;
@@ -150,9 +158,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         solarCalendar = new SolarCalendar();
         String date = ConvertEnDigitToFa.convert(solarCalendar.getCurrentShamsiDate());
-        String day = solarCalendar.getStrWeekDay() ;
-        txt_date.setText(day+" "+date);
-
+        String day = solarCalendar.getStrWeekDay();
+        txt_date.setText(day + " " + date);
 
 
         //initial Dialog factory
@@ -164,6 +171,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 //        if (locale_name.equals("fa"))
         img_arrow.setImageResource(R.drawable.arrow_left);
+        img_arrow_about.setImageResource(R.drawable.arrow_left);
+        img_arrow_account_management.setImageResource(R.drawable.arrow_left);
+        img_arrow_purchase_management.setImageResource(R.drawable.arrow_left);
+
 //        else
 //            img_arrow.setImageResource(R.drawable.arrow_right);
 
@@ -272,28 +283,47 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         image_instagram = findViewById(R.id.image_instagram);
         image_telegram = findViewById(R.id.image_telegram);
         img_arrow = findViewById(R.id.img_arrow);
+        img_arrow_about = findViewById(R.id.img_arrow_about);
+        img_arrow_account_management = findViewById(R.id.img_arrow_account_management);
+        img_arrow_purchase_management = findViewById(R.id.img_arrow_purchase_management);
         image_drawer = findViewById(R.id.image_drawer);
 
         linear_invite_friend = findViewById(R.id.linear_invite_friend);
         linear_shopping = findViewById(R.id.linear_shopping);
         linear_message_drawer = findViewById(R.id.linear_message_drawer);
         linear_support = findViewById(R.id.linear_support);
+        linear_about = findViewById(R.id.linear_about);
+        linear_purchase_management = findViewById(R.id.linear_purchase_management);
+        linear_account_management = findViewById(R.id.linear_account_management);
+        linear_transaction_list_drawer = findViewById(R.id.linear_transaction_list_drawer);
         linear_report_issue = findViewById(R.id.linear_report_issue);
         linear_profile_drawer = findViewById(R.id.linear_profile_drawer);
-        linear_news_drawer =findViewById(R.id.linear_news_drawer);
-        linear_videos_drawer = findViewById(R.id.linear_videos_drawer);
+
 
         linear_faq = findViewById(R.id.linear_faq);
         linear_edu = findViewById(R.id.linear_edu);
         linear_submenu = findViewById(R.id.linear_submenu);
+        linear_introduction = findViewById(R.id.linear_introduction);
+        linear_videos = findViewById(R.id.linear_videos);
+        linear_news = findViewById(R.id.linear_news);
+        linear_submenu_about = findViewById(R.id.linear_submenu_about);
+        linear_submenu_purchase_management = findViewById(R.id.linear_submenu_purchase_management);
+        linear_all_purchased_list = findViewById(R.id.linear_all_purchased_list);
+        linear_new_purchased_list = findViewById(R.id.linear_new_purchased_list);
+        linear_submenu_account_management = findViewById(R.id.linear_submenu_account_management);
+        linear_papasi_to_rial_drawer = findViewById(R.id.linear_papasi_to_rial_drawer);
+        linear_my_wallet_drawer = findViewById(R.id.linear_my_wallet_drawer);
+        linear_register_new_purchase = findViewById(R.id.linear_register_new_purchase);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
         ll_notify_count = findViewById(R.id.ll_notify_count);
+        ll_notify_count_drawer = findViewById(R.id.ll_notify_count_drawer);
         rl_notification = findViewById(R.id.rl_notification);
         drawer_layout_home = findViewById(R.id.drawer_layout_home);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         drawer_rv = findViewById(R.id.drawer_rv);
         text_notify_count = findViewById(R.id.text_notify_count);
+        text_notify_count_drawer = findViewById(R.id.text_notify_count_drawer);
         txt_exit = findViewById(R.id.txt_exit);
         text_follow_us = findViewById(R.id.text_follow_us);
         txt_date = findViewById(R.id.txt_date);
@@ -304,15 +334,25 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         rl_notification.setOnClickListener(this);
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
+        linear_all_purchased_list.setOnClickListener(this);
+        linear_new_purchased_list.setOnClickListener(this);
         linear_faq.setOnClickListener(this);
         linear_edu.setOnClickListener(this);
         linear_support.setOnClickListener(this);
+        linear_introduction.setOnClickListener(this);
+        linear_transaction_list_drawer.setOnClickListener(this);
+        linear_papasi_to_rial_drawer.setOnClickListener(this);
+        linear_my_wallet_drawer.setOnClickListener(this);
+        linear_videos.setOnClickListener(this);
+        linear_news.setOnClickListener(this);
+        linear_about.setOnClickListener(this);
+        linear_purchase_management.setOnClickListener(this);
+        linear_account_management.setOnClickListener(this);
+        linear_register_new_purchase.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
         linear_message_drawer.setOnClickListener(this);
         linear_profile_drawer.setOnClickListener(this);
-        linear_news_drawer.setOnClickListener(this);
-        linear_videos_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
         bottom_navigation.setOnTabSelectedListener(this);
     }
@@ -351,15 +391,25 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private void setNotifyCount(DashboardUpdateData updateData) {
         if (updateData.data.getUnread() > 0) {
             ll_notify_count.setVisibility(View.VISIBLE);
+            ll_notify_count_drawer.setVisibility(View.VISIBLE);
             if (updateData.data.getUnread() > 999) {
                 text_notify_count.setText("...");
+                text_notify_count_drawer.setText("...");
             } else {
                 String count = ConvertEnDigitToFa.convert(String.valueOf(updateData.data.getUnread()));
                 text_notify_count.setText(count);
+                text_notify_count_drawer.setText(count);
             }
         } else if (updateData.data.getUnread() == 0) {
             ll_notify_count.setVisibility(View.GONE);
+            ll_notify_count_drawer.setVisibility(View.GONE);
         }
+
+        //  test
+//        ll_notify_count_drawer.setVisibility(View.VISIBLE);
+//        String count = ConvertEnDigitToFa.convert(String.valueOf(6));
+//        text_notify_count.setText(count);
+//        text_notify_count_drawer.setText(count);
     }
 
     private void setDrawerRecycler() {
@@ -435,6 +485,92 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 isSupportLayoutClicked = !isSupportLayoutClicked;
                 break;
 
+            case R.id.linear_about:
+                if (!isAboutLayoutClicked) {
+                    tools.expand(linear_submenu_about);
+                    img_arrow_about.setImageResource(R.drawable.arrow_down);
+                } else {
+                    tools.collapse(linear_submenu_about);
+                    img_arrow_about.setImageResource(R.drawable.arrow_left);
+                }
+
+                isAboutLayoutClicked = !isAboutLayoutClicked;
+                break;
+
+
+            case R.id.linear_purchase_management:
+                if (!isPurchaseManagementLayoutClicked) {
+                    tools.expand(linear_submenu_purchase_management);
+                    img_arrow_purchase_management.setImageResource(R.drawable.arrow_down);
+                } else {
+                    tools.collapse(linear_submenu_purchase_management);
+                    img_arrow_purchase_management.setImageResource(R.drawable.arrow_left);
+                }
+
+                isPurchaseManagementLayoutClicked = !isPurchaseManagementLayoutClicked;
+                break;
+
+            case R.id.linear_account_management:
+                if (!isAccountManagementLayoutClicked) {
+                    tools.expand(linear_submenu_account_management);
+                    img_arrow_account_management.setImageResource(R.drawable.arrow_down);
+                } else {
+                    tools.collapse(linear_submenu_account_management);
+                    img_arrow_account_management.setImageResource(R.drawable.arrow_left);
+                }
+
+                isAccountManagementLayoutClicked = !isAccountManagementLayoutClicked;
+                break;
+
+
+            case R.id.linear_new_purchased_list:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "لیست خریدهای جدید", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_all_purchased_list:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "لیست همه ی خریدها", Toast.LENGTH_SHORT).show();
+                break;
+
+
+            case R.id.linear_register_new_purchase:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "ثبت خرید جدید", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_transaction_list_drawer:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "لیست تراکنش ها", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_papasi_to_rial_drawer:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "تبدیل پاپاسی به تومان", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_my_wallet_drawer:
+                drawer_layout_home.closeDrawers();
+                Toast.makeText(MainActivity.this, "کیف پول من", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_introduction:
+                drawer_layout_home.closeDrawers();
+//                goToHtmlActivity(dashboardCreateData.data.faqPage);
+                Toast.makeText(MainActivity.this, "introduction", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.linear_videos:
+                goToHtmlActivity(dashboardCreateData.data.video_content);
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
+
+            case R.id.linear_news:
+                goToHtmlActivity(dashboardCreateData.data.news_content);
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
+
             case R.id.linear_faq:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.faqPage);
@@ -478,21 +614,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
-
-
-
-            case R.id.linear_news_drawer:
-                goToHtmlActivity(dashboardCreateData.data.news_content);
-                drawer_layout_home.closeDrawer(Gravity.END);
-                break;
-
-            case R.id.linear_videos_drawer:
-                goToHtmlActivity(dashboardCreateData.data.video_content);
-                drawer_layout_home.closeDrawer(Gravity.END);
-                break;
-
-
-
 
 
             case R.id.rl_notification:
@@ -729,6 +850,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     }
 
     String strLat, strLng;
+
     private void sendLatLng() {
 
         getLocation();
@@ -745,14 +867,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     Boolean validate = response.body().data;
                     String validate_area = String.valueOf(response.body().data);
 
-                    Cache.setString(MainActivity.this,"lat", strLat);
-                    Cache.setString(MainActivity.this,"lng", strLng);
-                    Cache.setString(MainActivity.this,"validate_area", validate_area);
+                    Cache.setString(MainActivity.this, "lat", strLat);
+                    Cache.setString(MainActivity.this, "lng", strLng);
+                    Cache.setString(MainActivity.this, "validate_area", validate_area);
 
                     if (validate) {
                         getNewRegisterData();
                     } else {
-                       outOfAreaDialog();
+                        outOfAreaDialog();
                     }
 
                 } else {
@@ -816,7 +938,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             public void onDeniedButtonClicked(boolean bool) {
 
             }
-        }, drawer_layout_home , message);
+        }, drawer_layout_home, message);
     }
 
     private void outOfAreaDialog() {
@@ -835,7 +957,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     }
 
 
-    int a =0;
+    int a = 0;
+
     public void getLocation() {
         gpsTracker = new GpsTracker(this);
         if (gpsTracker.canGetLocation()) {
@@ -845,8 +968,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             strLng = (String.valueOf(longitude));
 
             // to handle getting gps in first calculate after turning on gps
-            if(a < 2){
-                a ++;
+            if (a < 2) {
+                a++;
                 getLocation();
             }
 

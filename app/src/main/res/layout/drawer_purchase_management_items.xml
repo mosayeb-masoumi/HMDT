@@ -5,13 +5,12 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linear_support"
+        android:id="@+id/linear_purchase_management"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:layout_marginTop="3dp"
         android:foreground="?attr/selectableItemBackground"
         android:orientation="horizontal">
-
 
 
         <ImageView
@@ -24,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/support_center"
             android:layout_marginStart="3dp"
+            android:text="@string/purchase_manegement"
             android:textColor="@color/white_gray"
             android:textSize="14sp"/>
 
@@ -33,19 +32,19 @@
             android:layout_width="34dp"
             android:layout_height="match_parent"
             android:padding="12dp"
-            android:id="@+id/img_arrow" />
+            android:id="@+id/img_arrow_purchase_management" />
 
     </LinearLayout>
 
     <LinearLayout
         android:visibility="gone"
-        android:id="@+id/linear_submenu"
+        android:id="@+id/linear_submenu_purchase_management"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/linear_edu"
+            android:id="@+id/linear_register_new_purchase"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
@@ -64,14 +63,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/edu"
+                android:text="@string/register_new"
                 android:textColor="@color/white_gray"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_faq"
+            android:id="@+id/linear_all_purchased_list"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
@@ -90,14 +89,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/faq"
+                android:text="@string/all_purchased_list"
                 android:textColor="@color/white_gray"
                 android:textSize="14sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_report_issue"
+            android:id="@+id/linear_new_purchased_list"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
@@ -116,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/report_issue"
+                android:text="@string/new_purchased_list"
                 android:textColor="@color/white_gray"
                 android:textSize="14sp" />
 

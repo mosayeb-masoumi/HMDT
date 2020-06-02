@@ -40,13 +40,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_drawer"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="32dp"
                     android:orientation="vertical">
 
 
+                    <include layout="@layout/drawer_about_items" />
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/drawer_rv"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="3dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -82,8 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
                         android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="40dp"
@@ -94,7 +95,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="3dp"
                             android:gravity="center_vertical"
                             android:text="@string/profile"
                             android:textColor="@color/white_gray"
@@ -103,57 +104,58 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/linear_news_drawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linear_news_drawer"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="37dp"-->
+<!--                        android:foreground="?attr/selectableItemBackground"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/news_icon" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:padding="6dp"-->
+<!--                            android:src="@drawable/news_icon" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/text_news"
-                            android:textColor="@color/white_gray"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="10dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:text="@string/text_news"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="14sp" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
-                    <LinearLayout
-                        android:id="@+id/linear_videos_drawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linear_videos_drawer"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="37dp"-->
+<!--                        android:foreground="?attr/selectableItemBackground"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/video_icon" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:padding="6dp"-->
+<!--                            android:src="@drawable/video_icon" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/text_video"
-                            android:textColor="@color/white_gray"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="3dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:text="@string/text_video"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="14sp" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
 
+                    <include layout="@layout/drawer_purchase_management_items" />
+
+                    <include layout="@layout/drawer_account_management_items" />
 
                     <include layout="@layout/drawer_support_items" />
 
@@ -162,19 +164,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
                         android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
+                        android:orientation="horizontal">
 
-                        <ImageView
+
+                        <RelativeLayout
                             android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/received_msg_icon" />
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:padding="6dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/received_msg_icon" />
+
+                            <RelativeLayout
+                                android:id="@+id/ll_notify_count_drawer"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:layout_alignParentEnd="true"
+                                android:gravity="center"
+                                android:background="@drawable/red_circle_shape"
+                                android:visibility="gone"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="2dp">
+
+                                <TextView
+                                    android:id="@+id/text_notify_count_drawer"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@color/white"
+                                    android:textSize="11dp"
+                                    android:visibility="visible" />
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="3dp"
                             android:gravity="center_vertical"
                             android:text="@string/received_messages"
                             android:textColor="@color/white_gray"
@@ -186,9 +218,9 @@
                         android:id="@+id/linear_invite_friend"
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
+                        android:layout_marginBottom="50dp"
                         android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:paddingStart="5dp">
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="40dp"
@@ -199,15 +231,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="3dp"
                             android:gravity="center_vertical"
                             android:text="@string/share_homadit"
                             android:textColor="@color/white_gray"
                             android:textSize="14sp" />
 
                     </LinearLayout>
-
-
 
                 </LinearLayout>
 

@@ -205,6 +205,15 @@
     <string name="my_account">حساب من</string>
     <string name="rial">ریال</string>
     <string name="iranian_consumer_panel">پنل مصرف کنندگان ایرانی</string>
+    <string name="about_us">درباره ی ما</string>
+    <string name="homadit_intro">معرفی همادیت</string>
+    <string name="account_management">مدیریت حساب</string>
+    <string name="transaction_list">فهرست تراکنشها</string>
+    <string name="papasi_to_rial">تبدیل پاپاسی به ریال</string>
+    <string name="my_wallet">کیف پول من</string>
+    <string name="purchase_manegement">مدیریت خرید</string>
+    <string name="all_purchased_list">لیست همه ی خرید ها</string>
+    <string name="new_purchased_list">لیست خریدهای جدید</string>
 
 
 </resources>
