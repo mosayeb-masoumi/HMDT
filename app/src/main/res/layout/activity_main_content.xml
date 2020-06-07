@@ -21,14 +21,12 @@
             android:src="@drawable/drawer2" />
 
 
-
-
         <LinearLayout
             android:layout_width="115dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:layout_centerHorizontal="true">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -36,34 +34,33 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/logo_homadit3" />
 
-<!--            <ImageView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:src="@drawable/logo_homadit2" />-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:src="@drawable/logo_homadit2" />-->
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:text="@string/iranian_consumer_panel"-->
-<!--                android:textSize="11sp"/>-->
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:text="@string/iranian_consumer_panel"-->
+            <!--                android:textSize="11sp"/>-->
 
 
         </LinearLayout>
 
 
-
         <TextView
+            android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:id="@+id/txt_date"
-            android:textSize="13sp"
-            android:textStyle="bold"
             android:text="25/11/1999 سه شنبه"
-            android:textColor="@color/blue_light3"/>
+            android:textColor="@color/blue_light3"
+            android:textSize="13sp"
+            android:textStyle="bold" />
 
 
         <RelativeLayout
@@ -72,9 +69,9 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="1dp"
-            android:visibility="gone"
             android:gravity="center"
-            android:tint="@color/white">
+            android:tint="@color/white"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -89,17 +86,17 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:background="@drawable/red_circle_shape"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
+                android:background="@drawable/red_circle_shape"
+                android:gravity="center"
                 android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/text_notify_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:layout_centerInParent="true"
+                    android:layout_centerInParent="true"
                     android:textColor="@color/white"
                     android:textSize="11dp"
                     android:visibility="visible" />
@@ -166,5 +163,22 @@
             app:elevation="0dp" />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_avi_drawer_new_register"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:indicatorColor="@color/blue_dark" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

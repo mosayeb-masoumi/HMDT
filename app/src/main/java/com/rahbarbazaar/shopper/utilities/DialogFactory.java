@@ -12,6 +12,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+
+import android.text.Html;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,19 +38,28 @@ import com.rahbarbazaar.shopper.controllers.adapters.ShoppingProductsDetailAdapt
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.shopper.models.history.History;
+import com.rahbarbazaar.shopper.models.issue.ReportIssue;
 import com.rahbarbazaar.shopper.models.profile.MemberDetail;
 import com.rahbarbazaar.shopper.models.profile.MemberDetailObj;
 import com.rahbarbazaar.shopper.models.searchable.SearchModel;
 import com.rahbarbazaar.shopper.models.shopping_product.ShoppingProductList;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
+import com.rahbarbazaar.shopper.network.Service;
+import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.shopper.ui.activities.PurchasedItemActivity;
 import com.rahbarbazaar.shopper.ui.activities.QRcodeActivity;
+import com.wang.avi.AVLoadingIndicatorView;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DialogFactory {
 
@@ -1097,6 +1109,83 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> dialog.dismiss());
           btn_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+
+    public void createConvertPapasiTomanDialog(DialogFactoryInteraction listener, View view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog3, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        EditText edt_description = customLayout.findViewById(R.id.edt_description);
+        Button btn_register = customLayout.findViewById(R.id.btn);
+        AVLoadingIndicatorView avi_convert_papasi = customLayout.findViewById(R.id.avi_convert_papasi);
+
+
+        avi_convert_papasi.setVisibility(View.GONE);
+        btn_register.setVisibility(View.VISIBLE);
+
+        txt_header.setText(context.getResources().getString(R.string.papasi_to_rial));
+//        edt_description.setHint(Html.fromHtml(
+//                "<small>"
+//                        + context.getResources().getString(R.string.insert_papasi_hint)
+//                        + "</small>"));
+
+        edt_description.setTextSize(20);
+        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+
+        btn_register.setText(context.getResources().getString(R.string.register));
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+        btn_register.setOnClickListener(view1 -> {
+
+            avi_convert_papasi.setVisibility(View.VISIBLE);
+            btn_register.setVisibility(View.GONE);
+            int papasi = Integer.parseInt(edt_description.getText().toString());
+
+            Service service = new ServiceProvider(context).getmService();
+            Call<Void> call = service.covertPapasi(papasi);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if(response.code()==200){
+                        dialog.dismiss();
+                        Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
+
+                    }else if(response.code()==422){
+                        avi_convert_papasi.setVisibility(View.GONE);
+                        btn_register.setVisibility(View.VISIBLE);
+
+                    }else{
+                        avi_convert_papasi.setVisibility(View.GONE);
+                        btn_register.setVisibility(View.VISIBLE);
+                        Toast.makeText(context, ""+context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    avi_convert_papasi.setVisibility(View.GONE);
+                    btn_register.setVisibility(View.VISIBLE);
+                    Toast.makeText(context, ""+context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+
         dialog.show();
     }
 }

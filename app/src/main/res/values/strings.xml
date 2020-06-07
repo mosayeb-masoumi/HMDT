@@ -220,6 +220,8 @@
     <string name="purchase_manegement">مدیریت خرید</string>
     <string name="all_purchased_list">لیست همه ی خرید ها</string>
     <string name="new_purchased_list">لیست خریدهای جدید</string>
+    <string name="convert_succeed">عملیات تبدیل با موفقیت انجام شد.</string>
+    <string name="insert_papasi_hint"><font size="15">موجودی پاپاسی خود را وارد کنید</font></string>
 
 
 </resources>

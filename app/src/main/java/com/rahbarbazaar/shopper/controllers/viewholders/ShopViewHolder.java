@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.interfaces.ShopItemInteraction;
 import com.rahbarbazaar.shopper.models.shop.ShopCenterModel;
@@ -25,7 +26,11 @@ public class ShopViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(ShopCenterModel model, int position) {
         txt_title.setText(model.title);
-        Glide.with(itemView.getContext()).load(model.image).centerCrop().into(img);
+        Glide.with(itemView.getContext())
+                .load(model.image)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(img);
     }
 
     public void setOnShopListHolderListener(ShopItemInteraction listener, ShopCenterModel model, int position) {

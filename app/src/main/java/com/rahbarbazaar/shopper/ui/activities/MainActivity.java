@@ -95,18 +95,17 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private GpsTracker gpsTracker;
 
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
-            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about,img_arrow_account_management
-            ,img_arrow_purchase_management;
+            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
-            linear_support, linear_about,linear_account_management, linear_report_issue, linear_faq,
-            linear_edu, linear_submenu, linear_submenu_about,linear_submenu_account_management,linear_transaction_list_drawer,
-            linear_papasi_to_rial_drawer,linear_my_wallet_drawer,linear_purchase_management,linear_submenu_purchase_management,
-            linear_register_new_purchase,linear_all_purchased_list,linear_new_purchased_list,
+            linear_support, linear_about, linear_account_management, linear_report_issue, linear_faq,
+            linear_edu, linear_submenu, linear_submenu_about, linear_submenu_account_management, linear_transaction_list_drawer,
+            linear_papasi_to_rial_drawer, linear_my_wallet_drawer, linear_purchase_management, linear_submenu_purchase_management,
+            linear_register_new_purchase, linear_all_purchased_list, linear_new_purchased_list,
             linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer;
-    RelativeLayout ll_notify_count ,ll_notify_count_drawer;
+    RelativeLayout ll_notify_count, ll_notify_count_drawer, rl_avi_drawer_new_register;
 
-    TextView txt_exit, text_notify_count, text_notify_count_drawer,text_follow_us, txt_date;
+    TextView txt_exit, text_notify_count, text_notify_count_drawer, text_follow_us, txt_date;
     DialogFactory dialogFactory;
 
     RelativeLayout rl_notification;
@@ -129,6 +128,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     String locale_name;
 
     SolarCalendar solarCalendar;
+
+
+    int bottomCount = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -319,6 +321,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         ll_notify_count = findViewById(R.id.ll_notify_count);
         ll_notify_count_drawer = findViewById(R.id.ll_notify_count_drawer);
         rl_notification = findViewById(R.id.rl_notification);
+
+        rl_avi_drawer_new_register = findViewById(R.id.rl_avi_drawer_new_register);
+
         drawer_layout_home = findViewById(R.id.drawer_layout_home);
         bottom_navigation = findViewById(R.id.bottom_navigation);
         drawer_rv = findViewById(R.id.drawer_rv);
@@ -525,28 +530,34 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             case R.id.linear_new_purchased_list:
                 drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "لیست خریدهای جدید", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "لیست خریدهای جدید", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, NewRegisterListActivity.class));
                 break;
 
             case R.id.linear_all_purchased_list:
                 drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "لیست همه ی خریدها", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "لیست همه ی خریدها", Toast.LENGTH_SHORT).show();
+                onTabSelected(2, false);
+
                 break;
 
 
             case R.id.linear_register_new_purchase:
                 drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "ثبت خرید جدید", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "ثبت خرید جدید", Toast.LENGTH_SHORT).show();
+                requestRegistration();
                 break;
 
             case R.id.linear_transaction_list_drawer:
                 drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "لیست تراکنش ها", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "لیست تراکنش ها", Toast.LENGTH_SHORT).show();
+                onTabSelected(1, false);
                 break;
 
             case R.id.linear_papasi_to_rial_drawer:
                 drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "تبدیل پاپاسی به تومان", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "تبدیل پاپاسی به تومان", Toast.LENGTH_SHORT).show();
+                convertPapasiTomanDoalog();
                 break;
 
             case R.id.linear_my_wallet_drawer:
@@ -653,6 +664,34 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         }
     }
 
+    private void convertPapasiTomanDoalog() {
+        dialogFactory.createConvertPapasiTomanDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        }, drawer_layout_home);
+    }
+
+
+    private void requestRegistration() {
+
+        if (hasLocationPermission()) {
+            if (checkGpsON()) {
+                sendLatLng();
+            } else {
+                gpsDialog();
+            }
+        } else {
+            askLocationPermission();
+        }
+    }
+
+
     private void generateInviteLink() {
 
         String user_name = Cache.getString(MainActivity.this, "user_name");
@@ -754,6 +793,39 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             manager.beginTransaction().replace(R.id.frame_layout, shopFragment, "tag").commit();
 
         }
+
+
+
+        //to remove bug active bottombar when we choose from drawer by touching allPurchasedList
+        if (position == 2) {
+            if (position == 0 || position == 1 || position == 3) {
+                bottomCount = 0;
+            }
+            if (position == 2) {
+                if (bottomCount == 0) {
+                    bottomCount++;
+                    bottom_navigation.setCurrentItem(2);
+                }
+            }
+            bottomCount = 0;
+        }
+
+//////////////////////////////////////////////////
+        //to remove bug active bottombar when we choose from drawer by touching allTransactionList
+        if (position == 1) {
+            if (position == 0 || position == 2 || position == 3) {
+                bottomCount = 0;
+            }
+            if (position == 1) {
+                if (bottomCount == 0) {
+                    bottomCount++;
+                    bottom_navigation.setCurrentItem(1);
+                }
+            }
+            bottomCount = 0;
+        }
+
+
         return true;
     }
 
@@ -853,6 +925,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     private void sendLatLng() {
 
+        rl_avi_drawer_new_register.setVisibility(View.VISIBLE);
+
         getLocation();
 
         String gps_avi_loading = "show_loading";
@@ -874,16 +948,20 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     if (validate) {
                         getNewRegisterData();
                     } else {
+                        rl_avi_drawer_new_register.setVisibility(View.GONE);
                         outOfAreaDialog();
+
                     }
 
                 } else {
+                    rl_avi_drawer_new_register.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<LatLng> call, Throwable t) {
+                rl_avi_drawer_new_register.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
@@ -895,7 +973,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         call.enqueue(new Callback<RegisterModel>() {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+
+
                 if (response.code() == 200) {
+
 
                     String gps_avi_loading = "hide_loading";
                     EventBus.getDefault().postSticky(gps_avi_loading);
@@ -908,18 +989,22 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                     RxBus.RegisterModel.publishRegisterModel(registerModel);
                     startActivity(new Intent(MainActivity.this, NewRegisterActivity.class));
                     overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                    rl_avi_drawer_new_register.setVisibility(View.GONE);
 
                 } else if (response.code() == 406) {
+                    rl_avi_drawer_new_register.setVisibility(View.GONE);
                     APIError406 apiError = ErrorUtils.parseError406(response);
                     showError406Dialog(apiError.message);
 
                 } else {
+                    rl_avi_drawer_new_register.setVisibility(View.GONE);
                     Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
+                rl_avi_drawer_new_register.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });

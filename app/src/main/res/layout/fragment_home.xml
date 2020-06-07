@@ -458,7 +458,7 @@
                             android:layout_marginEnd="2dp"
                             android:text="@string/text_leftday"
                             android:textColor="@color/white_gray"
-                            android:textSize="11sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/txt_left_days"
@@ -466,7 +466,7 @@
                             android:layout_height="wrap_content"
                             android:text="-"
                             android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
 
                     </LinearLayout>
@@ -508,7 +508,7 @@
                             android:layout_height="wrap_content"
                             android:text="-"
                             android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -531,7 +531,7 @@
                             android:layout_height="wrap_content"
                             android:text="-"
                             android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+                            android:textSize="13sp" />
 
 
                     </LinearLayout>

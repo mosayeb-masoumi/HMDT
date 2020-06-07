@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.models.activelist.ActiveListData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
@@ -93,7 +94,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private void setContentView() {
 
-        Glide.with(getActivity()).load(dashboardCreateData.data.myshop_image).centerCrop().into(img_myshop);
+        Glide.with(getActivity())
+                .load(dashboardCreateData.data.myshop_image)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
+                .centerCrop()
+                .into(img_myshop);
+
         txt_balance.setText(dashboardCreateData.data.one);
         txt_papasi.setText(dashboardCreateData.data.two);
         txt_left_days.setText(dashboardCreateData.data.four);
