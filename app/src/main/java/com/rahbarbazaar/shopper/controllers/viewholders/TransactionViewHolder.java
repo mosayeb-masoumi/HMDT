@@ -31,7 +31,8 @@ public class TransactionViewHolder extends RecyclerView.ViewHolder {
         txt_title.setText(model.title);
         txt_date.setText(model.date);
         txt_amount.setText(model.amount);
-        if(type.equals("papasi")){
+//        if(type.equals("papasi")){
+        if(type.equals("credit")){
             ll_root.setBackground(itemView.getResources().getDrawable(R.drawable.bg_transaction_papasi_row));
         }else{
             ll_root.setBackground(itemView.getResources().getDrawable(R.drawable.activelist_rv_bg));

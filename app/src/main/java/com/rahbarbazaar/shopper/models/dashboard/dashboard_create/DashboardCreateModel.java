@@ -25,6 +25,12 @@ public class DashboardCreateModel {
     @Expose
     public String four;
 
+
+    @SerializedName("about")
+    @Expose
+    public String about;
+
+
     @SerializedName("board")
     @Expose
     public String board;

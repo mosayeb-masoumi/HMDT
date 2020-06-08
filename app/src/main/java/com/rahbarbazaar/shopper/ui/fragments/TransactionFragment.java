@@ -60,7 +60,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     SwipeRefreshLayout swipeRefresh;
     //    boolean swipe = false;
     ImageView img_line;
-    String type = "amount";
+//    String type = "amount";
+    String type = "wallet";
 
 
     public TransactionFragment() {
@@ -91,7 +92,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             txt_no_transaction.setVisibility(View.VISIBLE);
         } else {
             txt_no_transaction.setVisibility(View.GONE);
-            setRecyclerView(transactionData, "amount", 200);
+//            setRecyclerView(transactionData, "amount", 200);
+            setRecyclerView(transactionData, "wallet", 200);
         }
 
         swipeRefresh.setOnRefreshListener(() -> {
@@ -135,7 +137,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 //                    swipe=false;
                     setRecyclerView(transactionData, type, response.code());
 
-                    if(page==0 && type.equals("amount")){  // to show the latest amount list0
+                    if(page==0 && type.equals("wallet")){  // to show the latest amount list0
                         RxBus.TransactionAmountList0.publishTransactionAmountList0(response.body());
                     }
 
@@ -231,7 +233,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btnpapasi.setTextColor(getResources().getColor(R.color.colorText));
                 img_line.setBackgroundColor(getResources().getColor(R.color.blue_dark));
                 page = 0;
-                type = "amount";
+//                type = "amount";
+                type = "wallet";
                 getTransactionList(page, type);
                 break;
 
@@ -242,7 +245,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btntoman.setTextColor(getResources().getColor(R.color.colorText));
                 img_line.setBackgroundColor(getResources().getColor(R.color.pink_dark));
                 page = 0;
-                type = "papasi";
+//                type = "papasi";
+                type = "credit";
                 getTransactionList(page, type);
                 break;
         }

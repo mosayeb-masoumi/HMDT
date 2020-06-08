@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:padding="7dp"
+            android:padding="8dp"
             android:src="@drawable/about_us" />
 
         <TextView
@@ -120,9 +120,6 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 </LinearLayout>

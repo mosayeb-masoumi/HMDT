@@ -567,8 +567,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             case R.id.linear_introduction:
                 drawer_layout_home.closeDrawers();
-//                goToHtmlActivity(dashboardCreateData.data.faqPage);
-                Toast.makeText(MainActivity.this, "introduction", Toast.LENGTH_SHORT).show();
+                goToHtmlActivity(dashboardCreateData.data.about);
+
                 break;
 
             case R.id.linear_videos:

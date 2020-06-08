@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -35,6 +36,9 @@ import com.rahbarbazaar.shopper.controllers.adapters.BarcodeListAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ProfileMemberDetailAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.SearchAdapter;
 import com.rahbarbazaar.shopper.controllers.adapters.ShoppingProductsDetailAdapter;
+import com.rahbarbazaar.shopper.models.api_error.APIError422;
+import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
+import com.rahbarbazaar.shopper.models.api_error206.APIError406;
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.shopper.models.history.History;
@@ -1167,6 +1171,18 @@ public class DialogFactory {
                     }else if(response.code()==422){
                         avi_convert_papasi.setVisibility(View.GONE);
                         btn_register.setVisibility(View.VISIBLE);
+                        APIError422 apiError = ErrorUtils.parseError422(response);
+                        StringBuilder builderAmount = null;
+
+                        if (apiError.errors.amount != null) {
+                            builderAmount = new StringBuilder();
+                            for (String b : apiError.errors.amount) {
+                                builderAmount.append("").append(b).append(" ");
+                            }
+                        }
+
+                        Toast.makeText(context, ""+builderAmount, Toast.LENGTH_SHORT).show();
+
 
                     }else{
                         avi_convert_papasi.setVisibility(View.GONE);
