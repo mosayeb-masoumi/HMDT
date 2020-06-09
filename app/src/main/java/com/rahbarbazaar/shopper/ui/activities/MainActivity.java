@@ -694,12 +694,16 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     private void generateInviteLink() {
 
-        String user_name = Cache.getString(MainActivity.this, "user_name");
+//        String user_name = Cache.getString(MainActivity.this, "user_name");
         String share_url = Cache.getString(MainActivity.this, "share_url");
         ShareCompat.IntentBuilder
                 .from(MainActivity.this)
-                .setText(new StringBuilder().append(getString(R.string.text_invite_from)).append(" ").append(user_name).append(" ").
-                        append(getString(R.string.text_invite_friend))
+                .setText(new StringBuilder()
+//                        .append(getString(R.string.text_invite_from))
+//                        .append(" ")
+//                        .append(user_name)
+//                        .append(" ")
+                        .append(getString(R.string.text_invite_friend))
                         .append("\n").append(share_url))
                 .setType("text/plain")
                 .setChooserTitle(R.string.share_homadit)
@@ -793,7 +797,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             manager.beginTransaction().replace(R.id.frame_layout, shopFragment, "tag").commit();
 
         }
-
 
 
         //to remove bug active bottombar when we choose from drawer by touching allPurchasedList

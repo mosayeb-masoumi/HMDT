@@ -49,6 +49,7 @@ import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.Cache;
 import com.rahbarbazaar.shopper.utilities.CustomBaseActivity;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
+import com.rahbarbazaar.shopper.utilities.DownloadManager;
 import com.rahbarbazaar.shopper.utilities.GeneralTools;
 import com.rahbarbazaar.shopper.utilities.GpsTracker;
 import com.rahbarbazaar.shopper.utilities.RxBus;
@@ -536,6 +537,24 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
                 //User clicks No
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+
+            case 3:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (checkGpsON()) {
+                        sendLatLng();
+                    } else {
+                        gpsDialog();
+                    }
+                }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)

@@ -1204,4 +1204,37 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+
+    public void createEditAmountDialog(DialogFactoryInteraction listener, RelativeLayout view, String description) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        Button btn_edit = customLayout.findViewById(R.id.btn2);
+        Button btn_scan = customLayout.findViewById(R.id.btn1);
+
+
+        txt_header.setText(context.getResources().getString(R.string.system_error));
+        btn_edit.setText(context.getResources().getString(R.string.update));
+        btn_scan.setText("اسکن محصول بعدی");
+
+        txt_description.setText(description);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_edit.setOnClickListener(view1 -> dialog.dismiss());
+        btn_scan.setOnClickListener(view12 -> listener.onAcceptButtonClicked());
+
+        dialog.show();
+    }
 }

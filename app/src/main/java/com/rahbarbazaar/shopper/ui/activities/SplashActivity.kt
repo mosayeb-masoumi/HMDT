@@ -71,7 +71,13 @@ class SplashActivity : CustomBaseActivity() {
         if (agreement.equals("done")) {
 
             if (accessToken != "") {
-                requestDashboardData()
+
+                Timer().schedule(object : TimerTask() {
+                    override fun run() {
+                        requestDashboardData()
+                    }
+                }, 3000)
+
 
             } else {
 
@@ -82,7 +88,7 @@ class SplashActivity : CustomBaseActivity() {
                         this@SplashActivity.finish()
 
                     }
-                }, 2700)
+                }, 4000)
             }
 
         } else if (agreement.equals("undone") || agreement == null) {
@@ -92,7 +98,7 @@ class SplashActivity : CustomBaseActivity() {
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
                 }
-            }, 3000)
+            }, 4000)
         }
     }
 

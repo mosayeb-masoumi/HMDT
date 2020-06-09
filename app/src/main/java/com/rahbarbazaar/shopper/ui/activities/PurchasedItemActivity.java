@@ -86,7 +86,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     Disposable disposable = new CompositeDisposable();
     RelativeLayout rl_home, rl_readable_barcode, rl_description_purchased, rl_spn_group, rl_info_img_new_register,
             rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root, rl_add_member, rl_photo_purchased, rl_register_barcode,
-            rl_photo_purchase_total, rl_info_member_new_register, rl_edt_description_purchased, rl_register_result;
+            rl_photo_purchase_total, rl_info_member_new_register, rl_edt_description_purchased, rl_register_result,root_purchased_item;
 
     LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode, ll_questions, ll_chkboxes;
     Integer position;
@@ -366,7 +366,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         img_register_barcode = findViewById(R.id.img_register_barcode);
 
         rl_register_result = findViewById(R.id.rl_register_result);
-
+        root_purchased_item = findViewById(R.id.root_purchased_item);
         avi_register_barcode = findViewById(R.id.avi_register_barcode);
 
         txt_spn_group_title = findViewById(R.id.txt_group_spn_title);
@@ -583,23 +583,27 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         sendData.setMember(editMembers);
 
         String price = edt_cost_purchase.getText().toString().trim();
-        int price1 = Integer.parseInt(price);
+//        int price1 = Integer.parseInt(price);
         String amount=edt_amount_purchased.getText().toString().trim();
-        int amount1 = Integer.parseInt(amount);
+//        int amount1 = Integer.parseInt(amount);
 
-        if(price1<min_price){
-            Toast.makeText(context, "مبلغ کمتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
-            return;
-        }else if(price1>max_price){
-            Toast.makeText(context, "مبلغ بیشتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
-            return;
-        }else if(amount1>max_amount){
-            Toast.makeText(context, "تعداد وارد شده بیشتر از تعداد مجاز است", Toast.LENGTH_LONG).show();
-            return;
-        }else {
-            sendData.setCost(price);
-            sendData.setAmount(amount);
-        }
+//        if(price1<min_price){
+//            Toast.makeText(context, "مبلغ کمتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
+//            return;
+//        }else if(price1>max_price){
+//            Toast.makeText(context, "مبلغ بیشتر از قیمت مجاز است", Toast.LENGTH_LONG).show();
+//            return;
+//        }else if(amount1>max_amount){
+//            Toast.makeText(context, "تعداد وارد شده بیشتر از تعداد مجاز است", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        else {
+//            sendData.setCost(price);
+//            sendData.setAmount(amount);
+//        }
+
+        sendData.setCost(price);
+        sendData.setAmount(amount);
 
         sendData.setProduct_id(product_id);
         sendData.setShopping_id(shopping_id);
@@ -656,11 +660,15 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     }
 
                     if (builderCost != null) {
-                        Toast.makeText(PurchasedItemActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
+                        String description = String.valueOf(builderCost);
+                        createEditAmountDialog(description);
+//                        Toast.makeText(PurchasedItemActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
                     }
 
                     if (buliderAmount != null) {
-                        Toast.makeText(PurchasedItemActivity.this, "" + buliderAmount, Toast.LENGTH_SHORT).show();
+                        String description = String.valueOf(buliderAmount);
+                        createEditAmountDialog(description);
+//                        Toast.makeText(PurchasedItemActivity.this, "" + buliderAmount, Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -799,11 +807,15 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     }
 
                     if (builderCost != null) {
-                        Toast.makeText(PurchasedItemActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
+                        String description = String.valueOf(builderCost);
+                        createEditAmountDialog(description);
+//                        Toast.makeText(PurchasedItemActivity.this, "" + builderCost, Toast.LENGTH_SHORT).show();
                     }
 
                     if (buliderAmount != null) {
-                        Toast.makeText(PurchasedItemActivity.this, "" + buliderAmount, Toast.LENGTH_SHORT).show();
+                        String description = String.valueOf(buliderAmount);
+                        createEditAmountDialog(description);
+//                        Toast.makeText(PurchasedItemActivity.this, "" + buliderAmount, Toast.LENGTH_SHORT).show();
                     }
 
                     if (buliderDescription != null) {
@@ -838,6 +850,24 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void createEditAmountDialog(String description) {
+
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createEditAmountDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+
+                startActivity(new Intent(PurchasedItemActivity.this,QRcodeActivity.class));
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        },root_purchased_item,description);
+
     }
 
     private void showPhotoDialog() {
