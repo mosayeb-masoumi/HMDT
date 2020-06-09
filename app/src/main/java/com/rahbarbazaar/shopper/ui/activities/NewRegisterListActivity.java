@@ -552,6 +552,18 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
                         gpsDialog();
                     }
                 }
+
+            case 25:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Intent intent = new Intent(this, QRcodeActivity.class);
+                    Cache.setString(this,"shopping_id",shopping_id);
+                    intent.putExtra("static_barcode","static_barcode");
+                    startActivity(intent);
+                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                }
+
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
