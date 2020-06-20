@@ -88,7 +88,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         initView(view);
 
         transactions = new ArrayList<>();
-        if (transactionData.data.size() == 0) {
+        if (transactionData.data==null || transactionData.data.size() == 0) {
             txt_no_transaction.setVisibility(View.VISIBLE);
         } else {
             txt_no_transaction.setVisibility(View.GONE);

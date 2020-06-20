@@ -60,7 +60,7 @@
             android:background="@drawable/bg_no_purchase"
             android:gravity="center"
             android:padding="17dp"
-            android:text="@string/no_message"
+            android:text="هیچ خریدی ثبت نشده است"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:visibility="gone" />

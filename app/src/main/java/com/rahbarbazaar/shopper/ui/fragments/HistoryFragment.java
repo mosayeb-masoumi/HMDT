@@ -92,8 +92,9 @@ public class HistoryFragment extends Fragment implements HistoryItemInteraction 
         initView(view);
 
         history = new ArrayList<>();
-        if(historyData.getData().size() == 0){
+        if(historyData.getData() == null || historyData.getData().size() == 0){
             txt_no_message_history.setVisibility(View.VISIBLE);
+            avi_history.setVisibility(View.GONE);
         }else{
             txt_no_message_history.setVisibility(View.GONE);
             setRecyclerView(historyData);
@@ -139,6 +140,7 @@ public class HistoryFragment extends Fragment implements HistoryItemInteraction 
                 swipeRefresh.setRefreshing(false);
                 if(response.code()==200){
 
+                    txt_no_message_history.setVisibility(View.GONE);
                     historyData = response.body();
                     setRecyclerView(historyData);
                     if(page==0){  // to show the latest list0
