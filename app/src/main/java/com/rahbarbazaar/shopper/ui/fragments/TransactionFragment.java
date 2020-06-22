@@ -42,6 +42,8 @@ import retrofit2.Response;
  */
 public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
 
+    //test
+
     Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
     TextView txt_no_transaction, txt_btnpapasi, txt_btntoman;
