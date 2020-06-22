@@ -1079,7 +1079,7 @@ public class DialogFactory {
     }
 
 
-    public void createTransactionItemDialog(DialogFactoryInteraction listener, RelativeLayout view,
+    public void createTransactionItemDialog(DialogFactoryInteraction listener, LinearLayout view,
                                             Transaction model, int position) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.transaction_info_dialog, (ViewGroup) view, false);

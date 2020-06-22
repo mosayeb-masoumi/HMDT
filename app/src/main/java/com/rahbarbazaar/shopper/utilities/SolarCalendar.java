@@ -10,6 +10,7 @@ public class SolarCalendar {
     private int date,year;
 
     public String getStrWeekDay() {
+//        return "چهارشنبه";
         return strWeekDay;
     }
 

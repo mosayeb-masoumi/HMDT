@@ -49,9 +49,9 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_verification)
 
 
-        PushPole.initialize(this, true)
-
-        pid = PushPole.getId(this)
+//        PushPole.initialize(this, true)
+//
+//        pid = PushPole.getId(this)
 
 
         //check network broadcast reciever

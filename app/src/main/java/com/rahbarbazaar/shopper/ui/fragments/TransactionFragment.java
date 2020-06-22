@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
+import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.shopper.models.history.HistoryData;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
 import com.rahbarbazaar.shopper.models.transaction.TransactionData;
@@ -44,9 +46,9 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
     Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
-    TextView txt_no_transaction, txt_btnpapasi, txt_btntoman;
+    TextView txt_no_transaction, txt_btnpapasi, txt_btntoman ,txt_papasi_transaction,txt_toman_transaction;
     AVLoadingIndicatorView avi;
-    RelativeLayout rl_root;
+    LinearLayout rl_root ,ll_convert_papasi_to_rial ;
     int page = 0;
     Boolean isScrolling = false;
     int totalPage = 0;
@@ -114,9 +116,13 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         img_line = view.findViewById(R.id.img_line);
         avi = view.findViewById(R.id.avi_loading_fr_transaction);
         rl_root = view.findViewById(R.id.rl_fr_transaction);
+        ll_convert_papasi_to_rial = view.findViewById(R.id.ll_convert_papasi_to_rial);
         swipeRefresh = view.findViewById(R.id.swp_refresh_transaction);
+        txt_papasi_transaction = view.findViewById(R.id.txt_papasi_transaction);
+        txt_toman_transaction = view.findViewById(R.id.txt_toman_transaction);
         txt_btnpapasi.setOnClickListener(this);
         txt_btntoman.setOnClickListener(this);
+        ll_convert_papasi_to_rial.setOnClickListener(this);
     }
 
     private void getTransactionList(int page, String type) {
@@ -249,7 +255,27 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 type = "credit";
                 getTransactionList(page, type);
                 break;
+
+            case R.id.ll_convert_papasi_to_rial:
+
+                convertPapasiTomanDoalog();
+
+                break;
         }
+    }
+
+    private void convertPapasiTomanDoalog() {
+        DialogFactory dialogFactory = new DialogFactory(getContext());
+        dialogFactory.createConvertPapasiTomanDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        }, rl_root);
     }
 
 //    @Override
@@ -278,9 +304,40 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     }
 
 
+    private void getRefreshHomeData() {
+        Service service = new ServiceProvider(getContext()).getmService();
+        Call<HomeData> call = service.getRefreshHomeData();
+        call.enqueue(new Callback<HomeData>() {
+            @Override
+            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
+
+                if (response.code() == 200) {
+
+
+                    txt_toman_transaction.setText(response.body().data.one);
+                    txt_papasi_transaction.setText(response.body().data.two);
+
+                } else {
+                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeData> call, Throwable t) {
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public void onStop() {
         super.onStop();
         disposable.dispose();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getRefreshHomeData();
     }
 }
