@@ -40,7 +40,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {git add
+public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
 
     Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
