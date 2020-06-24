@@ -155,7 +155,8 @@
 
                     <include layout="@layout/drawer_purchase_management_items" />
 
-                    <include layout="@layout/drawer_account_management_items" />
+                    <include layout="@layout/drawer_account_management_items"
+                        android:visibility="gone"/>
 
                     <include layout="@layout/drawer_support_items" />
 

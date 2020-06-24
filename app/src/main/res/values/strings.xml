@@ -196,7 +196,7 @@
     <string name="goods_price">قیمت کالا</string>
     <string name="register_update">ثبت ویرایش</string>
     <string name="edit_goods">ویرایش کالا</string>
-    <string name="unit_price">قیمت واحد(ریال)</string>
+    <string name="unit_price">قیمت واحد</string>
     <string name="search_goods">جستجوی کالا</string>
     <string name="splah_text">شهروند گرامی ضمن قدردانی از احساس مسئولیت و مشارکت شما در پژوهش، امیدواریم با یاری یکدیگر بتوانیم در حرکت چرخ اقتصاد کشور عزیزمان ایران موثر باشیم.</string>
     <string name="website">وبسایت:</string>
@@ -222,6 +222,8 @@
     <string name="new_purchased_list">لیست خریدهای جدید</string>
     <string name="convert_succeed">عملیات تبدیل با موفقیت انجام شد.</string>
     <string name="insert_papasi_hint"><font size="15">موجودی پاپاسی خود را وارد کنید</font></string>
+    <string name="credit_papasi">پاپاسی های موجود</string>
+    <string name="credit_rial">موجودی(ریالی)</string>
 
 
 </resources>

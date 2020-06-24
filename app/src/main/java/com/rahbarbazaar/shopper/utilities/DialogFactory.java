@@ -1,6 +1,7 @@
 package com.rahbarbazaar.shopper.utilities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -41,6 +42,7 @@ import com.rahbarbazaar.shopper.models.api_error.ErrorUtils;
 import com.rahbarbazaar.shopper.models.api_error206.APIError406;
 import com.rahbarbazaar.shopper.models.barcodlist.Barcode;
 import com.rahbarbazaar.shopper.models.barcodlist.BarcodeData;
+import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.history.History;
 import com.rahbarbazaar.shopper.models.issue.ReportIssue;
 import com.rahbarbazaar.shopper.models.profile.MemberDetail;
@@ -1155,6 +1157,7 @@ public class DialogFactory {
 
         btn_register.setOnClickListener(view1 -> {
 
+
             avi_convert_papasi.setVisibility(View.VISIBLE);
             btn_register.setVisibility(View.GONE);
             int papasi = Integer.parseInt(edt_description.getText().toString());
@@ -1165,8 +1168,9 @@ public class DialogFactory {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if(response.code()==200){
-                        dialog.dismiss();
-                        Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
+
+//                        Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
+                        requestDashboardData();
 
                     }else if(response.code()==422){
                         avi_convert_papasi.setVisibility(View.GONE);
@@ -1192,14 +1196,51 @@ public class DialogFactory {
                     }
                 }
 
+
+
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     avi_convert_papasi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
                     Toast.makeText(context, ""+context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
                 }
+
+
+                private void requestDashboardData() {
+                    Service service = new ServiceProvider(context).getmService();
+                    Call<DashboardCreateData> call = service.getDashboardData();
+                    call.enqueue(new Callback<DashboardCreateData>() {
+                        @Override
+                        public void onResponse(Call<DashboardCreateData> call, Response<DashboardCreateData> response) {
+                            if(response.code() == 200){
+                                Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+
+                                DashboardCreateData dashboardCreateData;
+                                dashboardCreateData = response.body();
+                                RxBus.DashboardModel.publishDashboardModel(dashboardCreateData);
+
+                                listener.onAcceptButtonClicked(dashboardCreateData.data.one , dashboardCreateData.data.two);
+                            }else {
+                                Toast.makeText(context, ""+context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DashboardCreateData> call, Throwable t) {
+                            Toast.makeText(context, ""+context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+                }
+
+
+
             });
         });
+
+
 
 
         dialog.show();

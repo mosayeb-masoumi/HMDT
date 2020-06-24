@@ -571,15 +571,26 @@
                             android:id="@+id/edt_cost_purchase"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginEnd="2dp"
-                            android:layout_centerInParent="true"
-                            android:hint="@string/unit_price"
-                            android:gravity="center"
-                            android:inputType="number"
                             android:backgroundTint="@color/blue_light"
+                            android:gravity="center"
+                            android:hint="@string/unit_price"
+                            android:inputType="number"
                             android:textColor="@color/blue_dark"
                             android:textColorHint="@color/blue"
                             android:textSize="13sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/blue_dark"
+                            android:textSize="13sp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_toStartOf="@+id/edt_cost_purchase"
+                            android:text="@string/rial"/>
+
 
                     </RelativeLayout>
 

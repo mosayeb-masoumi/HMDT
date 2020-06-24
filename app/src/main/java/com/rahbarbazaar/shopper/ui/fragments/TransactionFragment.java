@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
+import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.shopper.models.history.HistoryData;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
@@ -29,6 +30,10 @@ import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.rahbarbazaar.shopper.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +49,7 @@ import retrofit2.Response;
  */
 public class TransactionFragment extends Fragment implements TransactionItemInteraction, View.OnClickListener {
 
+    DashboardCreateData dashboardCreateData;
     Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
     TextView txt_no_transaction, txt_btnpapasi, txt_btntoman ,txt_papasi_transaction,txt_toman_transaction;
@@ -80,6 +86,12 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             }
         });
 
+        disposable = RxBus.DashboardModel.subscribeDashboardModel(result -> {
+            if (result instanceof DashboardCreateData) {
+                dashboardCreateData = (DashboardCreateData) result;
+            }
+        });
+
     }
 
     @Override
@@ -104,6 +116,10 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             getTransactionList(page, type);
 
         });
+
+
+        txt_toman_transaction.setText(dashboardCreateData.data.one);
+        txt_papasi_transaction.setText(dashboardCreateData.data.two);
 
         return view;
     }
@@ -269,6 +285,12 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         dialogFactory.createConvertPapasiTomanDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
+
+                String strToman = params[0];
+                String strPapasi = params[1];
+
+                txt_toman_transaction.setText(strToman);
+                txt_papasi_transaction.setText(strPapasi);
             }
 
             @Override
@@ -294,6 +316,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             @Override
             public void onAcceptButtonClicked(String... params) {
 
+
             }
 
             @Override
@@ -304,40 +327,55 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     }
 
 
-    private void getRefreshHomeData() {
-        Service service = new ServiceProvider(getContext()).getmService();
-        Call<HomeData> call = service.getRefreshHomeData();
-        call.enqueue(new Callback<HomeData>() {
-            @Override
-            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
+//    private void getRefreshHomeData() {
+//        Service service = new ServiceProvider(getContext()).getmService();
+//        Call<HomeData> call = service.getRefreshHomeData();
+//        call.enqueue(new Callback<HomeData>() {
+//            @Override
+//            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
+//
+//                if (response.code() == 200) {
+//
+//
+//                    txt_toman_transaction.setText(response.body().data.one);
+//                    txt_papasi_transaction.setText(response.body().data.two);
+//
+//                } else {
+//                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<HomeData> call, Throwable t) {
+//                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
-                if (response.code() == 200) {
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+//        EventBus.getDefault().post(dashboardCreateData);
+    }
 
 
-                    txt_toman_transaction.setText(response.body().data.one);
-                    txt_papasi_transaction.setText(response.body().data.two);
-
-                } else {
-                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HomeData> call, Throwable t) {
-                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshAuctions(DashboardCreateData dashboardCreateData){
+        Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStop() {
         super.onStop();
         disposable.dispose();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getRefreshHomeData();
+//        getRefreshHomeData();
     }
 }

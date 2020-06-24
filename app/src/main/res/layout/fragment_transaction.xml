@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="موجودی(ریالی)"
+                        android:text="@string/credit_rial"
                         android:textColor="@color/blue_dark"
                         android:textSize="17sp" />
 
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
-                        android:text="پاپاسی های موجود"
+                        android:text="@string/credit_papasi"
                         android:textColor="@color/blue_dark"
                         android:textSize="17sp" />
 

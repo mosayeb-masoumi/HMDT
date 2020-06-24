@@ -314,7 +314,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_new_purchased_list = findViewById(R.id.linear_new_purchased_list);
         linear_submenu_account_management = findViewById(R.id.linear_submenu_account_management);
         linear_papasi_to_rial_drawer = findViewById(R.id.linear_papasi_to_rial_drawer);
-        linear_my_wallet_drawer = findViewById(R.id.linear_my_wallet_drawer);
+//        linear_my_wallet_drawer = findViewById(R.id.linear_my_wallet_drawer);
         linear_register_new_purchase = findViewById(R.id.linear_register_new_purchase);
         linear_exit = findViewById(R.id.linear_exit);
         ll_drawer = findViewById(R.id.ll_drawer);
@@ -347,7 +347,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_introduction.setOnClickListener(this);
         linear_transaction_list_drawer.setOnClickListener(this);
         linear_papasi_to_rial_drawer.setOnClickListener(this);
-        linear_my_wallet_drawer.setOnClickListener(this);
+//        linear_my_wallet_drawer.setOnClickListener(this);
         linear_videos.setOnClickListener(this);
         linear_news.setOnClickListener(this);
         linear_about.setOnClickListener(this);
@@ -433,7 +433,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         // Create items
         AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.home_tab, R.drawable.home_icon, 0);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.purchases, R.drawable.purchases, 0);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.my_account, R.drawable.my_account, 0);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.myaccount_tab, R.drawable.my_account, 0);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.store_tab, R.drawable.bazarcheh, 0);
 
         // Add items
@@ -560,10 +560,10 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 convertPapasiTomanDoalog();
                 break;
 
-            case R.id.linear_my_wallet_drawer:
-                drawer_layout_home.closeDrawers();
-                Toast.makeText(MainActivity.this, "کیف پول من", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.linear_my_wallet_drawer:
+//                drawer_layout_home.closeDrawers();
+//                Toast.makeText(MainActivity.this, "کیف پول من", Toast.LENGTH_SHORT).show();
+//                break;
 
             case R.id.linear_introduction:
                 drawer_layout_home.closeDrawers();

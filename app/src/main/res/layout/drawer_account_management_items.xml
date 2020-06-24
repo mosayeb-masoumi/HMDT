@@ -75,6 +75,7 @@
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingStart="5dp">
 
             <TextView
@@ -95,31 +96,31 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linear_my_wallet_drawer"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:paddingStart="5dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_my_wallet_drawer"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingStart="5dp">-->
 
-            <TextView
-                android:layout_width="34dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="9dp"
-                android:text="-"
-                android:textColor="@color/white_gray" />
+<!--            <TextView-->
+<!--                android:layout_width="34dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="9dp"-->
+<!--                android:text="-"-->
+<!--                android:textColor="@color/white_gray" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/my_wallet"
-                android:textColor="@color/white_gray"
-                android:textSize="14sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="@string/my_wallet"-->
+<!--                android:textColor="@color/white_gray"-->
+<!--                android:textSize="14sp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
 
 
