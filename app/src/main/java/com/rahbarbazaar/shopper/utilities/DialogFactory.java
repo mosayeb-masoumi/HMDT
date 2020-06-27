@@ -925,6 +925,28 @@ public class DialogFactory {
         LinearLayout ll_explanation = customLayout.findViewById(R.id.ll_explanation);
         LinearLayout ll_etc = customLayout.findViewById(R.id.ll_etc);
 
+        SearchView searchView = customLayout.findViewById(R.id.search_view);
+        searchView.setQueryHint("جستجو...");
+        EditText searchEditText = searchView.findViewById(R.id.search_src_text);
+        searchEditText.setTextColor(Color.WHITE);
+        searchEditText.setHintTextColor(Color.GRAY);
+
+        // change close icon (color shape ...)
+        ImageView imvClose = searchView.findViewById(R.id.search_close_btn);
+        imvClose.setImageResource(R.drawable.ic_close);
+
+        // delete icon search
+        searchView.setIconifiedByDefault(false);
+
+        if(spn_name.equals("spn_brand"))
+            searchView.setVisibility(View.VISIBLE);
+        else
+            searchView.setVisibility(View.GONE);
+
+
+
+
+
         if (spn_name.equals("spn_group")) {
             ll_etc.setVisibility(View.GONE);
             ll_explanation.setVisibility(View.VISIBLE);
@@ -936,6 +958,8 @@ public class DialogFactory {
             ll_explanation.setVisibility(View.GONE);
             txt_explanation.setVisibility(View.GONE);
         }
+
+
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -955,6 +979,28 @@ public class DialogFactory {
         SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(purchasedItemActivity);
         recyclerView.setAdapter(adapter);
+
+
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                //FILTER AS YOU TYPE
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+
+
+
+
 
         btn_etc.setOnClickListener(v -> {
             listner.onAcceptButtonClicked(spn_name, title);
