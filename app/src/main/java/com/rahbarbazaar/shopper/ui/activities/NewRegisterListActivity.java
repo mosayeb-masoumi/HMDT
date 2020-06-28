@@ -552,6 +552,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
                         gpsDialog();
                     }
                 }
+                break;
 
             case 25:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -563,6 +564,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
                     overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
                 }
+                break;
 
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

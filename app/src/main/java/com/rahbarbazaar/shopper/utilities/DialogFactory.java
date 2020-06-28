@@ -1030,6 +1030,9 @@ public class DialogFactory {
         Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
 
+        SearchView searchView = customLayout.findViewById(R.id.search_view);
+        searchView.setVisibility(View.GONE);
+
         if(spn_name.equals("online")){
             txt_header.setText("لیست فروشگاههای آنلاین");
         }else if(spn_name.equals("present")){
