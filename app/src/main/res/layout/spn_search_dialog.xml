@@ -37,7 +37,7 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#000"
+        android:background="#d1d3d4"
         app:searchIcon="@drawable/ic_search"/>
 
 

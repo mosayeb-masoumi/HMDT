@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
@@ -983,6 +984,7 @@ public class DialogFactory {
 
 
 
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -1184,9 +1186,13 @@ public class DialogFactory {
 //                        + context.getResources().getString(R.string.insert_papasi_hint)
 //                        + "</small>"));
 
-        edt_description.setTextSize(20);
-        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER);
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), "BYekan.ttf");
+        edt_description.setTypeface(tf);
 
+
+        edt_description.setTextSize(17);
+        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER);
+        edt_description.setHint(context.getResources().getString(R.string.insert_papasi_hint));
 
         btn_register.setText(context.getResources().getString(R.string.register));
 

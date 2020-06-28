@@ -37,13 +37,12 @@
 
 
     <EditText
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/edt_description"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:textColor="@color/blue_dark"
-        android:hint="@string/insert_papasi_hint"/>
+        android:textColor="@color/blue_dark" />
 
     <RelativeLayout
         android:layout_width="match_parent"
