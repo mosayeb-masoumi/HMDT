@@ -60,7 +60,7 @@
     <string name="tryagain">تلاش مجدد</string>
     <string name="powered_by">Powered By</string>
     <string name="powered_by2">توسعه داده شده توسط شرکت راهبر بازار</string>
-    <string name="familymember">اعضای خانواده همراه</string>
+    <string name="familymember">همراه کننده/کنندگان در خرید</string>
     <string name="prize_selection">انتخاب جوایز فروشگاه</string>
     <string name="goods_selection">انتخاب جوایز کالا</string>
     <string name="no_register_shop">هنوز خریدی ثبت نکرده اید</string>
@@ -186,11 +186,11 @@
         می توانید ارقام آن را در بخش بارکد بنویسید. نهایتا "دکمه ثبت بارکد" را لمس کنید.</string>
     <string name="direct_registerarion">ثبت مستقیم</string>
     <string name="edu">آموزش و اصطلاحات</string>
-    <string name="take_photo">انتخاب یا گرفتن عکس</string>
-    <string name="taking_clear_photo">لطفا از فاکتور خرید خود بصورت خوانا عکس بگیرید.</string>
+    <string name="take_photo">گرفتن عکس از فاکتور</string>
+    <string name="taking_clear_photo">برای فاکتورهای بزرگ و طولانی لطفا طوری عکس بگیرید که حتما قسمت ابتدایی آن در یکی از عکسها و قسمت انتهایی آن در عکس دیگر کاملا واضح باشد.</string>
     <string name="factor_image">عکس فاکتور خرید</string>
     <string name="consumers">مصرف کنندگان</string>
-    <string name="orderer">سفارش دهنده</string>
+    <string name="orderer">سفارش دهنده/ خریدار</string>
     <string name="no_product">کالایی با این بارکد یافت نشد. لطفا مشخصات کالا و محصول را درج نمایید.</string>
     <string name="goods_amount">تعداد کالا</string>
     <string name="goods_price">قیمت کالا</string>

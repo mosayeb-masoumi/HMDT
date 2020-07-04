@@ -52,9 +52,9 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     DashboardCreateData dashboardCreateData;
     Disposable disposable = new CompositeDisposable();
     RecyclerView rv_transaction;
-    TextView txt_no_transaction, txt_btnpapasi, txt_btntoman ,txt_papasi_transaction,txt_toman_transaction;
+    TextView txt_no_transaction, txt_btnpapasi, txt_btntoman, txt_papasi_transaction, txt_toman_transaction;
     AVLoadingIndicatorView avi;
-    LinearLayout rl_root ,ll_convert_papasi_to_rial ;
+    LinearLayout rl_root, ll_convert_papasi_to_rial;
     int page = 0;
     Boolean isScrolling = false;
     int totalPage = 0;
@@ -68,7 +68,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
     SwipeRefreshLayout swipeRefresh;
     //    boolean swipe = false;
     ImageView img_line;
-//    String type = "amount";
+    //    String type = "amount";
     String type = "wallet";
 
 
@@ -102,7 +102,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
         initView(view);
 
         transactions = new ArrayList<>();
-        if (transactionData.data==null || transactionData.data.size() == 0) {
+        if (transactionData.data == null || transactionData.data.size() == 0) {
             txt_no_transaction.setVisibility(View.VISIBLE);
         } else {
             txt_no_transaction.setVisibility(View.GONE);
@@ -159,7 +159,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 //                    swipe=false;
                     setRecyclerView(transactionData, type, response.code());
 
-                    if(page==0 && type.equals("wallet")){  // to show the latest amount list0
+                    if (page == 0 && type.equals("wallet")) {  // to show the latest amount list0
                         RxBus.TransactionAmountList0.publishTransactionAmountList0(response.body());
                     }
 
@@ -288,9 +288,28 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
                 String strToman = params[0];
                 String strPapasi = params[1];
+                String msg = params[2];
 
                 txt_toman_transaction.setText(strToman);
                 txt_papasi_transaction.setText(strPapasi);
+
+                if (msg != null && !msg.equals("")) {
+
+                    com.rahbarbazaar.shopper.utilities.Toast toast = new com.rahbarbazaar.shopper.utilities.Toast(getActivity(),msg);
+
+//                    LayoutInflater inflater = getLayoutInflater();
+//                    View layout = inflater.inflate(R.layout.toast, getActivity().findViewById(R.id.toast_layout_root));
+//
+//                    TextView text = layout.findViewById(R.id.txt_toast);
+//                    text.setText(msg);
+//
+//                    Toast toast = new Toast(getContext());
+////                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+//                    toast.setDuration(Toast.LENGTH_LONG);
+//                    toast.setView(layout);
+//                    toast.show();
+                }
+
             }
 
             @Override
@@ -362,7 +381,7 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshAuctions(DashboardCreateData dashboardCreateData){
+    public void onRefreshAuctions(DashboardCreateData dashboardCreateData) {
         Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
     }
 

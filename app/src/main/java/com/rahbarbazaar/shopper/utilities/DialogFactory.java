@@ -2,6 +2,7 @@ package com.rahbarbazaar.shopper.utilities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -1077,7 +1078,7 @@ public class DialogFactory {
         btn_register.setText("ثبت");
 
         txt_header.setText(dialog_title);
-        edt_description.setHint(("لطفا عنوان ") + (dialog_title) + (" را بصورت کامل تایپ کنید"));
+        edt_description.setHint(("لطفا عنوان ") + (dialog_title)+ (" را بصورت کامل تایپ کنید"));
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1240,8 +1241,8 @@ public class DialogFactory {
                             }
                         }
 
-                        Toast.makeText(context, ""+builderAmount, Toast.LENGTH_SHORT).show();
-
+                        String msg = builderAmount.toString();
+                        listener.onAcceptButtonClicked("","",msg);
 
                     }else{
                         avi_convert_papasi.setVisibility(View.GONE);
@@ -1268,14 +1269,14 @@ public class DialogFactory {
                         @Override
                         public void onResponse(Call<DashboardCreateData> call, Response<DashboardCreateData> response) {
                             if(response.code() == 200){
-                                Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
 
                                 DashboardCreateData dashboardCreateData;
                                 dashboardCreateData = response.body();
                                 RxBus.DashboardModel.publishDashboardModel(dashboardCreateData);
 
-                                listener.onAcceptButtonClicked(dashboardCreateData.data.one , dashboardCreateData.data.two);
+                                listener.onAcceptButtonClicked(dashboardCreateData.data.one , dashboardCreateData.data.two,"");
                             }else {
                                 Toast.makeText(context, ""+context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                             }

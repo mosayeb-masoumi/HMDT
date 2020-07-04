@@ -245,13 +245,16 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
+                        android:id="@+id/img11"
                         android:padding="10dp"
                         android:src="@drawable/img_member" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/img11"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="5dp"
                         android:id="@+id/txt_btn_member"
                         android:text="@string/orderer"
                         android:textColor="@color/white"

@@ -24,6 +24,24 @@
             <!--android:background="@drawable/bg_btn_prize"-->
             <!--android:textColor="@color/white"-->
             <!--android:layout_weight="1.1"/>-->
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_btn_prize"
+            android:layout_weight="1.1">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.1"
+                android:text="@string/detail"
+                android:textSize="13sp"
+                android:id="@+id/btn_history_detail"
+                android:background="@drawable/bg_btn_prize"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="0dp"

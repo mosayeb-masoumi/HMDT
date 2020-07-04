@@ -249,10 +249,10 @@ public class NewRegisterActivity extends CustomBaseActivity
             String online_shopping = shoppingEditModel.data.shopping.online;
 
             if(online_shopping.equals("yes")){
-                txt_btn_member.setText("سفارش دهنده");
+                txt_btn_member.setText("سفارش دهنده/ خریدار");
                 spn_name="online";
             }else if(online_shopping.equals("no")){
-                txt_btn_member.setText("اعضای خانواده همراه");
+                txt_btn_member.setText("همراه کننده/کنندگان در خرید");
                 spn_name="present";
             }
 
@@ -386,6 +386,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             case R.id.btn_present_purchase:
                 spn_name = "present";
                 txt_btn_member.setText(getResources().getString(R.string.familymember));
+                txt_btn_member.setTextSize(13);
                 showShopListDialog(spn_name);
                 break;
 
@@ -393,6 +394,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                 spn_name = "online";
                 showShopListDialog(spn_name);
                 txt_btn_member.setText(getResources().getString(R.string.orderer));
+                txt_btn_member.setTextSize(14);
                 break;
 
             case R.id.img_delete_shop_item:
@@ -627,16 +629,31 @@ public class NewRegisterActivity extends CustomBaseActivity
             choose_pic();
         });
         rl_camera2.setOnClickListener(v -> {
-            status = 2;
-            choose_pic();
+            if(bm1 == null){
+                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
+            }else {
+                status = 2;
+                choose_pic();
+            }
+
         });
         rl_camera3.setOnClickListener(v -> {
-            status = 3;
-            choose_pic();
+            if(bm1 == null || bm2== null){
+                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
+            }else{
+                status = 3;
+                choose_pic();
+            }
+
         });
         rl_camera4.setOnClickListener(v -> {
-            status = 4;
-            choose_pic();
+            if(bm1 == null || bm2== null || bm3 == null){
+                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
+            }else{
+                status = 4;
+                choose_pic();
+            }
+
         });
 
         img_delete1.setOnClickListener(v -> {
