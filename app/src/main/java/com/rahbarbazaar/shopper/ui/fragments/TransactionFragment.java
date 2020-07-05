@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +20,13 @@ import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.shopper.controllers.adapters.TransactionAdapter;
 import com.rahbarbazaar.shopper.controllers.interfaces.TransactionItemInteraction;
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData;
-import com.rahbarbazaar.shopper.models.dashboard.dashboard_home.HomeData;
-import com.rahbarbazaar.shopper.models.history.HistoryData;
 import com.rahbarbazaar.shopper.models.transaction.Transaction;
 import com.rahbarbazaar.shopper.models.transaction.TransactionData;
 import com.rahbarbazaar.shopper.network.Service;
 import com.rahbarbazaar.shopper.network.ServiceProvider;
 import com.rahbarbazaar.shopper.utilities.DialogFactory;
 import com.rahbarbazaar.shopper.utilities.RxBus;
+import com.rahbarbazaar.shopper.utilities.ShowToast;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -286,28 +284,14 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
             @Override
             public void onAcceptButtonClicked(String... params) {
 
-                String strToman = params[0];
-                String strPapasi = params[1];
                 String msg = params[2];
-
-                txt_toman_transaction.setText(strToman);
-                txt_papasi_transaction.setText(strPapasi);
-
-                if (msg != null && !msg.equals("")) {
-
-                    com.rahbarbazaar.shopper.utilities.Toast toast = new com.rahbarbazaar.shopper.utilities.Toast(getActivity(),msg);
-
-//                    LayoutInflater inflater = getLayoutInflater();
-//                    View layout = inflater.inflate(R.layout.toast, getActivity().findViewById(R.id.toast_layout_root));
-//
-//                    TextView text = layout.findViewById(R.id.txt_toast);
-//                    text.setText(msg);
-//
-//                    Toast toast = new Toast(getContext());
-////                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-//                    toast.setDuration(Toast.LENGTH_LONG);
-//                    toast.setView(layout);
-//                    toast.show();
+                if (msg.equals("")) {
+                    String strToman = params[0];
+                    String strPapasi = params[1];
+                    txt_toman_transaction.setText(strToman);
+                    txt_papasi_transaction.setText(strPapasi);
+                } else if (!msg.equals("")) {
+                   new ShowToast(getActivity(), msg);
                 }
 
             }
