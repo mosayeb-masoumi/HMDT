@@ -161,6 +161,6 @@ public interface Service {
     Call<SpinnersModel> getSpinnersData(@Query("category_id") String category_id);
 
     @POST("Wallet/Convertcredittowallet")
-    Call<Void> covertPapasi(@Query("amount") int amount);
+    Call<Void> covertPapasi(@Query("amount") long amount);
 
 }

@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 
 import android.text.Html;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -1211,12 +1212,20 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> dialog.dismiss());
 
-        btn_register.setOnClickListener(view1 -> {
 
+        // to limit characters
+            edt_description.setFilters(new InputFilter[] {
+                    new InputFilter.LengthFilter(15)
+            });
+
+        btn_register.setOnClickListener(view1 -> {
 
             avi_convert_papasi.setVisibility(View.VISIBLE);
             btn_register.setVisibility(View.GONE);
-            int papasi = Integer.parseInt(edt_description.getText().toString());
+            String digits = (edt_description.getText().toString());
+
+
+            long papasi = Long.parseLong(digits);
 
             Service service = new ServiceProvider(context).getmService();
             Call<Void> call = service.covertPapasi(papasi);
