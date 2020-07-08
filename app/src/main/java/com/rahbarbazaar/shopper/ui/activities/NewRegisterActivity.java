@@ -533,6 +533,15 @@ public class NewRegisterActivity extends CustomBaseActivity
         RelativeLayout rl_camera4 = dialog.findViewById(R.id.rl_camera4);
         Button btn_close = dialog.findViewById(R.id.btn_close_photo_dialog);
 
+        TextView txt_number_one = dialog.findViewById(R.id.txt_number_one);
+        TextView txt_number_two = dialog.findViewById(R.id.txt_number_two);
+        TextView txt_number_three = dialog.findViewById(R.id.txt_number_three);
+        TextView txt_number_four = dialog.findViewById(R.id.txt_number_four);
+        txt_number_one.setText(ConvertEnDigitToFa.convert("1"));
+        txt_number_two.setText(ConvertEnDigitToFa.convert("2"));
+        txt_number_three.setText(ConvertEnDigitToFa.convert("3"));
+        txt_number_four.setText(ConvertEnDigitToFa.convert("4"));
+
         ImageView img_close = dialog.findViewById(R.id.img_close);
 
         img_delete1 = dialog.findViewById(R.id.img_delete1);
