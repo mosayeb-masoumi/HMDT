@@ -5,13 +5,11 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.view.ViewTreeObserver.OnScrollChangedListener
+import android.widget.Toast
 import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.shopper.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.shopper.utilities.Cache
@@ -52,36 +50,53 @@ class AgreementActivity : CustomBaseActivity() {
         }
 
         //config web view setting for support multi action and java scripts
-        webview_agreement.settings.javaScriptEnabled = true
-        webview_agreement.settings.domStorageEnabled = true
-        webview_agreement.settings.databaseEnabled = true
-        webview_agreement.settings.allowFileAccess = true
-        webview_agreement.settings.allowContentAccess = true
-        webview_agreement.webChromeClient = WebChromeClient()
-        webview_agreement.settings.allowFileAccessFromFileURLs = true
-        webview_agreement.settings.allowUniversalAccessFromFileURLs = true
-        webview_agreement.settings.minimumFontSize = 1
-        webview_agreement.settings.minimumLogicalFontSize = 1
-        webview_agreement.isClickable = true
-        webview_agreement.clearCache(true)
+//        webview_agreement.settings.javaScriptEnabled = true
+//        webview_agreement.settings.domStorageEnabled = true
+//        webview_agreement.settings.databaseEnabled = true
+//        webview_agreement.settings.allowFileAccess = true
+//        webview_agreement.settings.allowContentAccess = true
+//        webview_agreement.webChromeClient = WebChromeClient()
+//        webview_agreement.settings.allowFileAccessFromFileURLs = true
+//        webview_agreement.settings.allowUniversalAccessFromFileURLs = true
+//        webview_agreement.settings.minimumFontSize = 1
+//        webview_agreement.settings.minimumLogicalFontSize = 1
+//        webview_agreement.isClickable = true
+//        webview_agreement.clearCache(true)
+//
+//        webview_agreement.loadUrl(dashboardCreateData.data.agreementPage)
+//        webview_agreement.setBackgroundColor(Color.TRANSPARENT)
+//
+//        webview_agreement.webViewClient = object : WebViewClient() {
+//
+//            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//                view.loadUrl(url)
+//                return false
+//            }
+//
+//            override fun onPageFinished(view: WebView, url: String) {
+//                super.onPageFinished(view, url)
+//                av_loading.smoothToHide()
+//                llcheckbox.visibility = View.VISIBLE
+//
+//            }
+//        }
 
-        webview_agreement.loadUrl(dashboardCreateData.data.agreementPage)
-        webview_agreement.setBackgroundColor(Color.TRANSPARENT)
 
-        webview_agreement.webViewClient = object : WebViewClient() {
+        // to detect the end of scroll
+        scroll_view.viewTreeObserver.addOnScrollChangedListener {
+            if (scroll_view != null) {
+                if (scroll_view.getChildAt(0).bottom <= scroll_view.height + scroll_view.scrollY) { //scroll view is at bottom
 
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return false
-            }
+                    llcheckbox.visibility = View.VISIBLE
 
-            override fun onPageFinished(view: WebView, url: String) {
-                super.onPageFinished(view, url)
-                av_loading.smoothToHide()
-                llcheckbox.visibility = View.VISIBLE
-
+                } else { //scroll view is not at bottom
+                }
             }
         }
+
+
+
+
 
         rl_login_dialog.setOnClickListener {
             if (checkbox_agreement.isChecked) {
