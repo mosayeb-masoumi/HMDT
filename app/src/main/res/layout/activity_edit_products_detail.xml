@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".ui.fragments.HistoryFragment">
+    tools:context="com.rahbarbazaar.homadit.android.ui.fragments.HistoryFragment">
 
     <RelativeLayout
         android:id="@+id/rl_header"

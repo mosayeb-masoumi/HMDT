@@ -21,12 +21,14 @@ android {
     compileSdkVersion 28
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.rahbarbazaar.shopper"
+        applicationId "com.rahbarbazaar.homadit.android"
         minSdkVersion 18
         targetSdkVersion 28
         versionCode 11
         versionName "2.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

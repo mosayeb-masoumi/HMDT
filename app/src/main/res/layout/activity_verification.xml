@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#C5BFBF"
-    tools:context=".ui.activities.VerificationActivity">
+    tools:context="com.rahbarbazaar.homadit.android.ui.activities.VerificationActivity">
 
     <ImageView
         android:layout_width="match_parent"

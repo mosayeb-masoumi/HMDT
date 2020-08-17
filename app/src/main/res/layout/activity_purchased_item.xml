@@ -5,7 +5,7 @@
     android:id="@+id/root_purchased_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.PurchasedItemActivity">
+    tools:context="com.rahbarbazaar.homadit.android.ui.activities.PurchasedItemActivity">
 
 
     <RelativeLayout

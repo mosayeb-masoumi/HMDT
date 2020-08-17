@@ -216,6 +216,39 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/linear_lottary_drawer"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:orientation="horizontal">
+
+
+                        <RelativeLayout
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:padding="6dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/lottary_icon" />
+                        </RelativeLayout>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/lottary"
+                            android:textColor="@color/white_gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:id="@+id/linear_invite_friend"
                         android:layout_width="match_parent"
                         android:layout_height="37dp"

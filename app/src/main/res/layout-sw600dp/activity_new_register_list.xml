@@ -5,7 +5,7 @@
     android:id="@+id/root_new_register_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.HistoryFragment">
+    tools:context="com.rahbarbazaar.homadit.android.ui.fragments.HistoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

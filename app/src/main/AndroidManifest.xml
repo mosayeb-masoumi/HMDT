@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.rahbarbazaar.shopper">
+    package="com.rahbarbazaar.homadit.android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.NewRegisterListActivity"></activity>
+        <activity android:name=".ui.activities.LottaryActivity"/>
+        <activity android:name=".ui.activities.NewRegisterListActivity" />
         <activity android:name=".ui.activities.PurchasedItemActivity" />
         <activity android:name=".ui.activities.QRcodeActivity" />
         <activity android:name=".ui.activities.NewRegisterActivity" />
@@ -52,8 +53,7 @@
             android:value="dee676583f984e8a93425ffcb3ac20bb0a0b2c34" />
         <meta-data
             android:name="com.pushpole.sdk.token"
-            android:value="PUSHPOLE_484793000302" />
-
+            android:value="PUSHPOLE_585671720122" /> <!-- former       android:value="PUSHPOLE_484793000302" -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
