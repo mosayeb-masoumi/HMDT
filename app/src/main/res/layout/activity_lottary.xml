@@ -99,6 +99,7 @@
                             <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
+                                android:id="@+id/rl_condition"
                                 android:layout_weight="1">
 
                                 <ImageView
@@ -158,6 +159,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_margin="3dp"
                                 android:layout_weight="1"
+                                android:id="@+id/rl_takepart"
                                 android:background="@drawable/bg_lottery_btn">
 
                                 <TextView
@@ -212,7 +214,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_weight="2.1">
 
 
             <ImageView
@@ -221,7 +223,7 @@
                 android:layout_above="@+id/rl_bottom_lottary"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/lorrety_device_icon" />
+                android:src="@drawable/bg_lottary_device_icon" />
 
 
             <RelativeLayout

@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.text.format.Formatter
 import android.view.View
 import android.widget.Toast
@@ -21,6 +22,7 @@ import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
 import com.rahbarbazaar.homadit.android.network.ServiceProvider
 import com.rahbarbazaar.homadit.android.utilities.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -189,8 +191,21 @@ class SplashActivity : CustomBaseActivity() {
                     // send zero item
                     var transactionAmountList0 = TransactionData()
                     RxBus.TransactionAmountList0.publishTransactionAmountList0(transactionAmountList0)
-                }else{
-                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }else if (response.code() == 422){
+                    val apiError = ErrorUtils.parseError422(response)
+                    if (apiError.errors.type != null) {
+
+                        var builderMobile = StringBuilder()
+                        for (a in apiError.errors.type) {
+                            builderMobile.append("$a ")
+                        }
+                        Toast.makeText(this@SplashActivity, "" + builderMobile, Toast.LENGTH_LONG).show()
+
+                    }
+
+                    }else{
+                        Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+
                 }
             }
 

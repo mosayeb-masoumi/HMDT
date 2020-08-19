@@ -23,7 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.LottaryActivity"/>
+        <activity android:name=".ui.activities.LottaryWinnersActivity"></activity>
+        <activity android:name=".ui.activities.LottaryConditionActivity" />
+        <activity android:name=".ui.activities.LottaryActivity" />
         <activity android:name=".ui.activities.NewRegisterListActivity" />
         <activity android:name=".ui.activities.PurchasedItemActivity" />
         <activity android:name=".ui.activities.QRcodeActivity" />
