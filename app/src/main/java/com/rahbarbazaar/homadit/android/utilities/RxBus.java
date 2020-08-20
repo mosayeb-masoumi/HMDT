@@ -118,6 +118,17 @@ public final class RxBus {
         }
     }
 
+    public static class Lottary {
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+        public static Disposable subscribeLottary(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+        public static void publishLottary(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
+
 //    public static class ActiveList0 {
 //        private static final BehaviorSubject<Object> behaviorSubject
 //                = BehaviorSubject.create();

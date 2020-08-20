@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lottary_condition_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.LottaryConditionActivity">
@@ -81,6 +82,7 @@
                     <com.codesgood.views.JustifiedTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/txt_condition"
                         android:layout_marginTop="5dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginBottom="5dp"
@@ -159,37 +161,15 @@
                     android:orientation="vertical"
                     android:layout_weight="2.5">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="5dp"
-                        android:textColor="@color/blue_dark"
-                        android:textSize="13sp"
-                        android:text="3 جایزه 8 میلیوم تومانی"/>
 
-                    <TextView
+                    <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="5dp"
-                        android:textSize="13sp"
-                        android:textColor="@color/blue_dark"
-                        android:text="1 ربع سکه طلا"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="5dp"
-                        android:textColor="@color/blue_dark"
-                        android:textSize="13sp"
-                        android:text="1 سکه تمام بهار"/>
+                        android:layout_height="match_parent"
+                        android:scrollbarSize="2dp"
+                        android:fadeScrollbars="false"
+                        android:scrollbarThumbVertical="@color/pink"
+                        android:scrollbars="vertical"
+                        android:id="@+id/rl_prize_condition"/>
 
                 </LinearLayout>
 
@@ -246,6 +226,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="10dp"
+                                android:id="@+id/txt_finish_date"
                                 android:textColor="@color/blue_dark"
                                 android:textSize="12sp"
                                 android:text="پایان ثبت نام : 10 آبان 99"/>
@@ -261,6 +242,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
+                                android:id="@+id/txt_start_date"
                                 android:layout_marginEnd="10dp"
                                 android:textColor="@color/blue_dark"
                                 android:textSize="12sp"
@@ -292,6 +274,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="10dp"
+                                android:id="@+id/txt_lottary_minimum"
                                 android:textColor="@color/blue_dark"
                                 android:textSize="12sp"
                                 android:text="کف مشارکت : 100 پاپاسی"/>
@@ -308,6 +291,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="10dp"
+                                android:id="@+id/txt_lottary_date"
                                 android:textColor="@color/blue_dark"
                                 android:textSize="12sp"
                                 android:text="تاریخ قرعه کشی : 10 آبان"/>
@@ -326,21 +310,16 @@
             android:layout_height="0dp"
             android:layout_weight="1.7">
 
-            <android.support.v7.widget.CardView
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                app:cardCornerRadius="20dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/blue_dark"
-                    android:gravity="center"
-                    android:text="لینک پخش انلاین قرعه کشی"
-                    android:textColor="@color/white" />
-
-            </android.support.v7.widget.CardView>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:scrollbarSize="2dp"
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@color/pink"
+                android:scrollbars="vertical"
+                android:id="@+id/rl_link_condition"/>
 
         </RelativeLayout>
 
@@ -409,7 +388,7 @@
 <!--        </RelativeLayout>-->
 
         <LinearLayout
-            android:id="@+id/linear_return_lottary"
+            android:id="@+id/linear_return_lottary_condition"
             android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"

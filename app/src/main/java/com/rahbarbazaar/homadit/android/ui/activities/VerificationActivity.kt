@@ -38,6 +38,7 @@ import retrofit2.Response
 import com.pushpole.sdk.PushPole
 import com.rahbarbazaar.homadit.android.BuildConfig
 import com.rahbarbazaar.homadit.android.R
+import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
 
 import com.rahbarbazaar.homadit.android.models.history.HistoryData
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
@@ -359,9 +360,10 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         call.enqueue(object : Callback<DashboardHistory> {
             override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
                 if (response.code() == 200) {
-                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    finish()
+//                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//                    finish()
+                    getLottary()
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
                 }
@@ -371,6 +373,38 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                 Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+
+    private fun getLottary(){
+
+        val service = ServiceProvider(this).getmService()
+        val call = service.lottaryMain
+        call.enqueue(object : Callback<LottaryModel> {
+
+            override fun onResponse(call: Call<LottaryModel>, response: Response<LottaryModel>) {
+
+                if (response.code() == 200) {
+
+                    var lottary = LottaryModel()
+                    lottary = response.body()!!
+
+                    RxBus.Lottary.publishLottary(lottary)
+
+                    startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    this@VerificationActivity.finish()
+
+                } else {
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LottaryModel>, t: Throwable) {
+                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 
     private fun recodeRequest() {

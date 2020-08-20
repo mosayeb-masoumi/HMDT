@@ -1,6 +1,7 @@
 package com.rahbarbazaar.homadit.android.network;
 
 
+import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
 import com.rahbarbazaar.homadit.android.models.activelist.ActiveListData;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData;
@@ -158,5 +159,11 @@ public interface Service {
 
     @POST("Wallet/Convertcredittowallet")
     Call<Void> covertPapasi(@Query("amount") long amount);
+
+
+
+    @GET("Lottery/Main")
+    Call<LottaryModel> getLottaryMain();
+
 
 }

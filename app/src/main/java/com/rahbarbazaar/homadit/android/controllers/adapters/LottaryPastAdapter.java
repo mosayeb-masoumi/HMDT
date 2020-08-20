@@ -10,16 +10,17 @@ import android.view.ViewGroup;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
 import com.rahbarbazaar.homadit.android.controllers.viewholders.LotteryPastViewHolder;
+import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottaryPastAdapter extends RecyclerView.Adapter<LotteryPastViewHolder> {
 
-    List<String> list = new ArrayList<>();
+    List<OldMeDetail> list = new ArrayList<>();
     Context context;
 
-    public LottaryPastAdapter(List<String> list, Context context) {
+    public LottaryPastAdapter(List<OldMeDetail> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,7 +34,7 @@ public class LottaryPastAdapter extends RecyclerView.Adapter<LotteryPastViewHold
 
     @Override
     public void onBindViewHolder(@NonNull LotteryPastViewHolder holder, int position) {
-        String model = list.get(position);
+        OldMeDetail model = list.get(position);
         holder.bindData(model);
         holder.setOnLotteryPastHolderListener(listener,model ,position);
 

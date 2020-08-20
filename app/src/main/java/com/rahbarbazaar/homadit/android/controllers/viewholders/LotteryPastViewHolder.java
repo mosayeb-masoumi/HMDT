@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
+import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
 
 public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,12 +22,18 @@ public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
         txt_score = itemView.findViewById(R.id.txt_score_past_lottery_row);
     }
 
-    public void bindData(String model) {
+    public void bindData(OldMeDetail model) {
 
+        txt_date.setText( "قرعه کشی " +model.title);
+        txt_score.setText( "امتیاز :"+model.amount);
+        if (model.winner.equals("بله")){
+            txt_date.setTextColor(itemView.getResources().getColor(R.color.green));
+            txt_score.setTextColor(itemView.getResources().getColor(R.color.green));
+        }
 
     }
 
-    public void setOnLotteryPastHolderListener(LottaryPastItemInteraction listener, String model, int position) {
+    public void setOnLotteryPastHolderListener(LottaryPastItemInteraction listener, OldMeDetail model, int position) {
 
         ll_root.setOnClickListener(new View.OnClickListener() {
             @Override

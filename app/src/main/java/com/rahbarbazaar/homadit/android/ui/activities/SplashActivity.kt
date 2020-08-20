@@ -5,12 +5,12 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.text.format.Formatter
 import android.view.View
 import android.widget.Toast
 import com.rahbarbazaar.homadit.android.BuildConfig
 import com.rahbarbazaar.homadit.android.R
+import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
 //import com.rahbarbazaar.shopper.BuildConfig
 //import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils
@@ -22,7 +22,6 @@ import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
 import com.rahbarbazaar.homadit.android.network.ServiceProvider
 import com.rahbarbazaar.homadit.android.utilities.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -277,9 +276,11 @@ class SplashActivity : CustomBaseActivity() {
             override fun onResponse(call: Call<DashboardHistory>, response: Response<DashboardHistory>) {
 
                 if (response.code() == 200) {
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-                    this@SplashActivity.finish()
+//                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+//                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+//                    this@SplashActivity.finish()
+
+                    getLottary()
 
                 } else {
                     Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -291,6 +292,43 @@ class SplashActivity : CustomBaseActivity() {
             }
         })
     }
+
+
+    private fun getLottary(){
+
+        val service = ServiceProvider(this).getmService()
+        val call = service.lottaryMain
+        call.enqueue(object : Callback<LottaryModel> {
+
+            override fun onResponse(call: Call<LottaryModel>, response: Response<LottaryModel>) {
+
+                if (response.code() == 200) {
+
+                    var lottary = LottaryModel()
+                    lottary = response.body()!!
+
+                    RxBus.Lottary.publishLottary(lottary)
+
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+                    this@SplashActivity.finish()
+
+                } else {
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LottaryModel>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+    }
+
+
+
+
+
 
     private fun showError406Dialog(message: String?) {
 
