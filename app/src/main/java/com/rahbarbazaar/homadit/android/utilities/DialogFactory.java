@@ -1337,4 +1337,41 @@ public class DialogFactory {
 
         dialog.show();
     }
+
+
+
+    public void createLottaryDialog(DialogFactoryInteraction listener, RelativeLayout view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog3, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        EditText edt_description = customLayout.findViewById(R.id.edt_description);
+        Button btn_register = customLayout.findViewById(R.id.btn);
+
+
+        txt_header.setText("ثبت پاپاسی");
+        btn_register.setText("ثبت");
+        edt_description.setHint("مقدار پاپاسی مورد نظر را وارد کنید");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_register.setOnClickListener(view1 -> {
+            String description = edt_description.getText().toString();
+            listener.onAcceptButtonClicked(description);
+            dialog.dismiss();
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
+
+        dialog.show();
+    }
+
 }

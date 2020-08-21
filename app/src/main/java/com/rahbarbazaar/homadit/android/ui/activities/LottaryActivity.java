@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,15 +19,24 @@ import com.rahbarbazaar.homadit.android.controllers.adapters.LottaryPastAdapter;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
+import com.rahbarbazaar.homadit.android.models.api_error.APIError422;
+import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
+import com.rahbarbazaar.homadit.android.network.Service;
+import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
+import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LottaryActivity extends CustomBaseActivity implements LottaryPastItemInteraction , View.OnClickListener{
 
@@ -34,14 +44,17 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     LottaryPastAdapter adapter;
-    RelativeLayout rl_condition ,rl_takepart;
+    RelativeLayout rl_condition ,rl_takepart ,rl_cancel,lottary_root;
 
+    LinearLayout linear_return_lottary;
     BroadcastReceiver connectivityReceiver = null;
     Disposable disposable = new CompositeDisposable();
 
     LottaryModel lottaryModel;
 
-    TextView txt_title_active_lottary,txt_amount_active_lottary;
+    TextView txt_title_active_lottary,txt_amount_active_lottary ,txt_current,txt_max ,txt_cancel,txt_takepart ,txt_no_pastlist;
+    AVLoadingIndicatorView avi_takepart,avi_cancel;
+    DialogFactory dialogFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +62,9 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         setContentView(R.layout.activity_lottary);
 
         initView();
+
+        //initial Dialog factory
+        dialogFactory = new DialogFactory(LottaryActivity.this);
 
 
         // to check internet connection
@@ -70,33 +86,32 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         });
 
 
-        txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
-        txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum+" "+"پاپاسی");
+        setTexts();
+
         setPastLottaryList();
 
     }
 
-    private void setPastLottaryList() {
-//
-//        List<String> list = new ArrayList<>();
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
-//        list.add("khkjhjhjkh");
+    private void setTexts() {
+        txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
+        txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum+" "+"پاپاسی");
+        txt_max.setText("حداکثر مشارکت : "+lottaryModel.data.active.data.get(0).maximum+" "+"پاپاسی");
+        txt_current.setText("موجودی : "+lottaryModel.data.active.data.get(0).current+" "+"پاپاسی");
+    }
 
+    private void setPastLottaryList() {
 
         List<OldMeDetail> oldLottaryList = lottaryModel.data.oldMe.data;
-        linearLayoutManager = new LinearLayoutManager(LottaryActivity.this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new LottaryPastAdapter(oldLottaryList, LottaryActivity.this);
-        adapter.setListener(this);
-        recyclerView.setAdapter(adapter);
-
+        if(oldLottaryList.size()==0){
+            txt_no_pastlist.setVisibility(View.VISIBLE);
+        }else{
+            txt_no_pastlist.setVisibility(View.GONE);
+            linearLayoutManager = new LinearLayoutManager(LottaryActivity.this);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            adapter = new LottaryPastAdapter(oldLottaryList, LottaryActivity.this);
+            adapter.setListener(this);
+            recyclerView.setAdapter(adapter);
+        }
     }
 
     private void initView() {
@@ -105,6 +120,17 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         rl_takepart =findViewById(R.id.rl_takepart);
         txt_title_active_lottary = findViewById(R.id.txt_title_active_lottary);
         txt_amount_active_lottary = findViewById(R.id.txt_amount_active_lottary);
+        txt_current = findViewById(R.id.txt_current);
+        txt_max = findViewById(R.id.txt_max);
+        rl_cancel =findViewById(R.id.rl_cancel);
+        avi_cancel = findViewById(R.id.avi_cancel_lottary);
+        avi_takepart = findViewById(R.id.avi_takepart);
+        txt_cancel = findViewById(R.id.txt_cancel_lottary);
+        txt_takepart = findViewById(R.id.txt_takepart);
+        txt_no_pastlist = findViewById(R.id.txt_no_pastlist);
+        linear_return_lottary = findViewById(R.id.linear_return_lottary);
+        linear_return_lottary.setOnClickListener(this);
+        rl_cancel.setOnClickListener(this);
         rl_takepart.setOnClickListener(this);
         rl_condition.setOnClickListener(this);
     }
@@ -125,10 +151,118 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                 break;
 
             case R.id.rl_takepart:
-                startActivity(new Intent(LottaryActivity.this,LottaryWinnersActivity.class));
+                takepartDialog();
                 break;
 
+            case R.id.rl_cancel:
+                cancelRequest();
+                break;
+
+            case R.id.linear_return_lottary:
+                startActivity(new Intent(LottaryActivity.this,MainActivity.class));
+                finish();
+                break;
         }
+    }
+
+
+
+    private void cancelRequest() {
+
+        avi_cancel.setVisibility(View.VISIBLE);
+        txt_cancel.setVisibility(View.GONE);
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<Boolean> call = service.cancelLottery(lottaryModel.data.active.data.get(0).lotteryId);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+
+                avi_cancel.setVisibility(View.GONE);
+                txt_cancel.setVisibility(View.VISIBLE);
+
+                if(response.code()==200){
+                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت لغو شد." , Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                avi_cancel.setVisibility(View.GONE);
+                txt_cancel.setVisibility(View.VISIBLE);
+                Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void takepartDialog() {
+
+        dialogFactory.createLottaryDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+
+                int amount = Integer.parseInt(strings[0]);
+                takepartRequest(amount);
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+
+            }
+        }, lottary_root);
+    }
+
+    private void takepartRequest(int amount) {
+
+        avi_takepart.setVisibility(View.VISIBLE);
+        txt_takepart.setVisibility(View.GONE);
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<Boolean> call = service.createLottery(lottaryModel.data.active.data.get(0).lotteryId ,amount);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                avi_takepart.setVisibility(View.GONE);
+                txt_takepart.setVisibility(View.VISIBLE);
+
+                if(response.code()==200){
+                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت ثبت شد." , Toast.LENGTH_SHORT).show();
+                }else if(response.code()==422){
+
+                    APIError422 apiError = ErrorUtils.parseError422(response);
+                     StringBuilder builderAmount = null;
+                    if (apiError.errors.amount != null) {
+                        builderAmount = new StringBuilder();
+                        for (String b : apiError.errors.amount) {
+                            builderAmount.append("").append(b).append(" ");
+                        }
+                    }
+                    if (builderAmount != null) {
+                        Toast.makeText(LottaryActivity.this, "" + builderAmount, Toast.LENGTH_SHORT).show();
+                    }
+
+                    int a = 5;
+
+                }else{
+                    Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                avi_takepart.setVisibility(View.GONE);
+                txt_takepart.setVisibility(View.VISIBLE);
+                Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 
 

@@ -165,5 +165,11 @@ public interface Service {
     @GET("Lottery/Main")
     Call<LottaryModel> getLottaryMain();
 
+    @POST("Lottery/Create")
+    Call<Boolean> createLottery(@Query("lottery_id") String lottery_id,
+                                @Query("amount") Integer amount);
+
+    @POST("Lottery/Delete")
+    Call<Boolean> cancelLottery(@Query("lottery_id") String lottery_id);
 
 }

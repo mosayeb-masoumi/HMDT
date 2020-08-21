@@ -37,7 +37,7 @@
             android:layout_weight="1">
 
             <ImageView
-                android:id="@+id/img12"
+                android:id="@+id/img_info_lottary"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentEnd="true"
@@ -51,7 +51,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/txt_date_past_lottery_row"
-                android:layout_toStartOf="@+id/img12"
+                android:layout_toStartOf="@+id/img_info"
                 android:text="قرعه کشی آذر 98"
                 android:textColor="#025cd4"
                 android:textSize="12dp" />

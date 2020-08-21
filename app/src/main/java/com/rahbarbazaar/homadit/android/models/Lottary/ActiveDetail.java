@@ -7,9 +7,49 @@ import java.util.List;
 
 public class ActiveDetail {
 
+//    @SerializedName("title")
+//    @Expose
+//    public String title;
+//    @SerializedName("start")
+//    @Expose
+//    public Integer start;
+//    @SerializedName("start_date")
+//    @Expose
+//    public String startDate;
+//    @SerializedName("end")
+//    @Expose
+//    public Integer end;
+//    @SerializedName("end_date")
+//    @Expose
+//    public String endDate;
+//    @SerializedName("event")
+//    @Expose
+//    public Integer event;
+//    @SerializedName("event_date")
+//    @Expose
+//    public String eventDate;
+//    @SerializedName("minimum")
+//    @Expose
+//    public String minimum;
+//    @SerializedName("description")
+//    @Expose
+//    public String description;
+//    @SerializedName("prize")
+//    @Expose
+//    public List<String> prize = null;
+
     @SerializedName("title")
     @Expose
     public String title;
+    @SerializedName("lottery_id")
+    @Expose
+    public String lotteryId;
+    @SerializedName("current")
+    @Expose
+    public Object current;
+    @SerializedName("maximum")
+    @Expose
+    public String maximum;
     @SerializedName("start")
     @Expose
     public Integer start;
@@ -37,4 +77,6 @@ public class ActiveDetail {
     @SerializedName("prize")
     @Expose
     public List<String> prize = null;
+
+
 }

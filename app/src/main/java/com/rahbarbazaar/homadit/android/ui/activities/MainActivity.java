@@ -518,6 +518,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 }
 
                 isPurchaseManagementLayoutClicked = !isPurchaseManagementLayoutClicked;
+
                 break;
 
             case R.id.linear_account_management:
@@ -588,13 +589,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
             case R.id.linear_faq:
-                drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.faqPage);
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
             case R.id.linear_edu:
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.education_page);
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
             case R.id.linear_report_issue:
@@ -640,6 +642,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             case R.id.linear_lottary_drawer:
                 startActivity(new Intent(MainActivity.this, LottaryActivity.class));
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
 
@@ -657,6 +660,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                     e.printStackTrace();
                 }
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
             case R.id.image_telegram:
@@ -672,6 +676,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                     e.printStackTrace();
                 }
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
         }
     }
