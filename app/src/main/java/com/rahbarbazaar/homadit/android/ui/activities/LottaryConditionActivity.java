@@ -86,11 +86,11 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
     }
 
     private void setPrizeList() {
-        List<String> prizeList = lottaryModel.data.active.data.get(0).prize;
-        linearLayoutManager = new LinearLayoutManager(LottaryConditionActivity.this);
-        rl_prize_condition.setLayoutManager(linearLayoutManager);
-        adapter = new LottaryPrizeAdapter(prizeList, LottaryConditionActivity.this);
-        rl_prize_condition.setAdapter(adapter);
+//        List<String> prizeList = lottaryModel.data.active.data.get(0).prize;
+//        linearLayoutManager = new LinearLayoutManager(LottaryConditionActivity.this);
+//        rl_prize_condition.setLayoutManager(linearLayoutManager);
+//        adapter = new LottaryPrizeAdapter(prizeList, LottaryConditionActivity.this);
+//        rl_prize_condition.setAdapter(adapter);
     }
 
     private void setLinkList() {

@@ -2,6 +2,7 @@ package com.rahbarbazaar.homadit.android.network;
 
 
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
+import com.rahbarbazaar.homadit.android.models.Lottary.old_detail.OldDetail;
 import com.rahbarbazaar.homadit.android.models.activelist.ActiveListData;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData;
@@ -171,5 +172,8 @@ public interface Service {
 
     @POST("Lottery/Delete")
     Call<Boolean> cancelLottery(@Query("lottery_id") String lottery_id);
+
+    @POST("Lottery/OldDetail")
+    Call<OldDetail> getOldDetail(@Query("lottery_id") String lottery_id);
 
 }

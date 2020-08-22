@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import com.google.gson.Gson;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
@@ -14,8 +14,10 @@ import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
 public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
 
     LinearLayout ll_root;
-    TextView txt_score,txt_date;
+    TextView txt_score, txt_date;
     ImageView img;
+
+    Gson gson = new Gson();
 
     public LotteryPastViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -27,24 +29,17 @@ public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(OldMeDetail model) {
 
-        txt_date.setText( "قرعه کشی " +model.title);
-        txt_score.setText( "امتیاز :"+model.amount);
+        txt_date.setText("قرعه کشی " + model.title);
+        txt_score.setText("امتیاز :" + model.amount);
         img.setBackground(itemView.getResources().getDrawable(R.drawable.info_blue));
-        if (model.winner.equals("بله")){
+        if (model.winner.equals("بله")) {
             img.setBackground(itemView.getResources().getDrawable(R.drawable.info_green));
             txt_date.setTextColor(itemView.getResources().getColor(R.color.green));
             txt_score.setTextColor(itemView.getResources().getColor(R.color.green));
         }
-
     }
 
     public void setOnLotteryPastHolderListener(LottaryPastItemInteraction listener, OldMeDetail model, int position) {
-
-        ll_root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listener.pastLottaryItemOnClicked(model ,position);
-            }
-        });
+        ll_root.setOnClickListener(view -> listener.pastLottaryItemOnClicked(model, position));
     }
 }

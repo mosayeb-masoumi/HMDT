@@ -7,6 +7,9 @@ public class OldMeDetail {
     @SerializedName("title")
     @Expose
     public String title;
+    @SerializedName("id")
+    @Expose
+    public String id;
     @SerializedName("amount")
     @Expose
     public String amount;

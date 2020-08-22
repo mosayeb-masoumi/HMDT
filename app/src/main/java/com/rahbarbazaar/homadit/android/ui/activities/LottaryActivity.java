@@ -14,11 +14,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.adapters.LottaryPastAdapter;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
+import com.rahbarbazaar.homadit.android.models.Lottary.ActiveLink;
+import com.rahbarbazaar.homadit.android.models.Lottary.ActiveLinkDetail;
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
+import com.rahbarbazaar.homadit.android.models.Lottary.OldMe;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
+import com.rahbarbazaar.homadit.android.models.Lottary.old_detail.OldDetail;
 import com.rahbarbazaar.homadit.android.models.api_error.APIError422;
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
 import com.rahbarbazaar.homadit.android.network.Service;
@@ -29,6 +35,7 @@ import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,14 +108,16 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     private void setPastLottaryList() {
 
-        List<OldMeDetail> oldLottaryList = lottaryModel.data.oldMe.data;
-        if(oldLottaryList.size()==0){
+        List<ActiveLinkDetail> list = lottaryModel.data.activeLink.data;
+        List<OldMeDetail> oldMeDetailList = lottaryModel.data.oldMe.data;
+
+        if(oldMeDetailList.size()==0){
             txt_no_pastlist.setVisibility(View.VISIBLE);
         }else{
             txt_no_pastlist.setVisibility(View.GONE);
             linearLayoutManager = new LinearLayoutManager(LottaryActivity.this);
             recyclerView.setLayoutManager(linearLayoutManager);
-            adapter = new LottaryPastAdapter(oldLottaryList, LottaryActivity.this);
+            adapter = new LottaryPastAdapter(oldMeDetailList, LottaryActivity.this);
             adapter.setListener(this);
             recyclerView.setAdapter(adapter);
         }
@@ -138,7 +147,26 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     @Override
     public void pastLottaryItemOnClicked(OldMeDetail model, int position) {
 
-        Toast.makeText(this, ""+position, Toast.LENGTH_SHORT).show();
+        Service service = new ServiceProvider(this).getmService();
+        Call<OldDetail> call = service.getOldDetail(model.id);
+        call.enqueue(new Callback<OldDetail>() {
+            @Override
+            public void onResponse(Call<OldDetail> call, Response<OldDetail> response) {
+
+                if(response.code()==200){
+                    OldDetail oldDetail = response.body();
+                }else{
+                    Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OldDetail> call, Throwable t) {
+
+                Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

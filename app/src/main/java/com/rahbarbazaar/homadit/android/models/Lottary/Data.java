@@ -13,6 +13,9 @@ public class Data {
     @SerializedName("active_link")
     @Expose
     public ActiveLink activeLink;
+    @SerializedName("active_prize")
+    @Expose
+    public ActivePrize activePrize;
     @SerializedName("old_me")
     @Expose
     public OldMe oldMe;

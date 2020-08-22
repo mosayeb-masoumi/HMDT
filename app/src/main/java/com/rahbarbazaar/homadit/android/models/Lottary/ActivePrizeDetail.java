@@ -3,11 +3,9 @@ package com.rahbarbazaar.homadit.android.models.Lottary;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class ActivePrizeDetail {
 
-public class OldMe {
-    @SerializedName("data")
+    @SerializedName("prize")
     @Expose
-    public List<OldMeDetail> data = null;
-
+    public String prize;
 }

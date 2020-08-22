@@ -176,7 +176,7 @@ class SplashActivity : CustomBaseActivity() {
 
     private fun getTransactionAmountList0() {
         val service = ServiceProvider(this).getmService()
-        val call = service.getTransactionList(0, "wallet")
+        val call = service.getTransactionList(0, "credit")
         call.enqueue(object : Callback<TransactionData> {
 
             override fun onResponse(call: Call<TransactionData>, response: Response<TransactionData>) {

@@ -1,40 +1,19 @@
-package com.rahbarbazaar.homadit.android.models.Lottary;
+package com.rahbarbazaar.homadit.android.models.Lottary.old_detail;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class ActiveDetail {
-
+public class Detail {
 
     @SerializedName("title")
     @Expose
     public String title;
-    @SerializedName("lottery_id")
-    @Expose
-    public String lotteryId;
-    @SerializedName("current")
-    @Expose
-    public String current;
-    @SerializedName("maximum")
-    @Expose
-    public String maximum;
-    @SerializedName("start")
-    @Expose
-    public Integer start;
     @SerializedName("start_date")
     @Expose
     public String startDate;
-    @SerializedName("end")
-    @Expose
-    public Integer end;
     @SerializedName("end_date")
     @Expose
     public String endDate;
-    @SerializedName("event")
-    @Expose
-    public Integer event;
     @SerializedName("event_date")
     @Expose
     public String eventDate;
@@ -44,5 +23,4 @@ public class ActiveDetail {
     @SerializedName("description")
     @Expose
     public String description;
-
 }
