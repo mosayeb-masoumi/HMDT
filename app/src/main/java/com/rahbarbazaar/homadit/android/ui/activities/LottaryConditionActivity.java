@@ -1,5 +1,6 @@
 package com.rahbarbazaar.homadit.android.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +19,14 @@ import com.rahbarbazaar.homadit.android.controllers.adapters.LottaryLinkAdapter;
 import com.rahbarbazaar.homadit.android.controllers.adapters.LottaryPrizeAdapter;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryLinkItemInteraction;
 import com.rahbarbazaar.homadit.android.models.Lottary.ActiveLinkDetail;
+import com.rahbarbazaar.homadit.android.models.Lottary.ActivePrize;
+import com.rahbarbazaar.homadit.android.models.Lottary.ActivePrizeDetail;
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -86,11 +90,16 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
     }
 
     private void setPrizeList() {
-//        List<String> prizeList = lottaryModel.data.active.data.get(0).prize;
-//        linearLayoutManager = new LinearLayoutManager(LottaryConditionActivity.this);
-//        rl_prize_condition.setLayoutManager(linearLayoutManager);
-//        adapter = new LottaryPrizeAdapter(prizeList, LottaryConditionActivity.this);
-//        rl_prize_condition.setAdapter(adapter);
+        List<ActivePrizeDetail> activePrizeDetailList = lottaryModel.data.activePrize.data;
+        List<String> prizeList = new ArrayList<>();
+        for (int i = 0; i <activePrizeDetailList.size(); i++) {
+            prizeList.add(activePrizeDetailList.get(i).prize);
+        }
+
+        linearLayoutManager = new LinearLayoutManager(LottaryConditionActivity.this);
+        rl_prize_condition.setLayoutManager(linearLayoutManager);
+        adapter = new LottaryPrizeAdapter(prizeList, LottaryConditionActivity.this);
+        rl_prize_condition.setAdapter(adapter);
     }
 
     private void setLinkList() {
@@ -103,6 +112,7 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
         rl_link_condition.setAdapter(linkAdapter);
     }
 
+    @SuppressLint("SetTextI18n")
     private void setTexts() {
 
         txt_condition.setText(lottaryModel.data.active.data.get(0).description);
@@ -110,7 +120,7 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
         txt_lottary_date.setText("تاریخ قرعه کشی : "+lottaryModel.data.active.data.get(0).eventDate);
         txt_start_date.setText("شروع ثبت نام : "+lottaryModel.data.active.data.get(0).startDate);
         txt_finish_date.setText("پایان ثبت نام : "+lottaryModel.data.active.data.get(0).endDate);
-        txt_lottary_minimum.setText("حداقل مشارکت : "+lottaryModel.data.active.data.get(0).minimum +" "+"پاپاسی");
+        txt_lottary_minimum.setText("حداقل مشارکت : "+lottaryModel.data.active.data.get(0).minimum );
     }
 
 

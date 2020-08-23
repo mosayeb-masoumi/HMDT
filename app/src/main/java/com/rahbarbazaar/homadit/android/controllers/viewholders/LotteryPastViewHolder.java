@@ -10,14 +10,15 @@ import com.google.gson.Gson;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
 
     LinearLayout ll_root;
     TextView txt_score, txt_date;
     ImageView img;
+    AVLoadingIndicatorView avi;
 
-    Gson gson = new Gson();
 
     public LotteryPastViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -25,6 +26,7 @@ public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
         txt_date = itemView.findViewById(R.id.txt_date_past_lottery_row);
         txt_score = itemView.findViewById(R.id.txt_score_past_lottery_row);
         img = itemView.findViewById(R.id.img_info_lottary);
+        avi = itemView.findViewById(R.id.avi_past_item);
     }
 
     public void bindData(OldMeDetail model) {
@@ -40,6 +42,6 @@ public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setOnLotteryPastHolderListener(LottaryPastItemInteraction listener, OldMeDetail model, int position) {
-        ll_root.setOnClickListener(view -> listener.pastLottaryItemOnClicked(model, position));
+        ll_root.setOnClickListener(view -> listener.pastLottaryItemOnClicked(model, position ,avi));
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_marginBottom="3dp"
     android:id="@+id/ll_root_past_lottary_item"
@@ -14,6 +15,24 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            tools:ignore="NestedWeights">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/avi_past_item"
+                android:layout_marginStart="5dp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                app:indicatorColor="@color/blue_dark"/>
+
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -51,7 +70,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:id="@+id/txt_date_past_lottery_row"
-                android:layout_toStartOf="@+id/img_info"
+                android:layout_toStartOf="@+id/img_info_lottary"
                 android:text="قرعه کشی آذر 98"
                 android:textColor="#025cd4"
                 android:textSize="12dp" />
