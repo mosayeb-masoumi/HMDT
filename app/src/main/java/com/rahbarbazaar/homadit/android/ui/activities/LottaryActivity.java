@@ -1,5 +1,6 @@
 package com.rahbarbazaar.homadit.android.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -93,9 +94,10 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void setTexts() {
         txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
-        txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum+" "+"پاپاسی");
+        txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum);
         txt_max.setText("حداکثر مشارکت : "+lottaryModel.data.active.data.get(0).maximum+" "+"پاپاسی");
         txt_current.setText("موجودی : "+lottaryModel.data.active.data.get(0).current+" "+"پاپاسی");
     }

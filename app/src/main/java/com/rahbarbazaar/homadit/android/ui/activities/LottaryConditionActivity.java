@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +59,6 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
         connectivityReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 tools.doCheckNetwork(LottaryConditionActivity.this, findViewById(R.id.lottary_condition_root));
             }
         };
@@ -116,7 +116,6 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
     private void setTexts() {
 
         txt_condition.setText(lottaryModel.data.active.data.get(0).description);
-//        txt_prize2.setText(lottaryModel.data.active.data.get(0).prize);
         txt_lottary_date.setText("تاریخ قرعه کشی : "+lottaryModel.data.active.data.get(0).eventDate);
         txt_start_date.setText("شروع ثبت نام : "+lottaryModel.data.active.data.get(0).startDate);
         txt_finish_date.setText("پایان ثبت نام : "+lottaryModel.data.active.data.get(0).endDate);
@@ -150,7 +149,6 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
 
     @Override
     public void pastLottaryItemOnClicked(ActiveLinkDetail model, int position) {
-
-        Toast.makeText(this, "click", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(model.link)));
     }
 }

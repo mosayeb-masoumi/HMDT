@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_lottary_winner"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.LottaryWinnersActivity">
@@ -15,7 +16,7 @@
         android:background="@drawable/bg_toolbar">
 
         <TextView
-            android:id="@+id/txt_title_purchased_item"
+            android:id="@+id/txt_header_winnerdetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -179,7 +180,7 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:layout_marginBottom="2dp"
-            android:layout_weight="0.8">
+            android:layout_weight="1">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -241,6 +242,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:orientation="vertical"
+            android:layout_weight="1.5">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_lottary_header_bluelight"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="لیست برندگان"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:scrollbarSize="2dp"
+                android:fadeScrollbars="false"
+                android:scrollbarThumbVertical="@color/pink"
+                android:scrollbars="vertical"
+                android:id="@+id/rv_past_winners"/>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -252,23 +286,7 @@
                 android:layout_height="match_parent"
                 android:scrollbarSize="2dp"
                 android:fadeScrollbars="false"
-                android:scrollbarThumbVertical="@color/pink"
-                android:scrollbars="vertical"
-                android:id="@+id/rv_past_winners"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="0.8">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbarSize="2dp"
-                android:fadeScrollbars="false"
+                android:layout_centerInParent="true"
                 android:scrollbarThumbVertical="@color/pink"
                 android:scrollbars="vertical"
                 android:id="@+id/rv_past_links"/>
@@ -315,7 +333,7 @@
 <!--        </RelativeLayout>-->
 
         <LinearLayout
-            android:id="@+id/linear_return_lottary"
+            android:id="@+id/linear_return_lottary_winner"
             android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
