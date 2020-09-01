@@ -40,14 +40,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LottaryActivity extends CustomBaseActivity implements LottaryPastItemInteraction , View.OnClickListener{
+public class LottaryActivity extends CustomBaseActivity implements LottaryPastItemInteraction, View.OnClickListener {
 
     GeneralTools tools;
     RecyclerView recyclerView;
-    LinearLayout ll_current_lottary , ll_no_current_lottary;
+    LinearLayout ll_current_lottary, ll_no_current_lottary, ll_header_info;
     LinearLayoutManager linearLayoutManager;
     LottaryPastAdapter adapter;
-    RelativeLayout rl_condition ,rl_takepart ,rl_cancel,lottary_root;
+    RelativeLayout rl_condition, rl_takepart, rl_cancel, lottary_root;
 
     LinearLayout linear_return_lottary;
     BroadcastReceiver connectivityReceiver = null;
@@ -55,9 +55,8 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     LottaryModel lottaryModel;
 
-    TextView txt_title_active_lottary,txt_amount_active_lottary
-            ,txt_current,txt_max ,txt_cancel,txt_takepart ,txt_no_pastlist ,txt_no_current_lottary;
-    AVLoadingIndicatorView avi_takepart,avi_cancel;
+    TextView txt_title_active_lottary, txt_amount_active_lottary, txt_current, txt_max, txt_cancel, txt_takepart, txt_no_pastlist, txt_no_current_lottary;
+    AVLoadingIndicatorView avi_takepart, avi_cancel;
     DialogFactory dialogFactory;
 
     @Override
@@ -98,17 +97,19 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     @SuppressLint("SetTextI18n")
     private void setTexts() {
-        if(lottaryModel.data.active.data!=null && lottaryModel.data.active.data.size()>0){
+        if (lottaryModel.data.active.data != null && lottaryModel.data.active.data.size() > 0) {
 
-           ll_current_lottary.setVisibility(View.VISIBLE);
-           ll_no_current_lottary.setVisibility(View.GONE);
+            ll_current_lottary.setVisibility(View.VISIBLE);
+            ll_no_current_lottary.setVisibility(View.GONE);
+            ll_header_info.setVisibility(View.VISIBLE);
 
-            txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
-            txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum);
-            txt_max.setText("حداکثر مشارکت : "+lottaryModel.data.active.data.get(0).maximum+" "+"پاپاسی");
-            txt_current.setText("موجودی : "+lottaryModel.data.active.data.get(0).current+" "+"پاپاسی");
-        }else{
+            txt_title_active_lottary.setText("قرعه کشی " + lottaryModel.data.active.data.get(0).title + "");
+            txt_amount_active_lottary.setText("شانس قرعه کشی : " + lottaryModel.data.active.data.get(0).minimum);
+            txt_max.setText("حداکثر مشارکت : " + lottaryModel.data.active.data.get(0).maximum + " " + "پاپاسی");
+            txt_current.setText("موجودی : " + lottaryModel.data.active.data.get(0).current + " " + "پاپاسی");
+        } else {
             ll_current_lottary.setVisibility(View.GONE);
+            ll_header_info.setVisibility(View.GONE);
             ll_no_current_lottary.setVisibility(View.VISIBLE);
         }
     }
@@ -118,9 +119,9 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 //        List<ActiveLinkDetail> list = lottaryModel.data.activeLink.data;
         List<OldMeDetail> oldMeDetailList = lottaryModel.data.oldMe.data;
 
-        if(oldMeDetailList.size()==0){
+        if (oldMeDetailList.size() == 0) {
             txt_no_pastlist.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             txt_no_pastlist.setVisibility(View.GONE);
             linearLayoutManager = new LinearLayoutManager(LottaryActivity.this);
             recyclerView.setLayoutManager(linearLayoutManager);
@@ -133,21 +134,22 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     private void initView() {
         recyclerView = findViewById(R.id.recycler_past_lottary);
         rl_condition = findViewById(R.id.rl_condition);
-        rl_takepart =findViewById(R.id.rl_takepart);
+        rl_takepart = findViewById(R.id.rl_takepart);
         txt_title_active_lottary = findViewById(R.id.txt_title_active_lottary);
         txt_amount_active_lottary = findViewById(R.id.txt_amount_active_lottary);
         txt_current = findViewById(R.id.txt_current);
         txt_max = findViewById(R.id.txt_max);
-        rl_cancel =findViewById(R.id.rl_cancel);
+        rl_cancel = findViewById(R.id.rl_cancel);
         avi_cancel = findViewById(R.id.avi_cancel_lottary);
         avi_takepart = findViewById(R.id.avi_takepart);
         txt_cancel = findViewById(R.id.txt_cancel_lottary);
         txt_takepart = findViewById(R.id.txt_takepart);
         txt_no_pastlist = findViewById(R.id.txt_no_pastlist);
         linear_return_lottary = findViewById(R.id.linear_return_lottary);
-        txt_no_current_lottary  =findViewById(R.id.txt_no_current_lottary);
+        txt_no_current_lottary = findViewById(R.id.txt_no_current_lottary);
         ll_current_lottary = findViewById(R.id.ll_current_lottary);
         ll_no_current_lottary = findViewById(R.id.ll_no_current_lottary);
+        ll_header_info = findViewById(R.id.ll_header_info);
 
         linear_return_lottary.setOnClickListener(this);
         rl_cancel.setOnClickListener(this);
@@ -166,12 +168,12 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             @Override
             public void onResponse(Call<OldDetail> call, Response<OldDetail> response) {
                 avi.setVisibility(View.GONE);
-                if(response.code()==200){
+                if (response.code() == 200) {
                     OldDetail oldDetail = response.body();
                     RxBus.LottaryOldDetail.publishLottaryOldDetail(oldDetail);
-                    startActivity(new Intent(LottaryActivity.this,LottaryWinnersActivity.class));
+                    startActivity(new Intent(LottaryActivity.this, LottaryWinnersActivity.class));
 
-                }else{
+                } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -188,10 +190,10 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.rl_condition:
-                startActivity(new Intent(LottaryActivity.this,LottaryConditionActivity.class));
+                startActivity(new Intent(LottaryActivity.this, LottaryConditionActivity.class));
                 break;
 
             case R.id.rl_takepart:
@@ -203,12 +205,11 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                 break;
 
             case R.id.linear_return_lottary:
-                startActivity(new Intent(LottaryActivity.this,MainActivity.class));
+                startActivity(new Intent(LottaryActivity.this, MainActivity.class));
                 finish();
                 break;
         }
     }
-
 
 
     private void cancelRequest() {
@@ -225,9 +226,9 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                 avi_cancel.setVisibility(View.GONE);
                 txt_cancel.setVisibility(View.VISIBLE);
 
-                if(response.code()==200){
-                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت لغو شد." , Toast.LENGTH_SHORT).show();
-                }else{
+                if (response.code() == 200) {
+                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت لغو شد.", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -267,19 +268,19 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         txt_takepart.setVisibility(View.GONE);
 
         Service service = new ServiceProvider(this).getmService();
-        Call<Boolean> call = service.createLottery(lottaryModel.data.active.data.get(0).lotteryId ,amount);
+        Call<Boolean> call = service.createLottery(lottaryModel.data.active.data.get(0).lotteryId, amount);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 avi_takepart.setVisibility(View.GONE);
                 txt_takepart.setVisibility(View.VISIBLE);
 
-                if(response.code()==200){
-                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت ثبت شد." , Toast.LENGTH_SHORT).show();
-                }else if(response.code()==422){
+                if (response.code() == 200) {
+                    Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت ثبت شد.", Toast.LENGTH_SHORT).show();
+                } else if (response.code() == 422) {
 
                     APIError422 apiError = ErrorUtils.parseError422(response);
-                     StringBuilder builderAmount = null;
+                    StringBuilder builderAmount = null;
                     if (apiError.errors.amount != null) {
                         builderAmount = new StringBuilder();
                         for (String b : apiError.errors.amount) {
@@ -292,7 +293,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                     int a = 5;
 
-                }else{
+                } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
 
                 }
