@@ -6,8 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
+import android.text.Html
 import android.view.View
+import android.widget.TextView
 import com.rahbarbazaar.homadit.android.R
 //import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
@@ -26,6 +30,7 @@ class AgreementActivity : CustomBaseActivity() {
     var disposable: Disposable = CompositeDisposable()
     lateinit var dashboardCreateData: DashboardCreateData
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,6 +130,12 @@ class AgreementActivity : CustomBaseActivity() {
             img_page_icon_rules.visibility = View.VISIBLE
             img_rules_enter_icon.visibility = View.GONE
         }
+
+
+        //https://test.rahbarbazar.com/cp/content/getpage?page=agreement&language=fa
+
+      
+
     }
 
     override fun onResume() {

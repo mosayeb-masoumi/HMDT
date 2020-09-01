@@ -114,7 +114,30 @@
                             android:textSize="12sp" />
                     </RelativeLayout>
 
+
                     <LinearLayout
+                        android:id="@+id/ll_no_current_lottary"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4"
+                        android:background="@color/blue_light2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_no_current_lottary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:layout_gravity="center"
+                            android:text="قرعه کشی وجود ندارد"
+                            android:textColor="#ca1390"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_current_lottary"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="4"
@@ -122,6 +145,7 @@
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/ll_current_lottary_top"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2"
@@ -174,6 +198,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_current_lottary_down"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="2"
@@ -182,6 +207,7 @@
                             <RelativeLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
+
                                 android:layout_weight="1">
 
                                 <RelativeLayout
@@ -191,11 +217,11 @@
                                     android:background="@drawable/bg_lottery_btn">
 
                                     <TextView
+                                        android:id="@+id/txt_cancel_lottary"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
                                         android:text="انصراف"
-                                        android:id="@+id/txt_cancel_lottary"
                                         android:textColor="#ca1390"
                                         android:textSize="12dp" />
 
@@ -222,10 +248,10 @@
                                 android:background="@drawable/bg_lottery_btn">
 
                                 <TextView
+                                    android:id="@+id/txt_takepart"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:id="@+id/txt_takepart"
                                     android:text="شرکت کردن"
                                     android:textColor="#ca1390"
                                     android:textSize="12dp" />
@@ -276,20 +302,22 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="15dp">
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_past_lottary"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
+
                 <TextView
+                    android:id="@+id/txt_no_pastlist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txt_no_pastlist"
                     android:layout_centerHorizontal="true"
-                    android:visibility="gone"
                     android:layout_marginTop="18dp"
+                    android:text="قرعه کشی وجود ندارد!"
                     android:textColor="@color/blue_dark"
                     android:textSize="16sp"
-                    android:text="قرعه کشی وجود ندارد!"/>
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

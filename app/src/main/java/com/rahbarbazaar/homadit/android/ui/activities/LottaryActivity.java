@@ -44,6 +44,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     GeneralTools tools;
     RecyclerView recyclerView;
+    LinearLayout ll_current_lottary , ll_no_current_lottary;
     LinearLayoutManager linearLayoutManager;
     LottaryPastAdapter adapter;
     RelativeLayout rl_condition ,rl_takepart ,rl_cancel,lottary_root;
@@ -54,7 +55,8 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     LottaryModel lottaryModel;
 
-    TextView txt_title_active_lottary,txt_amount_active_lottary ,txt_current,txt_max ,txt_cancel,txt_takepart ,txt_no_pastlist;
+    TextView txt_title_active_lottary,txt_amount_active_lottary
+            ,txt_current,txt_max ,txt_cancel,txt_takepart ,txt_no_pastlist ,txt_no_current_lottary;
     AVLoadingIndicatorView avi_takepart,avi_cancel;
     DialogFactory dialogFactory;
 
@@ -96,15 +98,24 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
     @SuppressLint("SetTextI18n")
     private void setTexts() {
-        txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
-        txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum);
-        txt_max.setText("حداکثر مشارکت : "+lottaryModel.data.active.data.get(0).maximum+" "+"پاپاسی");
-        txt_current.setText("موجودی : "+lottaryModel.data.active.data.get(0).current+" "+"پاپاسی");
+        if(lottaryModel.data.active.data!=null && lottaryModel.data.active.data.size()>0){
+
+           ll_current_lottary.setVisibility(View.VISIBLE);
+           ll_no_current_lottary.setVisibility(View.GONE);
+
+            txt_title_active_lottary.setText("قرعه کشی "+lottaryModel.data.active.data.get(0).title+"");
+            txt_amount_active_lottary.setText("شانس قرعه کشی : "+lottaryModel.data.active.data.get(0).minimum);
+            txt_max.setText("حداکثر مشارکت : "+lottaryModel.data.active.data.get(0).maximum+" "+"پاپاسی");
+            txt_current.setText("موجودی : "+lottaryModel.data.active.data.get(0).current+" "+"پاپاسی");
+        }else{
+            ll_current_lottary.setVisibility(View.GONE);
+            ll_no_current_lottary.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setPastLottaryList() {
 
-        List<ActiveLinkDetail> list = lottaryModel.data.activeLink.data;
+//        List<ActiveLinkDetail> list = lottaryModel.data.activeLink.data;
         List<OldMeDetail> oldMeDetailList = lottaryModel.data.oldMe.data;
 
         if(oldMeDetailList.size()==0){
@@ -134,6 +145,10 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         txt_takepart = findViewById(R.id.txt_takepart);
         txt_no_pastlist = findViewById(R.id.txt_no_pastlist);
         linear_return_lottary = findViewById(R.id.linear_return_lottary);
+        txt_no_current_lottary  =findViewById(R.id.txt_no_current_lottary);
+        ll_current_lottary = findViewById(R.id.ll_current_lottary);
+        ll_no_current_lottary = findViewById(R.id.ll_no_current_lottary);
+
         linear_return_lottary.setOnClickListener(this);
         rl_cancel.setOnClickListener(this);
         rl_takepart.setOnClickListener(this);
