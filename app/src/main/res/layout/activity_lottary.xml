@@ -210,6 +210,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:layout_margin="3dp"
+                                    android:visibility="gone"
                                     android:background="@drawable/bg_lottery_btn">
 
                                     <TextView

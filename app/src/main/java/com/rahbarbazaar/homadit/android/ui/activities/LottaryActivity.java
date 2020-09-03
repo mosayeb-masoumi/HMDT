@@ -24,6 +24,7 @@ import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
 import com.rahbarbazaar.homadit.android.models.Lottary.old_detail.OldDetail;
 import com.rahbarbazaar.homadit.android.models.api_error.APIError422;
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
+import com.rahbarbazaar.homadit.android.models.register.GetShopId;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
@@ -80,6 +81,8 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             }
         };
 
+        getLottary();
+
         //get data from register fragment
         disposable = RxBus.Lottary.subscribeLottary(result -> {
             if (result instanceof LottaryModel) {
@@ -90,7 +93,6 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
 
         setTexts();
-
         setPastLottaryList();
 
     }
@@ -330,5 +332,44 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         super.onStop();
         disposable.dispose(); //very important  to avoid memory leak
         unregisterReceiver(connectivityReceiver);
+    }
+
+
+    private void getLottary(){
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<LottaryModel> call = service.getLottaryMain();
+
+        call.enqueue(new Callback<LottaryModel>() {
+            @Override
+            public void onResponse(Call<LottaryModel> call, Response<LottaryModel> response) {
+                if(response.code() == 200){
+                    LottaryModel lottaryModel = new LottaryModel();
+                    lottaryModel = response.body();
+
+                    if(lottaryModel.data.activeMe.data.size() > 0){
+                        // user participated
+                        rl_cancel.setVisibility(View.VISIBLE);
+                        rl_takepart.setVisibility(View.GONE);
+
+                    }else{
+                        // user not participated
+                        rl_cancel.setVisibility(View.GONE);
+                        rl_takepart.setVisibility(View.VISIBLE);
+                    }
+
+                }else{
+                    Toast.makeText(LottaryActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LottaryModel> call, Throwable t) {
+                Toast.makeText(LottaryActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }
