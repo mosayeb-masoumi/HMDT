@@ -228,6 +228,9 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                 if (response.code() == 200) {
                     Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت لغو شد.", Toast.LENGTH_SHORT).show();
+                    rl_takepart.setVisibility(View.VISIBLE);
+                    rl_cancel.setVisibility(View.GONE);
+
                 } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
@@ -277,6 +280,11 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                 if (response.code() == 200) {
                     Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت ثبت شد.", Toast.LENGTH_SHORT).show();
+
+                    rl_takepart.setVisibility(View.GONE);
+                    rl_cancel.setVisibility(View.VISIBLE);
+
+
                 } else if (response.code() == 422) {
 
                     APIError422 apiError = ErrorUtils.parseError422(response);

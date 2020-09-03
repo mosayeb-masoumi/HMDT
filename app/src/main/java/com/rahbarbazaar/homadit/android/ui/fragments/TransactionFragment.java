@@ -254,8 +254,8 @@ public class TransactionFragment extends Fragment implements TransactionItemInte
                 txt_btnpapasi.setTextColor(getResources().getColor(R.color.colorText));
                 img_line.setBackgroundColor(getResources().getColor(R.color.blue_dark));
                 page = 0;
-//                type = "amount";
-                type = "wallet";
+                type = "amount";
+//                type = "wallet";
                 getTransactionList(page, type);
                 break;
 
