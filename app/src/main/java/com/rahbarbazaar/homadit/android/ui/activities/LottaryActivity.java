@@ -21,6 +21,8 @@ import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemIn
 import com.rahbarbazaar.homadit.android.models.Lottary.ActiveLinkDetail;
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;
+import com.rahbarbazaar.homadit.android.models.Lottary.cancel.LottaryCancelModel;
+import com.rahbarbazaar.homadit.android.models.Lottary.create.LottaryCreateModel;
 import com.rahbarbazaar.homadit.android.models.Lottary.old_detail.OldDetail;
 import com.rahbarbazaar.homadit.android.models.api_error.APIError422;
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
@@ -213,17 +215,18 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         }
     }
 
-
+    @SuppressLint("SetTextI18n")
     private void cancelRequest() {
 
         avi_cancel.setVisibility(View.VISIBLE);
         txt_cancel.setVisibility(View.GONE);
 
         Service service = new ServiceProvider(this).getmService();
-        Call<Boolean> call = service.cancelLottery(lottaryModel.data.active.data.get(0).lotteryId);
-        call.enqueue(new Callback<Boolean>() {
+        Call<LottaryCancelModel> call = service.cancelLottery(lottaryModel.data.active.data.get(0).lotteryId);
+        call.enqueue(new Callback<LottaryCancelModel>() {
+
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<LottaryCancelModel> call, Response<LottaryCancelModel> response) {
 
                 avi_cancel.setVisibility(View.GONE);
                 txt_cancel.setVisibility(View.VISIBLE);
@@ -233,13 +236,17 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                     rl_takepart.setVisibility(View.VISIBLE);
                     rl_cancel.setVisibility(View.GONE);
 
+                    LottaryCancelModel lottaryCancelModel = response.body();
+                    txt_current.setText("موجودی : " + lottaryCancelModel.current+ " " + "پاپاسی");
+
+
                 } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<LottaryCancelModel> call, Throwable t) {
                 avi_cancel.setVisibility(View.GONE);
                 txt_cancel.setVisibility(View.VISIBLE);
                 Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
@@ -267,16 +274,18 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         }, lottary_root);
     }
 
+    @SuppressLint("SetTextI18n")
     private void takepartRequest(int amount) {
 
         avi_takepart.setVisibility(View.VISIBLE);
         txt_takepart.setVisibility(View.GONE);
 
         Service service = new ServiceProvider(this).getmService();
-        Call<Boolean> call = service.createLottery(lottaryModel.data.active.data.get(0).lotteryId, amount);
-        call.enqueue(new Callback<Boolean>() {
+        Call<LottaryCreateModel> call = service.createLottery(lottaryModel.data.active.data.get(0).lotteryId, amount);
+        call.enqueue(new Callback<LottaryCreateModel>() {
+
             @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+            public void onResponse(Call<LottaryCreateModel> call, Response<LottaryCreateModel> response) {
                 avi_takepart.setVisibility(View.GONE);
                 txt_takepart.setVisibility(View.VISIBLE);
 
@@ -285,6 +294,9 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                     rl_takepart.setVisibility(View.GONE);
                     rl_cancel.setVisibility(View.VISIBLE);
+
+                    LottaryCreateModel lottaryCreateModel = response.body();
+                    txt_current.setText("موجودی : " + lottaryCreateModel.current+ " " + "پاپاسی");
 
 
                 } else if (response.code() == 422) {
@@ -310,7 +322,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             }
 
             @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
+            public void onFailure(Call<LottaryCreateModel> call, Throwable t) {
                 avi_takepart.setVisibility(View.GONE);
                 txt_takepart.setVisibility(View.VISIBLE);
                 Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();

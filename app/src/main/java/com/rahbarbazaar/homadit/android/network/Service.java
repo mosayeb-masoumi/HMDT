@@ -2,6 +2,8 @@ package com.rahbarbazaar.homadit.android.network;
 
 
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel;
+import com.rahbarbazaar.homadit.android.models.Lottary.cancel.LottaryCancelModel;
+import com.rahbarbazaar.homadit.android.models.Lottary.create.LottaryCreateModel;
 import com.rahbarbazaar.homadit.android.models.Lottary.old_detail.OldDetail;
 import com.rahbarbazaar.homadit.android.models.activelist.ActiveListData;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
@@ -167,11 +169,11 @@ public interface Service {
     Call<LottaryModel> getLottaryMain();
 
     @POST("Lottery/Create")
-    Call<Boolean> createLottery(@Query("lottery_id") String lottery_id,
-                                @Query("amount") Integer amount);
+    Call<LottaryCreateModel> createLottery(@Query("lottery_id") String lottery_id,
+                                           @Query("amount") Integer amount);
 
     @POST("Lottery/Delete")
-    Call<Boolean> cancelLottery(@Query("lottery_id") String lottery_id);
+    Call<LottaryCancelModel> cancelLottery(@Query("lottery_id") String lottery_id);
 
     @POST("Lottery/OldDetail")
     Call<OldDetail> getOldDetail(@Query("lottery_id") String lottery_id);
