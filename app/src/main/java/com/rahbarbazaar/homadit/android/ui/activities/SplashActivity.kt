@@ -1,6 +1,11 @@
 package com.rahbarbazaar.homadit.android.ui.activities
 
-import android.content.*
+//import com.rahbarbazaar.shopper.BuildConfig
+//import com.rahbarbazaar.shopper.R
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -11,8 +16,6 @@ import android.widget.Toast
 import com.rahbarbazaar.homadit.android.BuildConfig
 import com.rahbarbazaar.homadit.android.R
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
-//import com.rahbarbazaar.shopper.BuildConfig
-//import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils
 import com.rahbarbazaar.homadit.android.models.api_error403.ShowMessage403
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
@@ -309,9 +312,22 @@ class SplashActivity : CustomBaseActivity() {
 
                     RxBus.Lottary.publishLottary(lottary)
 
+
+                    Cache.setString(this@SplashActivity, "maximum", null)
+                    Cache.setString(this@SplashActivity, "current", null)
+
+                    if (lottary.data.activeMe.data.size > 0) {
+                        Cache.setString(this@SplashActivity, "takepart", "yes")
+                    }else{
+                        Cache.setString(this@SplashActivity, "takepart", "no")
+                    }
+
+
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
+
+
 
                 } else {
                     Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()

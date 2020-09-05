@@ -29,6 +29,7 @@ import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
 import com.rahbarbazaar.homadit.android.models.register.GetShopId;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
+import com.rahbarbazaar.homadit.android.utilities.Cache;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
@@ -83,7 +84,6 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             }
         };
 
-        getLottary();
 
         //get data from register fragment
         disposable = RxBus.Lottary.subscribeLottary(result -> {
@@ -93,9 +93,23 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             }
         });
 
+//        getLottary();
+
+
 
         setTexts();
         setPastLottaryList();
+
+
+        if(Cache.getString(this,"takepart").equals("yes")){
+            // user participated
+            rl_cancel.setVisibility(View.VISIBLE);
+            rl_takepart.setVisibility(View.GONE);
+        }else{
+            // user not participated
+            rl_cancel.setVisibility(View.GONE);
+            rl_takepart.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -109,8 +123,21 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
             txt_title_active_lottary.setText("قرعه کشی " + lottaryModel.data.active.data.get(0).title + "");
             txt_amount_active_lottary.setText("شانس قرعه کشی : " + lottaryModel.data.active.data.get(0).minimum);
-            txt_max.setText("حداکثر مشارکت : " + lottaryModel.data.active.data.get(0).maximum + " " + "پاپاسی");
-            txt_current.setText("موجودی : " + lottaryModel.data.active.data.get(0).current + " " + "پاپاسی");
+
+
+
+            if (Cache.getString(this, "maximum") == null && Cache.getString(this, "current") == null) {
+
+                txt_max.setText("حداکثر مشارکت : " + lottaryModel.data.active.data.get(0).maximum + " " + "پاپاسی");
+                txt_current.setText("موجودی : " + lottaryModel.data.active.data.get(0).current + " " + "پاپاسی");
+                Cache.setString(this, "maximum", lottaryModel.data.active.data.get(0).maximum);
+                Cache.setString(this, "current", lottaryModel.data.active.data.get(0).current);
+            }else {
+                txt_max.setText("حداکثر مشارکت : " + Cache.getString(this,"maximum") + " " + "پاپاسی");
+                txt_current.setText("موجودی : " + Cache.getString(this,"current") + " " + "پاپاسی");
+            }
+
+
         } else {
             ll_current_lottary.setVisibility(View.GONE);
             ll_header_info.setVisibility(View.GONE);
@@ -233,11 +260,20 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                 if (response.code() == 200) {
                     Toast.makeText(LottaryActivity.this, "قرعه کشی با موفقیت لغو شد.", Toast.LENGTH_SHORT).show();
+
                     rl_takepart.setVisibility(View.VISIBLE);
                     rl_cancel.setVisibility(View.GONE);
 
                     LottaryCancelModel lottaryCancelModel = response.body();
-                    txt_current.setText("موجودی : " + lottaryCancelModel.current+ " " + "پاپاسی");
+
+                    Cache.setString(LottaryActivity.this, "maximum", String.valueOf(lottaryCancelModel.maximum));
+                    Cache.setString(LottaryActivity.this, "current", String.valueOf(lottaryCancelModel.current));
+
+                    Cache.setString(LottaryActivity.this, "takepart", "no");
+
+
+                    txt_current.setText("موجودی : " + lottaryCancelModel.current + " " + "پاپاسی");
+                    txt_max.setText("حداکثر مشارکت : " + lottaryCancelModel.maximum + " " + "پاپاسی");
 
 
                 } else {
@@ -263,8 +299,8 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             public void onAcceptButtonClicked(String... strings) {
 
                 int amount = Integer.parseInt(strings[0]);
-                takepartRequest(amount);
 
+                takepartRequest(amount);
             }
 
             @Override
@@ -296,7 +332,17 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                     rl_cancel.setVisibility(View.VISIBLE);
 
                     LottaryCreateModel lottaryCreateModel = response.body();
-                    txt_current.setText("موجودی : " + lottaryCreateModel.current+ " " + "پاپاسی");
+
+                    Cache.setString(LottaryActivity.this, "maximum", String.valueOf(lottaryCreateModel.maximum));
+                    Cache.setString(LottaryActivity.this, "current", String.valueOf(lottaryCreateModel.current));
+
+
+                    Cache.setString(LottaryActivity.this, "takepart", "yes");
+
+
+
+                    txt_current.setText("موجودی : " + lottaryCreateModel.current + " " + "پاپاسی");
+                    txt_max.setText("حداکثر مشارکت : " + lottaryCreateModel.maximum + " " + "پاپاسی");
 
 
                 } else if (response.code() == 422) {
@@ -333,10 +379,14 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+        txt_max.setText("حداکثر مشارکت : " + Cache.getString(this, "maximum") + " " + "پاپاسی");
+        txt_current.setText("موجودی : " + Cache.getString(this, "current") + " " + "پاپاسی");
     }
 
     @Override
@@ -347,41 +397,41 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     }
 
 
-    private void getLottary(){
-
-        Service service = new ServiceProvider(this).getmService();
-        Call<LottaryModel> call = service.getLottaryMain();
-
-        call.enqueue(new Callback<LottaryModel>() {
-            @Override
-            public void onResponse(Call<LottaryModel> call, Response<LottaryModel> response) {
-                if(response.code() == 200){
-                    LottaryModel lottaryModel = new LottaryModel();
-                    lottaryModel = response.body();
-
-                    if(lottaryModel.data.activeMe.data.size() > 0){
-                        // user participated
-                        rl_cancel.setVisibility(View.VISIBLE);
-                        rl_takepart.setVisibility(View.GONE);
-
-                    }else{
-                        // user not participated
-                        rl_cancel.setVisibility(View.GONE);
-                        rl_takepart.setVisibility(View.VISIBLE);
-                    }
-
-                }else{
-                    Toast.makeText(LottaryActivity.this, ""+getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LottaryModel> call, Throwable t) {
-                Toast.makeText(LottaryActivity.this, ""+getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-    }
+//    private void getLottary() {
+//
+//        Service service = new ServiceProvider(this).getmService();
+//        Call<LottaryModel> call = service.getLottaryMain();
+//
+//        call.enqueue(new Callback<LottaryModel>() {
+//            @Override
+//            public void onResponse(Call<LottaryModel> call, Response<LottaryModel> response) {
+//                if (response.code() == 200) {
+//                    LottaryModel lottaryModel = new LottaryModel();
+//                    lottaryModel = response.body();
+//
+//                    if (lottaryModel.data.activeMe.data.size() > 0) {
+//                        // user participated
+//                        rl_cancel.setVisibility(View.VISIBLE);
+//                        rl_takepart.setVisibility(View.GONE);
+//
+//                    } else {
+//                        // user not participated
+//                        rl_cancel.setVisibility(View.GONE);
+//                        rl_takepart.setVisibility(View.VISIBLE);
+//                    }
+//
+//                } else {
+//                    Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LottaryModel> call, Throwable t) {
+//                Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//
+//    }
 }

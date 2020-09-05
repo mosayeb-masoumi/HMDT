@@ -391,9 +391,21 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
                     RxBus.Lottary.publishLottary(lottary)
 
+                    Cache.setString(this@VerificationActivity, "maximum", null)
+                    Cache.setString(this@VerificationActivity, "current", null)
+
+
+                    if (lottary.data.activeMe.data.size > 0) {
+                        Cache.setString(this@VerificationActivity, "takepart", "yes")
+                    }else{
+                        Cache.setString(this@VerificationActivity, "takepart", "no")
+                    }
+
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@VerificationActivity.finish()
+
+
 
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()

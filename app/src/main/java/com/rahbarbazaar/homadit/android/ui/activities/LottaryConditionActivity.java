@@ -127,7 +127,7 @@ public class LottaryConditionActivity extends CustomBaseActivity implements View
     public void onClick(View view) {
           switch (view.getId()){
               case R.id.linear_return_lottary_condition:
-                  startActivity(new Intent(LottaryConditionActivity.this,LottaryActivity.class));
+//                  startActivity(new Intent(LottaryConditionActivity.this,LottaryActivity.class));
                   finish();
           }
     }

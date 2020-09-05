@@ -167,7 +167,7 @@ public class LottaryWinnersActivity extends CustomBaseActivity implements Lottar
     public void onClick(View view) {
 
         if (view.getId() == R.id.linear_return_lottary_winner) {
-            startActivity(new Intent(LottaryWinnersActivity.this, LottaryActivity.class));
+//            startActivity(new Intent(LottaryWinnersActivity.this, LottaryActivity.class));
             finish();
         }
     }
