@@ -87,6 +87,7 @@ public class LottaryWinnersActivity extends CustomBaseActivity implements Lottar
 
     @SuppressLint("SetTextI18n")
     private void setTexts() {
+
         txt_header.setText( "قرعه کشی "+oldDetail.data.detail.data.get(0).title);
         txt_lottary_date_winners.setText("تاریخ قرعه کشی : "+oldDetail.data.detail.data.get(0).eventDate);
         txt_start_date_winners.setText("شروع ثبت نام : "+oldDetail.data.detail.data.get(0).startDate);

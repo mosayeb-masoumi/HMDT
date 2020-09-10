@@ -30,6 +30,7 @@ import com.rahbarbazaar.homadit.android.models.register.GetShopId;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.utilities.Cache;
+import com.rahbarbazaar.homadit.android.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
@@ -62,6 +63,8 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     TextView txt_title_active_lottary, txt_amount_active_lottary, txt_current, txt_max, txt_cancel, txt_takepart, txt_no_pastlist, txt_no_current_lottary;
     AVLoadingIndicatorView avi_takepart, avi_cancel;
     DialogFactory dialogFactory;
+
+    String strAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,16 +99,15 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 //        getLottary();
 
 
-
         setTexts();
         setPastLottaryList();
 
 
-        if(Cache.getString(this,"takepart").equals("yes")){
+        if (Cache.getString(this, "takepart").equals("yes")) {
             // user participated
             rl_cancel.setVisibility(View.VISIBLE);
             rl_takepart.setVisibility(View.GONE);
-        }else{
+        } else {
             // user not participated
             rl_cancel.setVisibility(View.GONE);
             rl_takepart.setVisibility(View.VISIBLE);
@@ -122,8 +124,17 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             ll_header_info.setVisibility(View.VISIBLE);
 
             txt_title_active_lottary.setText("قرعه کشی " + lottaryModel.data.active.data.get(0).title + "");
-            txt_amount_active_lottary.setText("شانس قرعه کشی : " + lottaryModel.data.active.data.get(0).minimum);
 
+//
+
+
+            strAmount = Cache.getString(this, "amount");
+            if (strAmount.equals("0")) {
+                txt_amount_active_lottary.setVisibility(View.GONE);
+            } else {
+                txt_amount_active_lottary.setVisibility(View.VISIBLE);
+                txt_amount_active_lottary.setText("شانس قرعه کشی : " + strAmount + " " + "پاپاسی");
+            }
 
 
             if (Cache.getString(this, "maximum") == null && Cache.getString(this, "current") == null) {
@@ -132,9 +143,15 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                 txt_current.setText("موجودی : " + lottaryModel.data.active.data.get(0).current + " " + "پاپاسی");
                 Cache.setString(this, "maximum", lottaryModel.data.active.data.get(0).maximum);
                 Cache.setString(this, "current", lottaryModel.data.active.data.get(0).current);
-            }else {
-                txt_max.setText("حداکثر مشارکت : " + Cache.getString(this,"maximum") + " " + "پاپاسی");
-                txt_current.setText("موجودی : " + Cache.getString(this,"current") + " " + "پاپاسی");
+            } else {
+
+                String current = Cache.getString(this, "current");
+                String maximum =Cache.getString(this, "maximum");
+                txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
+                txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
+
+//                txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(Cache.getString(this, "maximum")+"") + " " + "پاپاسی");
+//                txt_current.setText("موجودی : " +ConvertEnDigitToFa.convert(+"")  + " " + "پاپاسی");
             }
 
 
@@ -272,8 +289,13 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                     Cache.setString(LottaryActivity.this, "takepart", "no");
 
 
-                    txt_current.setText("موجودی : " + lottaryCancelModel.current + " " + "پاپاسی");
-                    txt_max.setText("حداکثر مشارکت : " + lottaryCancelModel.maximum + " " + "پاپاسی");
+                    String current = String.valueOf(lottaryCancelModel.current);
+                    String maximum = String.valueOf(lottaryCancelModel.maximum);
+                    txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
+                    txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
+
+                    Cache.setString(LottaryActivity.this, "amount", "0");
+                    txt_amount_active_lottary.setVisibility(View.GONE);
 
 
                 } else {
@@ -299,8 +321,11 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             public void onAcceptButtonClicked(String... strings) {
 
                 int amount = Integer.parseInt(strings[0]);
-
                 takepartRequest(amount);
+
+                strAmount = String.valueOf(amount);
+                strAmount = ConvertEnDigitToFa.convert(strAmount);
+
             }
 
             @Override
@@ -333,17 +358,20 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
 
                     LottaryCreateModel lottaryCreateModel = response.body();
 
+                    String current = String.valueOf(lottaryCreateModel.current);
+                    String maximum = String.valueOf(lottaryCreateModel.maximum);
+
+                    txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
+                    txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
+
                     Cache.setString(LottaryActivity.this, "maximum", String.valueOf(lottaryCreateModel.maximum));
                     Cache.setString(LottaryActivity.this, "current", String.valueOf(lottaryCreateModel.current));
 
-
                     Cache.setString(LottaryActivity.this, "takepart", "yes");
 
-
-
-                    txt_current.setText("موجودی : " + lottaryCreateModel.current + " " + "پاپاسی");
-                    txt_max.setText("حداکثر مشارکت : " + lottaryCreateModel.maximum + " " + "پاپاسی");
-
+                    txt_amount_active_lottary.setVisibility(View.VISIBLE);
+                    Cache.setString(LottaryActivity.this, "amount", strAmount);
+                    txt_amount_active_lottary.setText("شانس قرعه کشی : " + strAmount + " " + "پاپاسی");
 
                 } else if (response.code() == 422) {
 
@@ -359,7 +387,6 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
                         Toast.makeText(LottaryActivity.this, "" + builderAmount, Toast.LENGTH_SHORT).show();
                     }
 
-                    int a = 5;
 
                 } else {
                     Toast.makeText(LottaryActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -385,8 +412,12 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         super.onResume();
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-        txt_max.setText("حداکثر مشارکت : " + Cache.getString(this, "maximum") + " " + "پاپاسی");
-        txt_current.setText("موجودی : " + Cache.getString(this, "current") + " " + "پاپاسی");
+
+        String current = Cache.getString(this, "current");
+        String maximum =Cache.getString(this, "maximum");
+        txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
+        txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
+
     }
 
     @Override

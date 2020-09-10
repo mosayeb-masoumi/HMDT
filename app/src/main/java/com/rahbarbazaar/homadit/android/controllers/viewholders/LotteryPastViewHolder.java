@@ -35,6 +35,7 @@ public class LotteryPastViewHolder extends RecyclerView.ViewHolder {
         txt_score.setText("امتیاز :" + model.amount);
         img.setBackground(itemView.getResources().getDrawable(R.drawable.info_blue));
         if (model.winner.equals("بله")) {
+            avi.setIndicatorColor(itemView.getResources().getColor(R.color.green));
             img.setBackground(itemView.getResources().getDrawable(R.drawable.info_green));
             txt_date.setTextColor(itemView.getResources().getColor(R.color.green));
             txt_score.setTextColor(itemView.getResources().getColor(R.color.green));

@@ -40,8 +40,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/rl_bottom_lottary"
         android:orientation="vertical"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/rl_header1">
 
@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
+            android:layout_margin="3dp"
             android:layout_weight="1.2">
 
             <RelativeLayout
@@ -113,7 +114,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_weight="1.1">
+            android:layout_margin="3dp"
+            android:layout_weight="1.3">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -179,8 +181,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="3dp"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1.2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -296,11 +299,8 @@
                                 android:textSize="12sp"
                                 android:text="تاریخ قرعه کشی : 10 آبان"/>
                         </RelativeLayout>
-
                     </LinearLayout>
-
                 </LinearLayout>
-
             </LinearLayout>
 
 
@@ -308,7 +308,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7">
+            android:layout_margin="3dp"
+            android:layout_weight="1.4">
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

@@ -323,6 +323,14 @@ class SplashActivity : CustomBaseActivity() {
                     }
 
 
+
+                    if (lottary.data.activeMe.data.size > 0) {
+                        Cache.setString(this@SplashActivity, "amount", lottary.data.activeMe.data[0].amount)
+                    }else{
+                        Cache.setString(this@SplashActivity, "amount", "0")
+                    }
+
+
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()

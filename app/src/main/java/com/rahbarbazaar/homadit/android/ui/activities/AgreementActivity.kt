@@ -1,5 +1,6 @@
 package com.rahbarbazaar.homadit.android.ui.activities
 
+//import com.rahbarbazaar.shopper.R
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,9 +12,7 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.text.Html
 import android.view.View
-import android.widget.TextView
 import com.rahbarbazaar.homadit.android.R
-//import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.homadit.android.utilities.Cache
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity
@@ -52,6 +51,9 @@ class AgreementActivity : CustomBaseActivity() {
                 dashboardCreateData = result
             }
         }
+
+        txt_agreement.text = Html.fromHtml(dashboardCreateData.data.agreementPage)
+
 
         //config web view setting for support multi action and java scripts
 //        webview_agreement.settings.javaScriptEnabled = true

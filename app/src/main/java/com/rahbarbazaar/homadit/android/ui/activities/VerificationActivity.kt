@@ -401,6 +401,12 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                         Cache.setString(this@VerificationActivity, "takepart", "no")
                     }
 
+                    if (lottary.data.activeMe.data.size > 0) {
+                        Cache.setString(this@VerificationActivity, "amount", lottary.data.activeMe.data[0].amount)
+                    }else{
+                        Cache.setString(this@VerificationActivity, "amount", "0")
+                    }
+
                     startActivity(Intent(this@VerificationActivity, AgreementActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@VerificationActivity.finish()

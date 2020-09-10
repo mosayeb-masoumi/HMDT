@@ -33,6 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_header1"
         android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -44,7 +46,8 @@
                 android:id="@+id/txt_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
                 android:text="شانس قرعه کشی : 5 پاپاسی"
                 android:textColor="#ca1390"
                 android:textSize="13sp" />
@@ -86,9 +89,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 card_view:cardCornerRadius="15dp">
 
@@ -279,8 +282,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_lottary_header_blue">
 
                 <TextView
@@ -296,9 +299,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="10dp">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_past_lottary"
