@@ -38,13 +38,15 @@
             android:layout_marginBottom="3dp"
             android:text="فهرست کالاهای مجاز"
             android:textColor="@color/blue_dark"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btn4_register_barcode"
@@ -89,7 +91,8 @@
             android:layout_height="45dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <Button
                 android:id="@+id/btn8_register_barcode"
@@ -162,100 +165,106 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
+            android:layout_margin="10dp">
+
+
+            <Button
+                android:id="@+id/btn_finish_purchase_qrcode"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_button_add"
+                android:text="@string/finish_purchase"
+                android:textColor="@color/white" />
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="2dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_button_add"
+                android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/btn_finish_purchase_qrcode"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_button_add"
-                    android:text="@string/finish_purchase"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/btn_unreadable_barcode"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_weight="1"
+                    android:id="@+id/btn_unreadable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/bg_button_add"
                     android:text="عدم خواندن بارکد"
                     android:textColor="@color/white" />
 
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/avi_unreadable"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true" />
+
+
             </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginEnd="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:padding="2dp"-->
-        <!--android:id="@+id/ll_barcode"-->
-        <!--android:gravity="center"-->
-        <!--android:background="@drawable/bg_prize_item"-->
-        <!--android:orientation="horizontal">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:padding="2dp"-->
+    <!--android:id="@+id/ll_barcode"-->
+    <!--android:gravity="center"-->
+    <!--android:background="@drawable/bg_prize_item"-->
+    <!--android:orientation="horizontal">-->
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_marginEnd="5dp"-->
-            <!--android:background="@drawable/bg_btn_prize">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:layout_marginEnd="5dp"-->
+    <!--android:background="@drawable/bg_btn_prize">-->
 
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/bg_btn_prize"-->
-                <!--android:text="@string/register"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:visibility="gone"-->
-                <!--android:textSize="14sp"/>-->
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/bg_btn_prize"-->
+    <!--android:text="@string/register"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:visibility="gone"-->
+    <!--android:textSize="14sp"/>-->
 
-            <!--<com.wang.avi.AVLoadingIndicatorView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:layout_centerInParent="true"/>-->
+    <!--<com.wang.avi.AVLoadingIndicatorView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_centerInParent="true"/>-->
 
 
-        <!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->
 
-        <!--<EditText-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_weight="4"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textSize="14sp"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:inputType="numberDecimal"-->
-            <!--android:textColorHint="@color/blue"-->
-            <!--android:gravity="center"-->
-            <!--android:hint="@string/barcode"/>-->
+    <!--<EditText-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="4"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textSize="14sp"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--android:inputType="numberDecimal"-->
+    <!--android:textColorHint="@color/blue"-->
+    <!--android:gravity="center"-->
+    <!--android:hint="@string/barcode"/>-->
 
 
     <!--</LinearLayout>-->
-
-
-
-
-
-
-
 
 
     <RelativeLayout

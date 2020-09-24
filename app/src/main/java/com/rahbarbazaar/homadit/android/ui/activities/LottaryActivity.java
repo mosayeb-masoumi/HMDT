@@ -116,6 +116,22 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     }
 
     @SuppressLint("SetTextI18n")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
+        String current = Cache.getString(this, "current");
+        String maximum =Cache.getString(this, "maximum");
+
+        if(current != null && maximum !=null){
+            txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
+            txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
+        }
+    }
+
+
+    @SuppressLint("SetTextI18n")
     private void setTexts() {
         if (lottaryModel.data.active.data != null && lottaryModel.data.active.data.size() > 0) {
 
@@ -406,19 +422,6 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     }
 
 
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-
-
-        String current = Cache.getString(this, "current");
-        String maximum =Cache.getString(this, "maximum");
-        txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
-        txt_max.setText("حداکثر مشارکت : " + ConvertEnDigitToFa.convert(maximum) + " " + "پاپاسی");
-
-    }
 
     @Override
     protected void onStop() {

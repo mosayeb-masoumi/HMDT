@@ -148,6 +148,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     int max_amount=0,min_price=0,max_price=0;
 
+    String selectedGroupId,selectedGroupTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,6 +189,16 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
         img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
         img_arrow_spinner_amount.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
+
+
+
+        selectedGroupId = Cache.getString(this,"selectedGroupId");
+        selectedGroupTitle = Cache.getString(this,"selectedGroupTitle");
+
+        if(selectedGroupId!=null){
+            getSpinnerLists(selectedGroupId);
+        }
+
     }
 
     private void detectStatus(Barcode barcodeList_unreadable, GroupsData spinnerList_unreadable) {
@@ -314,9 +326,9 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             ll_chkboxes.setVisibility(View.GONE);
             ll_texts.setVisibility(View.GONE);
             ll_spinners.setVisibility(View.VISIBLE);
-            rl_spn_brand.setClickable(false);
-            rl_spn_type.setClickable(false);
-            rl_spn_amount.setClickable(false);
+//            rl_spn_brand.setClickable(false);
+//            rl_spn_type.setClickable(false);
+//            rl_spn_amount.setClickable(false);
             rl_spn_group.setClickable(true);
             rl_spn_group.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
             img_arrow_spinner_group.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
@@ -578,9 +590,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     private void send_product_data() {
 
-
         SendPurchasedItemData sendData = new SendPurchasedItemData();
-
         sendData.setMember(editMembers);
 
         String price = edt_cost_purchase.getText().toString().trim();
@@ -625,9 +635,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
                 if (response.code() == 200) {
                     Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PurchasedItemActivity.this, QRcodeActivity.class));
-                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    finish();
+//                    startActivity(new Intent(PurchasedItemActivity.this, QRcodeActivity.class));
+//                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                    finish();
+
+                    getCategoryList();
+
+
                 } else if (response.code() == 422) {
 
                     builderMember = null;
@@ -699,12 +713,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         }
         sendData.setShopping_id(shopping_id);
 
-        if (txt_spn_group_title.getText().toString().equals("گروه")) {
-            sendData.setCategory("");
-        } else {
-            sendData.setCategory(txt_spn_group_title.getText().toString());
-        }
+//        if (txt_spn_group_title.getText().toString().equals("گروه")) {
+//            sendData.setCategory("");
+//        } else {
+//            sendData.setCategory(txt_spn_group_title.getText().toString());
+//        }
 
+         sendData.setCategory(selectedGroupTitle);
 
         if (txt_spn_brand_title.getText().toString().equals("برند")) {
             sendData.setBrand("");
@@ -735,10 +750,15 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             public void onResponse(Call<PurchaseItemNewProductResult> call, Response<PurchaseItemNewProductResult> response) {
 
                 if (response.code() == 200) {
-                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(PurchasedItemActivity.this, QRcodeActivity.class));
-                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    finish();
+//                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(PurchasedItemActivity.this, QRcodeActivity.class));
+//                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                    finish();
+
+                    getCategoryList();
+                    
+//
+
 
                 } else if (response.code() == 422) {
 
@@ -852,6 +872,9 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             }
         });
     }
+
+
+
 
     private void createEditAmountDialog(String description) {
 
@@ -1107,6 +1130,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                         max_amount = barcodeList_unreadable.getData().get(0).getMaxAmount();
 
 
+
                     } else if (barcodeList_unreadable.getData().size() > 1) {
                         Barcode barcode = response.body();
                         showBarcodeListDialog(barcode);
@@ -1125,7 +1149,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     rl_description_purchased.setVisibility(View.GONE);
                     sendData_type = "new";
                     barcode_type = "new_barcode";
-                    initializeSpinners();
+//                    initializeSpinners();
                     Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.no_product), Toast.LENGTH_LONG).show();
 
                 } else if (response.code() == 406) {
@@ -1348,17 +1372,25 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                                 response.body().getData().get(i).getId()));
                     }
 
-                    str_spn_dialog_header = "گروه";
-                    showSpnListDialog("spn_group", searchList, str_spn_dialog_header);
 
-                    rl_spn_brand.setClickable(false);
-                    rl_spn_type.setClickable(false);
-                    rl_spn_amount.setClickable(false);
+                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_LONG).show();
+                    RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
+                    startActivity(new Intent(PurchasedItemActivity.this,GroupGoodsActivity.class));
 
-                    avi_register_barcode.setVisibility(View.GONE);
-                    img_register_barcode.setVisibility(View.VISIBLE);
-                    ll_spinners.setVisibility(View.VISIBLE);
-                    ll_texts.setVisibility(View.GONE);
+
+
+//                    str_spn_dialog_header = "گروه";
+//                    showSpnListDialog("spn_group", searchList, str_spn_dialog_header);
+//                    rl_spn_brand.setClickable(false);
+//                    rl_spn_type.setClickable(false);
+//                    rl_spn_amount.setClickable(false);
+//
+//                    avi_register_barcode.setVisibility(View.GONE);
+//                    img_register_barcode.setVisibility(View.VISIBLE);
+//                    ll_spinners.setVisibility(View.VISIBLE);
+//                    ll_texts.setVisibility(View.GONE);
+
+
 
                 } else {
                     Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -1412,6 +1444,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
                     } else {
 
+                        rl_spn_brand.setClickable(true);
                         rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
                         img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
                         txt_spn_brand_title.setTextColor(getResources().getColor(R.color.blue_dark));
@@ -1422,6 +1455,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                         rl_spn_type.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));
                         img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
                     } else {
+                        rl_spn_type.setClickable(true);
                         rl_spn_type.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
                         img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
                         txt_spn_type_title.setTextColor(getResources().getColor(R.color.blue_dark));
@@ -1435,6 +1469,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                         img_arrow_spinner_amount.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
 
                     } else {
+                        rl_spn_amount.setClickable(true);
                         rl_spn_amount.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
                         img_arrow_spinner_amount.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
                         txt_spn_amount_title.setTextColor(getResources().getColor(R.color.blue_dark));

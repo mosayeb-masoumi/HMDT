@@ -13,13 +13,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 //import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.BarcodeItemInteraction;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
 import com.rahbarbazaar.homadit.android.models.barcodlist.BarcodeData;
 import com.rahbarbazaar.homadit.android.models.barcodlist.BarcodeLoadingState;
+import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
+import com.rahbarbazaar.homadit.android.models.searchable.SearchModel;
 import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize;
+import com.rahbarbazaar.homadit.android.network.Service;
+import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.ui.fragments.ScanFragment;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
@@ -30,14 +36,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class QRcodeActivity extends CustomBaseActivity implements View.OnClickListener, BarcodeItemInteraction {
 
     LinearLayout linear_return_qrcode, ll_root;
     RelativeLayout rl_home_qrcode;
-    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish, btn_unreadable_barcode;
+    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish ,btn_unreadable;
+
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -49,12 +63,17 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     String description;
     String name;
 
-    AVLoadingIndicatorView avi_qrcode;
+    AVLoadingIndicatorView avi_qrcode,avi_unreadable ;
+
+    List<SearchModel> searchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode1);
+
+
+        initView();
 
         //check network broadcast reciever
         tools = GeneralTools.getInstance();
@@ -71,7 +90,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
             }
         });
 
-        initView();
+
         ScanFragment scanFragment = new ScanFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -79,6 +98,8 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         ft.commit();
         avi_qrcode.hide();
     }
+
+
 
     private void initView() {
 
@@ -94,30 +115,37 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         btn_7 = findViewById(R.id.btn7_register_barcode);
         btn_8 = findViewById(R.id.btn8_register_barcode);
         btn_finish = findViewById(R.id.btn_finish_purchase_qrcode);
-        btn_unreadable_barcode = findViewById(R.id.btn_unreadable_barcode);
         avi_qrcode = findViewById(R.id.avi_qrcode);
+        avi_unreadable = findViewById(R.id.avi_unreadable);
 
-        btn_1.setText(initMemberPrizeLists.data.categories.get(0).name);
-        btn_2.setText(initMemberPrizeLists.data.categories.get(1).name);
-        btn_3.setText(initMemberPrizeLists.data.categories.get(2).name);
-        btn_4.setText(initMemberPrizeLists.data.categories.get(3).name);
-        btn_5.setText(initMemberPrizeLists.data.categories.get(4).name);
-        btn_6.setText(initMemberPrizeLists.data.categories.get(5).name);
-        btn_7.setText(initMemberPrizeLists.data.categories.get(6).name);
-        btn_8.setText(initMemberPrizeLists.data.categories.get(7).name);
+        btn_unreadable = findViewById(R.id.btn_unreadable);
+
+
+
+
+//        btn_1.setText(initMemberPrizeLists.data.categories.get(0).name);
+//        btn_2.setText(initMemberPrizeLists.data.categories.get(1).name);
+//        btn_3.setText(initMemberPrizeLists.data.categories.get(2).name);
+//        btn_4.setText(initMemberPrizeLists.data.categories.get(3).name);
+//        btn_5.setText(initMemberPrizeLists.data.categories.get(4).name);
+//        btn_6.setText(initMemberPrizeLists.data.categories.get(5).name);
+//        btn_7.setText(initMemberPrizeLists.data.categories.get(6).name);
+//        btn_8.setText(initMemberPrizeLists.data.categories.get(7).name);
+
 
         btn_finish.setOnClickListener(this);
-        btn_unreadable_barcode.setOnClickListener(this);
         linear_return_qrcode.setOnClickListener(this);
         rl_home_qrcode.setOnClickListener(this);
-        btn_1.setOnClickListener(this);
-        btn_2.setOnClickListener(this);
-        btn_3.setOnClickListener(this);
-        btn_4.setOnClickListener(this);
-        btn_5.setOnClickListener(this);
-        btn_6.setOnClickListener(this);
-        btn_7.setOnClickListener(this);
-        btn_8.setOnClickListener(this);
+//        btn_1.setOnClickListener(this);
+//        btn_2.setOnClickListener(this);
+//        btn_3.setOnClickListener(this);
+//        btn_4.setOnClickListener(this);
+//        btn_5.setOnClickListener(this);
+//        btn_6.setOnClickListener(this);
+//        btn_7.setOnClickListener(this);
+//        btn_8.setOnClickListener(this);
+        btn_unreadable.setOnClickListener(this);
+
     }
 
     @Override
@@ -129,69 +157,66 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
                 break;
 
             case R.id.rl_home_qrcode:
-                startActivity(new Intent(QRcodeActivity.this, MainActivity.class));
-                finish();
-                break;
-
-            case R.id.btn1_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(0).description;
-                name = initMemberPrizeLists.data.categories.get(0).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn2_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(1).description;
-                name = initMemberPrizeLists.data.categories.get(1).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn3_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(2).description;
-                name = initMemberPrizeLists.data.categories.get(2).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn4_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(3).description;
-                name = initMemberPrizeLists.data.categories.get(3).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn5_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(4).description;
-                name = initMemberPrizeLists.data.categories.get(4).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn6_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(5).description;
-                name = initMemberPrizeLists.data.categories.get(5).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn7_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(6).description;
-                name = initMemberPrizeLists.data.categories.get(6).name;
-                showInfoDialog(description, name);
-                break;
-
-            case R.id.btn8_register_barcode:
-                description = initMemberPrizeLists.data.categories.get(7).description;
-                name = initMemberPrizeLists.data.categories.get(7).name;
-                showInfoDialog(description, name);
-                break;
 
             case R.id.btn_finish_purchase_qrcode:
                 startActivity(new Intent(QRcodeActivity.this, MainActivity.class));
                 finish();
                 break;
 
-            case R.id.btn_unreadable_barcode:
-                Intent intent = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
-                intent.putExtra("unreadable_barcode", "unreadable_barcode");
-                startActivity(intent);
-                finish();
+//            case R.id.btn1_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(0).description;
+//                name = initMemberPrizeLists.data.categories.get(0).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn2_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(1).description;
+//                name = initMemberPrizeLists.data.categories.get(1).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn3_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(2).description;
+//                name = initMemberPrizeLists.data.categories.get(2).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn4_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(3).description;
+//                name = initMemberPrizeLists.data.categories.get(3).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn5_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(4).description;
+//                name = initMemberPrizeLists.data.categories.get(4).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn6_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(5).description;
+//                name = initMemberPrizeLists.data.categories.get(5).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn7_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(6).description;
+//                name = initMemberPrizeLists.data.categories.get(6).name;
+//                showInfoDialog(description, name);
+//                break;
+//
+//            case R.id.btn8_register_barcode:
+//                description = initMemberPrizeLists.data.categories.get(7).description;
+//                name = initMemberPrizeLists.data.categories.get(7).name;
+//                showInfoDialog(description, name);
+//                break;
+
+
+            case R.id.btn_unreadable:
+                getCategoryList();
                 break;
+
+
         }
     }
 
@@ -275,5 +300,49 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         EventBus.getDefault().unregister(this);
         unregisterReceiver(connectivityReceiver);
         disposable.dispose();
+    }
+
+
+    private void getCategoryList() {
+
+        avi_unreadable.setVisibility(View.VISIBLE);
+        btn_unreadable.setVisibility(View.GONE);
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<GroupsData> call = service.getCategorySpnData();
+        call.enqueue(new Callback<GroupsData>() {
+            @Override
+            public void onResponse(Call<GroupsData> call, Response<GroupsData> response) {
+                if (response.code() == 200) {
+
+                    avi_unreadable.setVisibility(View.GONE);
+                    btn_unreadable.setVisibility(View.VISIBLE);
+
+                    searchList = new ArrayList<>();
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+                        searchList.add(new SearchModel(response.body().getData().get(i).getTitle(),
+                                response.body().getData().get(i).getId()));
+                    }
+
+                    RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
+                    startActivity(new Intent(QRcodeActivity.this,GroupGoodsActivity.class));
+
+
+                } else {
+                    Toast.makeText(QRcodeActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    avi_unreadable.setVisibility(View.GONE);
+                    btn_unreadable.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GroupsData> call, Throwable t) {
+                Toast.makeText(QRcodeActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                avi_unreadable.setVisibility(View.GONE);
+                btn_unreadable.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 }

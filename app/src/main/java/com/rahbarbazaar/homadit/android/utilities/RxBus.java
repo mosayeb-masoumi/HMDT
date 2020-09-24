@@ -141,16 +141,16 @@ public final class RxBus {
         }
     }
 
-//    public static class ActiveList0 {
-//        private static final BehaviorSubject<Object> behaviorSubject
-//                = BehaviorSubject.create();
-//        public static Disposable subscribeActiveList0(@NonNull Consumer<Object> action) {
-//            return behaviorSubject.subscribe(action);
-//        }
-//        public static void publishActiveList0(@NonNull Object message) {
-//            behaviorSubject.onNext(message);
-//        }
-//    }
+    public static class GroupGoodsList {
+        private static final BehaviorSubject<Object> behaviorSubject
+                = BehaviorSubject.create();
+        public static Disposable subscribeGroupGoodsList(@NonNull Consumer<Object> action) {
+            return behaviorSubject.subscribe(action);
+        }
+        public static void publishGroupGoodsList(@NonNull Object message) {
+            behaviorSubject.onNext(message);
+        }
+    }
 
 
 }

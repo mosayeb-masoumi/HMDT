@@ -48,6 +48,7 @@ import com.rahbarbazaar.homadit.android.models.register.RegisterMemberEditModel;
 import com.rahbarbazaar.homadit.android.models.register.RegisterModel;
 import com.rahbarbazaar.homadit.android.models.register.SendPrize;
 import com.rahbarbazaar.homadit.android.models.register.SendRegisterTotalData;
+import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
 import com.rahbarbazaar.homadit.android.models.searchable.SearchModel;
 import com.rahbarbazaar.homadit.android.models.shopping_edit.Data;
 import com.rahbarbazaar.homadit.android.models.shopping_edit.SendUpdateTotalData;
@@ -131,6 +132,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     String spn_name = "online";
     ImageView img_delete_shop_item;
+    List<SearchModel> searchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -974,14 +976,17 @@ public class NewRegisterActivity extends CustomBaseActivity
                     String shopping_id = response.body().data;
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
-                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
-                    intent.putExtra("static_barcode", "static_barcode");
-                    startActivity(intent);
-                    NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                    Toast.makeText(NewRegisterActivity.this, "مشخصات خرید ثبت شد,لطفا اقلام خرید را وارد نمایید.", Toast.LENGTH_SHORT).show();
-                    finish();
-                    btn_register.setVisibility(View.VISIBLE);
-                    avi.setVisibility(View.GONE);
+//                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
+//                    intent.putExtra("static_barcode", "static_barcode");
+//                    startActivity(intent);
+
+                    getCategoryList();
+
+//                    NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                    Toast.makeText(NewRegisterActivity.this, "مشخصات خرید ثبت شد,لطفا اقلام خرید را وارد نمایید.", Toast.LENGTH_SHORT).show();
+//                    finish();
+//                    btn_register.setVisibility(View.VISIBLE);
+//                    avi.setVisibility(View.GONE);
 
                 } else if (response.code() == 422) {
 
@@ -1083,6 +1088,50 @@ public class NewRegisterActivity extends CustomBaseActivity
                 avi.setVisibility(View.GONE);
             }
         });
+    }
+
+
+    private void getCategoryList() {
+
+        btn_register.setVisibility(View.GONE);
+        avi.setVisibility(View.VISIBLE);
+
+        Service service = new ServiceProvider(this).getmService();
+        Call<GroupsData> call = service.getCategorySpnData();
+        call.enqueue(new Callback<GroupsData>() {
+            @Override
+            public void onResponse(Call<GroupsData> call, Response<GroupsData> response) {
+                if (response.code() == 200) {
+
+
+                    searchList = new ArrayList<>();
+
+                    for (int i = 0; i < response.body().getData().size(); i++) {
+                        searchList.add(new SearchModel(response.body().getData().get(i).getTitle(),
+                                response.body().getData().get(i).getId()));
+                    }
+
+                    RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
+                    startActivity(new Intent(NewRegisterActivity.this,GroupGoodsActivity.class));
+
+                    btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
+
+                } else {
+                    Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                    btn_register.setVisibility(View.VISIBLE);
+                    avi.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GroupsData> call, Throwable t) {
+                Toast.makeText(NewRegisterActivity.this, "" + getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                btn_register.setVisibility(View.VISIBLE);
+                avi.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     private void sendUpdateData() {
