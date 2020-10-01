@@ -28,7 +28,7 @@ import io.reactivex.disposables.Disposable;
 public class GroupGoodsActivity extends CustomBaseActivity implements View.OnClickListener, GroupGoodsItemInteraction {
 
     RecyclerView recyclerView;
-    Button btn_new_scan, btn_unknown_goods;
+    Button btn_new_scan, btn_unknown_goods ,btn_finish_purchase;
     LinearLayout linear_return_group;
     GroupsData groupsData;
     Disposable disposable = new CompositeDisposable();
@@ -61,6 +61,14 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         }
 
         setRecyclerView();
+
+
+        String state = getIntent().getExtras().getString("new_register");
+        if(state!=null && state.equals("new_register")){
+            btn_finish_purchase.setVisibility(View.GONE);
+        }else{
+            btn_finish_purchase.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -70,9 +78,11 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         linear_return_group = findViewById(R.id.linear_return_group);
         btn_new_scan = findViewById(R.id.btn_new_scan);
         btn_unknown_goods = findViewById(R.id.btn_unknown_goods);
+        btn_finish_purchase = findViewById(R.id.btn_finish_purchase);
         linear_return_group.setOnClickListener(this);
         btn_new_scan.setOnClickListener(this);
         btn_unknown_goods.setOnClickListener(this);
+        btn_finish_purchase.setOnClickListener(this);
 
     }
 
@@ -97,49 +107,55 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
                 break;
 
             case R.id.btn_unknown_goods:
-                checkAndStartRegisterClass();
+//                checkAndStartRegisterClass();
                 break;
 
             case R.id.linear_return_group:
                 finish();
                 break;
+
+            case R.id.btn_finish_purchase:
+                startActivity(new Intent(GroupGoodsActivity.this,MainActivity.class));
+                finish();
+                break;
+
         }
     }
 
-    private void checkAndStartRegisterClass() {
-
-        int selectedCheckbox= 0;
-        for (int i = 0; i < searchList.size(); i++) {
-
-            if(searchList.get(i).isChecked()){
-                selectedCheckbox +=1;
-            }
-        }
-
-        if(selectedCheckbox == 0){
-            Toast.makeText(this, "یک گروه کالا را انتخاب کنید!", Toast.LENGTH_SHORT).show();
-        }else if(selectedCheckbox >1){
-            Toast.makeText(this, "فقط مجاز به انتخاب یک گروه کالا می باشید!", Toast.LENGTH_SHORT).show();
-        }else if(selectedCheckbox == 1) {
-
-
-            for (int i = 0; i < searchList.size(); i++) {
-
-                if(searchList.get(i).isChecked()){
-                    String groupId = searchList.get(i).getId();
-                    String groupTitle = searchList.get(i).getTitle();
-                    Cache.setString(this,"selectedGroupId",groupId);
-                    Cache.setString(this,"selectedGroupTitle",groupTitle);
-                }
-            }
-
-            Intent intent = new Intent(GroupGoodsActivity.this, PurchasedItemActivity.class);
-            intent.putExtra("unreadable_barcode", "unreadable_barcode");
-            startActivity(intent);
-            finish();
-        }
-
-    }
+//    private void checkAndStartRegisterClass() {
+//
+//        int selectedCheckbox= 0;
+//        for (int i = 0; i < searchList.size(); i++) {
+//
+//            if(searchList.get(i).isChecked()){
+//                selectedCheckbox +=1;
+//            }
+//        }
+//
+//        if(selectedCheckbox == 0){
+//            Toast.makeText(this, "یک گروه کالا را انتخاب کنید!", Toast.LENGTH_SHORT).show();
+//        }else if(selectedCheckbox >1){
+//            Toast.makeText(this, "فقط مجاز به انتخاب یک گروه کالا می باشید!", Toast.LENGTH_SHORT).show();
+//        }else if(selectedCheckbox == 1) {
+//
+//
+//            for (int i = 0; i < searchList.size(); i++) {
+//
+//                if(searchList.get(i).isChecked()){
+//                    String groupId = searchList.get(i).getId();
+//                    String groupTitle = searchList.get(i).getTitle();
+//                    Cache.setString(this,"selectedGroupId",groupId);
+//                    Cache.setString(this,"selectedGroupTitle",groupTitle);
+//                }
+//            }
+//
+//            Intent intent = new Intent(GroupGoodsActivity.this, PurchasedItemActivity.class);
+//            intent.putExtra("unreadable_barcode", "unreadable_barcode");
+//            startActivity(intent);
+//            finish();
+//        }
+//
+//    }
 
     @Override
     protected void onStop() {
@@ -150,7 +166,14 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 
 
     @Override
-    public void groupGoodsListItemOnClick(GroupGoodsModel id) {
+    public void groupGoodsListItemOnClick(GroupGoodsModel model) {
         Log.i("TAG", "groupGoodsListItemOnClick: ");
+
+        Cache.setString(this,"selectedGroupId",model.getId());
+        Cache.setString(this,"selectedGroupTitle",model.getTitle());
+
+        startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class));
+        finish();
+
     }
 }

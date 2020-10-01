@@ -19,7 +19,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:padding="6dp"
-            android:src="@drawable/ic_close" />
+            app:srcCompat="@drawable/ic_close" />
 
         <TextView
             android:id="@+id/txt_header"
@@ -51,6 +51,7 @@
             android:layout_height="match_parent"
             android:fadeScrollbars="false"
             android:layoutDirection="rtl"
+            android:padding="7dp"
             android:scrollbarSize="3dp"
             android:scrollbarThumbVertical="@color/pink"
             android:scrollbars="vertical">
@@ -113,7 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/dialog_btn_shape"
-                android:text="@string/pushe_close_dialog"
+                android:text="@string/register"
+                android:visibility="gone"
                 android:textColor="@color/blue"
                 android:textSize="14sp" />
 

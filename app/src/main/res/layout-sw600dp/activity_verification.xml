@@ -94,7 +94,7 @@
             android:layout_centerInParent="true"
             android:background="@drawable/bg_phoneregister_shape"
             android:textColor="@color/white"
-            android:text="@string/login_button_text"
+            android:text="@string/register"
             android:textSize="17sp" />
 
     </RelativeLayout>

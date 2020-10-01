@@ -41,7 +41,10 @@ import com.rahbarbazaar.homadit.android.R
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
 
 import com.rahbarbazaar.homadit.android.models.history.HistoryData
+import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
+import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
+import java.util.ArrayList
 
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
@@ -412,6 +415,8 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     this@VerificationActivity.finish()
 
 
+                    getCategoryList()
+
 
                 } else {
                     Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
@@ -424,6 +429,40 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         })
 
     }
+
+
+
+    private fun getCategoryList() {
+
+        val service = ServiceProvider(this).getmService()
+        val call = service.categorySpnData
+        call.enqueue(object : Callback<GroupsData> {
+            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
+                if (response.code() == 200) {
+
+                    var searchList: List<SearchModel?>? = null
+
+                    searchList = ArrayList<SearchModel>()
+                    for (i in response.body()!!.data!!.indices) {
+                        searchList.add(SearchModel(response.body()!!.data!![i].title,
+                                response.body()!!.data!![i].id))
+                    }
+                    RxBus.GroupGoodsList.publishGroupGoodsList(response.body()!!)
+
+                } else {
+                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
+                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+
+            }
+        })
+    }
+
+
 
     private fun recodeRequest() {
 

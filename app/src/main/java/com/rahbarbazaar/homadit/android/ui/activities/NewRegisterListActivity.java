@@ -452,9 +452,11 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
         }else if(action.equals("register")){
 
             if (cameraPermissionGranted()) {
-                Intent intent = new Intent(this, QRcodeActivity.class);
+//                Intent intent = new Intent(this, QRcodeActivity.class);
+                Intent intent = new Intent(this, GroupGoodsActivity.class);
                 Cache.setString(this,"shopping_id",shopping_id);
                 intent.putExtra("static_barcode","static_barcode");
+                intent.putExtra("new_register","new_register");
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             } else {

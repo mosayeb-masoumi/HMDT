@@ -199,6 +199,14 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             getSpinnerLists(selectedGroupId);
         }
 
+
+////        unreadable
+//         String state = getIntent().getExtras().getString("unreadable");
+//        if(state!=null && state.equals("unreadable")){
+//            ll_chkboxes.setVisibility(View.GONE);
+//            edt_barcode.setVisibility(View.VISIBLE);
+//        }
+
     }
 
     private void detectStatus(Barcode barcodeList_unreadable, GroupsData spinnerList_unreadable) {
@@ -233,6 +241,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             ll_chkboxes.setVisibility(View.GONE);
             rl_register_result.setVisibility(View.VISIBLE);
 
+
+            ll_questions.setVisibility(View.VISIBLE);
 
         } else {
             edt_barcode.setVisibility(View.GONE);
@@ -902,6 +912,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         RelativeLayout rl_camera3 = dialog.findViewById(R.id.rl_camera3);
         Button btn_close = dialog.findViewById(R.id.btn_close_photo_dialog);
         TextView txt_phpto = dialog.findViewById(R.id.txt_photo);
+        TextView txt_header = dialog.findViewById(R.id.txt_header_goods_photo);
         ImageView img_close = dialog.findViewById(R.id.img_close);
 
         img_delete1 = dialog.findViewById(R.id.img_delete1);
@@ -914,7 +925,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
 
         txt_phpto.setText("لطفا با توجه به راهنما از کالا عکس بگیرید.");
-
+        txt_header.setText("گرفتن عکس از محصول");
 
         if (bm1 != null) {
             img1.setImageBitmap(bm1);
@@ -1050,7 +1061,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
             for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
                 members.add(new Member(initMemberPrizeLists.data.member.get(i).get(j).name
-                        , initMemberPrizeLists.data.member.get(i).get(j).id));
+                        , initMemberPrizeLists.data.member.get(i).get(j).id ,false));
             }
         }
         CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
@@ -1355,8 +1366,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     private void getCategoryList() {
 
-        avi_register_barcode.setVisibility(View.VISIBLE);
-        img_register_barcode.setVisibility(View.GONE);
+
 
         Service service = new ServiceProvider(this).getmService();
         Call<GroupsData> call = service.getCategorySpnData();
@@ -1378,6 +1388,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     startActivity(new Intent(PurchasedItemActivity.this,GroupGoodsActivity.class));
 
 
+                    avi_register_purchased.setVisibility(View.GONE);
+                    btn_register_purchased.setVisibility(View.VISIBLE);
 
 //                    str_spn_dialog_header = "گروه";
 //                    showSpnListDialog("spn_group", searchList, str_spn_dialog_header);
@@ -1411,8 +1423,9 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     private void getSpinnerLists(String str_spn_group_id) {
 
-        avi_register_barcode.setVisibility(View.VISIBLE);
-        img_register_barcode.setVisibility(View.GONE);
+
+//        avi_register_barcode.setVisibility(View.VISIBLE);
+//        img_register_barcode.setVisibility(View.GONE);
 
         Service service = new ServiceProvider(this).getmService();
         Call<SpinnersModel> call = service.getSpinnersData(str_spn_group_id);

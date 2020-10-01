@@ -10,8 +10,8 @@
         android:layout_height="37dp"
         android:layout_marginTop="3dp"
         android:foreground="?attr/selectableItemBackground"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:visibility="visible">
 
 
         <ImageView
@@ -23,26 +23,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="3dp"
             android:gravity="center_vertical"
             android:text="@string/support_center"
-            android:layout_marginStart="3dp"
             android:textColor="@color/white_gray"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/img_arrow"
             android:layout_width="34dp"
             android:layout_height="match_parent"
-            android:padding="12dp"
-            android:id="@+id/img_arrow" />
+            android:padding="12dp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/linear_submenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/linear_edu"
@@ -50,6 +50,7 @@
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:paddingStart="5dp">
 
             <TextView
@@ -58,7 +59,7 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="-"
-                android:textColor="@color/white_gray"/>
+                android:textColor="@color/white_gray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,7 +77,8 @@
             android:layout_height="37dp"
             android:foreground="?attr/selectableItemBackground"
             android:orientation="horizontal"
-            android:paddingStart="5dp">
+            android:paddingStart="5dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="34dp"
@@ -84,7 +86,7 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="-"
-                android:textColor="@color/white_gray"/>
+                android:textColor="@color/white_gray" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -121,7 +123,6 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

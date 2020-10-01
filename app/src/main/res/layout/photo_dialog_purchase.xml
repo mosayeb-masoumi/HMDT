@@ -29,9 +29,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:padding="6dp"
-                android:src="@drawable/ic_close" />
+                app:srcCompat="@drawable/ic_close" />
 
             <TextView
+                android:id="@+id/txt_header_goods_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

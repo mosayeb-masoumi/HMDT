@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 //import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.homadit.android.R;
+import com.rahbarbazaar.homadit.android.models.api_error.APIError422;
+import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
 import com.rahbarbazaar.homadit.android.models.barcodlist.BarcodeLoadingState;
 import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
@@ -29,6 +31,9 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
     private ZXingScannerView mScannerView;
     String barcode_digit;
     BarcodeLoadingState state = new BarcodeLoadingState();
+
+
+    StringBuilder builderShopId;
 
     public ScanFragment() {
         // Required empty public constructor
@@ -90,6 +95,20 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     }
                 } else if (response.code() == 204) {
                     getSpinneList(barcode_digit);
+
+                } else if (response.code() == 422) {
+
+                    APIError422 apiError = ErrorUtils.parseError422(response);
+
+                    if (apiError.errors.shopId != null) {
+                        builderShopId = new StringBuilder();
+                        for (String a : apiError.errors.shopId) {
+                            builderShopId.append("").append(a).append(" ");
+                        }
+                    }
+
+                    Toast.makeText(getContext(), ""+builderShopId, Toast.LENGTH_SHORT).show();
+                    int a =5;
 
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();

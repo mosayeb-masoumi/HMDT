@@ -21,6 +21,8 @@ import com.rahbarbazaar.homadit.android.models.api_error403.ShowMessage403
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_history.DashboardHistory
 import com.rahbarbazaar.homadit.android.models.history.HistoryData
+import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
+import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
 import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
 import com.rahbarbazaar.homadit.android.network.ServiceProvider
@@ -331,6 +333,8 @@ class SplashActivity : CustomBaseActivity() {
                     }
 
 
+                    getCategoryList()
+
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
                     this@SplashActivity.finish()
@@ -349,6 +353,35 @@ class SplashActivity : CustomBaseActivity() {
 
     }
 
+    private fun getCategoryList() {
+
+        val service = ServiceProvider(this).getmService()
+        val call = service.categorySpnData
+        call.enqueue(object : Callback<GroupsData> {
+            override fun onResponse(call: Call<GroupsData>, response: Response<GroupsData>) {
+                if (response.code() == 200) {
+
+                    var searchList: List<SearchModel?>? = null
+
+                     searchList = ArrayList<SearchModel>()
+                    for (i in response.body()!!.data!!.indices) {
+                        searchList.add(SearchModel(response.body()!!.data!![i].title,
+                                response.body()!!.data!![i].id))
+                    }
+                    RxBus.GroupGoodsList.publishGroupGoodsList(response.body()!!)
+
+                } else {
+                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<GroupsData>, t: Throwable) {
+                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+
+            }
+        })
+    }
 
 
 

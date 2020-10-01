@@ -85,7 +85,6 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="20dp"
-                            android:text="@string/barcode"
                             android:textColor="@color/blue_dark"
                             android:textSize="15sp" />
 
@@ -94,7 +93,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="621547896542658"
                             android:textColor="@color/blue_dark"
                             android:textSize="15sp" />
 
@@ -656,7 +654,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
                     android:padding="3dp"
-                    android:text="ذسنیتبنتسنب"
+                    android:text=""
                     android:textColor="@color/blue_dark"
                     android:textSize="14sp" />
 
@@ -865,7 +863,7 @@
                             android:layout_centerInParent="true"
                             android:padding="8dp"
                             android:rotation="180"
-                            android:src="@drawable/ic_info2" />
+                            app:srcCompat="@drawable/ic_info2" />
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -906,7 +904,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:padding="10dp"
-                            android:src="@drawable/camera" />
+                            app:srcCompat="@drawable/camera" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -941,7 +939,7 @@
                             android:layout_centerInParent="true"
                             android:padding="8dp"
                             android:rotation="180"
-                            android:src="@drawable/ic_info2" />
+                            app:srcCompat="@drawable/ic_info2" />
 
                     </RelativeLayout>
 

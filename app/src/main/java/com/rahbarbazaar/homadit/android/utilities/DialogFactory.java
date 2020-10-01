@@ -441,7 +441,8 @@ public class DialogFactory {
         np_year.setDisplayedValues(new String[]{ConvertEnDigitToFa.convert(lastYear)
                 , ConvertEnDigitToFa.convert(currentYear), ConvertEnDigitToFa.convert(nextYear)});
 
-        np_month.setDisplayedValues(new String[]{"۰۱", "۰۲", "۰۳", "۰۴", "۰۵", "۰۶", "۰۷", "۰۸", "۰۹", "۱۰", "۱۱", "۱۲"});
+//        np_month.setDisplayedValues(new String[]{"۰۱", "۰۲", "۰۳", "۰۴", "۰۵", "۰۶", "۰۷", "۰۸", "۰۹", "۱۰", "۱۱", "۱۲"});
+        np_month.setDisplayedValues(new String[]{"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"});
 
         np_day.setDisplayedValues(new String[]{"۰۱", "۰۲", "۰۳", "۰۴", "۰۵", "۰۶", "۰۷", "۰۸", "۰۹", "۱۰", "۱۱", "۱۲",
                 "۱۳", "۱۴", "۱۵", "۱۶", "۱۷", "۱۸", "۱۹", "۲۰", "۲۱", "۲۲", "۲۳", "۲۴",
@@ -484,6 +485,7 @@ public class DialogFactory {
 
         btn_register.setOnClickListener(v -> {
 
+
             String year1 = ConvertEnDigitToFa.convert(String.valueOf(np_year.getValue()));
             String month1 = ConvertEnDigitToFa.convert(String.valueOf(np_month.getValue()));
             String month2 = (String.format("%s", month1.length() < 2 ? "۰" + month1 : month1));
@@ -491,9 +493,21 @@ public class DialogFactory {
             String day2 = (String.format("%s", day1.length() < 2 ? "۰" + day1 : day1));
             String date = year1 + "/" + month2 + "/" + day2;
 
+
+            if(np_year.getValue() > year){
+                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+            }else if(np_month.getValue() > month){
+                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+            }else if(np_day.getValue() > day){
+                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+            }else{
+                listener.onAcceptButtonClicked(date);
+                dialog.dismiss();
+            }
+
 //            String date = ConvertEnDigitToFa.convert(year+"/"+month+"/"+day) ;
-            listener.onAcceptButtonClicked(date);
-            dialog.dismiss();
+
+
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());
@@ -1081,15 +1095,19 @@ public class DialogFactory {
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            // to show keyboard automatically while editText is in  dialog
+            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_close.setOnClickListener(v -> dialog.dismiss());
 
         btn_register.setOnClickListener(v -> {
+
+            dialog.dismiss();
             String description = edt_description.getText().toString();
             listener.onAcceptButtonClicked(description);
-            dialog.dismiss();
+
         });
 
         dialog.show();

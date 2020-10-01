@@ -11,9 +11,19 @@ public class Member {
     @Expose
     public String id;
 
+    boolean selected = false;
 
-    public Member(String name, String id) {
+    public Member(String name, String id, boolean selected) {
         this.name = name;
         this.id = id;
+        this.selected = selected;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

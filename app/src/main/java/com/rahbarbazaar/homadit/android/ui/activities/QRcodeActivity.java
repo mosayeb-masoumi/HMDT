@@ -213,7 +213,10 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
 
             case R.id.btn_unreadable:
-                getCategoryList();
+//                getCategoryList();
+                Intent intent = new Intent(QRcodeActivity.this,PurchasedItemActivity.class);
+                intent.putExtra("unreadable_barcode","unreadable_barcode");
+                startActivity(intent);
                 break;
 
 
@@ -344,5 +347,12 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

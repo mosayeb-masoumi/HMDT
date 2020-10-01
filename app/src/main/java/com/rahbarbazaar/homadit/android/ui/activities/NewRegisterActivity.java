@@ -106,6 +106,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     EditText edtDate, edt_total_amount;
 
     String str_shop_id, info_type;
+    String str_shop_title ="";
     Context context;
 
     TextView txt_header, txt_total_amount_title,txt_btn_member,txt_shop_edit,txt_shop_title_edit,
@@ -338,7 +339,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         switch (view.getId()) {
             case R.id.rl_addmember:
-                showAddMemberDialog(spn_name);
+                if(str_shop_title.equals("")){
+                    Toast.makeText(context, "لطفا ابتدا نوع خرید(اینترنتی , حضوری/تلفنی) را مشخص نمایید!", Toast.LENGTH_SHORT).show();
+                }else{
+                    showAddMemberDialog(spn_name);
+                }
+
                 break;
 
             case R.id.btn_register:
@@ -403,6 +409,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             case R.id.img_delete_shop_item:
                 str_shop_id = "";
                 txt_shop_title.setText("");
+                str_shop_title ="";
                 rl_show_shop_result.setVisibility(View.GONE);
                 btn_present_purchase.setBackground(getResources().getDrawable(R.drawable.bg_present_purchase_active));
                 btn_online_purchase.setBackground(getResources().getDrawable(R.drawable.bg_online_purchase_active));
@@ -852,7 +859,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
             for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
                 members.add(new Member(initMemberPrizeLists.data.member.get(i).get(j).name
-                        , initMemberPrizeLists.data.member.get(i).get(j).id));
+                        , initMemberPrizeLists.data.member.get(i).get(j).id ,false));
             }
         }
 
@@ -866,10 +873,12 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         if(spn_name.equals("online")){
             rl_check_all.setVisibility(View.GONE);
-            txt_header.setText("سفارش دهنده");
+//            txt_header.setText("سفارش دهنده");
+            txt_header.setText("فردی از خانواده که سفارش خرید اینترنتی را ثبت کرده است");
         }else{
             rl_check_all.setVisibility(View.VISIBLE);
-            txt_header.setText("اعضای خانواده همراه");
+//            txt_header.setText("اعضای خانواده همراه");
+            txt_header.setText("فرد یا افرادی از خانواده که جهت خرید به فروشگاه مراجعه کرده اند");
         }
 
 
@@ -895,6 +904,22 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         });
 
+
+        rl_check_all.setOnClickListener(view -> {
+            editMembers = new ArrayList<>();
+            for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+                for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+                    editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+                            initMemberPrizeLists.data.member.get(i).get(j).id));
+                }
+            }
+
+            updateEditMemberList(editMembers);
+            dialog.dismiss();
+        });
+
+
+
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
 
@@ -913,6 +938,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
             if (editMembers.size() > 0) {
                 for (int i = 0; i < editMembers.size(); i++) {
+
+
                     if (editMembers.get(i).txt_name.equals(name)) {
                         editMembers.remove(i);
                     }
@@ -977,10 +1004,13 @@ public class NewRegisterActivity extends CustomBaseActivity
                     Cache.setString(NewRegisterActivity.this, "shopping_id", shopping_id);
 
 //                    Intent intent = new Intent(NewRegisterActivity.this, QRcodeActivity.class);
-//                    intent.putExtra("static_barcode", "static_barcode");
-//                    startActivity(intent);
+                    Intent intent = new Intent(NewRegisterActivity.this, GroupGoodsActivity.class);
+                    intent.putExtra("static_barcode", "static_barcode");
+                    intent.putExtra("new_register","new_register");
+                    startActivity(intent);
 
-                    getCategoryList();
+                  //category list called from spash and verification
+//                    getCategoryList();
 
 //                    NewRegisterActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 //                    Toast.makeText(NewRegisterActivity.this, "مشخصات خرید ثبت شد,لطفا اقلام خرید را وارد نمایید.", Toast.LENGTH_SHORT).show();
@@ -1369,6 +1399,7 @@ public class NewRegisterActivity extends CustomBaseActivity
     public void searchListItemOnClick(SearchModel model, AlertDialog dialog, String spn_name) {
         rl_show_shop_result.setVisibility(View.VISIBLE);
         txt_shop_title.setText(model.getTitle());
+        str_shop_title = model.getTitle();
         str_shop_id = model.getId();
         dialog.dismiss();
 

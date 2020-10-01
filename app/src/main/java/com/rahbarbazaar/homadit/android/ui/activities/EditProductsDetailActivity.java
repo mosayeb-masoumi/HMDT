@@ -236,7 +236,7 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
             for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
                 members.add(new Member(initMemberPrizeLists.data.member.get(i).get(j).name
-                        , initMemberPrizeLists.data.member.get(i).get(j).id));
+                        , initMemberPrizeLists.data.member.get(i).get(j).id ,false));
             }
         }
 

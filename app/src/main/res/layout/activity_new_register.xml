@@ -108,6 +108,7 @@
 
 
             <TextView
+                android:id="@+id/txt_shop_title_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -115,25 +116,24 @@
                 android:layout_marginEnd="10dp"
                 android:text="@string/shop"
                 android:textColor="@color/blue_dark"
-                android:id="@+id/txt_shop_title_edit"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/rl_shop_edit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/rl_shop_edit"
-                android:background="@drawable/bg_prize_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp">
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item">
 
                 <TextView
                     android:id="@+id/txt_shop_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_centerInParent="true"
+                    android:layout_gravity="center"
                     android:gravity="center"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
@@ -158,27 +158,27 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/bg_prize_item"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp">
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/bg_prize_item">
 
                 <EditText
                     android:id="@+id/edt_total_amount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_centerInParent="true"
+                    android:layout_gravity="center"
                     android:cursorVisible="true"
                     android:gravity="center"
                     android:hint="ریال"
-                    android:backgroundTint="@color/blue_light"
+                    android:background="@android:color/transparent"
                     android:inputType="numberDecimal"
                     android:padding="5sp"
                     android:textColor="@color/blue_dark"
                     android:textColorHint="@color/blue"
                     android:textDirection="rtl"
-                    android:textSize="14sp" />
+                    android:textSize="17sp" />
             </RelativeLayout>
 
             <TextView
@@ -240,22 +240,22 @@
                     android:background="@drawable/bg_btn_prize">
 
                     <ImageView
+                        android:id="@+id/img11"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:id="@+id/img11"
                         android:padding="10dp"
                         android:src="@drawable/img_member" />
 
                     <TextView
+                        android:id="@+id/txt_btn_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@+id/img11"
                         android:layout_centerInParent="true"
                         android:layout_marginStart="5dp"
-                        android:id="@+id/txt_btn_member"
+                        android:layout_toStartOf="@+id/img11"
                         android:text="@string/orderer"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -270,6 +270,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5dp"
+                    android:visibility="gone"
                     android:src="@drawable/bg_info_btn_prize">
 
                     <ImageView
@@ -338,12 +339,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="20dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
                     android:textColor="@color/blue_dark"
-                    android:visibility="gone"
                     android:textSize="16sp"
-                    />
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/rl_info_img_new_register"
@@ -351,10 +351,10 @@
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:visibility="gone"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5dp"
-                    android:src="@drawable/bg_info_btn_prize">
+                    android:src="@drawable/bg_info_btn_prize"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="match_parent"
