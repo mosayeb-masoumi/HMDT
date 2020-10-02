@@ -167,7 +167,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:layout_margin="10dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp">
 
 
             <Button
@@ -178,17 +181,18 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_add"
                 android:text="@string/finish_purchase"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="2dp"
-                android:orientation="vertical"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/bg_button_add"
-                android:layout_weight="1">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_unreadable"
@@ -199,12 +203,12 @@
                     android:textColor="@color/white" />
 
                 <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi_unreadable"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/avi_unreadable"
+                    android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true" />
+                    android:visibility="gone" />
 
 
             </LinearLayout>

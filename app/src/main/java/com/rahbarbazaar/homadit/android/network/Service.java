@@ -88,7 +88,8 @@ public interface Service {
 
 
     @POST("Product/Barcode")
-    Call<Barcode> getBarcodeList(@Query("barcode") String barcode);
+    Call<Barcode> getBarcodeList(@Query("barcode") String barcode ,
+                                 @Query("shopping_id") String shopping_id);
 
     @POST("Bought/Create")
     Call<PurchaseItemResult> getPurchaseItemResult(@Body SendPurchasedItemData sendPurchasedItemData);

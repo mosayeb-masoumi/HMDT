@@ -91,11 +91,25 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         });
 
 
+
+
+//        new Thread (() -> {
+//            ScanFragment scanFragment = new ScanFragment();
+//            FragmentManager fm = getSupportFragmentManager();
+//            FragmentTransaction ft = fm.beginTransaction();
+//            ft.replace(R.id.frg_holder, scanFragment);
+//            ft.commit();
+//        }).start();
+
+
         ScanFragment scanFragment = new ScanFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frg_holder, scanFragment);
         ft.commit();
+
+
+
         avi_qrcode.hide();
     }
 
@@ -153,11 +167,14 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         switch (view.getId()) {
 
             case R.id.linear_return_qrcode:
+                Intent intent = new Intent(QRcodeActivity.this,GroupGoodsActivity.class);
+                intent.putExtra("new_register","repeat");
+                startActivity(intent);
+
                 finish();
                 break;
 
             case R.id.rl_home_qrcode:
-
             case R.id.btn_finish_purchase_qrcode:
                 startActivity(new Intent(QRcodeActivity.this, MainActivity.class));
                 finish();
@@ -214,9 +231,9 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
             case R.id.btn_unreadable:
 //                getCategoryList();
-                Intent intent = new Intent(QRcodeActivity.this,PurchasedItemActivity.class);
-                intent.putExtra("unreadable_barcode","unreadable_barcode");
-                startActivity(intent);
+                Intent intent2 = new Intent(QRcodeActivity.this,PurchasedItemActivity.class);
+                intent2.putExtra("unreadable_barcode","unreadable_barcode");
+                startActivity(intent2);
                 break;
 
 
@@ -285,6 +302,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         Intent intent = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("barcodeList", barcode);
+        intent.putExtra("suggested_price",model.getPrice());
         intent.putExtra("product_id",barcode.getData().get(position).getId());
         intent.putExtra("mygroup",barcode.getData().get(position).getMygroup());
 //        intent.putExtra("min_price",barcode.getData().get(position).getMinPrice());
@@ -352,7 +370,12 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        super.onBackPressed();
+
+        Intent intent = new Intent(QRcodeActivity.this,GroupGoodsActivity.class);
+        intent.putExtra("new_register","repeat");
+        startActivity(intent);
+
         finish();
     }
 }

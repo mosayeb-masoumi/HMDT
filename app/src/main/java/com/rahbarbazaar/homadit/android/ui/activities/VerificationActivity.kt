@@ -1,5 +1,8 @@
 package com.rahbarbazaar.homadit.android.ui.activities
 
+//import com.rahbarbazaar.shopper.BuildConfig
+//import com.rahbarbazaar.shopper.R
+
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.BroadcastReceiver
@@ -18,14 +21,19 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-
-//import com.rahbarbazaar.shopper.BuildConfig
-//import com.rahbarbazaar.shopper.R
+import com.pushpole.sdk.PushPole
+import com.rahbarbazaar.homadit.android.BuildConfig
+import com.rahbarbazaar.homadit.android.R
+import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_history.DashboardHistory
+import com.rahbarbazaar.homadit.android.models.history.HistoryData
 import com.rahbarbazaar.homadit.android.models.login.LoginModel
+import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
+import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
 import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
+import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
 import com.rahbarbazaar.homadit.android.models.verify.VerifyModel
 import com.rahbarbazaar.homadit.android.network.ServiceProvider
 import com.rahbarbazaar.homadit.android.utilities.*
@@ -34,17 +42,7 @@ import kotlinx.android.synthetic.main.activity_verification.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-import com.pushpole.sdk.PushPole
-import com.rahbarbazaar.homadit.android.BuildConfig
-import com.rahbarbazaar.homadit.android.R
-import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
-
-import com.rahbarbazaar.homadit.android.models.history.HistoryData
-import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
-import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
-import com.rahbarbazaar.homadit.android.models.transaction.TransactionData
-import java.util.ArrayList
+import java.util.*
 
 class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
@@ -58,8 +56,19 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
 
         PushPole.initialize(this, true)
-//
-        pid = PushPole.getId(this)
+
+
+        val t: Thread = object : Thread() {
+            override fun run() {
+                try {
+                    PushPole.initialize(this@VerificationActivity, true)
+                    pid = PushPole.getId(this@VerificationActivity)
+                } finally {
+                }
+            }
+        }
+        t.start()
+
 
 
         //check network broadcast reciever

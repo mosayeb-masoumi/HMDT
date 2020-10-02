@@ -140,7 +140,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
                     <ImageView
@@ -156,7 +156,7 @@
                         android:layout_height="30dp"
                         android:visibility="gone"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
 
                 </RelativeLayout>
@@ -174,19 +174,44 @@
             android:textColor="@color/blue_dark"
             android:text="text"/>
 
-        <Button
-            android:id="@+id/btn_close_photo_dialog"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/dialog_btn_shape"
-            android:gravity="center"
-            android:text="@string/close"
-            android:textColor="@color/blue"
-            android:textSize="13sp" />
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btn_guide_photo_dialog"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_shape"
+                android:gravity="center"
+                android:text="راهنما"
+                android:textColor="@color/blue"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btn_close_photo_dialog"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_btn_shape"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:text="@string/register"
+                android:textColor="@color/blue"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
 
 
 

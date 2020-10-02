@@ -10,6 +10,11 @@ public class Data {
     @SerializedName("brand")
     @Expose
     public List<Brand> brand = null;
+
+    @SerializedName("top_brand")
+    @Expose
+    public List<Brand> topBrand = null;
+
     @SerializedName("one_title")
     @Expose
     public String oneTitle;

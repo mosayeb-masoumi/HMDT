@@ -15,9 +15,9 @@
         android:background="@drawable/bg_toolbar">
 
         <TextView
+            android:id="@+id/txt_title_purchased_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_title_purchased_item"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="17sp" />
@@ -47,16 +47,28 @@
                     android:id="@+id/rl_register_barcode"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.2"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/img_register_barcode"
+                    <!--                    <ImageView-->
+                    <!--                        android:id="@+id/img_register_barcode"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="match_parent"-->
+                    <!--                        android:padding="7dp"-->
+                    <!--                        android:layout_centerInParent="true"-->
+                    <!--                        android:src="@drawable/enter_icon" />-->
+
+                    <TextView
+                        android:id="@+id/txt_register_barcode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="7dp"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/enter_icon" />
+                        android:background="@drawable/bg_prize_item"
+                        android:gravity="center"
+                        android:padding="7dp"
+                        android:src="@drawable/enter_icon"
+                        android:text="جستجو"
+                        android:textColor="@color/blue_dark" />
 
                     <com.wang.avi.AVLoadingIndicatorView
                         android:id="@+id/avi_register_barcode"
@@ -68,16 +80,22 @@
 
                 </RelativeLayout>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.1" />
+
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="5"
+                    android:layout_weight="4"
                     android:background="@drawable/bg_prize_item">
 
                     <RelativeLayout
                         android:id="@+id/rl_readable_barcode"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -101,12 +119,13 @@
 
                     <EditText
                         android:id="@+id/edt_barcode"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/blue_light"
                         android:gravity="center"
                         android:hint="بارکد را وارد نمایید"
-                        android:backgroundTint="@color/blue_light"
                         android:inputType="number"
                         android:textColor="@color/blue_dark"
                         android:textColorHint="@color/blue"
@@ -250,15 +269,14 @@
                         </RelativeLayout>
 
 
-
                         <RelativeLayout
                             android:layout_width="0dp"
                             android:layout_height="45dp"
                             android:layout_alignParentTop="true"
                             android:layout_marginEnd="2dp"
-                            android:visibility="gone"
                             android:layout_marginBottom="3dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:visibility="gone">
 
                             <RelativeLayout
                                 android:id="@+id/rl_spn_group"
@@ -307,41 +325,40 @@
                         android:layout_height="50dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="3dp"
-                        android:visibility="gone"
-                        android:layout_marginEnd="10dp">
+                        android:layout_marginEnd="10dp"
+                        android:visibility="gone">
 
 
-<!--                        <RelativeLayout-->
-<!--                            android:id="@+id/rl_spn_brand"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="45dp"-->
-<!--                            android:layout_marginStart="2dp"-->
-<!--                            android:layout_marginBottom="3dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/bg_inactive_spn"-->
-<!--                            android:layoutDirection="rtl"-->
-<!--                            android:padding="3dp">-->
+                        <!--                        <RelativeLayout-->
+                        <!--                            android:id="@+id/rl_spn_brand"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="45dp"-->
+                        <!--                            android:layout_marginStart="2dp"-->
+                        <!--                            android:layout_marginBottom="3dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:background="@drawable/bg_inactive_spn"-->
+                        <!--                            android:layoutDirection="rtl"-->
+                        <!--                            android:padding="3dp">-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/txt_brand_spn_title"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_centerVertical="true"-->
-<!--                                android:layout_marginStart="10dp"-->
-<!--                                android:text="برند"-->
-<!--                                android:textColor="@color/grey"-->
-<!--                                android:textSize="14sp" />-->
+                        <!--                            <TextView-->
+                        <!--                                android:id="@+id/txt_brand_spn_title"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_centerVertical="true"-->
+                        <!--                                android:layout_marginStart="10dp"-->
+                        <!--                                android:text="برند"-->
+                        <!--                                android:textColor="@color/grey"-->
+                        <!--                                android:textSize="14sp" />-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/img_arrow_spinner_brand"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_alignParentEnd="true"-->
-<!--                                android:layout_centerInParent="true"-->
-<!--                                android:layout_marginEnd="15dp" />-->
+                        <!--                            <ImageView-->
+                        <!--                                android:id="@+id/img_arrow_spinner_brand"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_alignParentEnd="true"-->
+                        <!--                                android:layout_centerInParent="true"-->
+                        <!--                                android:layout_marginEnd="15dp" />-->
 
-<!--                        </RelativeLayout>-->
-
+                        <!--                        </RelativeLayout>-->
 
 
                         <RelativeLayout
@@ -352,45 +369,45 @@
                             android:layout_marginBottom="3dp"
                             android:layout_weight="1">
 
-<!--                            <RelativeLayout-->
-<!--                                android:id="@+id/rl_spn_group"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="match_parent"-->
-<!--                                android:layout_alignParentTop="true"-->
-<!--                                android:background="@drawable/bg_inactive_spn"-->
-<!--                                android:layoutDirection="rtl"-->
-<!--                                android:visibility="gone"-->
-<!--                                android:padding="3dp">-->
+                            <!--                            <RelativeLayout-->
+                            <!--                                android:id="@+id/rl_spn_group"-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_alignParentTop="true"-->
+                            <!--                                android:background="@drawable/bg_inactive_spn"-->
+                            <!--                                android:layoutDirection="rtl"-->
+                            <!--                                android:visibility="gone"-->
+                            <!--                                android:padding="3dp">-->
 
-<!--                                <TextView-->
-<!--                                    android:id="@+id/txt_group_spn_title"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_centerVertical="true"-->
-<!--                                    android:layout_marginStart="10dp"-->
-<!--                                    android:text="گروه"-->
-<!--                                    android:textColor="@color/grey"-->
-<!--                                    android:textSize="14sp" />-->
+                            <!--                                <TextView-->
+                            <!--                                    android:id="@+id/txt_group_spn_title"-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_centerVertical="true"-->
+                            <!--                                    android:layout_marginStart="10dp"-->
+                            <!--                                    android:text="گروه"-->
+                            <!--                                    android:textColor="@color/grey"-->
+                            <!--                                    android:textSize="14sp" />-->
 
-<!--                                <ImageView-->
-<!--                                    android:id="@+id/img_arrow_spinner_group"-->
-<!--                                    android:layout_width="wrap_content"-->
-<!--                                    android:layout_height="wrap_content"-->
-<!--                                    android:layout_alignParentEnd="true"-->
-<!--                                    android:layout_centerInParent="true"-->
-<!--                                    android:layout_marginEnd="15dp" />-->
+                            <!--                                <ImageView-->
+                            <!--                                    android:id="@+id/img_arrow_spinner_group"-->
+                            <!--                                    android:layout_width="wrap_content"-->
+                            <!--                                    android:layout_height="wrap_content"-->
+                            <!--                                    android:layout_alignParentEnd="true"-->
+                            <!--                                    android:layout_centerInParent="true"-->
+                            <!--                                    android:layout_marginEnd="15dp" />-->
 
-<!--                                &lt;!&ndash;<Spinner&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:id="@+id/spn_group"&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
-<!--                                &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;<Spinner&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:id="@+id/spn_group"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
 
-<!--                                &lt;!&ndash;<requestFocus />&ndash;&gt;-->
-<!--                                &lt;!&ndash;</Spinner>&ndash;&gt;-->
-<!--                            </RelativeLayout>-->
+                            <!--                                &lt;!&ndash;<requestFocus />&ndash;&gt;-->
+                            <!--                                &lt;!&ndash;</Spinner>&ndash;&gt;-->
+                            <!--                            </RelativeLayout>-->
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -400,90 +417,90 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="10dp"
-                        android:visibility="gone"
                         android:layout_marginTop="5dp"
-                        android:layout_marginEnd="10dp">
+                        android:layout_marginEnd="10dp"
+                        android:visibility="gone">
 
 
-<!--                        <RelativeLayout-->
-<!--                            android:id="@+id/rl_spn_amount"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="45dp"-->
-<!--                            android:layout_marginStart="2dp"-->
-<!--                            android:layout_marginBottom="3dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/bg_inactive_spn"-->
-<!--                            android:layoutDirection="rtl"-->
-<!--                            android:padding="3dp">-->
+                        <!--                        <RelativeLayout-->
+                        <!--                            android:id="@+id/rl_spn_amount"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="45dp"-->
+                        <!--                            android:layout_marginStart="2dp"-->
+                        <!--                            android:layout_marginBottom="3dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:background="@drawable/bg_inactive_spn"-->
+                        <!--                            android:layoutDirection="rtl"-->
+                        <!--                            android:padding="3dp">-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/txt_amount_spn_title"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_centerVertical="true"-->
-<!--                                android:layout_marginStart="10dp"-->
-<!--                                android:textColor="@color/grey"-->
-<!--                                android:textSize="14sp" />-->
+                        <!--                            <TextView-->
+                        <!--                                android:id="@+id/txt_amount_spn_title"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_centerVertical="true"-->
+                        <!--                                android:layout_marginStart="10dp"-->
+                        <!--                                android:textColor="@color/grey"-->
+                        <!--                                android:textSize="14sp" />-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/img_arrow_spinner_amount"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_alignParentEnd="true"-->
-<!--                                android:layout_centerInParent="true"-->
-<!--                                android:layout_marginEnd="15dp" />-->
+                        <!--                            <ImageView-->
+                        <!--                                android:id="@+id/img_arrow_spinner_amount"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_alignParentEnd="true"-->
+                        <!--                                android:layout_centerInParent="true"-->
+                        <!--                                android:layout_marginEnd="15dp" />-->
 
-<!--                            &lt;!&ndash;<Spinner&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:id="@+id/spn_amount"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;<Spinner&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:id="@+id/spn_amount"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
 
-<!--                            &lt;!&ndash;<requestFocus />&ndash;&gt;-->
-<!--                            &lt;!&ndash;</Spinner>&ndash;&gt;-->
-<!--                        </RelativeLayout>-->
+                        <!--                            &lt;!&ndash;<requestFocus />&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;</Spinner>&ndash;&gt;-->
+                        <!--                        </RelativeLayout>-->
 
 
-<!--                        <RelativeLayout-->
-<!--                            android:id="@+id/rl_spn_type"-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="45dp"-->
-<!--                            android:layout_marginEnd="2dp"-->
-<!--                            android:layout_marginBottom="3dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:background="@drawable/bg_inactive_spn"-->
-<!--                            android:layoutDirection="rtl"-->
-<!--                            android:padding="3dp">-->
+                        <!--                        <RelativeLayout-->
+                        <!--                            android:id="@+id/rl_spn_type"-->
+                        <!--                            android:layout_width="0dp"-->
+                        <!--                            android:layout_height="45dp"-->
+                        <!--                            android:layout_marginEnd="2dp"-->
+                        <!--                            android:layout_marginBottom="3dp"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:background="@drawable/bg_inactive_spn"-->
+                        <!--                            android:layoutDirection="rtl"-->
+                        <!--                            android:padding="3dp">-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/txt_type_spn_title"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_centerVertical="true"-->
-<!--                                android:layout_marginStart="10dp"-->
-<!--                                android:textColor="@color/grey"-->
-<!--                                android:textSize="14sp" />-->
+                        <!--                            <TextView-->
+                        <!--                                android:id="@+id/txt_type_spn_title"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_centerVertical="true"-->
+                        <!--                                android:layout_marginStart="10dp"-->
+                        <!--                                android:textColor="@color/grey"-->
+                        <!--                                android:textSize="14sp" />-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/img_arrow_spinner_type"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_alignParentEnd="true"-->
-<!--                                android:layout_centerInParent="true"-->
-<!--                                android:layout_marginEnd="15dp" />-->
-<!--                            &lt;!&ndash;<Spinner&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:id="@+id/spn_type"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
-<!--                            &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
+                        <!--                            <ImageView-->
+                        <!--                                android:id="@+id/img_arrow_spinner_type"-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_alignParentEnd="true"-->
+                        <!--                                android:layout_centerInParent="true"-->
+                        <!--                                android:layout_marginEnd="15dp" />-->
+                        <!--                            &lt;!&ndash;<Spinner&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:id="@+id/spn_type"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:layout_centerInParent="true"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:focusable="true"&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;android:focusableInTouchMode="true">&ndash;&gt;-->
 
-<!--                            &lt;!&ndash;<requestFocus />&ndash;&gt;-->
-<!--                            &lt;!&ndash;</Spinner>&ndash;&gt;-->
-<!--                        </RelativeLayout>-->
+                        <!--                            &lt;!&ndash;<requestFocus />&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;</Spinner>&ndash;&gt;-->
+                        <!--                        </RelativeLayout>-->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -623,14 +640,16 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:hint="شرح کالا"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
                     android:backgroundTint="@color/blue_light"
+                    android:gravity="center"
+                    android:hint="شرح کالا"
 
-                    android:textColorHint="@color/blue"
                     android:padding="3dp"
                     android:textColor="@color/blue_dark"
+                    android:textColorHint="@color/blue"
                     android:textSize="15sp" />
 
 
@@ -734,73 +753,93 @@
                     android:layout_height="45dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
                         android:background="@drawable/bg_prize_item"
-                        android:layout_weight="1">
+                        android:orientation="horizontal">
 
-                        <EditText
-                            android:id="@+id/edt_cost_purchase"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginEnd="2dp"
-                            android:backgroundTint="@color/blue_light"
-                            android:gravity="center"
-                            android:hint="@string/unit_price"
-                            android:inputType="number"
-                            android:textColor="@color/blue_dark"
-                            android:textColorHint="@color/blue"
-                            android:textSize="13sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="13sp"
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="40dp"
                             android:layout_marginEnd="3dp"
-                            android:layout_toStartOf="@+id/edt_cost_purchase"
-                            android:text="@string/rial"/>
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt25"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="@string/rial"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
 
 
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_weight="3">
 
+                            <EditText
+                                android:id="@+id/edt_cost_purchase"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:background="@android:color/transparent"
+                                android:gravity="start"
+                                android:layoutDirection="rtl"
+                                android:textDirection="ltr"
+                                android:hint="@string/unit_price"
+                                android:inputType="number"
+                                android:textColor="@color/blue_dark"
+                                android:textColorHint="@color/blue"
+                                android:textSize="13sp" />
+
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
 
 
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:background="@drawable/bg_prize_item"
                         android:layout_marginStart="2dp"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_prize_item">
 
                         <EditText
                             android:id="@+id/edt_amount_purchased"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginBottom="4dp"
-                            android:backgroundTint="@color/blue_light"
                             android:layout_centerInParent="true"
+                            android:layout_marginStart="2dp"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@color/blue_light"
+                            android:gravity="center"
                             android:hint="@string/goods_amount"
                             android:inputType="number"
-                            android:gravity="center"
                             android:textColor="@color/blue_dark"
                             android:textColorHint="@color/blue"
                             android:textSize="13sp" />
 
                         <TextView
+                            android:id="@+id/txt_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="5dp"
-                            android:textColor="@color/blue_dark"
                             android:layout_toStartOf="@+id/edt_amount_purchased"
-                            android:id="@+id/txt_unit"/>
+                            android:textColor="@color/blue_dark" />
 
 
                     </RelativeLayout>
@@ -850,7 +889,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/bg_info_btn_prize">
+                        android:src="@drawable/bg_info_btn_prize"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -876,8 +916,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layoutDirection="rtl" />
-
-
 
 
                 <RelativeLayout
@@ -926,7 +964,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/bg_info_btn_prize">
+                        android:src="@drawable/bg_info_btn_prize"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -955,9 +994,9 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_register_result"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:id="@+id/rl_register_result"
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="60dp"
@@ -987,8 +1026,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>
@@ -1031,7 +1068,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/linear_return_qrcode"
+            android:id="@+id/linear_return_qrcode_register"
             android:layout_width="85dp"
             android:layout_height="match_parent"
             android:layoutDirection="rtl"

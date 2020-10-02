@@ -19,6 +19,7 @@ import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.ui.activities.PurchasedItemActivity;
+import com.rahbarbazaar.homadit.android.utilities.Cache;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 import org.greenrobot.eventbus.EventBus;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -56,11 +57,13 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
     private void getListOfProducts(String barcode_digit) {
 
 
+        String shopping_id = Cache.getString(getContext(),"shopping_id");
+
         state.setState("show_loading");
         EventBus.getDefault().postSticky(state);
 
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<Barcode> call = service.getBarcodeList(barcode_digit);
+        Call<Barcode> call = service.getBarcodeList(barcode_digit ,shopping_id);
         call.enqueue(new Callback<Barcode>() {
             @Override
             public void onResponse(Call<Barcode> call, Response<Barcode> response) {
@@ -81,6 +84,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                         Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
                         intent.putExtra("barcodeList", barcode);
                         intent.putExtra("product_id", barcode.getData().get(0).getId());
+                        intent.putExtra("suggested_price", barcode.getData().get(0).getPrice());
                         intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
 //                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
 //                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
@@ -91,6 +95,9 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
 
                         state.setState("stop_loading");
                         EventBus.getDefault().postSticky(state);
+
+                        // added 99_07_12
+//                        mScannerView.stopCamera();
                         getActivity().finish();
                     }
                 } else if (response.code() == 204) {
@@ -108,7 +115,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     }
 
                     Toast.makeText(getContext(), ""+builderShopId, Toast.LENGTH_SHORT).show();
-                    int a =5;
+
 
                 } else {
                     Toast.makeText(getContext(), "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -145,6 +152,9 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                     startActivity(intent);
                     getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                     getActivity().finish();
+
+                    // added 99_07_12
+//                    mScannerView.stopCamera();
                     state.setState("stop_loading");
                     EventBus.getDefault().postSticky(state);
                 } else {

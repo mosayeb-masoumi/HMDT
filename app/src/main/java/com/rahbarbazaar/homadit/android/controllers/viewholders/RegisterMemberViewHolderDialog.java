@@ -31,9 +31,16 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
         txt_name.setText(model.name);
     }
 
+
+    String state="";
     public void setOnRegisterHolderListener(RegisterItemInteraction listener, Member model, String spn_name, Dialog dialog) {
 
+
+
         checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            state = "checkbox";
+
             if (checkbox.isChecked()) {
                 checkbox.setChecked(true);
                 model.setSelected(true);
@@ -46,17 +53,19 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
         });
 
 
-        rl_member_row.setOnClickListener(view -> {
+        txt_name.setOnClickListener(view -> {
 
-            if (model.isSelected()) {
-                checkbox.setChecked(false);
-                model.setSelected(false);
-                listener.onClicked(model.name, model.id,spn_name,dialog, true);
-            } else if (!model.isSelected()) {
-                checkbox.setChecked(true);
-                model.setSelected(true);
-                listener.onClicked(model.name, model.id,spn_name,dialog, false);
-            }
+            state = "title";
+
+//            if (model.isSelected()) {
+//                checkbox.setChecked(false);
+//                model.setSelected(false);
+//                listener.onClicked(model.name, model.id,spn_name,dialog, false);
+//            } else if (!model.isSelected()) {
+//                checkbox.setChecked(true);
+//                model.setSelected(true);
+//                listener.onClicked(model.name, model.id,spn_name,dialog, true);
+//            }
         });
     }
 }

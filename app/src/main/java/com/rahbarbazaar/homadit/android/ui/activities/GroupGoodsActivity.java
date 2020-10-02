@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.rahbarbazaar.homadit.android.R;
@@ -29,12 +30,13 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 
     RecyclerView recyclerView;
     Button btn_new_scan, btn_unknown_goods ,btn_finish_purchase;
-    LinearLayout linear_return_group;
+
     GroupsData groupsData;
     Disposable disposable = new CompositeDisposable();
 
     List<GroupGoodsModel> searchList;
 
+    RelativeLayout rl_home_group_goods;
     GroupAdapter adapter;
 
     @Override
@@ -60,7 +62,7 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
                     groupsData.getData().get(i).getId() , false));
         }
 
-        setRecyclerView();
+
 
 
         String state = getIntent().getExtras().getString("new_register");
@@ -69,20 +71,25 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         }else{
             btn_finish_purchase.setVisibility(View.VISIBLE);
         }
+
+        setRecyclerView();
     }
 
 
     private void initView() {
 
         recyclerView = findViewById(R.id.rv_group_goods);
-        linear_return_group = findViewById(R.id.linear_return_group);
+        rl_home_group_goods = findViewById(R.id.rl_home_group_goods);
         btn_new_scan = findViewById(R.id.btn_new_scan);
         btn_unknown_goods = findViewById(R.id.btn_unknown_goods);
         btn_finish_purchase = findViewById(R.id.btn_finish_purchase);
-        linear_return_group.setOnClickListener(this);
+
+
+
         btn_new_scan.setOnClickListener(this);
         btn_unknown_goods.setOnClickListener(this);
         btn_finish_purchase.setOnClickListener(this);
+        rl_home_group_goods.setOnClickListener(this);
 
     }
 
@@ -110,9 +117,11 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 //                checkAndStartRegisterClass();
                 break;
 
-            case R.id.linear_return_group:
+            case R.id.rl_home_group_goods:
+                startActivity(new Intent(GroupGoodsActivity.this,MainActivity.class));
                 finish();
                 break;
+
 
             case R.id.btn_finish_purchase:
                 startActivity(new Intent(GroupGoodsActivity.this,MainActivity.class));
