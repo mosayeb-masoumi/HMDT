@@ -55,8 +55,8 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_verification)
 
 
-        PushPole.initialize(this, true)
-
+//        PushPole.initialize(this, true)
+//        pid = PushPole.getId(this@VerificationActivity)
 
         val t: Thread = object : Thread() {
             override fun run() {

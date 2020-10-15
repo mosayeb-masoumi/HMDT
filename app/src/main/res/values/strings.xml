@@ -153,7 +153,7 @@
     <string name="force_update">بروز رسانی اجباری</string>
     <string name="optional_update">بروز رسانی اختیاری</string>
     <string name="related_goods_list">فهرست کالاهای مرتبط</string>
-    <string name="register_new_barcodeList">ثبت مشخصات و کالای جدید</string>
+    <string name="register_new_barcodeList">ثبت مشخصات کالای جدید</string>
     <string name="no_goods_warning">کالای مورد نظر یافت نشد. لطفا مشخصات آنرا درج نمائید.</string>
     <string name="update_body_dialog">ورژن جدید برنامه با قابلیت های جدید و رفع مشکلات جزیی منتشر شده برای دانلود کلیک کنید</string>
     <string name="barcode_description">به کمک اسکن بارکد, بارکد محصول خود را بخوانید. توجه داشته باشید که اولویت با بارکدی است که با عدد 626 آغاز می گردد.</string>
@@ -232,6 +232,7 @@
     <string name="credit_papasi">پاپاسی های موجود</string>
     <string name="credit_rial">موجودی(ریالی)</string>
     <string name="lottary">قرعه کشی</string>
+    <string name="latest_purchases">خریدهای 24 ساعت گذشته</string>
 
 
 </resources>

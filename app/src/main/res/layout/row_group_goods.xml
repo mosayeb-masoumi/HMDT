@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="end"
+        android:id="@+id/root_row_group_goods"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
@@ -29,13 +30,24 @@
             android:id="@+id/rl_chk"
             android:layout_alignParentEnd="true"
             android:layout_height="match_parent">
-           <android.support.v7.widget.AppCompatCheckBox
-               android:layout_width="wrap_content"
-               android:id="@+id/checkbox"
-               android:paddingStart="2dp"
-               android:buttonTint="@color/blue_dark"
-               android:layout_centerInParent="true"
-               android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerInParent="true"
+                android:paddingStart="2dp"
+                android:src="@drawable/untik"/>
+
+
+
+<!--           <android.support.v7.widget.AppCompatCheckBox-->
+<!--               android:layout_width="wrap_content"-->
+<!--               android:id="@+id/checkbox"-->
+<!--               android:paddingStart="2dp"-->
+<!--               android:buttonTint="@color/blue_dark"-->
+<!--               android:layout_centerInParent="true"-->
+<!--               android:layout_height="wrap_content"/>-->
 
         </RelativeLayout>
 

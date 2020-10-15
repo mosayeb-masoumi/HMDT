@@ -131,6 +131,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
     SolarCalendar solarCalendar;
 
+    TextView txt_last24;
+
 
     int bottomCount = 0;
 
@@ -323,6 +325,9 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         ll_notify_count = findViewById(R.id.ll_notify_count);
         ll_notify_count_drawer = findViewById(R.id.ll_notify_count_drawer);
         rl_notification = findViewById(R.id.rl_notification);
+
+        txt_last24 = findViewById(R.id.txt_last24);
+        txt_last24.setText("خریدهای "+ ConvertEnDigitToFa.convert("24") +" ساعت گذشته");
 
         linear_lottary_drawer = findViewById(R.id.linear_lottary_drawer);
 

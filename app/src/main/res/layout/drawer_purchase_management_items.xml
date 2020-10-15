@@ -114,8 +114,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:id="@+id/txt_last24"
                 android:gravity="center_vertical"
-                android:text="@string/new_purchased_list"
+                android:text="@string/latest_purchases"
                 android:textColor="@color/white_gray"
                 android:textSize="14sp" />
 

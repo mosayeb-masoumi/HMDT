@@ -777,8 +777,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         sendData.setCost(edt_cost_purchase.getText().toString().trim());
         sendData.setAmount(edt_amount_purchased.getText().toString().trim());
         sendData.setMember(editMembers);
+//        sendData.setImage_1(strBm1);
+//        sendData.setImage_2(strBm3);
+
         sendData.setImage_1(strBm1);
-        sendData.setImage_2(strBm3);
+        sendData.setImage_2(strBm2);
+        sendData.setImage_3(strBm3);
+        sendData.setImage_4(strBm4);
 
         Service service = new ServiceProvider(this).getmService();
         Call<PurchaseItemNewProductResult> call = service.getPurchaseItemNoProductResult(sendData);
@@ -931,10 +936,12 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     private void showPhotoDialog() {
         final Dialog dialog = new Dialog(PurchasedItemActivity.this);
-        dialog.setContentView(R.layout.photo_dialog_purchase);
+        dialog.setContentView(R.layout.photo_dialog_purchase2);
 
         RelativeLayout rl_camera1 = dialog.findViewById(R.id.rl_camera1);
+        RelativeLayout rl_camera2 = dialog.findViewById(R.id.rl_camera2);
         RelativeLayout rl_camera3 = dialog.findViewById(R.id.rl_camera3);
+        RelativeLayout rl_camera4 = dialog.findViewById(R.id.rl_camera4);
         Button btn_close = dialog.findViewById(R.id.btn_close_photo_dialog);
         Button btn_guide = dialog.findViewById(R.id.btn_guide_photo_dialog);
         TextView txt_phpto = dialog.findViewById(R.id.txt_photo);
@@ -942,7 +949,9 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         ImageView img_close = dialog.findViewById(R.id.img_close);
 
         img_delete1 = dialog.findViewById(R.id.img_delete1);
+        img_delete2 = dialog.findViewById(R.id.img_delete2);
         img_delete3 = dialog.findViewById(R.id.img_delete3);
+        img_delete4 = dialog.findViewById(R.id.img_delete4);
 
         img1 = dialog.findViewById(R.id.img1);
         img2 = dialog.findViewById(R.id.img2);
@@ -959,10 +968,22 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             image_count1 = 1;
         }
 
+        if (bm2 != null) {
+            img2.setImageBitmap(bm2);
+            img_delete2.setVisibility(View.VISIBLE);
+            image_count2 = 1;
+        }
+
         if (bm3 != null) {
             img3.setImageBitmap(bm3);
             img_delete3.setVisibility(View.VISIBLE);
             image_count3 = 1;
+        }
+
+        if (bm4 != null) {
+            img4.setImageBitmap(bm4);
+            img_delete4.setVisibility(View.VISIBLE);
+            image_count4 = 1;
         }
 
         if (dialog.getWindow() != null) {
@@ -974,8 +995,19 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             choose_pic();
         });
 
+        rl_camera2.setOnClickListener(v -> {
+            status = 2;
+            choose_pic();
+        });
+
+
         rl_camera3.setOnClickListener(v -> {
             status = 3;
+            choose_pic();
+        });
+
+        rl_camera4.setOnClickListener(v -> {
+            status = 4;
             choose_pic();
         });
 
@@ -988,6 +1020,16 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             image_count1 = 0;
         });
 
+        img_delete2.setOnClickListener(v -> {
+            strBm2 = "deleted";
+            bm2 = null;
+            img2.setImageDrawable(null);
+            img_delete2.setVisibility(View.GONE);
+
+            image_count2 = 0;
+        });
+
+
         img_delete3.setOnClickListener(v -> {
             strBm3 = "deleted";
             bm3 = null;
@@ -996,12 +1038,24 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             image_count3 = 0;
         });
 
+        img_delete4.setOnClickListener(v -> {
+            strBm4 = "deleted";
+            bm4 = null;
+            img4.setImageDrawable(null);
+            img_delete4.setVisibility(View.GONE);
+            image_count4 = 0;
+        });
+
+
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
 
             int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
 
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
+
+
+
 
             if (total_img_count > 0) {
                 txt_img_count_purchased.setVisibility(View.VISIBLE);
@@ -1054,12 +1108,24 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
                 img_delete1.setVisibility(View.VISIBLE);
                 image_count1 = 1;
+            }else if (status == 2) {
+                img2.setImageBitmap(r.getBitmap());
+                bm2 = r.getBitmap();
+                strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
+                img_delete2.setVisibility(View.VISIBLE);
+                image_count3 = 1;
             } else if (status == 3) {
                 img3.setImageBitmap(r.getBitmap());
                 bm3 = r.getBitmap();
                 strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
                 img_delete3.setVisibility(View.VISIBLE);
                 image_count3 = 1;
+            }else if (status == 4) {
+                img4.setImageBitmap(r.getBitmap());
+                bm4 = r.getBitmap();
+                strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
+                img_delete4.setVisibility(View.VISIBLE);
+                image_count4 = 1;
             }
         }
     }
@@ -1097,30 +1163,49 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                         , initMemberPrizeLists.data.member.get(i).get(j).id, false));
             }
         }
-        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
+//        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
+        RelativeLayout rl_check_all = dialog.findViewById(R.id.rl_check_all);
         recyclerview_members.setLayoutManager(new LinearLayoutManager(PurchasedItemActivity.this));
         adapter_member = new RegisterMemberDialogAdapter(members, spn_name, dialog, PurchasedItemActivity.this);
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
         // to select all members
-        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                editMembers = new ArrayList<>();
+//        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                editMembers = new ArrayList<>();
+//
+//                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+//                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+//                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+//                                initMemberPrizeLists.data.member.get(i).get(j).id));
+//                    }
+//                }
+//
+//                updateEditMemberList(editMembers);
+//                dialog.dismiss();
+//            }
+//        });
 
-                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
-                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
-                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
-                                initMemberPrizeLists.data.member.get(i).get(j).id));
-                    }
+        rl_check_all.setOnClickListener(view -> {
+            editMembers = new ArrayList<>();
+            for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+                for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+                    editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+                            initMemberPrizeLists.data.member.get(i).get(j).id));
                 }
-
-                updateEditMemberList(editMembers);
-                dialog.dismiss();
             }
+
+            updateEditMemberList(editMembers);
+            dialog.dismiss();
         });
+
+
+
+
+
 
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_exit_dialog.setOnClickListener(v -> dialog.dismiss());
@@ -1441,7 +1526,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     }
 
 
-                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_LONG).show();
+                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
                     RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
 
                     Intent intent = new Intent(PurchasedItemActivity.this, GroupGoodsActivity.class);
@@ -1613,6 +1698,10 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             txt_spn_amount_title.setTextColor(getResources().getColor(R.color.blue_dark));
             txt_spn_amount_title.setText(spinnersModel.data.twoTitle);
         } else {
+
+
+            // not show spinner while there is no item
+            rl_spn_amount.setVisibility(View.GONE);
 
             rl_spn_amount.setClickable(false);
             rl_spn_amount.setBackground(getResources().getDrawable(R.drawable.bg_inactive_spn));

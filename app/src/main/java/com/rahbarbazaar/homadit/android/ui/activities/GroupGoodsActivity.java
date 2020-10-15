@@ -18,6 +18,7 @@ import com.rahbarbazaar.homadit.android.models.group_goods.GroupGoodsModel;
 import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
 import com.rahbarbazaar.homadit.android.utilities.Cache;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
+import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import io.reactivex.disposables.Disposable;
 
 public class GroupGoodsActivity extends CustomBaseActivity implements View.OnClickListener, GroupGoodsItemInteraction {
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView ;
     Button btn_new_scan, btn_unknown_goods ,btn_finish_purchase;
 
     GroupsData groupsData;
@@ -36,7 +37,7 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 
     List<GroupGoodsModel> searchList;
 
-    RelativeLayout rl_home_group_goods;
+    RelativeLayout rl_home_group_goods ,root;
     GroupAdapter adapter;
 
     @Override
@@ -83,7 +84,7 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         btn_new_scan = findViewById(R.id.btn_new_scan);
         btn_unknown_goods = findViewById(R.id.btn_unknown_goods);
         btn_finish_purchase = findViewById(R.id.btn_finish_purchase);
-
+        root = findViewById(R.id.root_group_goods);
 
 
         btn_new_scan.setOnClickListener(this);
@@ -124,12 +125,39 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 
 
             case R.id.btn_finish_purchase:
-                startActivity(new Intent(GroupGoodsActivity.this,MainActivity.class));
-                finish();
+                showEditPopup();
                 break;
 
         }
     }
+
+    private void showEditPopup() {
+
+
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createGroupGoodsFinishDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... strings) {
+
+                startActivity(new Intent(GroupGoodsActivity.this,MainActivity.class));
+                finish();
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean cancel_dialog) {
+                startActivity(new Intent(GroupGoodsActivity.this, NewRegisterListActivity.class));
+                finish();
+            }
+        },root);
+
+
+    }
+
+
+
+
+
 
 //    private void checkAndStartRegisterClass() {
 //

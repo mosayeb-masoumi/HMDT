@@ -91,7 +91,7 @@
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:padding="6dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/edu_bg" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -195,7 +195,7 @@
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:padding="6dp"
-                            android:src="@drawable/profile" />
+                            android:src="@drawable/question_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"

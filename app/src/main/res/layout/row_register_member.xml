@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:padding="7dp"
-        android:layoutDirection="ltr"
         android:id="@+id/rl_member_row"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
+        android:padding="7dp">
 
         <TextView
             android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/checkbox"
             android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/img_untik"
+            android:text="dfhjlkgkjrg"
             android:textColor="@color/blue_dark"
-            android:textSize="16sp"
-            android:text="dfhjlkgkjrg" />
+            android:textSize="16sp" />
 
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:buttonTint="@color/blue"
+        <ImageView
+            android:id="@+id/img_untik"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/untik"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            />
+
+        <!--        <CheckBox-->
+        <!--            android:id="@+id/checkbox"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:buttonTint="@color/blue"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_centerVertical="true" />-->
 
     </RelativeLayout>
 

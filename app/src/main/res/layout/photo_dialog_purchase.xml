@@ -97,7 +97,7 @@
                         android:layout_height="30dp"
                         android:visibility="gone"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
 
                 </RelativeLayout>

@@ -19,7 +19,7 @@
             android:padding="6dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
-            android:src="@drawable/ic_close"/>
+            app:srcCompat="@drawable/ic_close"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,29 +33,69 @@
     </RelativeLayout>
 
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/crdview1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginStart="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="80dp"
-        app:cardCornerRadius="20dp">
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F3EEEE">
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdview3"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="20dp">
 
-            <ImageView
-                android:id="@+id/img1_info"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="centerCrop" />
+                android:background="#F3EEEE">
 
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/img3_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdview1"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F3EEEE">
+
+                <ImageView
+                    android:id="@+id/img1_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+
+
+
 
     <TextView
         android:id="@+id/txt_img1_info"
@@ -63,35 +103,77 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:gravity="center"
+        android:visibility="gone"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
         android:textColor="@color/blue_dark"
         android:textSize="14sp"
         android:layout_marginBottom="5dp" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/crdview2"
+
+
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginStart="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="80dp"
-        app:cardCornerRadius="20dp">
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F3EEEE">
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdview4"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="20dp">
 
-            <ImageView
-                android:id="@+id/img2_info"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher_background"
-                android:scaleType="centerCrop" />
+                android:background="#F3EEEE">
 
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                <ImageView
+                    android:id="@+id/img4_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/crdview2"
+            android:layout_width="0dp"
+            android:layout_height="170dp"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F3EEEE">
+
+                <ImageView
+                    android:id="@+id/img2_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    android:scaleType="centerCrop" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/txt_img2_info"
@@ -100,6 +182,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="10dp"
+        android:visibility="gone"
         android:gravity="center"
         android:textColor="@color/blue_dark"
         android:textSize="14sp" />

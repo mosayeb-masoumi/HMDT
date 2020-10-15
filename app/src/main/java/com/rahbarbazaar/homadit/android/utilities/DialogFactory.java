@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -56,6 +57,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -169,7 +171,7 @@ public class DialogFactory {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             // to show keyboard automatically while editText is in  dialog
-            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         btn_register.setOnClickListener(v -> {
@@ -319,7 +321,7 @@ public class DialogFactory {
 
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             // to show keyboard automatically while editText is in  dialog
-            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
         //set click listener for views inside of dialog
         btn_send.setOnClickListener(view -> {
@@ -494,13 +496,13 @@ public class DialogFactory {
             String date = year1 + "/" + month2 + "/" + day2;
 
 
-            if(np_year.getValue() > year){
+            if (np_year.getValue() > year) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            }else if(np_month.getValue() > month){
+            } else if (np_month.getValue() > month) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            }else if(np_day.getValue() > day){
+            } else if (np_day.getValue() > day) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 listener.onAcceptButtonClicked(date);
                 dialog.dismiss();
             }
@@ -572,19 +574,16 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             // to show keyboard automatically while editText is in  dialog
-            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
 //        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
 //                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
 
-
 //        edt_body.requestFocus();
 //        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(edt_body, InputMethodManager.SHOW_IMPLICIT);
-
-
 
 
         btn_send.setOnClickListener(v -> {
@@ -846,11 +845,9 @@ public class DialogFactory {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
-                    barcode.getData().get(i).getImage(),barcode.getData().get(i).getBarcodeDetail(),
-                    barcode.getData().get(i).getPrice(),barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
+                    barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail(),
+                    barcode.getData().get(i).getPrice(), barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
                     barcode.getData().get(i).getMaxAmount()));
-
-
 
 
         }
@@ -901,8 +898,8 @@ public class DialogFactory {
 
             barcodeList.add(new BarcodeData(barcode.getData().get(i).getId(), barcode.getData().get(i).getMygroup(),
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
-                    barcode.getData().get(i).getImage(),barcode.getData().get(i).getBarcodeDetail(),
-                    barcode.getData().get(i).getPrice(),barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
+                    barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail(),
+                    barcode.getData().get(i).getPrice(), barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
                     barcode.getData().get(i).getMaxAmount()));
         }
 
@@ -954,13 +951,10 @@ public class DialogFactory {
         // delete icon search
         searchView.setIconifiedByDefault(false);
 
-        if(spn_name.equals("spn_brand"))
+        if (spn_name.equals("spn_brand"))
             searchView.setVisibility(View.VISIBLE);
         else
             searchView.setVisibility(View.GONE);
-
-
-
 
 
         if (spn_name.equals("spn_group")) {
@@ -974,7 +968,6 @@ public class DialogFactory {
             ll_explanation.setVisibility(View.GONE);
             txt_explanation.setVisibility(View.GONE);
         }
-
 
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -997,9 +990,6 @@ public class DialogFactory {
         recyclerView.setAdapter(adapter);
 
 
-
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -1014,9 +1004,6 @@ public class DialogFactory {
                 return false;
             }
         });
-
-
-
 
 
         btn_etc.setOnClickListener(v -> {
@@ -1048,9 +1035,9 @@ public class DialogFactory {
         SearchView searchView = customLayout.findViewById(R.id.search_view);
         searchView.setVisibility(View.GONE);
 
-        if(spn_name.equals("online")){
+        if (spn_name.equals("online")) {
             txt_header.setText("لیست فروشگاههای آنلاین");
-        }else if(spn_name.equals("present")){
+        } else if (spn_name.equals("present")) {
             txt_header.setText("لیست فروشگاههای حضوری/تلفنی");
         }
 
@@ -1092,7 +1079,7 @@ public class DialogFactory {
         btn_register.setText("ثبت");
 
         txt_header.setText(dialog_title);
-        edt_description.setHint(("لطفا عنوان ") + (dialog_title)+ (" را بصورت کامل تایپ کنید"));
+        edt_description.setHint(("لطفا عنوان ") + (dialog_title) + (" را بصورت کامل تایپ کنید"));
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
 
@@ -1101,7 +1088,7 @@ public class DialogFactory {
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             // to show keyboard automatically while editText is in  dialog
-            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         img_close.setOnClickListener(v -> dialog.dismiss());
@@ -1130,6 +1117,8 @@ public class DialogFactory {
         TextView txt_img2_info = customLayout.findViewById(R.id.txt_img2_info);
         ImageView img1_info = customLayout.findViewById(R.id.img1_info);
         ImageView img2_info = customLayout.findViewById(R.id.img2_info);
+        ImageView img3_info = customLayout.findViewById(R.id.img3_info);
+        ImageView img4_info = customLayout.findViewById(R.id.img4_info);
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
@@ -1139,8 +1128,16 @@ public class DialogFactory {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        Glide.with(Objects.requireNonNull(context)).load(img1_link).centerCrop().into(img1_info);
-        Glide.with(Objects.requireNonNull(context)).load(img2_link).centerCrop().into(img2_info);
+//        Glide.with(Objects.requireNonNull(context)).load(img1_link).centerCrop().into(img1_info);
+//        Glide.with(Objects.requireNonNull(context)).load(img2_link).centerCrop().into(img2_info);
+
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo1)).centerCrop().into(img1_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo2)).centerCrop().into(img2_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo3)).centerCrop().into(img3_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo4)).centerCrop().into(img4_info);
+
+
+
 
         txt_img1_info.setText("عکس از نمای بالا");
         txt_img2_info.setText("عکس از نمای روبرو");
@@ -1184,7 +1181,7 @@ public class DialogFactory {
         }
 
         img_close.setOnClickListener(v -> dialog.dismiss());
-          btn_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
     }
 
@@ -1224,16 +1221,16 @@ public class DialogFactory {
         android.app.AlertDialog dialog = builder.create();
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().setSoftInputMode (WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
 
         img_close.setOnClickListener(v -> dialog.dismiss());
 
 
         // to limit characters
-            edt_description.setFilters(new InputFilter[] {
-                    new InputFilter.LengthFilter(15)
-            });
+        edt_description.setFilters(new InputFilter[]{
+                new InputFilter.LengthFilter(15)
+        });
 
         btn_register.setOnClickListener(view1 -> {
 
@@ -1249,12 +1246,12 @@ public class DialogFactory {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    if(response.code()==200){
+                    if (response.code() == 200) {
 
 //                        Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_SHORT).show();
                         requestDashboardData();
 
-                    }else if(response.code()==422){
+                    } else if (response.code() == 422) {
                         avi_convert_papasi.setVisibility(View.GONE);
                         btn_register.setVisibility(View.VISIBLE);
                         APIError422 apiError = ErrorUtils.parseError422(response);
@@ -1268,23 +1265,22 @@ public class DialogFactory {
                         }
 
                         String msg = builderAmount.toString();
-                        listener.onAcceptButtonClicked("","",msg);
+                        listener.onAcceptButtonClicked("", "", msg);
 
-                    }else{
+                    } else {
                         avi_convert_papasi.setVisibility(View.GONE);
                         btn_register.setVisibility(View.VISIBLE);
-                        Toast.makeText(context, ""+context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
 
                     }
                 }
-
 
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
                     avi_convert_papasi.setVisibility(View.GONE);
                     btn_register.setVisibility(View.VISIBLE);
-                    Toast.makeText(context, ""+context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "" + context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -1294,23 +1290,23 @@ public class DialogFactory {
                     call.enqueue(new Callback<DashboardCreateData>() {
                         @Override
                         public void onResponse(Call<DashboardCreateData> call, Response<DashboardCreateData> response) {
-                            if(response.code() == 200){
-                                Toast.makeText(context, ""+context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_LONG).show();
+                            if (response.code() == 200) {
+                                Toast.makeText(context, "" + context.getResources().getString(R.string.convert_succeed), Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
 
                                 DashboardCreateData dashboardCreateData;
                                 dashboardCreateData = response.body();
                                 RxBus.DashboardModel.publishDashboardModel(dashboardCreateData);
 
-                                listener.onAcceptButtonClicked(dashboardCreateData.data.one , dashboardCreateData.data.two,"");
-                            }else {
-                                Toast.makeText(context, ""+context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                                listener.onAcceptButtonClicked(dashboardCreateData.data.one, dashboardCreateData.data.two, "");
+                            } else {
+                                Toast.makeText(context, "" + context.getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<DashboardCreateData> call, Throwable t) {
-                            Toast.makeText(context, ""+context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "" + context.getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -1318,16 +1314,12 @@ public class DialogFactory {
                 }
 
 
-
             });
         });
 
 
-
-
         dialog.show();
     }
-
 
 
     public void createEditAmountDialog(DialogFactoryInteraction listener, RelativeLayout view, String description) {
@@ -1360,7 +1352,6 @@ public class DialogFactory {
 
         dialog.show();
     }
-
 
 
     public void createLottaryDialog(DialogFactoryInteraction listener, RelativeLayout view) {
@@ -1398,6 +1389,49 @@ public class DialogFactory {
     }
 
 
+    public void createGroupGoodsFinishDialog(DialogFactoryInteraction listener, RelativeLayout view) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        Button btn_edit = customLayout.findViewById(R.id.btn1);
+        Button btn_home = customLayout.findViewById(R.id.btn2);
+
+
+        btn_edit.setText("ویرایش");
+        btn_home.setText("صفحه اصلی");
+
+        txt_description.setText("این خرید از طریق منوی خریدهای 24 ساعت گذشته قابل ویرایش است");
+        txt_header.setText("پایان خرید");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_home.setOnClickListener(view1 -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
+
+        btn_edit.setOnClickListener(v -> {
+                    listener.onDeniedButtonClicked(false);
+                    dialog.dismiss();
+                }
+        );
+
+        img_close.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
 
 
 }

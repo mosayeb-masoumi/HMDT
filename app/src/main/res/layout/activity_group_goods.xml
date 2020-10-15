@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/root_group_goods"
     tools:context=".ui.activities.GroupGoodsActivity">
 
     <RelativeLayout
@@ -66,6 +67,9 @@
     </LinearLayout>
 
 
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,11 +84,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginStart="5dp"
-            android:background="@drawable/dialog_btn_shape"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/bg_button_add"
             android:gravity="center"
             android:text="پایان ثبت خرید"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="17sp" />
 
     </LinearLayout>

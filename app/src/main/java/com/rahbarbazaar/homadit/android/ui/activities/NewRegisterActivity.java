@@ -863,7 +863,7 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
         }
 
-        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
+//        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
         RelativeLayout rl_check_all = dialog.findViewById(R.id.rl_check_all);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
@@ -887,22 +887,22 @@ public class NewRegisterActivity extends CustomBaseActivity
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
 
-        // to select all members
-        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                editMembers = new ArrayList<>();
-
-                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
-                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
-                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
-                                initMemberPrizeLists.data.member.get(i).get(j).id));
-                    }
-                }
-
-                updateEditMemberList(editMembers);
-                dialog.dismiss();
-            }
-        });
+//        // to select all members
+//        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                editMembers = new ArrayList<>();
+//
+//                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+//                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+//                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+//                                initMemberPrizeLists.data.member.get(i).get(j).id));
+//                    }
+//                }
+//
+//                updateEditMemberList(editMembers);
+//                dialog.dismiss();
+//            }
+//        });
 
 
         rl_check_all.setOnClickListener(view -> {
@@ -929,9 +929,9 @@ public class NewRegisterActivity extends CustomBaseActivity
 
     // to setCheck single checkbox and show in list
     @Override
-    public void onClicked(String name, String id, String spn_name, Dialog dialog, Boolean chkbox) {
+    public void onClicked(String name, String id, String spn_name, Dialog dialog, Boolean selected) {
 
-        if (chkbox) {
+        if (selected) {
             editMembers.add(new RegisterMemberEditModel(name, id));
 
         } else {

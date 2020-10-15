@@ -45,6 +45,7 @@ import com.rahbarbazaar.homadit.android.models.shopping_edit.ShoppingEdit;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.utilities.Cache;
+import com.rahbarbazaar.homadit.android.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
@@ -80,7 +81,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
 
     LinearLayout ll_return_newRegisterList;
     RelativeLayout root_new_register_list, rl_btn_register;
-    TextView txt_no_shop;
+    TextView txt_no_shop ,txt_header;
 
     LinearLayoutManager linearLayoutManager;
     Boolean isScrolling = false;
@@ -123,6 +124,8 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
 //            page=0;
 //            setRecyclerview(activeListData);
 //        }
+
+        txt_header.setText("خریدهای "+ ConvertEnDigitToFa.convert("24") +" ساعت گذشته");
 //
     }
 
@@ -134,6 +137,7 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
         rl_btn_register = findViewById(R.id.rl_btn_register);
         txt_no_shop = findViewById(R.id.txt_no_shop);
         ll_return_newRegisterList = findViewById(R.id.ll_return_newRegisterList);
+        txt_header = findViewById(R.id.txt_header_new_register_list);
 
         rl_btn_register.setOnClickListener(this);
         ll_return_newRegisterList.setOnClickListener(this);
