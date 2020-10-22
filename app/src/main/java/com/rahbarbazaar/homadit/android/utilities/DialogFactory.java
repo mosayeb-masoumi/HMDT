@@ -17,6 +17,7 @@ import android.support.v7.widget.SearchView;
 
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,17 +59,25 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+//import calendar.CivilDate;
+//import calendar.DateConverter;
+//import calendar.PersianDate;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import saman.zamani.persiandate.PersianDate;
 
 public class DialogFactory {
 
     private Context context;
+
+
 
     public interface DialogFactoryInteraction {
 
@@ -498,16 +507,44 @@ public class DialogFactory {
 
             if (np_year.getValue() > year) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            } else if (np_month.getValue() > month) {
+                return;
+            } else if (np_year.getValue() == year && (np_month.getValue() > month)) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            } else if (np_day.getValue() > day) {
+                return;
+            } else if (np_year.getValue() == year && np_month.getValue() == month && np_day.getValue() > day) {
                 Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
-            } else {
-                listener.onAcceptButtonClicked(date);
-                dialog.dismiss();
+                return;
             }
 
-//            String date = ConvertEnDigitToFa.convert(year+"/"+month+"/"+day) ;
+            /*************************************************************************************************************/
+
+
+
+
+            int thatYear = np_year.getValue();
+            int thatMonth = np_month.getValue();
+            int thatDay = np_day.getValue();
+
+            PersianDate lastPersianDate = new PersianDate();
+            lastPersianDate.setShYear(thatYear);
+            lastPersianDate.setShMonth(thatMonth);
+            lastPersianDate.setShDay(thatDay);
+
+
+            // days till now
+            long daysUntilNow = lastPersianDate.getDayuntilToday();
+
+
+            if(daysUntilNow >5){
+                Toast.makeText(context, "از زمان خرید شما بیش از پنج روز گذشته است!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            listener.onAcceptButtonClicked(date);
+            dialog.dismiss();
+
+
 
 
         });
@@ -1106,7 +1143,7 @@ public class DialogFactory {
     }
 
 
-    public void createImageInfoDialog(DialogFactoryInteraction listener, RelativeLayout view,
+    public void createImageFactorDialog(DialogFactoryInteraction listener, RelativeLayout view,
                                       String img1_link, String img2_link) {
 
         View customLayout = LayoutInflater.from(context).inflate(R.layout.image_info_dialog, (ViewGroup) view, false);
@@ -1137,6 +1174,42 @@ public class DialogFactory {
         Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo4)).centerCrop().into(img4_info);
 
 
+        txt_img1_info.setText("عکس از نمای بالا");
+        txt_img2_info.setText("عکس از نمای روبرو");
+        txt_header.setText("راهنمای عکس");
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+
+    public void createImageInfoDialog(DialogFactoryInteraction listener, RelativeLayout view,
+                                      String img1_link, String img2_link) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.image_info_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        TextView txt_img1_info = customLayout.findViewById(R.id.txt_img1_info);
+        TextView txt_img2_info = customLayout.findViewById(R.id.txt_img2_info);
+        ImageView img1_info = customLayout.findViewById(R.id.img1_info);
+        ImageView img2_info = customLayout.findViewById(R.id.img2_info);
+        ImageView img3_info = customLayout.findViewById(R.id.img3_info);
+        ImageView img4_info = customLayout.findViewById(R.id.img4_info);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo1)).centerCrop().into(img1_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo2)).centerCrop().into(img2_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo3)).centerCrop().into(img3_info);
+        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo4)).centerCrop().into(img4_info);
 
 
         txt_img1_info.setText("عکس از نمای بالا");
@@ -1145,6 +1218,43 @@ public class DialogFactory {
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+    }
+
+
+    public void createFactorGuideDialog(DialogFactoryInteraction dialogFactoryInteraction, RelativeLayout view,
+                                        String img1_link, String img2_link) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.image_info_factor_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        Button btn_close = customLayout.findViewById(R.id.btn_close);
+        TextView txt_img1_info = customLayout.findViewById(R.id.txt_img1_info);
+        TextView txt_img2_info = customLayout.findViewById(R.id.txt_img2_info);
+        ImageView img1 = customLayout.findViewById(R.id.img1);
+        ImageView img3 = customLayout.findViewById(R.id.img3);
+
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+
+//        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo1)).centerCrop().into(img1);
+//        Glide.with(Objects.requireNonNull(context)).load(context.getResources().getDrawable(R.drawable.img_guid_photo3)).centerCrop().into(img3);
+
+
+        txt_img1_info.setText("عکس از نمای بالا");
+        txt_img2_info.setText("عکس از نمای روبرو");
+        txt_header.setText("راهنمای عکس از فاکتور");
+        img_close.setOnClickListener(v -> dialog.dismiss());
+        btn_close.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+
     }
 
 

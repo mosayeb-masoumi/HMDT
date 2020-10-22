@@ -81,7 +81,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
 
@@ -165,14 +165,15 @@
         </LinearLayout>
 
 
-        <TextView
+        <com.codesgood.views.JustifiedTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
-            android:id="@+id/txt_photo"
+            android:layout_marginStart="5dp"
+            android:id="@+id/txt_factor"
             android:textColor="@color/blue_dark"
-            android:text="text"/>
+            android:text="@string/taking_clear_photo"/>
 
 
         <LinearLayout
@@ -186,7 +187,7 @@
 
 
             <Button
-                android:id="@+id/btn_guide_photo_dialog"
+                android:id="@+id/btn_guide_factor_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -198,7 +199,7 @@
                 android:textSize="13sp" />
 
             <Button
-                android:id="@+id/btn_close_photo_dialog"
+                android:id="@+id/btn_register_factor_dialog"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

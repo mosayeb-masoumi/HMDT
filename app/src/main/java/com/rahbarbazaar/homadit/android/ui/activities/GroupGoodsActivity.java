@@ -2,6 +2,8 @@ package com.rahbarbazaar.homadit.android.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -209,8 +211,28 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         Cache.setString(this,"selectedGroupId",model.getId());
         Cache.setString(this,"selectedGroupTitle",model.getTitle());
 
-        startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class));
-        finish();
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+
+                startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class)) ;
+                finish();
+            }
+        }, 200);
+
+
+
+
+
+
+
+//        Intent intent = new Intent(GroupGoodsActivity.this, QRcodeActivity.class);
+//        intent.putExtra("group_title",model.getTitle());
+//        startActivity(intent);
+
 
     }
 }

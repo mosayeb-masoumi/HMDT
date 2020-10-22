@@ -29,7 +29,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:padding="6dp"
-                android:src="@drawable/ic_close" />
+                app:srcCompat="@drawable/ic_close" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
 
@@ -97,7 +97,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
 
@@ -155,7 +155,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
 
                     <TextView
@@ -206,7 +206,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
 
@@ -224,7 +224,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -263,7 +263,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/add_photo" />
+                            app:srcCompat="@drawable/add_photo" />
                     </RelativeLayout>
 
                     <ImageView
@@ -281,7 +281,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_clear_pink" />
+                        app:srcCompat="@drawable/ic_clear_pink" />
 
 
                     <TextView
@@ -309,19 +309,45 @@
             android:textColor="@color/blue_dark"
             android:text="@string/taking_clear_photo"/>
 
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+
             <Button
-                android:id="@+id/btn_close_photo_dialog"
-                android:layout_width="match_parent"
+                android:id="@+id/btn_guide_factor_dialog"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="50dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/dialog_btn_shape"
                 android:gravity="center"
+                android:layout_marginStart="3dp"
+                android:text="راهنما"
+                android:textColor="@color/blue"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/btn_close_photo_dialog"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:background="@drawable/dialog_btn_shape"
+                android:gravity="center"
+                android:layout_marginEnd="3dp"
                 android:text="@string/register"
                 android:textColor="@color/blue"
                 android:textSize="13sp" />
+
+
+        </LinearLayout>
+
 
 
 

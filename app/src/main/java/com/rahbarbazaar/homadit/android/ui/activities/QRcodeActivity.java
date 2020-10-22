@@ -27,6 +27,7 @@ import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.ui.fragments.ScanFragment;
+import com.rahbarbazaar.homadit.android.utilities.Cache;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
@@ -52,6 +53,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     RelativeLayout rl_home_qrcode;
     Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish ,btn_unreadable;
 
+    TextView txt_group_title ;
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -109,6 +111,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         ft.commit();
 
 
+        txt_group_title.setText(Cache.getString(this,"selectedGroupTitle"));
 
         avi_qrcode.hide();
     }
@@ -119,6 +122,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
         linear_return_qrcode = findViewById(R.id.linear_return_qrcode);
         rl_home_qrcode = findViewById(R.id.rl_home_qrcode);
+        txt_group_title  = findViewById(R.id.txt_group_title);
         ll_root = findViewById(R.id.root_qrcode_scanner);
         btn_1 = findViewById(R.id.btn1_register_barcode);
         btn_2 = findViewById(R.id.btn2_register_barcode);

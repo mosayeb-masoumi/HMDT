@@ -436,7 +436,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         String img2_link = initMemberPrizeLists.data.help_pic_2;
 
         DialogFactory dialogFactory = new DialogFactory(NewRegisterActivity.this);
-        dialogFactory.createImageInfoDialog(new DialogFactory.DialogFactoryInteraction() {
+        dialogFactory.createFactorGuideDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
 
@@ -535,34 +535,18 @@ public class NewRegisterActivity extends CustomBaseActivity
     private void showPhotoDialog() {
 
         final Dialog dialog = new Dialog(NewRegisterActivity.this);
-        dialog.setContentView(R.layout.photo_dialog);
+        dialog.setContentView(R.layout.photo_dialog_purchase);
 
+        TextView txt = dialog.findViewById(R.id.txt_factor);
         RelativeLayout rl_camera1 = dialog.findViewById(R.id.rl_camera1);
-        RelativeLayout rl_camera2 = dialog.findViewById(R.id.rl_camera2);
         RelativeLayout rl_camera3 = dialog.findViewById(R.id.rl_camera3);
-        RelativeLayout rl_camera4 = dialog.findViewById(R.id.rl_camera4);
-        Button btn_close = dialog.findViewById(R.id.btn_close_photo_dialog);
-
-        TextView txt_number_one = dialog.findViewById(R.id.txt_number_one);
-        TextView txt_number_two = dialog.findViewById(R.id.txt_number_two);
-        TextView txt_number_three = dialog.findViewById(R.id.txt_number_three);
-        TextView txt_number_four = dialog.findViewById(R.id.txt_number_four);
-        txt_number_one.setText(ConvertEnDigitToFa.convert("1"));
-        txt_number_two.setText(ConvertEnDigitToFa.convert("2"));
-        txt_number_three.setText(ConvertEnDigitToFa.convert("3"));
-        txt_number_four.setText(ConvertEnDigitToFa.convert("4"));
-
+        Button btn_register = dialog.findViewById(R.id.btn_register_factor_dialog);
+        Button btn_guide = dialog.findViewById(R.id.btn_guide_factor_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
-
         img_delete1 = dialog.findViewById(R.id.img_delete1);
-        img_delete2 = dialog.findViewById(R.id.img_delete2);
         img_delete3 = dialog.findViewById(R.id.img_delete3);
-        img_delete4 = dialog.findViewById(R.id.img_delete4);
-
         img1 = dialog.findViewById(R.id.img1);
-        img2 = dialog.findViewById(R.id.img2);
         img3 = dialog.findViewById(R.id.img3);
-        img4 = dialog.findViewById(R.id.img4);
 
 
         if (bm1 != null && shoppingEditModel.data == null) {
@@ -584,22 +568,7 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 
 
-        if (bm2 != null && shoppingEditModel.data == null) {
-            img2.setImageBitmap(bm2);
-            img_delete2.setVisibility(View.VISIBLE);
-            image_count2 = 1;
-        } else if (bm2 == null && shoppingEditModel.data != null) {
-            if (!shoppingEditModel.data.shopping.image_2.equals("")) {
-                Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_2).centerCrop().into(img2);
-                strBm2 = null;
-                img_delete2.setVisibility(View.VISIBLE);
-                image_count2 = 1;
-            }
-        } else if (bm2 != null && shoppingEditModel.data != null) {
-            img2.setImageBitmap(bm2);
-            img_delete2.setVisibility(View.VISIBLE);
-            image_count2 = 1;
-        }
+
 
 
         if (bm3 != null && shoppingEditModel.data == null) {
@@ -620,23 +589,6 @@ public class NewRegisterActivity extends CustomBaseActivity
         }
 
 
-        if (bm4 != null && shoppingEditModel.data == null) {
-            img4.setImageBitmap(bm4);
-            img_delete4.setVisibility(View.VISIBLE);
-            image_count4 = 1;
-        } else if (bm4 == null && shoppingEditModel.data != null) {
-            if (!shoppingEditModel.data.shopping.image_4.equals("")) {
-                Glide.with(Objects.requireNonNull(context)).load(shoppingEditModel.data.shopping.image_4).centerCrop().into(img4);
-                strBm4 = null;
-                img_delete4.setVisibility(View.VISIBLE);
-                image_count4 = 1;
-            }
-        } else if (bm4 != null && shoppingEditModel.data != null) {
-            img4.setImageBitmap(bm4);
-            img_delete4.setVisibility(View.VISIBLE);
-            image_count4 = 1;
-        }
-
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -647,33 +599,20 @@ public class NewRegisterActivity extends CustomBaseActivity
             status = 1;
             choose_pic();
         });
-        rl_camera2.setOnClickListener(v -> {
-            if(bm1 == null){
-                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
-            }else {
-                status = 2;
-                choose_pic();
-            }
 
-        });
         rl_camera3.setOnClickListener(v -> {
-            if(bm1 == null || bm2== null){
-                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
-            }else{
-                status = 3;
-                choose_pic();
-            }
+//            if(bm1 == null ){
+//                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
+//            }else{
+//                status = 3;
+//                choose_pic();
+//            }
+
+            status = 3;
+            choose_pic();
 
         });
-        rl_camera4.setOnClickListener(v -> {
-            if(bm1 == null || bm2== null || bm3 == null){
-                Toast.makeText(context, "لطفا عکسها به ترتیب گرفته شوند.", Toast.LENGTH_SHORT).show();
-            }else{
-                status = 4;
-                choose_pic();
-            }
 
-        });
 
         img_delete1.setOnClickListener(v -> {
             strBm1 = "deleted";
@@ -689,18 +628,7 @@ public class NewRegisterActivity extends CustomBaseActivity
 
         });
 
-        img_delete2.setOnClickListener(v -> {
-            strBm2 = "deleted";
-            bm2 = null;
-            img2.setImageDrawable(null);
-            img_delete2.setVisibility(View.GONE);
-            image_count2 = 0;
 
-            if (shoppingEditModel.data != null) {
-                shoppingEditModel.data.shopping.image_2 = ""; // to dosent download url again
-            }
-
-        });
         img_delete3.setOnClickListener(v -> {
             strBm3 = "deleted";
             bm3 = null;
@@ -713,23 +641,14 @@ public class NewRegisterActivity extends CustomBaseActivity
             }
 
         });
-        img_delete4.setOnClickListener(v -> {
-            bm4 = null;
-            strBm4 = "deleted";
-            img4.setImageDrawable(null);
-            img_delete4.setVisibility(View.GONE);
-            image_count4 = 0;
 
-            if (shoppingEditModel.data != null) {
-                shoppingEditModel.data.shopping.image_4 = ""; // to dosent download url again
-            }
-        });
 
 
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
 
-            int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
+//            int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
+            int total_img_count = image_count1 + image_count3 ;
 
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
 
@@ -743,9 +662,9 @@ public class NewRegisterActivity extends CustomBaseActivity
         });
 
 
-        btn_close.setOnClickListener(v -> {
+        btn_register.setOnClickListener(v -> {
             dialog.dismiss();
-            int total_img_count = image_count1 + image_count2 + image_count3 + image_count4;
+            int total_img_count = image_count1 + image_count3;
 
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
 
@@ -756,6 +675,11 @@ public class NewRegisterActivity extends CustomBaseActivity
                 txt_img_count.setVisibility(View.GONE);
             }
 
+        });
+
+
+        btn_guide.setOnClickListener(view ->{
+            showImageInfoDialog();
         });
 
         dialog.setCanceledOnTouchOutside(false);
@@ -784,25 +708,18 @@ public class NewRegisterActivity extends CustomBaseActivity
                 strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
                 img_delete1.setVisibility(View.VISIBLE);
                 image_count1 = 1;
-            } else if (status == 2) {
-                img2.setImageBitmap(r.getBitmap());
-                bm2 = r.getBitmap();
-                strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
-                img_delete2.setVisibility(View.VISIBLE);
-                image_count2 = 1;
-            } else if (status == 3) {
+            }
+
+
+
+            else if (status == 3) {
                 img3.setImageBitmap(r.getBitmap());
                 bm3 = r.getBitmap();
                 strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
                 img_delete3.setVisibility(View.VISIBLE);
                 image_count3 = 1;
-            } else if (status == 4) {
-                img4.setImageBitmap(r.getBitmap());
-                bm4 = r.getBitmap();
-                strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
-                img_delete4.setVisibility(View.VISIBLE);
-                image_count4 = 1;
             }
+
 
         }
     }
@@ -980,9 +897,9 @@ public class NewRegisterActivity extends CustomBaseActivity
         sendData.setLng(Cache.getString(NewRegisterActivity.this, "lng"));
 
         sendData.setImage_1(strBm1);
-        sendData.setImage_2(strBm2);
+        sendData.setImage_2("");
         sendData.setImage_3(strBm3);
-        sendData.setImage_4(strBm4);
+        sendData.setImage_4("");
 
         if (Cache.getString(NewRegisterActivity.this, "validate_area").equals("true")) {
             sendData.setValidate_area("yes");
@@ -1008,6 +925,8 @@ public class NewRegisterActivity extends CustomBaseActivity
                     intent.putExtra("static_barcode", "static_barcode");
                     intent.putExtra("new_register","new_register");
                     startActivity(intent);
+
+                    finish();
 
                   //category list called from spash and verification
 //                    getCategoryList();

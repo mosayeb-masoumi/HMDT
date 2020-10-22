@@ -187,7 +187,7 @@
     <string name="direct_registerarion">ثبت مستقیم</string>
     <string name="edu">آموزش و اصطلاحات</string>
     <string name="take_photo">گرفتن عکس از فاکتور</string>
-    <string name="taking_clear_photo">برای فاکتورهای بزرگ و طولانی لطفا طوری عکس بگیرید که حتما قسمت ابتدایی آن در یکی از عکسها و قسمت انتهایی آن (جمع مبلغ فاکتور و...) در عکس دیگر کاملا واضح باشد.</string>
+    <string name="taking_clear_photo">برای فاکتورهای بزرگ و طولانی لطفا طوری عکس بگیرید که حتما قسمت ابتدایی آن (تاریخ ,  نام فروشگاه و ...) در یکی از عکسها و قسمت انتهایی آن (جمع مبلغ فاکتور و...) در عکس دیگر کاملا واضح باشد.</string>
     <string name="factor_image">عکس فاکتور خرید</string>
     <string name="consumers">مصرف کنندگان</string>
     <string name="orderer">سفارش دهنده/ خریدار</string>
