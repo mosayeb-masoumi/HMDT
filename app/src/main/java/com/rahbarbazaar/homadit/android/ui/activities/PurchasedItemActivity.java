@@ -1362,18 +1362,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         dialogFactory.createBarcodeResultListUnreadableDialog(new DialogFactory.DialogFactoryInteraction() {
             @Override
             public void onAcceptButtonClicked(String... params) {
-                Toast.makeText(context, "clicked!!!", Toast.LENGTH_SHORT).show();
-
                 getSpinneList();
-
                 ll_questions.setVisibility(View.VISIBLE);
                 ll_chkboxes.setVisibility(View.GONE);
                 rl_edt_description_purchased.setVisibility(View.VISIBLE);
                 rl_description_purchased.setVisibility(View.GONE);
                 sendData_type = "new";
                 barcode_type = "new_barcode";
-
-
             }
 
             @Override

@@ -165,7 +165,6 @@ public interface Service {
     Call<Void> covertPapasi(@Query("amount") long amount);
 
 
-
     @GET("Lottery/Main")
     Call<LottaryModel> getLottaryMain();
 
