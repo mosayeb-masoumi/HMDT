@@ -43,6 +43,7 @@
         <activity android:name=".ui.activities.LoginActivity" />
         <activity android:name=".ui.activities.LanguageActivity" />
         <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.PhotoGuideActivity" />
         <activity android:name=".ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -60,7 +60,7 @@
                     android:id="@+id/img1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#F3EEEE"
+                    android:background="@drawable/factor_img_top"
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
@@ -117,7 +117,7 @@
                     android:id="@+id/img3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#F3EEEE"
+                    android:background="@drawable/factor_img_bottom"
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>

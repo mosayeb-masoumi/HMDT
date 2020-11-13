@@ -52,6 +52,7 @@ import com.rahbarbazaar.homadit.android.models.transaction.Transaction;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
 import com.rahbarbazaar.homadit.android.ui.activities.NewRegisterActivity;
+import com.rahbarbazaar.homadit.android.ui.activities.PhotoGuideActivity;
 import com.rahbarbazaar.homadit.android.ui.activities.PurchasedItemActivity;
 import com.rahbarbazaar.homadit.android.ui.activities.QRcodeActivity;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -1197,6 +1198,11 @@ public class DialogFactory {
         ImageView img3_info = customLayout.findViewById(R.id.img3_info);
         ImageView img4_info = customLayout.findViewById(R.id.img4_info);
 
+        CardView crdview1 = customLayout.findViewById(R.id.crdview1);
+        CardView crdview2 = customLayout.findViewById(R.id.crdview2);
+        CardView crdview3 = customLayout.findViewById(R.id.crdview3);
+        CardView crdview4 = customLayout.findViewById(R.id.crdview4);
+
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);
         //create dialog and set background transparent
@@ -1218,6 +1224,28 @@ public class DialogFactory {
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+
+        crdview1.setOnClickListener(view1 -> {
+            Intent intent = new Intent(context,PhotoGuideActivity.class);
+            intent.putExtra("type","img1");
+            context.startActivity(intent);
+        });
+
+        crdview2.setOnClickListener(view12 -> {
+            Intent intent = new Intent(context,PhotoGuideActivity.class);
+            intent.putExtra("type","img2");
+            context.startActivity(intent);
+        });
+        crdview3.setOnClickListener(view13 -> {
+            Intent intent = new Intent(context,PhotoGuideActivity.class);
+            intent.putExtra("type","img3");
+            context.startActivity(intent);
+        });
+        crdview4.setOnClickListener(view14 -> {
+            Intent intent = new Intent(context,PhotoGuideActivity.class);
+            intent.putExtra("type","img4");
+            context.startActivity(intent);
+        });
     }
 
 
@@ -1232,6 +1260,9 @@ public class DialogFactory {
         TextView txt_img2_info = customLayout.findViewById(R.id.txt_img2_info);
         ImageView img1 = customLayout.findViewById(R.id.img1);
         ImageView img3 = customLayout.findViewById(R.id.img3);
+
+        CardView crdview1 = customLayout.findViewById(R.id.crdview1);
+        CardView crdview3 = customLayout.findViewById(R.id.crdview3);
 
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
@@ -1254,6 +1285,26 @@ public class DialogFactory {
         img_close.setOnClickListener(v -> dialog.dismiss());
         btn_close.setOnClickListener(v -> dialog.dismiss());
         dialog.show();
+
+
+        crdview1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, PhotoGuideActivity.class);
+                intent.putExtra("type","factor1");
+                context.startActivity(intent);
+            }
+        });
+
+        crdview3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, PhotoGuideActivity.class);
+                intent.putExtra("type","factor3");
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -1505,8 +1556,8 @@ public class DialogFactory {
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         TextView txt_description = customLayout.findViewById(R.id.txt_description);
-        Button btn_edit = customLayout.findViewById(R.id.btn1);
-        Button btn_home = customLayout.findViewById(R.id.btn2);
+        Button btn_home = customLayout.findViewById(R.id.btn1);
+        Button btn_edit = customLayout.findViewById(R.id.btn2);
 
 
         btn_edit.setText("ویرایش");
