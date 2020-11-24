@@ -91,6 +91,7 @@ import retrofit2.Response;
 public class MainActivity extends CustomBaseActivity implements View.OnClickListener,
         AHBottomNavigation.OnTabSelectedListener, DrawerItemClicked {
 
+
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
     AHBottomNavigation bottom_navigation;
