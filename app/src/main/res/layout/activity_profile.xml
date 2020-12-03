@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/profile_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -382,17 +383,22 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/bg_toolbar"
-            android:gravity="end"
-            android:layoutDirection="rtl">
+            android:background="@drawable/bg_toolbar">
 
             <LinearLayout
                 android:id="@+id/linear_exit_profile"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:padding="3dp"
+                    android:src="@drawable/arrow_left"
+                    android:tint="#FFF" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -404,12 +410,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:padding="3dp"
-                    android:src="@drawable/arrow_left"
-                    android:tint="#FFF" />
+
             </LinearLayout>
 
             <TextView
@@ -423,6 +424,36 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
+
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/rl_exit"
+                android:layout_alignParentEnd="true">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/img_exit"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    app:srcCompat="@drawable/exit_bg"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_toStartOf="@+id/img_exit"
+                    android:text="خروج از حساب"
+                    android:textColor="@color/white_gray"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
 
         </RelativeLayout>

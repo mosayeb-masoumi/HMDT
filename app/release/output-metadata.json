@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.rahbarbazaar.homadit.android",
+  "variantName": "processReleaseResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 13,
+      "versionName": "2.5.0",
+      "outputFile": "HomAdit V2.5.0.apk"
+    }
+  ]
+}

@@ -18,10 +18,8 @@ import com.rahbarbazaar.homadit.android.controllers.adapters.ProfileMemberAdapte
 import com.rahbarbazaar.homadit.android.controllers.interfaces.ProfileMemberItemInteraction
 import com.rahbarbazaar.homadit.android.models.profile.*
 import com.rahbarbazaar.homadit.android.network.ServiceProvider
-import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity
-import com.rahbarbazaar.homadit.android.utilities.DialogFactory
-import com.rahbarbazaar.homadit.android.utilities.GeneralTools
-import com.rahbarbazaar.homadit.android.utilities.RxBus
+import com.rahbarbazaar.homadit.android.utilities.*
+import com.rahbarbazaar.homadit.android.utilities.DialogFactory.DialogFactoryInteraction
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -34,6 +32,8 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
     private var connectivityReceiver: BroadcastReceiver? = null
     var disposable: Disposable = CompositeDisposable()
+
+    private lateinit var dialogFactory: DialogFactory
 
     lateinit var profileData: ProfileData
     private lateinit var adapter_family: ProfileFamilyAdapter
@@ -66,6 +66,8 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
                 profileData = result
             }
         }
+        //initial Dialog factory
+        dialogFactory = DialogFactory(this@ProfileActivity)
 
         // message must be initialize
         family = ArrayList<Family>()
@@ -77,6 +79,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
         }
         rl_family_info.setOnClickListener(this)
         btn_profile_change.setOnClickListener(this)
+        rl_exit.setOnClickListener(this)
 
         linear_exit_profile.setOnClickListener {
             finish()
@@ -143,7 +146,29 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             R.id.btn_profile_change-> {
                 showChangeProfileDialog()
             }
+
+            R.id.rl_exit-> {
+                createConfirmExitDialog()
+            }
+
         }
+    }
+
+    private fun createConfirmExitDialog() {
+        dialogFactory.createConfirmExitDialog(object : DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg params: String) {
+                Cache.setString(this@ProfileActivity, "access_token", "")
+                Cache.setString(this@ProfileActivity, "refresh_token", "")
+                Cache.setString(this@ProfileActivity, "expireAt", "")
+                Cache.setString(this@ProfileActivity, "agreement", "undone")
+                startActivity(Intent(this@ProfileActivity, SplashActivity::class.java))
+                this@ProfileActivity.finish()
+            }
+
+            override fun onDeniedButtonClicked(bool: Boolean) {
+
+            }
+        }, profile_root)
     }
 
     private fun showChangeProfileDialog() {

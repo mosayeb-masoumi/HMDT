@@ -32,7 +32,9 @@
                 android:id="@+id/scrollDrawer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="30dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
                 android:layout_above="@+id/linear_social_media"
                 android:fillViewport="true">
 
@@ -44,13 +46,62 @@
                     android:orientation="vertical">
 
 
+
+
                     <include layout="@layout/drawer_about_items" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/drawer_rv"
-                        android:layout_marginStart="3dp"
+                    <LinearLayout
+                        android:id="@+id/linear_introduction"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="37dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:padding="6dp"
+                            android:src="@drawable/about_us" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/homadit_intro"
+                            android:textColor="@color/white_gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linear_profile_drawer"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:padding="6dp"
+                            android:src="@drawable/profile" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="3dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/profile"
+                            android:textColor="@color/white_gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+
 
 
                     <LinearLayout
@@ -80,54 +131,34 @@
                     </LinearLayout>
 
 
-                    <LinearLayout
-                        android:id="@+id/linear_edu"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linear_edu"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="37dp"-->
+<!--                        android:foreground="?attr/selectableItemBackground"-->
+<!--                        android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/edu_bg" />
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:padding="6dp"-->
+<!--                            android:src="@drawable/edu_bg" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="3dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/edu"
-                            android:textColor="@color/white_gray"
-                            android:textSize="14sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="3dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:text="@string/edu"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="14sp" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
+
+                    <include layout="@layout/drawer_edu_items" />
 
 
-                    <LinearLayout
-                        android:id="@+id/linear_profile_drawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/profile" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="3dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/profile"
-                            android:textColor="@color/white_gray"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
 
 
 <!--                    <LinearLayout-->
@@ -181,32 +212,65 @@
 
                     <include layout="@layout/drawer_purchase_management_items" />
 
-                    <include layout="@layout/drawer_account_management_items"
-                        android:visibility="gone"/>
-
                     <LinearLayout
-                        android:id="@+id/linear_faq"
+                        android:id="@+id/linear_lottary_drawer"
                         android:layout_width="match_parent"
                         android:layout_height="37dp"
                         android:foreground="?attr/selectableItemBackground"
                         android:orientation="horizontal">
 
-                        <ImageView
+
+                        <RelativeLayout
                             android:layout_width="40dp"
-                            android:layout_height="match_parent"
-                            android:padding="6dp"
-                            android:src="@drawable/question_icon" />
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="match_parent"
+                                android:padding="6dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/lottary_icon" />
+                        </RelativeLayout>
+
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="3dp"
                             android:gravity="center_vertical"
-                            android:text="@string/faq"
+                            android:text="@string/lottary"
                             android:textColor="@color/white_gray"
                             android:textSize="14sp" />
 
                     </LinearLayout>
+
+
+                    <include layout="@layout/drawer_account_management_items"
+                        android:visibility="gone"/>
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linear_faq"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="37dp"-->
+<!--                        android:foreground="?attr/selectableItemBackground"-->
+<!--                        android:orientation="horizontal">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:padding="6dp"-->
+<!--                            android:src="@drawable/question_icon" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_marginStart="3dp"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:text="@string/faq"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="14sp" />-->
+
+<!--                    </LinearLayout>-->
 
 
                     <include layout="@layout/drawer_support_items" />
@@ -266,37 +330,12 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/linear_lottary_drawer"
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/drawer_rv"
+                        android:layout_marginStart="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="37dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:orientation="horizontal">
-
-
-                        <RelativeLayout
-                            android:layout_width="40dp"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="match_parent"
-                                android:padding="6dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/lottary_icon" />
-                        </RelativeLayout>
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="3dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/lottary"
-                            android:textColor="@color/white_gray"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
 
 
                     <LinearLayout
@@ -333,6 +372,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_above="@+id/linear_social_media"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="10dp">

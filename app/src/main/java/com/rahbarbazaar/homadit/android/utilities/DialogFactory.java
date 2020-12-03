@@ -153,10 +153,14 @@ public class DialogFactory {
 
         btn_cancel_dialog.setOnClickListener(v -> {
             dialog.dismiss();
-            listener.onDeniedButtonClicked(false);
+//            listener.onDeniedButtonClicked(false);
         });
 
-        btn_exit_dialog.setOnClickListener(v -> listener.onAcceptButtonClicked("")
+        btn_exit_dialog.setOnClickListener(v -> {
+                    listener.onAcceptButtonClicked("");
+                    dialog.dismiss();
+                }
+
         );
 
         dialog.show();
@@ -507,13 +511,13 @@ public class DialogFactory {
 
 
             if (np_year.getValue() > year) {
-                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "تاریخ نمی تواند مربوط به آینده باشد!", Toast.LENGTH_SHORT).show();
                 return;
             } else if (np_year.getValue() == year && (np_month.getValue() > month)) {
-                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "تاریخ نمی تواند مربوط به آینده باشد!", Toast.LENGTH_SHORT).show();
                 return;
             } else if (np_year.getValue() == year && np_month.getValue() == month && np_day.getValue() > day) {
-                Toast.makeText(context, "تاریخ مربوط به آینده می باشد!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "تاریخ نمی تواند مربوط به آینده باشد!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -537,7 +541,8 @@ public class DialogFactory {
 
 
             if(daysUntilNow >5){
-                Toast.makeText(context, "از زمان خرید شما بیش از پنج روز گذشته است!", Toast.LENGTH_SHORT).show();
+                String msg = "امکان ثبت خریدهای بیش از " + ConvertEnDigitToFa.convert("5")+ " روز گذشته وجود ندارد!";
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 return;
             }
 

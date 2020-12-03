@@ -1,16 +1,22 @@
 package com.rahbarbazaar.homadit.android.controllers.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 //import com.rahbarbazaar.shopper.R;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.models.register.RegisterMemberEditModel;
+import com.rahbarbazaar.homadit.android.ui.activities.NewRegisterActivity;
+
 import java.util.List;
 
 
@@ -36,9 +42,44 @@ public class RegisterMemberEditAdapter extends RecyclerView.Adapter<RegisterMemb
        RegisterMemberEditModel model = editMemberList.get(position);
        holder.txt_name.setText(model.txt_name);
        holder.img_delete.setOnClickListener(v -> {
-           editMemberList.remove(position);
-           notifyItemRemoved(position);
-           notifyDataSetChanged();
+
+           final Dialog dialog = new Dialog(context);
+           dialog.setContentView(R.layout.sample_dialog);
+           ImageView img_close = dialog.findViewById(R.id.img_close);
+           TextView txt_header = dialog.findViewById(R.id.txt_header);
+           TextView txt_description = dialog.findViewById(R.id.txt_description);
+           Button btn_no = dialog.findViewById(R.id.btn2);
+           Button btn_yes = dialog.findViewById(R.id.btn1);
+
+           txt_description.setPadding(0,0,0,30);
+           txt_header.setText("هشدار!");
+           btn_no.setText("نه");
+           btn_yes.setText("بله");
+
+           txt_description.setText("آیا مطمینید که "+ model.txt_name + " از لیست حذف شود؟");
+
+           img_close.setOnClickListener(view -> dialog.dismiss());
+
+           if (dialog.getWindow() != null) {
+               dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           }
+
+           btn_no.setOnClickListener(view -> dialog.dismiss());
+
+           btn_yes.setOnClickListener(view -> {
+               editMemberList.remove(position);
+               notifyItemRemoved(position);
+               notifyDataSetChanged();
+
+               dialog.dismiss();
+           });
+
+
+           dialog.show();
+
+//           editMemberList.remove(position);
+//           notifyItemRemoved(position);
+//           notifyDataSetChanged();
        });
     }
 

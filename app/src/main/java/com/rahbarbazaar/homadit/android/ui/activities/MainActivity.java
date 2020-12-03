@@ -98,14 +98,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private GpsTracker gpsTracker;
 
     ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
-            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management;
+            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management, img_arrow_edu;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
             linear_support, linear_about, linear_account_management, linear_report_issue, linear_faq,
-            linear_edu, linear_submenu, linear_submenu_about, linear_submenu_account_management, linear_transaction_list_drawer,
+            linear_edu, linear_submenu, linear_submenu_about, linear_submenu_edu, linear_submenu_account_management, linear_transaction_list_drawer,
             linear_papasi_to_rial_drawer, linear_my_wallet_drawer, linear_purchase_management, linear_submenu_purchase_management,
-            linear_register_new_purchase, linear_all_purchased_list, linear_new_purchased_list,
-            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer,linear_lottary_drawer;
+            linear_register_new_purchase, linear_all_purchased_list, linear_new_purchased_list, linear_expressions,
+            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer, linear_lottary_drawer;
     RelativeLayout ll_notify_count, ll_notify_count_drawer, rl_avi_drawer_new_register;
 
     TextView txt_exit, text_notify_count, text_notify_count_drawer, text_follow_us, txt_date;
@@ -124,6 +124,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     boolean isAboutLayoutClicked = false;
     boolean isAccountManagementLayoutClicked = false;
     boolean isPurchaseManagementLayoutClicked = false;
+    boolean isEduLayoutClicked = false;
 
     Disposable disposable = new CompositeDisposable();
     DashboardCreateData dashboardCreateData;
@@ -179,6 +180,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //        if (locale_name.equals("fa"))
         img_arrow.setImageResource(R.drawable.arrow_left);
         img_arrow_about.setImageResource(R.drawable.arrow_left);
+        img_arrow_edu.setImageResource(R.drawable.arrow_left);
         img_arrow_account_management.setImageResource(R.drawable.arrow_left);
         img_arrow_purchase_management.setImageResource(R.drawable.arrow_left);
 
@@ -293,6 +295,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         img_arrow_about = findViewById(R.id.img_arrow_about);
         img_arrow_account_management = findViewById(R.id.img_arrow_account_management);
         img_arrow_purchase_management = findViewById(R.id.img_arrow_purchase_management);
+        img_arrow_edu = findViewById(R.id.img_arrow_edu);
         image_drawer = findViewById(R.id.image_drawer);
 
         linear_invite_friend = findViewById(R.id.linear_invite_friend);
@@ -313,11 +316,14 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_introduction = findViewById(R.id.linear_introduction);
         linear_videos = findViewById(R.id.linear_videos);
         linear_news = findViewById(R.id.linear_news);
+        linear_expressions = findViewById(R.id.linear_expressions);
+
         linear_submenu_about = findViewById(R.id.linear_submenu_about);
         linear_submenu_purchase_management = findViewById(R.id.linear_submenu_purchase_management);
         linear_all_purchased_list = findViewById(R.id.linear_all_purchased_list);
         linear_new_purchased_list = findViewById(R.id.linear_new_purchased_list);
         linear_submenu_account_management = findViewById(R.id.linear_submenu_account_management);
+        linear_submenu_edu = findViewById(R.id.linear_submenu_edu);
         linear_papasi_to_rial_drawer = findViewById(R.id.linear_papasi_to_rial_drawer);
 //        linear_my_wallet_drawer = findViewById(R.id.linear_my_wallet_drawer);
         linear_register_new_purchase = findViewById(R.id.linear_register_new_purchase);
@@ -328,7 +334,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         rl_notification = findViewById(R.id.rl_notification);
 
         txt_last24 = findViewById(R.id.txt_last24);
-        txt_last24.setText("خریدهای "+ ConvertEnDigitToFa.convert("24") +" ساعت گذشته");
+        txt_last24.setText("خریدهای " + ConvertEnDigitToFa.convert("24") + " ساعت گذشته");
 
         linear_lottary_drawer = findViewById(R.id.linear_lottary_drawer);
 
@@ -354,6 +360,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_faq.setOnClickListener(this);
         linear_edu.setOnClickListener(this);
         linear_support.setOnClickListener(this);
+        linear_expressions.setOnClickListener(this);
         linear_introduction.setOnClickListener(this);
         linear_transaction_list_drawer.setOnClickListener(this);
         linear_papasi_to_rial_drawer.setOnClickListener(this);
@@ -600,10 +607,28 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
             case R.id.linear_edu:
+
+
+                if (!isEduLayoutClicked) {
+                    tools.expand(linear_submenu_edu);
+                    img_arrow_edu.setImageResource(R.drawable.arrow_down);
+                } else {
+                    tools.collapse(linear_submenu_edu);
+                    img_arrow_edu.setImageResource(R.drawable.arrow_left);
+                }
+
+                isEduLayoutClicked = !isEduLayoutClicked;
+
+
+                break;
+
+            case R.id.linear_expressions:
+
                 drawer_layout_home.closeDrawers();
                 goToHtmlActivity(dashboardCreateData.data.education_page);
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
+
 
             case R.id.linear_report_issue:
                 drawer_layout_home.closeDrawers();
@@ -650,7 +675,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 MainActivity.this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
-
 
 
             case R.id.image_instagram:

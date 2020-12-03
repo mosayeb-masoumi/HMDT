@@ -1,18 +1,18 @@
 package com.rahbarbazaar.homadit.android.ui.activities
 
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.AbsListView
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import com.rahbarbazaar.homadit.android.R
 //import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.controllers.adapters.EditProductsAdapter
@@ -166,9 +166,11 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
                                            avi: AVLoadingIndicatorView, btn_delete: Button) {
         if (status == "delete") {
 
-            avi.visibility = View.VISIBLE
-            btn_delete.visibility = View.GONE
-            sendDeleteItemId(model.id, avi, btn_delete)
+//            avi.visibility = View.VISIBLE
+//            btn_delete.visibility = View.GONE
+//            sendDeleteItemId(model.id, avi, btn_delete)
+
+            showDeleteDialog(model.id,avi,btn_delete)
 
         } else if (status == "edit") {
 
@@ -181,6 +183,39 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
+    }
+
+    private fun showDeleteDialog(id: String, avi: AVLoadingIndicatorView, btnDelete: Button) {
+        val dialog = Dialog(this@EditProductsActivity)
+        dialog.setContentView(R.layout.sample_dialog)
+        val img_close = dialog.findViewById<ImageView>(R.id.img_close)
+        val txt_header = dialog.findViewById<TextView>(R.id.txt_header)
+        val txt_description = dialog.findViewById<TextView>(R.id.txt_description)
+        val btn_no = dialog.findViewById<Button>(R.id.btn2)
+        val btn_yes = dialog.findViewById<Button>(R.id.btn1)
+
+        txt_description.setPadding(30,0,30,30)
+        txt_header.text = "هشدار!"
+        btn_no.text = "نه"
+        btn_yes.text = "بله"
+
+        txt_description.text = "آیا از حذف این کالا اطمینان دارید؟"
+
+        img_close.setOnClickListener { view: View? -> dialog.dismiss() }
+
+        if (dialog.window != null) {
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
+        btn_no.setOnClickListener { view: View? -> dialog.dismiss() }
+
+        btn_yes.setOnClickListener { view: View? ->
+            sendDeleteItemId(id, avi, btnDelete)
+            dialog.dismiss()
+        }
+
+
+        dialog.show()
     }
 
     private fun sendDeleteItemId(id: String?, avi: AVLoadingIndicatorView, btn_delete: Button) {

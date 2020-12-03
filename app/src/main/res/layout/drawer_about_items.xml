@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:visibility="gone"
     android:orientation="vertical">
 
     <LinearLayout
@@ -43,57 +44,57 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linear_introduction"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:paddingStart="5dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_introduction"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingStart="5dp">-->
 
-            <TextView
-                android:layout_width="34dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="6dp"
-                android:text="-"
-                android:textColor="@color/white_gray"/>
+<!--            <TextView-->
+<!--                android:layout_width="34dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="6dp"-->
+<!--                android:text="-"-->
+<!--                android:textColor="@color/white_gray"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/homadit_intro"
-                android:textColor="@color/white_gray"
-                android:textSize="14sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="@string/homadit_intro"-->
+<!--                android:textColor="@color/white_gray"-->
+<!--                android:textSize="14sp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linear_videos"
-            android:layout_width="match_parent"
-            android:layout_height="37dp"
-            android:foreground="?attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:paddingStart="5dp">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_videos"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="37dp"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:paddingStart="5dp">-->
 
-            <TextView
-                android:layout_width="34dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="6dp"
-                android:text="-"
-                android:textColor="@color/white_gray"/>
+<!--            <TextView-->
+<!--                android:layout_width="34dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="6dp"-->
+<!--                android:text="-"-->
+<!--                android:textColor="@color/white_gray"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="@string/text_video"
-                android:textColor="@color/white_gray"
-                android:textSize="14sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="@string/text_video"-->
+<!--                android:textColor="@color/white_gray"-->
+<!--                android:textSize="14sp" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/linear_news"
