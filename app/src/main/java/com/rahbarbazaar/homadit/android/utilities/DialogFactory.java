@@ -1094,7 +1094,9 @@ public class DialogFactory {
         }
 
         //set recyclerview
-        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        GridLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(newRegisterActivity);
         recyclerView.setAdapter(adapter);

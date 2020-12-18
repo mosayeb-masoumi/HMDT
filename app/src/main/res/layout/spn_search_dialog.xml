@@ -41,8 +41,9 @@
         app:searchIcon="@drawable/ic_search"/>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="450dp">
 
         <android.support.v7.widget.RecyclerView
@@ -50,20 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadeScrollbars="false"
-            android:layoutDirection="rtl"
+            android:layout_centerInParent="false"
             android:padding="7dp"
             android:scrollbarSize="3dp"
-            android:scrollbarThumbVertical="@color/pink"
             android:scrollbars="vertical">
 
         </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
 

@@ -211,17 +211,18 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
         Cache.setString(this,"selectedGroupId",model.getId());
         Cache.setString(this,"selectedGroupTitle",model.getTitle());
 
+        startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class)) ;
+        finish();
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Do something after 100ms
-
-                startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class)) ;
-                finish();
-            }
-        }, 200);
+//        final Handler handler = new Handler(Looper.getMainLooper());
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                //Do something after 100ms
+//
+//
+//            }
+//        }, 200);
 
 
 

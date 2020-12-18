@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="visible"
         android:padding="2dp"
         android:weightSum="2">
 
@@ -345,7 +346,8 @@
                             android:id="@+id/img3"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/draw" />
 
@@ -360,6 +362,18 @@
                         <!--                            android:textColor="@color/blue"-->
                         <!--                            android:textSize="11sp" />-->
 
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginBottom="3dp"
+                                android:layout_alignParentBottom="true"
+                                android:layout_centerHorizontal="true"
+                                android:text="@string/text_leftday"
+                                android:textColor="#264796"
+                                android:textSize="11sp" />
 
                     </RelativeLayout>
 
@@ -382,19 +396,29 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/papasi" />
 
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:layout_alignParentBottom="true"-->
-                        <!--                            android:layout_centerHorizontal="true"-->
-                        <!--                            android:gravity="center_vertical"-->
-                        <!--                            android:text="@string/total_purchase"-->
-                        <!--                            android:textColor="@color/blue"-->
-                        <!--                            android:textSize="11sp" />-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:text="امتیاز(پاپاسی)"
+                                android:layout_marginBottom="3dp"
+                                android:textColor="#264796"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -414,19 +438,29 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_centerInParent="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
                             android:layout_marginBottom="2dp"
                             android:src="@drawable/balance" />
 
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:layout_alignParentBottom="true"-->
-                        <!--                            android:layout_centerHorizontal="true"-->
-                        <!--                            android:gravity="center_vertical"-->
-                        <!--                            android:text="@string/papasi"-->
-                        <!--                            android:textColor="@color/blue"-->
-                        <!--                            android:textSize="11sp" />-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="2dp"
+                                android:text="موجودی(ریال)"
+                                android:layout_marginBottom="3dp"
+                                android:textColor="#264796"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
                     </RelativeLayout>
 
                     <!--                    <RelativeLayout-->
@@ -467,7 +501,7 @@
                 <LinearLayout
                     android:id="@+id/dashboard_btm"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
                     android:background="#264796"
                     android:orientation="horizontal">
@@ -478,13 +512,13 @@
                         android:gravity="center"
                         android:layout_weight="1">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            android:text="@string/text_leftday"
-                            android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="2dp"-->
+<!--                            android:text="@string/text_leftday"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="12sp" />-->
 
                         <TextView
                             android:id="@+id/txt_left_days"
@@ -520,13 +554,13 @@
                         android:gravity="center"
                         android:layout_weight="1">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            android:text="@string/papasi"
-                            android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="2dp"-->
+<!--                            android:text="@string/papasi"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="12sp" />-->
 
                         <TextView
                             android:id="@+id/txt_papasi"
@@ -543,13 +577,13 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            android:text="@string/rial"
-                            android:textColor="@color/white_gray"
-                            android:textSize="12sp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginEnd="2dp"-->
+<!--                            android:text="@string/rial"-->
+<!--                            android:textColor="@color/white_gray"-->
+<!--                            android:textSize="12sp" />-->
 
                         <TextView
                             android:id="@+id/txt_balance"

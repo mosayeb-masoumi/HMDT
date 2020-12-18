@@ -19,14 +19,14 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
 
     private TextView txt_name;
 //    private CheckBox checkbox;
-    ImageView img;
+//    ImageView img;
     RelativeLayout rl_member_row;
 
     public RegisterMemberViewHolderDialog(@NonNull View itemView) {
         super(itemView);
         txt_name = itemView.findViewById(R.id.txt_name);
 //        checkbox = itemView.findViewById(R.id.checkbox);
-        img = itemView.findViewById(R.id.img_untik);
+//        img = itemView.findViewById(R.id.img_untik);
         rl_member_row = itemView.findViewById(R.id.rl_member_row);
     }
 
@@ -44,13 +44,17 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
             if(!model.isSelected()){
 
                 model.setSelected(true);
-                img.setBackground(itemView.getResources().getDrawable(R.drawable.tik));
+                rl_member_row.setBackground(itemView.getResources().getDrawable(R.drawable.member_selected_bg));
+                txt_name.setTextColor(itemView.getResources().getColor(R.color.white));
+//                img.setBackground(itemView.getResources().getDrawable(R.drawable.tik));
                 listener.onClicked(model.name, model.id,spn_name,dialog, true);
 
 
             }else if(model.isSelected()){
                 model.setSelected(false);
-                img.setBackground(itemView.getResources().getDrawable(R.drawable.untik));
+                rl_member_row.setBackground(itemView.getResources().getDrawable(R.drawable.group_good_item_bg));
+                txt_name.setTextColor(itemView.getResources().getColor(R.color.blue_dark));
+//                img.setBackground(itemView.getResources().getDrawable(R.drawable.untik));
                 listener.onClicked(model.name, model.id,spn_name,dialog, false);
             }
 
@@ -78,36 +82,5 @@ public class RegisterMemberViewHolderDialog extends RecyclerView.ViewHolder {
 
 
 
-//
-//        checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//
-//            state = "checkbox";
-//
-//            if (checkbox.isChecked()) {
-//                checkbox.setChecked(true);
-//                model.setSelected(true);
-//                listener.onClicked(model.name, model.id,spn_name,dialog, true);
-//            } else if (!checkbox.isChecked()) {
-//                checkbox.setChecked(false);
-//                model.setSelected(false);
-//                listener.onClicked(model.name, model.id,spn_name,dialog, false);
-//            }
-//        });
-//
-//
-//        txt_name.setOnClickListener(view -> {
-//
-//            state = "title";
-//
-////            if (model.isSelected()) {
-////                checkbox.setChecked(false);
-////                model.setSelected(false);
-////                listener.onClicked(model.name, model.id,spn_name,dialog, false);
-////            } else if (!model.isSelected()) {
-////                checkbox.setChecked(true);
-////                model.setSelected(true);
-////                listener.onClicked(model.name, model.id,spn_name,dialog, true);
-////            }
-//        });
     }
 }
