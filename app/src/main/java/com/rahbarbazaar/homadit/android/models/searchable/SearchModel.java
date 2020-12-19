@@ -5,9 +5,11 @@ public class SearchModel {
     private String title;
     private String id;
 
+
     public SearchModel(String title, String id) {
         this.title = title;
         this.id = id;
+
     }
 
     public String getTitle() {
@@ -25,4 +27,12 @@ public class SearchModel {
     public void setId(String id) {
         this.id = id;
     }
+
+//    public String getIcon() {
+//        return icon;
+//    }
+//
+//    public void setIcon(String icon) {
+//        this.icon = icon;
+//    }
 }

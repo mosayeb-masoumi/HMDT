@@ -15,13 +15,16 @@ class Groups() :Parcelable {
     @Expose
     var id: String? = null
 
-  
+    @SerializedName("icon")
+    @Expose
+    var icon: String? = null
 
 
 
     constructor(parcel: Parcel) : this() {
         title = parcel.readString()
         id = parcel.readString()
+        icon = parcel.readString()
     }
 
     companion object CREATOR : Parcelable.Creator<Groups> {
@@ -43,5 +46,6 @@ class Groups() :Parcelable {
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest!!.writeString(title)
         dest.writeString(id)
+        dest.writeString(icon)
     }
 }

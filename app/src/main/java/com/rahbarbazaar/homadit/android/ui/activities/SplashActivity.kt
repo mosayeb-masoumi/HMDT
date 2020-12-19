@@ -366,7 +366,7 @@ class SplashActivity : CustomBaseActivity() {
                      searchList = ArrayList<SearchModel>()
                     for (i in response.body()!!.data!!.indices) {
                         searchList.add(SearchModel(response.body()!!.data!![i].title,
-                                response.body()!!.data!![i].id))
+                                response.body()!!.data!![i].id ))
                     }
                     RxBus.GroupGoodsList.publishGroupGoodsList(response.body()!!)
 

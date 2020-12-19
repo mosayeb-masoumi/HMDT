@@ -62,7 +62,7 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 //
         for (int i = 0; i < groupsData.getData().size(); i++) {
             searchList.add(new GroupGoodsModel(groupsData.getData().get(i).getTitle(),
-                    groupsData.getData().get(i).getId() , false));
+                    groupsData.getData().get(i).getId() ,groupsData.getData().get(i).getIcon(), false));
         }
 
 

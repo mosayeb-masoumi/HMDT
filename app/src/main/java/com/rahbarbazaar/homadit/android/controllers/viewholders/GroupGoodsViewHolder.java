@@ -36,12 +36,12 @@ public class GroupGoodsViewHolder extends RecyclerView.ViewHolder {
     public void bindData(GroupGoodsModel model) {
         txt_title.setText(model.getTitle());
 
-//        Glide
-//                .with(itemView.getContext())
-//                .load(model.getUrl)
-//                .centerCrop()
-//                .placeholder(R.color.blue)
-//                .into(img);
+        Glide
+                .with(itemView.getContext())
+                .load(model.getIcon())
+                .centerCrop()
+                .placeholder(R.color.blue)
+                .into(img);
 
 
 //        img_untik.setBackground(itemView.getResources().getDrawable(R.drawable.untik));

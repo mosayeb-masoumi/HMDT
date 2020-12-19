@@ -558,7 +558,8 @@ public class NewRegisterListActivity extends CustomBaseActivity implements View.
             case 25:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Intent intent = new Intent(this, QRcodeActivity.class);
+//                    Intent intent = new Intent(this, QRcodeActivity.class);
+                    Intent intent = new Intent(this, GroupGoodsActivity.class);
                     Cache.setString(this,"shopping_id",shopping_id);
                     intent.putExtra("static_barcode","static_barcode");
                     startActivity(intent);
