@@ -210,6 +210,7 @@ public class GroupGoodsActivity extends CustomBaseActivity implements View.OnCli
 
         Cache.setString(this,"selectedGroupId",model.getId());
         Cache.setString(this,"selectedGroupTitle",model.getTitle());
+        Cache.setString(this,"selectedGroupIcon",model.getIcon());
 
         startActivity(new Intent(GroupGoodsActivity.this, QRcodeActivity.class)) ;
         finish();

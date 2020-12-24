@@ -63,7 +63,7 @@
             android:text="@string/close"
             android:id="@+id/btn_close"
             android:textColor="@color/white"
-            android:background="@drawable/bg_btn_prize"/>
+            android:background="@drawable/bg_button_add"/>
 
         <Button
             android:layout_width="0dp"

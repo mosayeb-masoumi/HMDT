@@ -67,10 +67,10 @@
             android:id="@+id/btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/dialog_btn_shape"
+            android:background="@drawable/bg_button_add"
             android:gravity="center"
             android:text="Button"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="17sp" />
 
     </RelativeLayout>

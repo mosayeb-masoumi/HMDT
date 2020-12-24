@@ -11,11 +11,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 //import com.rahbarbazaar.shopper.R;
+import com.bumptech.glide.Glide;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.BarcodeItemInteraction;
 import com.rahbarbazaar.homadit.android.models.barcodlist.Barcode;
@@ -54,6 +56,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish ,btn_unreadable;
 
     TextView txt_group_title ;
+    ImageView img_icon;
 
     GeneralTools tools;
     BroadcastReceiver connectivityReceiver = null;
@@ -112,6 +115,13 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
 
         txt_group_title.setText(Cache.getString(this,"selectedGroupTitle"));
+        String url = Cache.getString(this,"selectedGroupIcon");
+        Glide
+                .with(this)
+                .load(url)
+                .centerCrop()
+                .placeholder(R.color.blue)
+                .into(img_icon);
 
         avi_qrcode.hide();
     }
@@ -123,6 +133,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         linear_return_qrcode = findViewById(R.id.linear_return_qrcode);
         rl_home_qrcode = findViewById(R.id.rl_home_qrcode);
         txt_group_title  = findViewById(R.id.txt_group_title);
+        img_icon  = findViewById(R.id.img_icon);
         ll_root = findViewById(R.id.root_qrcode_scanner);
         btn_1 = findViewById(R.id.btn1_register_barcode);
         btn_2 = findViewById(R.id.btn2_register_barcode);

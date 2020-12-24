@@ -1074,6 +1074,9 @@ public class DialogFactory {
         RecyclerView recyclerView = customLayout.findViewById(R.id.rv_spinner);
         Button btn_close = customLayout.findViewById(R.id.btn_exit_dialog_shop1);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        RelativeLayout rl_btn = customLayout.findViewById(R.id.rl_btn);
+
+        rl_btn.setVisibility(View.GONE);
 
         SearchView searchView = customLayout.findViewById(R.id.search_view);
         searchView.setVisibility(View.GONE);

@@ -91,10 +91,10 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:background="@drawable/dialog_btn_shape"
+            android:background="@drawable/bg_btn_prize_blue_light"
             android:gravity="center"
             android:text="@string/today"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
         <Button
@@ -104,10 +104,10 @@
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/dialog_btn_shape"
+            android:background="@drawable/bg_btn_prize"
             android:gravity="center"
             android:text="@string/register"
-            android:textColor="@color/blue"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
 

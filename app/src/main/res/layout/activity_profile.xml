@@ -34,240 +34,100 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
-                android:text="@string/personal_profile"
-                android:textColor="@color/blue_dark"
-                android:textSize="15sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="2dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="vertical">
+                app:cardCornerRadius="20dp">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:orientation="horizontal">
+                    android:background="@drawable/bg_prize_item"
+                    android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
+
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_name_value_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:gravity="end"
-                            android:text="-"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_name_title_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="0dp"
-                            android:gravity="end"
-                            android:padding="3dp"
-                            android:text="نام:"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_phone_value_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:gravity="end"
-                            android:text="-"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_phone_title_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"
-                            android:gravity="end"
-                            android:padding="3dp"
-                            android:text="موبایل:"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginEnd="7dp"
-                    android:layout_marginBottom="7dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_code_value_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:gravity="end"
-                            android:text="-"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <TextView
-                            android:id="@+id/txt_code_title_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="10dp"
-                            android:gravity="end"
-                            android:padding="3dp"
-                            android:text="@string/family_code"
-                            android:textColor="@color/blue_dark"
-                            android:textSize="15sp" />
-
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_prize_item"
-                android:orientation="vertical">
-
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_height="wrap_content">-->
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="0.2" >-->
-
-                <!--<ImageView-->
-                <!--android:id="@+id/img_plus_profile_family_info"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:src="@color/blue_dark2" />-->
-                <!--</RelativeLayout>-->
-
-
-                <!--<RelativeLayout-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1">-->
-
-                <!--<TextView-->
-                <!--android:id="@+id/txt_name_profile_member_item"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:text="@string/family_info"-->
-                <!--android:textColor="@color/blue_dark"-->
-                <!--android:textSize="15sp" />-->
-
-
-                <!--</RelativeLayout>-->
-
-
-                <!--</LinearLayout>-->
-                <RelativeLayout
-                    android:id="@+id/rl_family_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:padding="5dp">
-
+                        android:background="@color/blue"
+                        android:gravity="center_horizontal"
+                        android:text="@string/personal_profile"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true">
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:orientation="horizontal">
 
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.2">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                            <ImageView
-                                android:id="@+id/img_plus_profile_family_info"
+                            <TextView
+                                android:id="@+id/txt_name_value_profile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:src="@color/blue_dark2" />
+                                android:layout_alignParentEnd="true"
+                                android:gravity="end"
+                                android:text="-"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt_name_title_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="0dp"
+                                android:gravity="end"
+                                android:padding="3dp"
+                                android:text="نام:"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt_phone_value_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:gravity="end"
+                                android:text="-"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
                         </RelativeLayout>
 
 
@@ -277,81 +137,189 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/txt_name_profile_member_item"
+                                android:id="@+id/txt_phone_title_profile"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
-                                android:text="@string/family_info"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="end"
+                                android:padding="3dp"
+                                android:text="موبایل:"
                                 android:textColor="@color/blue_dark"
                                 android:textSize="15sp" />
 
+                        </RelativeLayout>
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt_code_value_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:gravity="end"
+                                android:text="-"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
                         </RelativeLayout>
 
 
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/txt_code_title_profile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="end"
+                                android:padding="3dp"
+                                android:text="@string/family_code"
+                                android:textColor="@color/blue_dark"
+                                android:textSize="15sp" />
+
+                        </RelativeLayout>
                     </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
 
-                    <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/family_info"-->
-                    <!--android:textColor="@color/blue_dark"-->
-                    <!--android:textSize="15sp" />-->
-
-                    <!--<ImageView-->
-                    <!--android:id="@+id/img_plus_profile_family_info"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginStart="10dp" />-->
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_family_profile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:text="@string/family_member_info"
-                android:textColor="@color/blue_dark"
-                android:textSize="15sp" />
-
-            <RelativeLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_prize_item">
+                app:cardCornerRadius="20dp">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_member_profile"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp">
+                    android:background="@drawable/bg_prize_item"
+                    android:orientation="vertical">
 
-                </android.support.v7.widget.RecyclerView>
+                    <RelativeLayout
+                        android:id="@+id/rl_family_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue"
+                        android:padding="5dp">
 
-            </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true">
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.2">
+
+                                <ImageView
+                                    android:id="@+id/img_plus_profile_family_info"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@color/blue_dark2" />
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/txt_name_profile_member_item"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:text="@string/family_info"
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp" />
+
+
+                            </RelativeLayout>
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_family_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="20dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_prize_item"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue"
+                        android:gravity="center_horizontal"
+                        android:text="@string/family_member_info"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_member_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
     </ScrollView>
@@ -427,19 +395,19 @@
 
 
             <RelativeLayout
+                android:id="@+id/rl_exit"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:id="@+id/rl_exit"
-                android:layout_alignParentEnd="true">
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp">
 
                 <ImageView
+                    android:id="@+id/img_exit"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/img_exit"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    app:srcCompat="@drawable/exit_bg"/>
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/exit_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -51,6 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadeScrollbars="false"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_centerInParent="false"
             android:padding="7dp"
             android:scrollbarSize="3dp"
@@ -64,6 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
+        android:id="@+id/rl_btn"
         android:layout_marginBottom="10dp">
 
         <LinearLayout
@@ -80,9 +85,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:background="@drawable/dialog_btn_shape"
+                android:background="@drawable/bg_button_add"
                 android:text="بستن"
-                android:textColor="@color/blue"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
@@ -91,9 +96,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
                 android:layout_weight="1"
-                android:background="@drawable/dialog_btn_shape"
+                android:background="@drawable/bg_btn_prize"
                 android:text="سایر"
-                android:textColor="@color/blue"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
 

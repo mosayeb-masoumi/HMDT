@@ -75,7 +75,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
         familyListVisibility = "unseen"
         if (familyListVisibility.equals("unseen")) {
-            img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.plus_blue_dark))
+            img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.plus_white))
         }
         rl_family_info.setOnClickListener(this)
         btn_profile_change.setOnClickListener(this)
@@ -133,11 +133,11 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
             R.id.rl_family_info -> {
                 if (familyListVisibility.equals("unseen")) {
 
-                    img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.minus_blue))
+                    img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.minus_white))
                     rv_family_profile.visibility = View.VISIBLE
                     familyListVisibility = "seen"
                 } else if (familyListVisibility.equals("seen")) {
-                    img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.plus_blue_dark))
+                    img_plus_profile_family_info.setImageDrawable(resources.getDrawable(R.drawable.plus_white))
                     rv_family_profile.visibility = View.GONE
                     familyListVisibility = "unseen"
                 }
