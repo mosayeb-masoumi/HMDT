@@ -14,10 +14,7 @@ import android.text.Html
 import android.view.View
 import com.rahbarbazaar.homadit.android.R
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
-import com.rahbarbazaar.homadit.android.utilities.Cache
-import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity
-import com.rahbarbazaar.homadit.android.utilities.GeneralTools
-import com.rahbarbazaar.homadit.android.utilities.RxBus
+import com.rahbarbazaar.homadit.android.utilities.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_agreement.*
@@ -25,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_agreement.*
 class AgreementActivity : CustomBaseActivity() {
 
     lateinit var connectivityReceiver: BroadcastReceiver
+    private lateinit var dialogFactory: DialogFactory
 
     var disposable: Disposable = CompositeDisposable()
     lateinit var dashboardCreateData: DashboardCreateData
@@ -55,37 +53,9 @@ class AgreementActivity : CustomBaseActivity() {
         txt_agreement.text = Html.fromHtml(dashboardCreateData.data.agreementPage)
 
 
-        //config web view setting for support multi action and java scripts
-//        webview_agreement.settings.javaScriptEnabled = true
-//        webview_agreement.settings.domStorageEnabled = true
-//        webview_agreement.settings.databaseEnabled = true
-//        webview_agreement.settings.allowFileAccess = true
-//        webview_agreement.settings.allowContentAccess = true
-//        webview_agreement.webChromeClient = WebChromeClient()
-//        webview_agreement.settings.allowFileAccessFromFileURLs = true
-//        webview_agreement.settings.allowUniversalAccessFromFileURLs = true
-//        webview_agreement.settings.minimumFontSize = 1
-//        webview_agreement.settings.minimumLogicalFontSize = 1
-//        webview_agreement.isClickable = true
-//        webview_agreement.clearCache(true)
-//
-//        webview_agreement.loadUrl(dashboardCreateData.data.agreementPage)
-//        webview_agreement.setBackgroundColor(Color.TRANSPARENT)
-//
-//        webview_agreement.webViewClient = object : WebViewClient() {
-//
-//            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-//                view.loadUrl(url)
-//                return false
-//            }
-//
-//            override fun onPageFinished(view: WebView, url: String) {
-//                super.onPageFinished(view, url)
-//                av_loading.smoothToHide()
-//                llcheckbox.visibility = View.VISIBLE
-//
-//            }
-//        }
+        //initial Dialog factory
+        dialogFactory = DialogFactory(this@AgreementActivity)
+
 
 
         // to detect the end of scroll
@@ -136,8 +106,27 @@ class AgreementActivity : CustomBaseActivity() {
 
         //https://test.rahbarbazar.com/cp/content/getpage?page=agreement&language=fa
 
-      
 
+        txtTermsConditions.setOnClickListener {
+            showRulsDialog(dashboardCreateData.data.agreementPage)
+        }
+
+        llcheckbox.setOnClickListener {
+            showRulsDialog(dashboardCreateData.data.agreementPage)
+        }
+
+    }
+
+    private fun showRulsDialog(agreementHtml: String) {
+        dialogFactory.createAgreementDialog(object : DialogFactory.DialogFactoryInteraction {
+            override fun onAcceptButtonClicked(vararg params: String) {
+
+            }
+
+            override fun onDeniedButtonClicked(bool: Boolean) {
+
+            }
+        },rl_root_agreement,agreementHtml)
     }
 
     override fun onResume() {

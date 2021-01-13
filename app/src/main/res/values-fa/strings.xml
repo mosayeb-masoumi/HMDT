@@ -35,7 +35,8 @@
     <string name="exit_profile_text_dialog">آیا اطمینان دارید که میخواهید از حساب کاربری خود خارج شوید؟</string>
     <string name="terms_conditions">قوانین و مقررات</string>
     <string name="enter">ورود</string>
-    <string name="accept_terms_conditions">قوانین و مقررات را مطالعه کرده و قبول دارم</string>
+<!--    <string name="accept_terms_conditions">قوانین و مقررات</string>-->
+    <string name="accept_terms_conditions"> را مطالعه کرده و قبول دارم</string>
     <string name="shop">فروشگاه</string>
     <string name="shop2">فروشگاه:</string>
     <string name="tottal_amount">مبلغ کل خرید(ریال)</string>

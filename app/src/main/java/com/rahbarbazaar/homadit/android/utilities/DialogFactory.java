@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 
+import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -1600,6 +1601,38 @@ public class DialogFactory {
         img_close.setOnClickListener(view1 -> {
             dialog.dismiss();
         });
+
+        dialog.show();
+    }
+
+
+    public void createAgreementDialog(DialogFactoryInteraction listener, RelativeLayout view ,String html) {
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.condition_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_rules = customLayout.findViewById(R.id.txt_agreement_popup);
+        Button btn_close = customLayout.findViewById(R.id.btn_close_popup_agreement);
+
+
+        txt_rules.setText(Html.fromHtml(html));
+         txt_header.setText("قوانین و مقررات");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_close.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });
+
+        img_close.setOnClickListener(v -> dialog.dismiss());
+
 
         dialog.show();
     }

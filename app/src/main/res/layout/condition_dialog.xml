@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_btn_shape"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layoutDirection="ltr"
+        android:id="@+id/rl_header3"
+        android:background="@drawable/dialog_header_shape">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_close"
+            android:padding="6dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/ic_close"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_header"
+            android:text="header"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/scroll_view_agreement_popup"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:layout_below="@+id/rl_header3"
+        android:layout_margin ="10dp">
+
+        <TextView
+            android:id="@+id/txt_agreement_popup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reports_text"
+            android:textSize="18sp" />
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_close_popup_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/scroll_view_agreement_popup"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/bg_button_add"
+        android:gravity="center"
+        android:text="بستن"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</RelativeLayout>
