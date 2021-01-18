@@ -50,7 +50,7 @@ class AgreementActivity : CustomBaseActivity() {
             }
         }
 
-        txt_agreement.text = Html.fromHtml(dashboardCreateData.data.agreementPage)
+        txt_agreement.text = Html.fromHtml(dashboardCreateData.data.addressPage)
 
 
         //initial Dialog factory

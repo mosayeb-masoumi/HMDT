@@ -105,8 +105,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
     private fun closeKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-                (currentFocus).windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow((currentFocus).windowToken, 0)
     }
 
     private fun reverseTimer(Seconds: Int, text_min: TextView?) {
@@ -510,8 +509,21 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         registerReceiver(connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
 
-    override fun onStop() {
-        super.onStop()
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(connectivityReceiver)
+//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver(connectivityReceiver)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        startActivity(Intent(this@VerificationActivity, LoginActivity::class.java))
+        this@VerificationActivity.finish()
+
     }
 }

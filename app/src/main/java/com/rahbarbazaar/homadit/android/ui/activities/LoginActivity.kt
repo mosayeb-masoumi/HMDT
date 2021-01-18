@@ -90,7 +90,7 @@ class LoginActivity : CustomBaseActivity() {
                     Toast.makeText(this@LoginActivity, "" + data, Toast.LENGTH_LONG).show()
                     avi_login.hide()
                     btn_submit_login.visibility = View.VISIBLE
-                    finish()
+
 
                 } else if (response.code() == 422) {
 
