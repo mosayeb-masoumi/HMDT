@@ -392,8 +392,12 @@ class SplashActivity : CustomBaseActivity() {
         val dialogFactory = DialogFactory(this)
         dialogFactory.createError406Dialog(object : DialogFactory.DialogFactoryInteraction {
             override fun onAcceptButtonClicked(vararg strings: String?) {
+
                 finish()
-                System.exit(0)
+                startActivity(Intent(this@SplashActivity , LoginActivity::class.java))
+//                System.exit(0)
+
+
             }
 
             override fun onDeniedButtonClicked(cancel_dialog: Boolean) {

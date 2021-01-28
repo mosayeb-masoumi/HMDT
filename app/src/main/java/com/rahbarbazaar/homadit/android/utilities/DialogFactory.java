@@ -282,7 +282,14 @@ public class DialogFactory {
             dialog.dismiss();
         });
 
-        img_close.setOnClickListener(v -> dialog.dismiss());
+        img_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAcceptButtonClicked();
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 

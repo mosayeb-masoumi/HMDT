@@ -30,13 +30,25 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="15dp"
-            android:id="@+id/img_icon"/>
+            android:background="@drawable/group_good_item_bg2"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/img_icon"/>
+
+        </RelativeLayout>
+
+
+
 
         <TextView
             android:layout_width="wrap_content"

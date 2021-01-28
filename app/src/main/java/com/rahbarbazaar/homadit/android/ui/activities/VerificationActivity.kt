@@ -96,7 +96,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
         et_user_verify.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 sendVerifyRequest()
-                closeKeyboard()
+
                 return@setOnEditorActionListener true
             }
             false
@@ -153,7 +153,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
     }
 
     private fun sendVerifyRequest() {
-
+        closeKeyboard()
         ll_av_verify.visibility = View.VISIBLE
         button_verify.visibility = View.GONE
 

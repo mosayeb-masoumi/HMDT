@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="250dp"
             android:gravity="center"
+            android:visibility="gone"
             android:text="@string/terms_conditions"
             android:textColor="#fff"
             android:paddingTop="5dp"
@@ -101,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/rl_page_icon_rules"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="20dp"
         android:gravity="end"
         android:padding="5dp"
         android:layout_marginEnd="10dp"
@@ -110,6 +111,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:text=" را مطالعه کرده و قبول دارم"
             android:textColor="@color/white" />
 
@@ -117,6 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/terms_conditions"
+            android:textSize="16sp"
             android:textColor="@color/white" />
 
         <CheckBox
@@ -132,10 +135,11 @@
         android:id="@+id/rl_page_icon_rules"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="2dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="15dp">
 
         <RelativeLayout
             android:id="@+id/rl_login_dialog"

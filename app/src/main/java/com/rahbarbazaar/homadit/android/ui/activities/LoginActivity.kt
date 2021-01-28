@@ -45,7 +45,7 @@ class LoginActivity : CustomBaseActivity() {
         edt_phone.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 submitRequest()
-                closeKeyboard()
+
                 return@setOnEditorActionListener true
             }
             false
@@ -67,6 +67,7 @@ class LoginActivity : CustomBaseActivity() {
         avi_login.visibility = View.VISIBLE
         avi_login.show()
         requestLogin()
+        closeKeyboard()
 
     }
 

@@ -111,7 +111,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
     Barcode barcodeList;
 
     TextView txt_description_purchased, txt_group_purchase, txt_type_purchase, txt_brand_purchase, txt_img_count_purchased, txt_unit,
-            txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_title_purchased_item, txt_spn_brand_title, txt_spn_type_title, txt_spn_amount_title;
+            txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_title_purchased_item, txt_spn_brand_title,
+            txt_brand_spn_lable , txt_type_spn_label ,txt_amount_spn_label, txt_spn_type_title, txt_spn_amount_title;
 
     ImageView img_register_barcode;
     TextView txt_register_barcode;
@@ -282,10 +283,28 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 ll_spinners.setVisibility(View.GONE);
                 ll_texts.setVisibility(View.VISIBLE);
 
-                txt_group_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(0).getValue());
-                txt_type_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getValue());
-                txt_brand_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(2).getValue());
-                txt_amount_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(3).getValue());
+
+
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 1 ) {
+                    txt_group_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(0).getValue());
+                }
+
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 2 ) {
+                    txt_type_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getValue());
+                    txt_type_spn_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getLabel());
+
+                }
+
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 3) {
+                    txt_brand_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(2).getValue());
+                }
+
+                if(this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 4 ){
+                    txt_amount_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(3).getValue());
+                }
+
+
+
                 txt_barcode.setText(this.barcodeList.getData().get(0).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(0).getUnit());
                 image = this.barcodeList.getData().get(0).getImage();
@@ -326,10 +345,27 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 ll_chkboxes.setVisibility(View.GONE);
 
 
-                txt_group_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(0).getValue());
-                txt_type_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(1).getValue());
-                txt_brand_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(2).getValue());
-                txt_amount_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(3).getValue());
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 1 ) {
+                    txt_group_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(0).getValue());
+
+
+                }
+
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=2 ) {
+                    txt_type_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(1).getValue());
+                    txt_type_spn_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getLabel());
+
+                }
+
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=3 ) {
+                    txt_brand_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(2).getValue());
+                }
+
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=4 ) {
+                    txt_amount_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(3).getValue());
+                }
+
+
                 txt_barcode.setText(this.barcodeList.getData().get(position).getBarcode());
                 txt_unit.setText(this.barcodeList.getData().get(position).getUnit());
                 image = this.barcodeList.getData().get(position).getImage();
@@ -396,6 +432,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         rl_root = findViewById(R.id.root_purchased_item);
         rl_photo_purchased = findViewById(R.id.rl_photo_purchased);
         txt_img_count_purchased = findViewById(R.id.txt_img_count_purchased);
+
+
+        txt_brand_spn_lable = findViewById(R.id.txt_brand_spn_lable);
+        txt_type_spn_label = findViewById(R.id.txt_type_spn_label);
+        txt_amount_spn_label = findViewById(R.id.txt_amount_spn_lable);
+
+
 
         ll_questions = findViewById(R.id.ll_questions);
         txt_register_barcode = findViewById(R.id.txt_register_barcode);
@@ -474,8 +517,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
             case R.id.linear_return_qrcode_register:
 
-                Intent intent = new Intent(PurchasedItemActivity.this,GroupGoodsActivity.class);
-                intent.putExtra("new_register","repeat");
+                Intent intent = new Intent(PurchasedItemActivity.this, GroupGoodsActivity.class);
+                intent.putExtra("new_register", "repeat");
                 startActivity(intent);
 
                 finish();
@@ -1055,8 +1098,6 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             String img_count = ConvertEnDigitToFa.convert(String.valueOf(total_img_count));
 
 
-
-
             if (total_img_count > 0) {
                 txt_img_count_purchased.setVisibility(View.VISIBLE);
                 txt_img_count_purchased.setText(String.format("+%s", img_count));
@@ -1108,7 +1149,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 strBm1 = ConvertorBitmapToString.bitmapToString(bm1);
                 img_delete1.setVisibility(View.VISIBLE);
                 image_count1 = 1;
-            }else if (status == 2) {
+            } else if (status == 2) {
                 img2.setImageBitmap(r.getBitmap());
                 bm2 = r.getBitmap();
                 strBm2 = ConvertorBitmapToString.bitmapToString(bm2);
@@ -1120,7 +1161,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 strBm3 = ConvertorBitmapToString.bitmapToString(bm3);
                 img_delete3.setVisibility(View.VISIBLE);
                 image_count3 = 1;
-            }else if (status == 4) {
+            } else if (status == 4) {
                 img4.setImageBitmap(r.getBitmap());
                 bm4 = r.getBitmap();
                 strBm4 = ConvertorBitmapToString.bitmapToString(bm4);
@@ -1201,10 +1242,6 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             updateEditMemberList(editMembers);
             dialog.dismiss();
         });
-
-
-
-
 
 
         img_close.setOnClickListener(v -> dialog.dismiss());

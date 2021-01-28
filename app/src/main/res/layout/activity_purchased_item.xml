@@ -150,6 +150,34 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:visibility="gone"
+                        android:layout_marginEnd="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="end"
+                            android:id="@+id/txt_type_spn_label"
+                            android:textColor="@color/grey"
+                            android:text="kkk"/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/txt_brand_spn_lable"
+                            android:textColor="@color/grey"
+                            android:gravity="end"
+                            android:text="kkk"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
@@ -203,7 +231,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:layout_marginStart="10dp"
                                 android:textColor="@color/grey"
                                 android:textSize="13sp" />
 
@@ -310,13 +337,38 @@
 
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="end"
+                            android:textColor="@color/grey" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/txt_amount_spn_lable"
+                            android:textColor="@color/grey"
+                            android:gravity="end"
+                            android:text="kkk"/>
+
+
+                    </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp">
-
 
 
                     <RelativeLayout
