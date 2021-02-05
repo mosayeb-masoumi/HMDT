@@ -180,11 +180,13 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         super.onResume();
         mScannerView.setResultHandler(this); // Register ourselves as a handler for scan results.
         mScannerView.startCamera();
+//        mScannerView.requestFocus();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mScannerView.stopCamera();
+
     }
 }

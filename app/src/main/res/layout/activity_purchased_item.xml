@@ -152,7 +152,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
+                        android:id="@+id/ll_first_spinner_header"
                         android:layout_marginEnd="10dp">
 
                         <TextView
@@ -160,10 +161,11 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginEnd="10dp"
-                            android:gravity="end"
-                            android:id="@+id/txt_type_spn_label"
-                            android:textColor="@color/grey"
-                            android:text="kkk"/>
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_one_data_spn_label"
+                            app:buttonTint="@color/blue_dark"
+                            android:text=""/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -171,9 +173,10 @@
                             android:layout_weight="1"
                             android:layout_marginEnd="10dp"
                             android:id="@+id/txt_brand_spn_lable"
-                            android:textColor="@color/grey"
-                            android:gravity="end"
-                            android:text="kkk"/>
+                            app:buttonTint="@color/blue_dark"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:text="برند"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -339,7 +342,8 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:visibility="gone"
+                        android:visibility="visible"
+                        android:id="@+id/ll_second_spinner_header"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -347,18 +351,21 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginEnd="10dp"
-                            android:gravity="end"
-                            android:textColor="@color/grey" />
+                            android:gravity="start"
+                            android:id="@+id/txt_three_data_spn_label"
+                            android:text=""
+                            app:buttonTint="@color/blue_dark" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginEnd="10dp"
-                            android:id="@+id/txt_amount_spn_lable"
-                            android:textColor="@color/grey"
-                            android:gravity="end"
-                            android:text="kkk"/>
+                            app:buttonTint="@color/blue_dark"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_two_data_spn_label"
+                            android:text=""/>
 
 
                     </LinearLayout>
@@ -634,6 +641,37 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:visibility="visible"
+                        android:id="@+id/ll_first_text_header"
+                        android:layout_marginEnd="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_second_text_label"
+                            app:buttonTint="@color/blue_dark"
+                            android:text=""/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/txt_first_text_label"
+                            app:buttonTint="@color/blue_dark"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:text="برند"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -689,6 +727,38 @@
 
                     </LinearLayout>
 
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:visibility="visible"
+                        android:id="@+id/ll_second_text_header"
+                        android:layout_marginEnd="10dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:id="@+id/txt_four_text_label"
+                            app:buttonTint="@color/blue_dark"
+                            android:text=""/>
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="10dp"
+                            android:id="@+id/txt_three_text_label"
+                            app:buttonTint="@color/blue_dark"
+                            android:gravity="start"
+                            android:textSize="12sp"
+                            android:text="برند"/>
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

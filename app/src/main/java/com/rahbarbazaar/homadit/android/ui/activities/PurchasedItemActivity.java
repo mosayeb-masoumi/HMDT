@@ -90,7 +90,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
             rl_spn_brand, rl_spn_type, rl_spn_amount, rl_root, rl_add_member, rl_photo_purchased, rl_register_barcode,
             rl_photo_purchase_total, rl_info_member_new_register, rl_edt_description_purchased, rl_register_result, root_purchased_item;
 
-    LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode, ll_questions, ll_chkboxes;
+    LinearLayout rl_return, ll_texts, ll_spinners, ll_barcode, ll_questions, ll_chkboxes, ll_first_spinner_header, ll_second_spinner_header,
+            ll_first_text_header, ll_second_text_header;
     Integer position;
     String state;
     String str_spn_dialog_header;
@@ -112,7 +113,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
     TextView txt_description_purchased, txt_group_purchase, txt_type_purchase, txt_brand_purchase, txt_img_count_purchased, txt_unit,
             txt_amount_purchase, txt_barcode, txt_spn_group_title, txt_title_purchased_item, txt_spn_brand_title,
-            txt_brand_spn_lable , txt_type_spn_label ,txt_amount_spn_label, txt_spn_type_title, txt_spn_amount_title;
+            txt_brand_spn_lable, txt_one_data_spn_label, txt_two_data_spn_label, txt_three_data_spn_label, txt_spn_type_title, txt_spn_amount_title,
+            txt_first_text_label, txt_second_text_label, txt_three_text_label, txt_four_text_label;
 
     ImageView img_register_barcode;
     TextView txt_register_barcode;
@@ -284,25 +286,26 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 ll_texts.setVisibility(View.VISIBLE);
 
 
-
-                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 1 ) {
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 1) {
                     txt_group_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(0).getValue());
+                    txt_first_text_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(0).getLabel());
                 }
 
-                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 2 ) {
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 2) {
                     txt_type_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getValue());
-                    txt_type_spn_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getLabel());
+                  txt_second_text_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getLabel());
 
                 }
 
                 if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 3) {
                     txt_brand_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(2).getValue());
+                    txt_three_text_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(2).getLabel());
                 }
 
-                if(this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 4 ){
+                if (this.barcodeList.getData().get(0).getBarcodeDetail().size() >= 4) {
                     txt_amount_purchase.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(3).getValue());
+                    txt_four_text_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(3).getLabel());
                 }
-
 
 
                 txt_barcode.setText(this.barcodeList.getData().get(0).getBarcode());
@@ -345,24 +348,26 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 ll_chkboxes.setVisibility(View.GONE);
 
 
-                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 1 ) {
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 1) {
                     txt_group_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(0).getValue());
-
+                    txt_first_text_label.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(0).getLabel());
 
                 }
 
-                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=2 ) {
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 2) {
                     txt_type_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(1).getValue());
-                    txt_type_spn_label.setText(this.barcodeList.getData().get(0).getBarcodeDetail().get(1).getLabel());
+                    txt_second_text_label.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(1).getLabel());
 
                 }
 
-                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=3 ) {
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 3) {
                     txt_brand_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(2).getValue());
+                    txt_three_text_label.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(2).getLabel());
                 }
 
-                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >=4 ) {
+                if (this.barcodeList.getData().get(position).getBarcodeDetail().size() >= 4) {
                     txt_amount_purchase.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(3).getValue());
+                    txt_four_text_label.setText(this.barcodeList.getData().get(position).getBarcodeDetail().get(3).getLabel());
                 }
 
 
@@ -435,8 +440,21 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
 
         txt_brand_spn_lable = findViewById(R.id.txt_brand_spn_lable);
-        txt_type_spn_label = findViewById(R.id.txt_type_spn_label);
-        txt_amount_spn_label = findViewById(R.id.txt_amount_spn_lable);
+        txt_one_data_spn_label = findViewById(R.id.txt_one_data_spn_label);
+        txt_two_data_spn_label = findViewById(R.id.txt_two_data_spn_label);
+        txt_three_data_spn_label = findViewById(R.id.txt_three_data_spn_label);
+
+        ll_first_spinner_header = findViewById(R.id.ll_first_spinner_header);
+        ll_second_spinner_header = findViewById(R.id.ll_second_spinner_header);
+
+        ll_first_text_header = findViewById(R.id.ll_first_text_header);
+        ll_second_text_header = findViewById(R.id.ll_second_text_header);
+
+        txt_first_text_label = findViewById(R.id.txt_first_text_label);
+        txt_second_text_label = findViewById(R.id.txt_second_text_label);
+        txt_three_text_label = findViewById(R.id.txt_three_text_label);
+        txt_four_text_label = findViewById(R.id.txt_four_text_label);
+
 
 
 
@@ -1315,7 +1333,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     chk_confirmed.setChecked(false);
                     sendData_type = "";
                 } else if (response.code() == 204) {
-                    getSpinneList();
+
+//                    getSpinneList();
 
                     ll_questions.setVisibility(View.VISIBLE);
                     ll_chkboxes.setVisibility(View.GONE);
@@ -1325,6 +1344,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     barcode_type = "new_barcode";
 //                    initializeSpinners();
                     Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.no_product), Toast.LENGTH_LONG).show();
+
+                    getSpinneList();
 
                 } else if (response.code() == 406) {
                     Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
@@ -1646,6 +1667,7 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
                     } else {
                         brandListSize = true;
+                        ll_first_spinner_header.setVisibility(View.VISIBLE);
 //                        rl_spn_brand.setClickable(true);
 //                        rl_spn_brand.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
 //                        img_arrow_spinner_brand.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
@@ -1659,6 +1681,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 //                        img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_grey));
                     } else {
                         oneDataListSize = true;
+                        ll_first_spinner_header.setVisibility(View.VISIBLE);
+                        txt_one_data_spn_label.setText(spinnersModel.data.oneTitle);
 //                        rl_spn_type.setClickable(true);
 //                        rl_spn_type.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
 //                        img_arrow_spinner_type.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
@@ -1675,6 +1699,8 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
                     } else {
                         twoDataListSize = true;
+                        ll_second_spinner_header.setVisibility(View.VISIBLE);
+                        txt_two_data_spn_label.setText(spinnersModel.data.twoTitle);
 //                        rl_spn_amount.setClickable(true);
 //                        rl_spn_amount.setBackground(getResources().getDrawable(R.drawable.bg_prize_item));
 //                        img_arrow_spinner_amount.setBackground(getResources().getDrawable(R.drawable.arrow_drop_down_blue));
@@ -1771,6 +1797,22 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
         ll_chkboxes.setVisibility(View.GONE);
         ll_questions.setVisibility(View.VISIBLE);
         txt_title_purchased_item.setText(getResources().getString(R.string.register_goods));
+
+
+
+
+
+        if (model.getBarcodeDetail().size() >= 1) {
+            ll_first_text_header.setVisibility(View.VISIBLE);
+        }
+
+
+        if (model.getBarcodeDetail().size() >= 3) {
+            ll_second_text_header.setVisibility(View.VISIBLE);
+        }
+
+
+
 
         dialog.dismiss();
     }

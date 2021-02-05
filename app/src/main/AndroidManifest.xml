@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activities.GroupGoodsActivity"></activity>
+        <activity android:name=".ui.activities.GroupGoodsActivity"/>
         <activity android:name=".ui.activities.LottaryWinnersActivity" />
         <activity android:name=".ui.activities.LottaryConditionActivity" />
         <activity android:name=".ui.activities.LottaryActivity" />
