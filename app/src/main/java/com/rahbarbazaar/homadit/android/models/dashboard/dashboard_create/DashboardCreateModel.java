@@ -35,6 +35,10 @@ public class DashboardCreateModel {
     @Expose
     public String board;
 
+    @SerializedName("board_title")
+    @Expose
+    public String board_title;
+
     @SerializedName("video_image")
     @Expose
     public String video_image;

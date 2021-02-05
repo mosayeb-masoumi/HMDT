@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     DashboardCreateData dashboardCreateData;
     CardView crd_purchases;
     ImageView img_myshop;
-    TextView txt_balance, txt_papasi, txt_total_purchase, txt_left_days,txt_msg;
+    TextView txt_balance, txt_papasi, txt_total_purchase, txt_left_days,txt_msg,txt_msg_title;
 
     ActiveListData activeListData;
 
@@ -116,6 +116,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         txt_balance = view.findViewById(R.id.txt_balance);
         txt_papasi = view.findViewById(R.id.txt_papasi);
         txt_msg = view.findViewById(R.id.txt_msg);
+        txt_msg_title = view.findViewById(R.id.txt_msg_title);
         txt_left_days = view.findViewById(R.id.txt_left_days);
         rl_avi_dashboard_new_register = view.findViewById(R.id.rl_avi_dashboard_new_register);
         rl_root =view.findViewById(R.id.homeFragment1);
@@ -135,6 +136,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         txt_papasi.setText(dashboardCreateData.data.two);
         txt_left_days.setText(dashboardCreateData.data.four);
         txt_msg.setText(dashboardCreateData.data.board);
+        txt_msg_title.setText(dashboardCreateData.data.board_title);
     }
 
 //    private void getNewPurchaseList0() {
