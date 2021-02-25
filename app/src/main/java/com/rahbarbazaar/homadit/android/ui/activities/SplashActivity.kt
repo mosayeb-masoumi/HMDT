@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.text.format.Formatter
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.rahbarbazaar.homadit.android.BuildConfig
 import com.rahbarbazaar.homadit.android.R
 import com.rahbarbazaar.homadit.android.models.Lottary.LottaryModel
@@ -34,7 +35,7 @@ import retrofit2.Response
 import java.util.*
 
 
-class SplashActivity : CustomBaseActivity() {
+class SplashActivity :CustomBaseActivity() {
 
     private var connectivityReceiver: BroadcastReceiver? = null
     private lateinit var context: Context
@@ -260,7 +261,7 @@ class SplashActivity : CustomBaseActivity() {
         val info = cm.activeNetworkInfo
         val network_type: String?
         @Suppress("DEPRECATION")
-        if (info.typeName == "MOBILE") {
+        if (info!!.typeName == "MOBILE") {
             network_type = info.extraInfo
         } else {
             network_type = info.typeName

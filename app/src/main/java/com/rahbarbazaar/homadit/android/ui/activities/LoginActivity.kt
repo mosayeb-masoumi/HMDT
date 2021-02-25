@@ -5,11 +5,12 @@ import android.content.*
 import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.rahbarbazaar.homadit.android.R
 //import com.rahbarbazaar.shopper.R
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils
@@ -59,7 +60,7 @@ class LoginActivity : CustomBaseActivity() {
     private fun closeKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(
-                (currentFocus).windowToken, 0)
+                (currentFocus)!!.windowToken, 0)
     }
 
     private fun submitRequest() {
@@ -107,7 +108,7 @@ class LoginActivity : CustomBaseActivity() {
                         }
 //                        Toast.makeText(this@LoginActivity, "" + builderMobile, Toast.LENGTH_LONG).show()
 //                        Snackbar.make(login_root, "" + builderMobile, Snackbar.LENGTH_INDEFINITE).show()
-                        val snackbar = Snackbar.make(login_root,""+builderMobile,Snackbar.LENGTH_INDEFINITE)
+                        val snackbar = Snackbar.make(login_root,""+builderMobile, Snackbar.LENGTH_INDEFINITE)
                         val snackView = snackbar.view
                         snackView.setBackgroundColor(resources.getColor(R.color.blue_dark))
                         snackView.layoutDirection = View.LAYOUT_DIRECTION_RTL

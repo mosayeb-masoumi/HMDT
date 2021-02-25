@@ -10,9 +10,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -244,7 +244,8 @@ public class EditProductsDetailActivity extends CustomBaseActivity
 //        todo check this
         String spn_name = "present";
 
-        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
+//        CheckBox checkBoxAll = dialog.findViewById(R.id.checkbox_all);
+        RelativeLayout rl_check_all = dialog.findViewById(R.id.rl_check_all);
         RecyclerView recyclerview_members = dialog.findViewById(R.id.recyclerview_members);
         Button btn_exit_dialog = dialog.findViewById(R.id.btn_exit_dialog);
         ImageView img_close = dialog.findViewById(R.id.img_close);
@@ -253,21 +254,34 @@ public class EditProductsDetailActivity extends CustomBaseActivity
         adapter_member.setListener(this);  // important or else the app will crashed
         recyclerview_members.setAdapter(adapter_member);
 
-        // to select all members
-        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                editMembers = new ArrayList<>();
+//        // to select all members
+//        checkBoxAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                editMembers = new ArrayList<>();
+//
+//                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+//                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+//                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+//                                initMemberPrizeLists.data.member.get(i).get(j).id));
+//                    }
+//                }
+//
+//                updateEditMemberList(editMembers);
+//                dialog.dismiss();
+//            }
+//        });
 
-                for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
-                    for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
-                        editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
-                                initMemberPrizeLists.data.member.get(i).get(j).id));
-                    }
+        rl_check_all.setOnClickListener(view -> {
+            editMembers = new ArrayList<>();
+            for (int i = 0; i < initMemberPrizeLists.data.member.size(); i++) {
+                for (int j = 0; j < initMemberPrizeLists.data.member.get(i).size(); j++) {
+                    editMembers.add(new RegisterMemberEditModel(initMemberPrizeLists.data.member.get(i).get(j).name,
+                            initMemberPrizeLists.data.member.get(i).get(j).id));
                 }
-
-                updateEditMemberList(editMembers);
-                dialog.dismiss();
             }
+
+            updateEditMemberList(editMembers);
+            dialog.dismiss();
         });
 
         img_close.setOnClickListener(v -> dialog.dismiss());

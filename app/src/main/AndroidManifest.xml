@@ -59,7 +59,7 @@
             android:name="com.pushpole.sdk.token"
             android:value="PUSHPOLE_585671720122" /> <!-- former       android:value="PUSHPOLE_484793000302" -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.com.vansuita.pickimage.provider"
             android:exported="false"
             android:grantUriPermissions="true"

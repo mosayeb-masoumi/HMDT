@@ -9,7 +9,7 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.text.Html
 import android.view.View
 import com.rahbarbazaar.homadit.android.R

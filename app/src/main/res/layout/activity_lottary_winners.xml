@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_lottary_winner"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     tools:context=".ui.activities.LottaryWinnersActivity">
 
@@ -227,7 +228,7 @@
                     android:layout_weight="2.5">
 
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scrollbarSize="2dp"
@@ -263,7 +264,7 @@
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </RelativeLayout>
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
@@ -282,7 +283,7 @@
             android:layout_marginBottom="2dp"
             android:layout_weight="1">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbarSize="2dp"
@@ -357,7 +358,7 @@
                 android:layout_height="match_parent"
                 android:padding="3dp"
                 android:src="@drawable/arrow_left"
-                android:tint="#FFF" />
+                app:tint="#FFF" />
 
         </LinearLayout>
 

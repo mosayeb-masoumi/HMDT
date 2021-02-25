@@ -79,7 +79,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
         }
 
-        mobile = intent.getStringExtra("mobile")
+        mobile = intent.getStringExtra("mobile")!!
         text_user_mobile.text = mobile
         reverseTimer(90, text_min)
         ll_txt_user_mobile.setOnClickListener(this)
@@ -105,7 +105,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
     private fun closeKeyboard() {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow((currentFocus).windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow((currentFocus)!!.windowToken, 0)
     }
 
     private fun reverseTimer(Seconds: Int, text_min: TextView?) {
@@ -352,7 +352,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
 
         val network_type:String?
         @Suppress("DEPRECATION")
-        if(info.typeName == "MOBILE"){
+        if(info!!.typeName == "MOBILE"){
             network_type = info.extraInfo
         }else{
             network_type = info.typeName

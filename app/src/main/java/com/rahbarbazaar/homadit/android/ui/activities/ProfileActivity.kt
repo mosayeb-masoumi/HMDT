@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -107,7 +107,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
         member_detail = ArrayList<MemberDetail>()
         val rv_family: RecyclerView = findViewById(R.id.rv_family_profile)
-        linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayout.VERTICAL, false)
+        linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayoutManager.VERTICAL, false)
         rv_family.layoutManager = linearLayoutManager
         adapter_family = ProfileFamilyAdapter(family, this@ProfileActivity)
 //        adapter.setListener(this)  // important to set or else the app will crashed (onClick)
@@ -119,7 +119,7 @@ class ProfileActivity : CustomBaseActivity(), View.OnClickListener, ProfileMembe
 
         member_detail.addAll(profileData.data?.member?.data!!)
         val rv_member: RecyclerView = findViewById(R.id.rv_member_profile)
-        linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayout.VERTICAL, false)
+        linearLayoutManager = LinearLayoutManager(this@ProfileActivity, LinearLayoutManager.VERTICAL, false)
         rv_member.layoutManager = linearLayoutManager
         adapter_member = ProfileMemberAdapter(member_detail, this@ProfileActivity)
         adapter_member.setListener(this)  // important to set (onClick)

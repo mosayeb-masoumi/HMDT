@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lottary_root"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activities.LottaryActivity">
@@ -86,7 +87,7 @@
             android:layout_height="0dp"
             android:layout_weight="1.2">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -269,7 +270,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
@@ -303,7 +304,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="10dp">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_past_lottary"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -398,7 +399,7 @@
                         android:layout_height="match_parent"
                         android:padding="3dp"
                         android:src="@drawable/arrow_left"
-                        android:tint="#FFF" />
+                        app:tint="#FFF" />
 
                 </LinearLayout>
 

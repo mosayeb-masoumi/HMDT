@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.AbsListView
 import android.widget.LinearLayout
@@ -110,7 +110,7 @@ class ShoppingProducts : CustomBaseActivity(),ShoppingProductsItemInteraction {
         }
 
         shoppingProductList.addAll(totalShoppingProductData.data!!.bought?.data!!)
-        linearLayoutManager = LinearLayoutManager(this@ShoppingProducts, LinearLayout.VERTICAL, false)
+        linearLayoutManager = LinearLayoutManager(this@ShoppingProducts, LinearLayoutManager.VERTICAL, false)
         val rv_shopping_products: RecyclerView = findViewById(R.id.rv_shopping_products)
         rv_shopping_products.layoutManager = linearLayoutManager
 

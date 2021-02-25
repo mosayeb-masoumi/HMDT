@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.support.v4.os.ConfigurationCompat;
+import androidx.core.os.ConfigurationCompat;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;

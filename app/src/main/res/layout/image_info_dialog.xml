@@ -41,7 +41,7 @@
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/crdview3"
             android:layout_width="0dp"
             android:layout_height="170dp"
@@ -62,10 +62,10 @@
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/crdview1"
             android:layout_width="0dp"
             android:layout_height="170dp"
@@ -86,7 +86,7 @@
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
 
@@ -123,7 +123,7 @@
         android:layout_marginEnd="20dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/crdview4"
             android:layout_width="0dp"
             android:layout_height="170dp"
@@ -144,10 +144,10 @@
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/crdview2"
             android:layout_width="0dp"
             android:layout_height="170dp"
@@ -168,7 +168,7 @@
                     android:scaleType="centerCrop" />
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
 
 

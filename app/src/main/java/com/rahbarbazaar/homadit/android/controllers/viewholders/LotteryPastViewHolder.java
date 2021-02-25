@@ -1,12 +1,12 @@
 package com.rahbarbazaar.homadit.android.controllers.viewholders;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.google.gson.Gson;
+
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.LottaryPastItemInteraction;
 import com.rahbarbazaar.homadit.android.models.Lottary.OldMeDetail;

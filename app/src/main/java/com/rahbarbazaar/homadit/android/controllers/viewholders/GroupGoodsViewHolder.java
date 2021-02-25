@@ -1,11 +1,8 @@
 package com.rahbarbazaar.homadit.android.controllers.viewholders;
 
-import android.app.AlertDialog;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,10 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.rahbarbazaar.homadit.android.R;
 import com.rahbarbazaar.homadit.android.controllers.interfaces.GroupGoodsItemInteraction;
-import com.rahbarbazaar.homadit.android.controllers.interfaces.SearchItemInteraction;
 import com.rahbarbazaar.homadit.android.models.group_goods.GroupGoodsModel;
-import com.rahbarbazaar.homadit.android.models.searchable.SearchModel;
-import com.rahbarbazaar.homadit.android.ui.activities.PurchasedItemActivity;
 
 public class GroupGoodsViewHolder extends RecyclerView.ViewHolder {
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:id="@+id/root_group_goods"
     tools:context=".ui.activities.GroupGoodsActivity">
 
@@ -25,7 +26,7 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
@@ -135,7 +136,7 @@
 <!--                android:layout_height="match_parent"-->
 <!--                android:padding="3dp"-->
 <!--                android:src="@drawable/arrow_left"-->
-<!--                android:tint="#FFF" />-->
+<!--               app:tint="#FFF" />-->
 
 <!--        </LinearLayout>-->
 

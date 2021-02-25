@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_new_register_list"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.rahbarbazaar.homadit.android.ui.fragments.HistoryFragment">
@@ -16,11 +17,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="54dp">
+
             <TextView
+                android:id="@+id/txt_header_new_register_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:id="@+id/txt_header_new_register_list"
                 android:padding="5dp"
                 android:text="@string/latest_purchases"
                 android:textColor="@color/blue_dark"
@@ -101,28 +103,28 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp" >
+            android:layout_marginBottom="10dp">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclere_register_fragment"
-                android:scrollbarSize="3dp"
-                android:fadeScrollbars="false"
-                android:scrollbarThumbVertical="@color/pink"
-                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:scrollbarSize="3dp"
+                android:scrollbarThumbVertical="@color/pink"
+                android:scrollbars="vertical" />
 
             <TextView
+                android:id="@+id/txt_no_shop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_no_purchase"
                 android:gravity="center"
-                android:id="@+id/txt_no_shop"
                 android:padding="17dp"
-                android:visibility="gone"
+                android:text="@string/no_register_shop"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:background="@drawable/bg_no_purchase"
-                android:text="@string/no_register_shop"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -131,22 +133,22 @@
 
 
     <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi_loading_fr_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/avi_loading_fr_register"
-        app:indicatorColor="@color/blue_dark"
+        android:layout_centerInParent="true"
         android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        app:indicatorColor="@color/blue_dark" />
 
     <RelativeLayout
         android:id="@+id/rl_register"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_above="@+id/rl_bottom_newRegisterList"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/bg_button_add">
 
 
@@ -161,18 +163,18 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/plus_icon"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:padding="15dp"/>
+                android:padding="15dp"
+                android:src="@drawable/plus_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register_new"
-                android:textSize="15sp"
                 android:layout_centerInParent="true"
+                android:text="@string/register_new"
                 android:textColor="@color/white"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -182,8 +184,8 @@
             android:id="@+id/avi"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:layout_centerHorizontal="true"
+            android:visibility="gone"
             app:indicatorColor="@color/white" />
 
     </RelativeLayout>
@@ -207,7 +209,7 @@
                 android:layout_height="match_parent"
                 android:padding="3dp"
                 android:src="@drawable/arrow_left"
-                android:tint="#FFF" />
+                app:tint="#FFF" />
 
             <TextView
                 android:layout_width="wrap_content"

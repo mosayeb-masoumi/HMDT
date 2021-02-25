@@ -2,7 +2,6 @@ package com.rahbarbazaar.homadit.android.ui.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,21 +11,20 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.ConfigurationCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.os.ConfigurationCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -105,7 +103,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             linear_edu, linear_submenu, linear_submenu_about, linear_submenu_edu, linear_submenu_account_management, linear_transaction_list_drawer,
             linear_papasi_to_rial_drawer, linear_my_wallet_drawer, linear_purchase_management, linear_submenu_purchase_management,
             linear_register_new_purchase, linear_all_purchased_list, linear_new_purchased_list, linear_expressions,
-            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer, linear_lottary_drawer;
+            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer, linear_lottary_drawer ;
     RelativeLayout ll_notify_count, ll_notify_count_drawer, rl_avi_drawer_new_register;
 
     TextView txt_exit, text_notify_count, text_notify_count_drawer, text_follow_us, txt_date;
@@ -235,21 +233,29 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         });
     }
 
+
+    boolean updateAvailable = false;
     private void checkUpdate() {
         int device_version = BuildConfig.VERSION_CODE;
         int minVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "minVersionCode"));
         int currentVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "currentVersionCode"));
 
+
+
         // force update
         if (device_version < minVersionCode) {
             String update_type = "force_update";
             showUpdateDialog(update_type);
+            updateAvailable = true;
         }
         // optional update
         if (device_version >= minVersionCode && device_version < currentVersionCode) {
             String update_type = "optional_update";
             showUpdateDialog(update_type);
+            updateAvailable = true;
         }
+
+
     }
 
     private void showUpdateDialog(String update_type) {
@@ -299,6 +305,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         image_drawer = findViewById(R.id.image_drawer);
 
         linear_invite_friend = findViewById(R.id.linear_invite_friend);
+
         linear_shopping = findViewById(R.id.linear_shopping);
         linear_message_drawer = findViewById(R.id.linear_message_drawer);
         linear_support = findViewById(R.id.linear_support);
@@ -373,6 +380,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_register_new_purchase.setOnClickListener(this);
         linear_report_issue.setOnClickListener(this);
         linear_invite_friend.setOnClickListener(this);
+
         linear_message_drawer.setOnClickListener(this);
         linear_profile_drawer.setOnClickListener(this);
         txt_exit.setOnClickListener(this);
@@ -380,6 +388,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         linear_lottary_drawer.setOnClickListener(this);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onResume() {
         super.onResume();
@@ -476,6 +485,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         bottom_navigation.setCurrentItem(3);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
 
@@ -678,36 +688,40 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
             case R.id.image_instagram:
-                drawer_layout_home.closeDrawers();
-                Uri uriInstagram = Uri.parse("http://instagram.com/_u/poller.ir");
-                Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
-                intentInstagram.setPackage("com.instagram.android");
-
-                try {
-                    startActivity(intentInstagram);
-
-                } catch (ActivityNotFoundException e) {
-
-                    e.printStackTrace();
-                }
-                drawer_layout_home.closeDrawer(Gravity.END);
+//                drawer_layout_home.closeDrawers();
+//                Uri uriInstagram = Uri.parse("http://instagram.com/_u/poller.ir");
+//                Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
+//                intentInstagram.setPackage("com.instagram.android");
+//
+//                try {
+//                    startActivity(intentInstagram);
+//
+//                } catch (ActivityNotFoundException e) {
+//
+//                    e.printStackTrace();
+//                }
+//                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
             case R.id.image_telegram:
-                drawer_layout_home.closeDrawers();
-                Uri uriTelegram = Uri.parse("https://t.me/Polleriran");
-                Intent intentTelegram = new Intent(Intent.ACTION_VIEW, uriTelegram);
-                intentTelegram.setPackage("org.telegram.messenger");
-
-                try {
-                    startActivity(intentTelegram);
-
-                } catch (ActivityNotFoundException e) {
-
-                    e.printStackTrace();
-                }
-                drawer_layout_home.closeDrawer(Gravity.END);
+//                drawer_layout_home.closeDrawers();
+//                Uri uriTelegram = Uri.parse("https://t.me/Polleriran");
+//                Intent intentTelegram = new Intent(Intent.ACTION_VIEW, uriTelegram);
+//                intentTelegram.setPackage("org.telegram.messenger");
+//
+//                try {
+//                    startActivity(intentTelegram);
+//
+//                } catch (ActivityNotFoundException e) {
+//
+//                    e.printStackTrace();
+//                }
+//                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
+
+
+
+
         }
     }
 
@@ -1137,6 +1151,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         disposable.dispose();
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onBackPressed() {
 

@@ -9,8 +9,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.*
 import com.rahbarbazaar.homadit.android.R
@@ -65,7 +65,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
             }
         }
 
-        shopping_id = getIntent().getStringExtra("shopping_id")
+        shopping_id = getIntent().getStringExtra("shopping_id")!!
 
         linear_exit_edit_product.setOnClickListener {
             finish()
@@ -122,7 +122,8 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
 
         editProducts.addAll(totalEditProductData.data.bought.data)
 
-        linearLayoutManager = LinearLayoutManager(this@EditProductsActivity, LinearLayout.VERTICAL, false)
+        linearLayoutManager = LinearLayoutManager(this@EditProductsActivity, LinearLayoutManager.VERTICAL, false)
+
         val rv_edit_products: RecyclerView = findViewById(R.id.rv_edit_products)
         rv_edit_products.layoutManager = linearLayoutManager
 
@@ -204,7 +205,7 @@ class EditProductsActivity : CustomBaseActivity(), EditProductsItemInteraction {
         img_close.setOnClickListener { view: View? -> dialog.dismiss() }
 
         if (dialog.window != null) {
-            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
         btn_no.setOnClickListener { view: View? -> dialog.dismiss() }

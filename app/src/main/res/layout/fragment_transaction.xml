@@ -262,12 +262,12 @@
                     android:visibility="gone" />
 
 
-                <android.support.v4.widget.SwipeRefreshLayout
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/swp_refresh_transaction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclere_transaction_fragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -276,7 +276,7 @@
                         android:scrollbarThumbVertical="@color/pink"
                         android:scrollbars="vertical" />
 
-                </android.support.v4.widget.SwipeRefreshLayout>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
                 <com.wang.avi.AVLoadingIndicatorView
                     android:id="@+id/avi_loading_fr_transaction"

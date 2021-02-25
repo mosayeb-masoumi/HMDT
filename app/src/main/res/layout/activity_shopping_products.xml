@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:id="@+id/rl_root_shopping_product"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -36,7 +37,7 @@
         android:layout_above="@+id/edit_product_btmview"
         android:layout_marginBottom="10dp">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_shopping_products"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/arrow_left"
                 android:padding="3dp"
-                android:tint="#FFF" />
+               app:tint="#FFF" />
 
         </LinearLayout>
     </LinearLayout>
