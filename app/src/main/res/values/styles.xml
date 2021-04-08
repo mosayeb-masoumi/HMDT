@@ -16,4 +16,15 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="scroll_bar_style">
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+<!--        <item name="android:scrollbarStyle">outsideOverlay</item>-->
+        <item name="android:scrollbarStyle">outsideInset</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarTrackVertical">@color/grey</item>
+        <item name="android:scrollbarSize">14dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/bg_btn_prize</item>
+    </style>
+
 </resources>

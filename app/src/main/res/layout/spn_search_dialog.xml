@@ -50,15 +50,13 @@
             android:id="@+id/rv_spinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fadeScrollbars="false"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_centerInParent="false"
             android:padding="7dp"
-            android:scrollbarSize="3dp"
-            android:scrollbars="vertical">
+            style="@style/scroll_bar_style">
 
         </androidx.recyclerview.widget.RecyclerView>
 
