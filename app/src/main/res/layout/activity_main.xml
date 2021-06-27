@@ -422,12 +422,12 @@
                         android:src="@drawable/instagram_icon" />
 
                     <ImageView
-                        android:id="@+id/image_telegram"
+                        android:id="@+id/image_linkdin"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_toStartOf="@+id/img_instagram"
-                        android:src="@drawable/telegram_icon" />
+                        android:src="@drawable/linkedin" />
                 </LinearLayout>
             </LinearLayout>
 

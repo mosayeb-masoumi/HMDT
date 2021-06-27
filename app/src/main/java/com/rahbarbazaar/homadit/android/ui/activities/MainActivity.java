@@ -2,6 +2,7 @@ package com.rahbarbazaar.homadit.android.ui.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,7 +97,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     AHBottomNavigation bottom_navigation;
     private GpsTracker gpsTracker;
 
-    ImageView image_drawer, image_instagram, image_telegram, img_backbtmbar_left, img_backbtmbar_centerleft,
+    ImageView image_drawer, image_instagram, image_linkdin, img_backbtmbar_left, img_backbtmbar_centerleft,
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management, img_arrow_edu;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
@@ -186,7 +188,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //            img_arrow.setImageResource(R.drawable.arrow_right);
 
         if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
-            image_telegram.setVisibility(View.INVISIBLE);
+            image_linkdin.setVisibility(View.INVISIBLE);
         }
         if (tools.checkPackageInstalled("com.instagram.android", this)) {
             image_instagram.setVisibility(View.INVISIBLE);
@@ -296,7 +298,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         img_backbtmbar_centerright = findViewById(R.id.img_backbtmbar_centerright);
         img_backbtmbar_right = findViewById(R.id.img_backbtmbar_right);
         image_instagram = findViewById(R.id.image_instagram);
-        image_telegram = findViewById(R.id.image_telegram);
+        image_linkdin = findViewById(R.id.image_linkdin);
         img_arrow = findViewById(R.id.img_arrow);
         img_arrow_about = findViewById(R.id.img_arrow_about);
         img_arrow_account_management = findViewById(R.id.img_arrow_account_management);
@@ -358,7 +360,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
-        image_telegram.setOnClickListener(this);
+        image_linkdin.setOnClickListener(this);
         rl_notification.setOnClickListener(this);
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
@@ -485,6 +487,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         bottom_navigation.setCurrentItem(3);
     }
 
+
+    Intent linkdinIntent;
     @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
@@ -688,23 +692,23 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
             case R.id.image_instagram:
-//                drawer_layout_home.closeDrawers();
-//                Uri uriInstagram = Uri.parse("http://instagram.com/_u/poller.ir");
-//                Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
-//                intentInstagram.setPackage("com.instagram.android");
-//
-//                try {
-//                    startActivity(intentInstagram);
-//
-//                } catch (ActivityNotFoundException e) {
-//
-//                    e.printStackTrace();
-//                }
-//                drawer_layout_home.closeDrawer(Gravity.END);
+                drawer_layout_home.closeDrawers();
+                Uri uriInstagram = Uri.parse("https://www.instagram.com/homadit.ir/");
+                Intent intentInstagram = new Intent(Intent.ACTION_VIEW, uriInstagram);
+                intentInstagram.setPackage("com.instagram.android");
+
+                try {
+                    startActivity(intentInstagram);
+
+                } catch (ActivityNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
-            case R.id.image_telegram:
-//                drawer_layout_home.closeDrawers();
+            case R.id.image_linkdin:
+                drawer_layout_home.closeDrawers();
 //                Uri uriTelegram = Uri.parse("https://t.me/Polleriran");
 //                Intent intentTelegram = new Intent(Intent.ACTION_VIEW, uriTelegram);
 //                intentTelegram.setPackage("org.telegram.messenger");
@@ -716,7 +720,16 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //
 //                    e.printStackTrace();
 //                }
-//                drawer_layout_home.closeDrawer(Gravity.END);
+
+                try {
+                    getPackageManager().getPackageInfo("com.linkedin.android", 0);
+                  linkdinIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/rahbarbazaar/mycompany/"));
+                }catch (Exception e) {
+                    e.printStackTrace(); // handle exception
+                }finally {
+                    startActivity(linkdinIntent);
+                }
+                drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
 

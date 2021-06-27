@@ -5,10 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 
 //import com.rahbarbazaar.shopper.R;
 
+import androidx.core.content.FileProvider;
+
+import com.rahbarbazaar.homadit.android.BuildConfig;
 import com.rahbarbazaar.homadit.android.R;
 
 import java.io.File;
@@ -47,14 +51,38 @@ public class DownloadManager {
         @Override
         public void onReceive(Context context, Intent intent) {
             long referenceId = intent.getLongExtra(android.app.DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
+
+//            if (referenceId == DLid) {
+//                Uri apkUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+//                        "Download/" + context.getResources().getString(R.string.app_name) + ".apk"));
+//                intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(intent);
+//            }
+
             if (referenceId == DLid) {
-                Uri apkUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
-                        "Download/" + context.getResources().getString(R.string.app_name) + ".apk"));
-                intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Uri apkUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", new File(Environment.getExternalStorageDirectory(),
+                            "Download/" + context.getResources().getString(R.string.app_name) + ".apk"));
+                    intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+                    intent.setData(apkUri);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } else {
+                    Uri apkUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                            "Download/" + context.getResources().getString(R.string.app_name) + ".apk"));
+                    intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
             }
+
+
         }
     };
 }

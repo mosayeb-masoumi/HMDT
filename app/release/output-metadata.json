@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 14,
-      "versionName": "2.9.0",
-      "outputFile": "HomAdit V2.9.0.apk"
+      "versionCode": 15,
+      "versionName": "3.0.0",
+      "outputFile": "HomAdit V3.0.0.apk"
     }
   ]
 }
