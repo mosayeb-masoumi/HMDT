@@ -210,7 +210,7 @@
     <string name="homadit_intro">معرفی همادیت</string>
     <string name="account_management">مدیریت حساب</string>
     <string name="transaction_list">فهرست تراکنشها</string>
-    <string name="papasi_to_rial">تبدیل پاپاسی به ریال</string>
+    <string name="papasi_to_rial">تبدیل پاپاسی به تومان</string>
     <string name="my_wallet">کیف پول من</string>
     <string name="purchase_manegement">مدیریت خرید</string>
     <string name="all_purchased_list">لیست همه ی خرید ها</string>
@@ -218,7 +218,7 @@
     <string name="convert_succeed">عملیات تبدیل با موفقیت انجام شد.</string>
     <string name="insert_papasi_hint">تعداد پاپاسی را وارد کنید</string>
     <string name="credit_papasi">پاپاسی های موجود</string>
-    <string name="credit_rial">موجودی(ریالی)</string>
+    <string name="credit_rial">موجودی(تومان)</string>
 
     <string name="lottary">قرعه کشی</string>
     <string name="latest_purchases">خریدهای 24 ساعت گذشته</string>

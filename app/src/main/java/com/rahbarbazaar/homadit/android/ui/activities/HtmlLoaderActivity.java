@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import androidx.core.os.ConfigurationCompat;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -78,7 +80,21 @@ public class HtmlLoaderActivity extends CustomBaseActivity implements View.OnCli
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+
+
+                if (url.equals("homadit://home")) {
+                    finish();
+                } else if (url.equals("homadit://gp")) {
+
+//                    String gp_url = "https://play.google.com/store/apps/details?id=com.rahbarbazaar.poller.android";
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(gp_url));
+//                    startActivity(i);
+                    finish();
+
+                } else {
+                    view.loadUrl(url);
+                }
                 return false;
             }
 

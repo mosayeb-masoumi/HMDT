@@ -184,26 +184,27 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         img_arrow_account_management.setImageResource(R.drawable.arrow_left);
         img_arrow_purchase_management.setImageResource(R.drawable.arrow_left);
 
-//        else
-//            img_arrow.setImageResource(R.drawable.arrow_right);
 
-        if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
-            image_linkdin.setVisibility(View.INVISIBLE);
-        }
-        if (tools.checkPackageInstalled("com.instagram.android", this)) {
-            image_instagram.setVisibility(View.INVISIBLE);
-        }
 
-        if (tools.checkPackageInstalled("org.telegram.messenger", this)) { //no telegram
-            if (tools.checkPackageInstalled("com.instagram.android", this)) { // no instagram
-                text_follow_us.setVisibility(View.INVISIBLE);
-            }
-        }
-        if (tools.checkPackageInstalled("com.instagram.android", this)) { //no instagram
-            if (tools.checkPackageInstalled("org.telegram.messenger", this)) { // no telegram
-                text_follow_us.setVisibility(View.INVISIBLE);
-            }
-        }
+//        if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
+//            image_linkdin.setVisibility(View.INVISIBLE);
+//        }
+//        if (tools.checkPackageInstalled("com.instagram.android", this)) {
+//            image_instagram.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if (tools.checkPackageInstalled("org.telegram.messenger", this)) { //no telegram
+//            if (tools.checkPackageInstalled("com.instagram.android", this)) { // no instagram
+//                text_follow_us.setVisibility(View.INVISIBLE);
+//            }
+//        }
+//        if (tools.checkPackageInstalled("com.instagram.android", this)) { //no instagram
+//            if (tools.checkPackageInstalled("org.telegram.messenger", this)) { // no telegram
+//                text_follow_us.setVisibility(View.INVISIBLE);
+//            }
+//        }
+
+
 
         checkUpdate();
         getProfileInfo();

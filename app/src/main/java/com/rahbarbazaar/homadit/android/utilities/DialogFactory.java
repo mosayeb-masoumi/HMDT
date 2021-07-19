@@ -18,6 +18,7 @@ import androidx.appcompat.widget.SearchView;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1538,6 +1539,8 @@ public class DialogFactory {
         EditText edt_description = customLayout.findViewById(R.id.edt_description);
         Button btn_register = customLayout.findViewById(R.id.btn);
 
+//        edt_description.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
         txt_header.setText("ثبت پاپاسی");
         btn_register.setText("ثبت");
