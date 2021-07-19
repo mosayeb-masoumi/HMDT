@@ -1540,7 +1540,8 @@ public class DialogFactory {
         Button btn_register = customLayout.findViewById(R.id.btn);
 
 //        edt_description.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+//        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        edt_description.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         txt_header.setText("ثبت پاپاسی");
         btn_register.setText("ثبت");
