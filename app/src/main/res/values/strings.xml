@@ -37,7 +37,7 @@
 
     <string name="terms_conditions"><u>قوانین و مقررات</u></string>
     <string name="enter">ورود</string>
-<!--    <string name="accept_terms_conditions">قوانین و مقررات</string>-->
+    <!--    <string name="accept_terms_conditions">قوانین و مقررات</string>-->
     <string name="accept_terms_conditions"> را مطالعه کرده و قبول دارم</string>
     <string name="shop">فروشگاه</string>
     <string name="shop2">فروشگاه:</string>
@@ -236,6 +236,7 @@
     <string name="latest_purchases">خریدهای 24 ساعت گذشته</string>
     <string name="text_expressions">اصطلاحات</string>
     <string name="education">آموزش</string>
+    <string name="no_video">ویدئویی برای نمایش وجود ندارد.</string>
 
 
 </resources>

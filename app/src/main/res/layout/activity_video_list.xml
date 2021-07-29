@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activities.VideoListActivity">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_video"
+        android:layout_above="@+id/rl_back_video"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_video"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/txt_no_video"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:layout_marginTop="50dp"/>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:indicatorColor="@color/blue_dark" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/rl_back_video"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_toolbar">
+
+
+        <LinearLayout
+            android:id="@+id/linear_return_video"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/retuen"
+                android:textColor="@color/white_gray"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:src="@drawable/arrow_left"
+                app:tint="#FFF" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

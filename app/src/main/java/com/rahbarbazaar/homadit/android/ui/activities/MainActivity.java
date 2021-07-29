@@ -606,7 +606,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 break;
 
             case R.id.linear_videos:
-                goToHtmlActivity(dashboardCreateData.data.video_content);
+//                goToHtmlActivity(dashboardCreateData.data.video_content);
+                startActivity(new Intent(MainActivity.this,VideoListActivity.class));
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 

@@ -39,6 +39,7 @@ import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize;
 import com.rahbarbazaar.homadit.android.models.shopping_product.TotalShoppingProductData;
 import com.rahbarbazaar.homadit.android.models.transaction.TransactionData;
 import com.rahbarbazaar.homadit.android.models.verify.VerifyModel;
+import com.rahbarbazaar.homadit.android.models.video.VideoModel;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -177,5 +178,9 @@ public interface Service {
 
     @POST("Lottery/OldDetail")
     Call<OldDetail> getOldDetail(@Query("lottery_id") String lottery_id);
+
+
+    @GET("Video/Index")
+    Call<VideoModel> getVideos();
 
 }

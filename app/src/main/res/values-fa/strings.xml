@@ -224,5 +224,6 @@
     <string name="latest_purchases">خریدهای 24 ساعت گذشته</string>
     <string name="text_expressions">اصطلاحات</string>
     <string name="education">آموزش</string>
+    <string name="no_video">ویدئویی برای نمایش وجود ندارد.</string>
 
 </resources>
