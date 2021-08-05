@@ -40,6 +40,8 @@ public class LottaryWinnersActivity extends CustomBaseActivity implements Lottar
     Disposable disposable = new CompositeDisposable();
     OldDetail oldDetail ;
 
+
+
     TextView txt_start_date_winners,txt_finish_date_winners,txt_lottary_date_winners
             ,txt_lottary_minimum_winners,txt_title_winners,txt_header;
     RecyclerView rv_prize_winners,rv_past_winners,rv_past_links;
@@ -120,6 +122,8 @@ public class LottaryWinnersActivity extends CustomBaseActivity implements Lottar
         linkAdapter = new LottaryLinkWinnerAdapter(linkList, LottaryWinnersActivity.this);
         linkAdapter.setListener(this);
         rv_past_links.setAdapter(linkAdapter);
+
+        
     }
 
 

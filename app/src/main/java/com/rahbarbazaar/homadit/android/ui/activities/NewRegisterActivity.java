@@ -255,7 +255,7 @@ public class NewRegisterActivity extends CustomBaseActivity
                 txt_btn_member.setText("سفارش دهنده/ خریدار");
                 spn_name="online";
             }else if(online_shopping.equals("no")){
-                txt_btn_member.setText("همراه کننده/کنندگان در خرید");
+                txt_btn_member.setText("خریدار/ مشارکت کنندگان در خرید");
                 spn_name="present";
             }
 
@@ -393,7 +393,8 @@ public class NewRegisterActivity extends CustomBaseActivity
 
             case R.id.btn_present_purchase:
                 spn_name = "present";
-                txt_btn_member.setText(getResources().getString(R.string.familymember));
+//                txt_btn_member.setText(getResources().getString(R.string.familymember));
+                txt_btn_member.setText("خریدار/ مشارکت کنندگان در خرید");
                 txt_btn_member.setTextSize(13);
                 showShopListDialog(spn_name);
                 break;

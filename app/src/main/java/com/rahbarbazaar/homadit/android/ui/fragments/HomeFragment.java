@@ -36,6 +36,7 @@ import com.rahbarbazaar.homadit.android.models.activelist.ActiveListData;
 import com.rahbarbazaar.homadit.android.models.api_error.ErrorUtils;
 import com.rahbarbazaar.homadit.android.models.api_error206.APIError406;
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData;
+import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_home.HomeData;
 import com.rahbarbazaar.homadit.android.models.latlng.LatLng;
 import com.rahbarbazaar.homadit.android.models.register.RegisterModel;
 import com.rahbarbazaar.homadit.android.models.shopping_edit.ShoppingEdit;
@@ -393,30 +394,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //        startActivity(intent);
 //        Objects.requireNonNull(getActivity()).overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 //    }
-//    private void getRefreshHomeData() {
-//        Service service = new ServiceProvider(getContext()).getmService();
-//        Call<HomeData> call = service.getRefreshHomeData();
-//        call.enqueue(new Callback<HomeData>() {
-//            @Override
-//            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
-//
-//                if (response.code() == 200) {
-//
-//                    txt_balance.setText(response.body().data.one);
-//                    txt_papasi.setText(response.body().data.two);
-//                    txt_left_days.setText(response.body().data.four);
-//
-//                } else {
-//                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<HomeData> call, Throwable t) {
-//                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+    private void getRefreshHomeData() {
+        Service service = new ServiceProvider(getContext()).getmService();
+        Call<HomeData> call = service.getRefreshHomeData();
+        call.enqueue(new Callback<HomeData>() {
+            @Override
+            public void onResponse(Call<HomeData> call, Response<HomeData> response) {
+
+                if (response.code() == 200) {
+
+                    txt_balance.setText(response.body().data.one);
+                    txt_papasi.setText(response.body().data.two);
+                    txt_left_days.setText(response.body().data.four);
+
+                } else {
+                    Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.serverFaield), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HomeData> call, Throwable t) {
+                Toast.makeText(getContext(), "" + getContext().getResources().getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 
@@ -425,7 +426,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-//        getRefreshHomeData();
+        getRefreshHomeData();
     }
 
     @Override

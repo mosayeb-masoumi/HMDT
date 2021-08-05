@@ -236,8 +236,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
                     android:background="@drawable/bg_btn_prize">
 
                     <ImageView
@@ -314,8 +314,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
                     android:background="@drawable/bg_btn_prize">
 
                     <ImageView
@@ -382,9 +382,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginStart="60dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="60dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_button_add">
 
