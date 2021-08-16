@@ -26,8 +26,8 @@ android {
         applicationId "com.rahbarbazaar.homadit.android"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 18
-        versionName "3.2.0"
+        versionCode 19
+        versionName "3.2.1"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         vectorDrawables.useSupportLibrary = true
