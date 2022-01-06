@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -896,7 +897,7 @@ public class DialogFactory {
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
                     barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail(),
                     barcode.getData().get(i).getPrice(), barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
-                    barcode.getData().get(i).getMaxAmount()));
+                    barcode.getData().get(i).getMaxAmount(), barcode.getData().get(i).getWord() ));
 
 
         }
@@ -949,7 +950,7 @@ public class DialogFactory {
                     barcode.getData().get(i).getBarcode(), barcode.getData().get(i).getDecription(), barcode.getData().get(i).getUnit(),
                     barcode.getData().get(i).getImage(), barcode.getData().get(i).getBarcodeDetail(),
                     barcode.getData().get(i).getPrice(), barcode.getData().get(i).getMinPrice(), barcode.getData().get(i).getMaxPrice(),
-                    barcode.getData().get(i).getMaxAmount()));
+                    barcode.getData().get(i).getMaxAmount(),barcode.getData().get(i).getWord() ));
         }
 
         //set recyclerview
@@ -1082,10 +1083,23 @@ public class DialogFactory {
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
         RelativeLayout rl_btn = customLayout.findViewById(R.id.rl_btn);
 
+
+
+
         rl_btn.setVisibility(View.GONE);
 
         SearchView searchView = customLayout.findViewById(R.id.search_view);
-        searchView.setVisibility(View.GONE);
+        searchView.setQueryHint("جستجو...");
+        EditText searchEditText = searchView.findViewById(R.id.search_src_text);
+        searchEditText.setTextColor(Color.WHITE);
+        searchEditText.setHintTextColor(Color.GRAY);
+
+        // change close icon (color shape ...)
+        ImageView imvClose = searchView.findViewById(R.id.search_close_btn);
+        imvClose.setImageResource(R.drawable.ic_close);
+
+        // delete icon search
+        searchView.setIconifiedByDefault(false);
 
         if (spn_name.equals("online")) {
             txt_header.setText("لیست فروشگاههای آنلاین");
@@ -1109,6 +1123,24 @@ public class DialogFactory {
         SearchAdapter adapter = new SearchAdapter(searchList, view.getContext(), dialog, spn_name);
         adapter.setListener(newRegisterActivity);
         recyclerView.setAdapter(adapter);
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                //FILTER AS YOU TYPE
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+
+
 
         img_close.setOnClickListener(v -> {
             dialog.dismiss();
@@ -1641,6 +1673,53 @@ public class DialogFactory {
 
         img_close.setOnClickListener(v -> dialog.dismiss());
 
+
+        dialog.show();
+    }
+
+
+
+    public void createConfirmProductDialog(DialogFactoryInteraction listener, LinearLayout view, Barcode barcode) {
+
+
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog, (ViewGroup) view, false);
+        ImageView img_close = customLayout.findViewById(R.id.img_close);
+        TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_description = customLayout.findViewById(R.id.txt_description);
+        Button btn_home = customLayout.findViewById(R.id.btn1);
+        Button btn_edit = customLayout.findViewById(R.id.btn2);
+
+
+        btn_edit.setText("بازگشت");
+        btn_home.setText("ادامه");
+
+        txt_description.setText("همراه عزیز همادیت :\n محصولی که شما در حال ثبت آن هستید,جزء محصولات مورد نیاز همادیت نیست. آیا مایل به ادامه ثبت هستید؟");
+        txt_header.setText("پیغام مهم");
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+        builder.setView(customLayout);
+        //create dialog and set background transparent
+        android.app.AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+
+        btn_home.setOnClickListener(view1 -> {
+            listener.onAcceptButtonClicked();
+            dialog.dismiss();
+        });
+
+
+        btn_edit.setOnClickListener(v -> {
+                    listener.onDeniedButtonClicked(false);
+                    dialog.dismiss();
+                }
+        );
+
+        img_close.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });
 
         dialog.show();
     }

@@ -2,7 +2,9 @@ package com.rahbarbazaar.homadit.android.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,14 @@ import com.rahbarbazaar.homadit.android.models.barcodlist.BarcodeLoadingState;
 import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData;
 import com.rahbarbazaar.homadit.android.network.Service;
 import com.rahbarbazaar.homadit.android.network.ServiceProvider;
+import com.rahbarbazaar.homadit.android.ui.activities.NewRegisterActivity;
 import com.rahbarbazaar.homadit.android.ui.activities.PurchasedItemActivity;
 import com.rahbarbazaar.homadit.android.utilities.Cache;
+import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
+
 import org.greenrobot.eventbus.EventBus;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,49 +63,60 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
     private void getListOfProducts(String barcode_digit) {
 
 
-        String shopping_id = Cache.getString(getContext(),"shopping_id");
+        String shopping_id = Cache.getString(getContext(), "shopping_id");
 
         state.setState("show_loading");
         EventBus.getDefault().postSticky(state);
 
         Service service = new ServiceProvider(getContext()).getmService();
-        Call<Barcode> call = service.getBarcodeList(barcode_digit ,shopping_id);
+        Call<Barcode> call = service.getBarcodeList(barcode_digit, shopping_id);
         call.enqueue(new Callback<Barcode>() {
             @Override
             public void onResponse(Call<Barcode> call, Response<Barcode> response) {
                 if (response.code() == 200) {
                     Barcode barcode = new Barcode();
                     barcode = response.body();
-
                     RxBus.BarcodeList.publishBarcodeList(barcode);
 
-                    int size = barcode.getData().size();
-                    if (size > 1) {
-                        state.setState("stop_loading");
-                        EventBus.getDefault().postSticky(state);
-                        EventBus.getDefault().post(barcode);
-                        onResume();
-                    } else if (size == 1) {
+                   // goto father activity to continue process
+                    state.setState("stop_loading");
+                    EventBus.getDefault().postSticky(state);
+                    EventBus.getDefault().post(barcode);
+                    onResume();
 
-                        Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
-                        intent.putExtra("barcodeList", barcode);
-                        intent.putExtra("product_id", barcode.getData().get(0).getId());
-                        intent.putExtra("suggested_price", barcode.getData().get(0).getPrice());
-                        intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
-//                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
-//                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
-//                        intent.putExtra("max_amount",barcode.getData().get(0).getMaxAmount());
+                    /** below codes moved to father activity **/
 
-                        startActivity(intent);
-                        getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//                    int size = barcode.getData().size();
+//                    if (size > 1) {
+//                        state.setState("stop_loading");
+//                        EventBus.getDefault().postSticky(state);
+//                        EventBus.getDefault().post(barcode);
+//                        onResume();
+//                    } else if (size == 1) {
+//
+//                            Intent intent = new Intent(getContext(), PurchasedItemActivity.class);
+//                            intent.putExtra("barcodeList", barcode);
+//                            intent.putExtra("product_id", barcode.getData().get(0).getId());
+//                            intent.putExtra("suggested_price", barcode.getData().get(0).getPrice());
+//                            intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
+////                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
+////                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
+////                        intent.putExtra("max_amount",barcode.getData().get(0).getMaxAmount());
+//
+//                            startActivity(intent);
+//                            getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+//
+//                            state.setState("stop_loading");
+//                            EventBus.getDefault().postSticky(state);
+//
+//                            // added 99_07_12
+////                        mScannerView.stopCamera();
+//                            getActivity().finish();
+//
+//
+//                    }
 
-                        state.setState("stop_loading");
-                        EventBus.getDefault().postSticky(state);
 
-                        // added 99_07_12
-//                        mScannerView.stopCamera();
-                        getActivity().finish();
-                    }
                 } else if (response.code() == 204) {
                     getSpinneList(barcode_digit);
 
@@ -114,7 +131,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
                         }
                     }
 
-                    Toast.makeText(getContext(), ""+builderShopId, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "" + builderShopId, Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -134,6 +151,7 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
             }
         });
     }
+
 
     private void getSpinneList(String barcode_digit) {
         Service service = new ServiceProvider(getContext()).getmService();
@@ -189,4 +207,8 @@ public class ScanFragment extends Fragment implements ZXingScannerView.ResultHan
         mScannerView.stopCamera();
 
     }
+
+
+
+
 }

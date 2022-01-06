@@ -1,7 +1,9 @@
 package com.rahbarbazaar.homadit.android.models.barcodlist
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
@@ -49,11 +51,15 @@ class BarcodeData() : Parcelable {
     @Expose
     var maxAmount: String? = null
 
+    @SerializedName("word")
+    @Expose
+    var word: Boolean = false
 
 
 
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
         mygroup = parcel.readString()
@@ -66,13 +72,13 @@ class BarcodeData() : Parcelable {
         minPrice = parcel.readString()
         maxPrice = parcel.readString()
         maxAmount = parcel.readString()
-
+        word =parcel.readBoolean()
     }
 
 
 
     constructor(id: String?, mygroup: String?,barcode: String?, decription: String?,unit: String?,image: String?
-                ,barcodeDetail: List<BarcodeDetail>?,price: String?,min_price: String? ,max_price: String?, max_amount: String?) : this() {
+                ,barcodeDetail: List<BarcodeDetail>?,price: String?,min_price: String? ,max_price: String?, max_amount: String? ,word: Boolean) : this() {
         this.id = id
         this.mygroup = mygroup
         this.barcode = barcode
@@ -84,7 +90,7 @@ class BarcodeData() : Parcelable {
         this.minPrice = min_price
         this.maxPrice = max_price
         this.maxAmount = max_amount
-
+        this.word = word
     }
 
     override fun describeContents(): Int {
@@ -92,6 +98,7 @@ class BarcodeData() : Parcelable {
     }
 
     companion object CREATOR : Parcelable.Creator<BarcodeData> {
+        @RequiresApi(Build.VERSION_CODES.Q)
         override fun createFromParcel(parcel: Parcel): BarcodeData {
             return BarcodeData(parcel)
         }
@@ -101,6 +108,7 @@ class BarcodeData() : Parcelable {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun writeToParcel(parcel: Parcel, flags: Int) {
 
         parcel.writeString(id)
@@ -114,6 +122,7 @@ class BarcodeData() : Parcelable {
         parcel.writeString(minPrice)
         parcel.writeString(maxPrice)
         parcel.writeString(maxAmount)
+        parcel.writeBoolean(word)
 
 
     }

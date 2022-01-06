@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,7 @@ import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 import com.wang.avi.AVLoadingIndicatorView;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -53,9 +56,9 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
     LinearLayout linear_return_qrcode, ll_root;
     RelativeLayout rl_home_qrcode;
-    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish ,btn_unreadable;
+    Button btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, btn_7, btn_8, btn_finish, btn_unreadable;
 
-    TextView txt_group_title ;
+    TextView txt_group_title;
     ImageView img_icon;
 
     GeneralTools tools;
@@ -68,7 +71,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     String description;
     String name;
 
-    AVLoadingIndicatorView avi_qrcode,avi_unreadable ;
+    AVLoadingIndicatorView avi_qrcode, avi_unreadable;
 
     List<SearchModel> searchList;
 
@@ -96,8 +99,6 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         });
 
 
-
-
 //        new Thread (() -> {
 //            ScanFragment scanFragment = new ScanFragment();
 //            FragmentManager fm = getSupportFragmentManager();
@@ -114,8 +115,8 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         ft.commit();
 
 
-        txt_group_title.setText(Cache.getString(this,"selectedGroupTitle"));
-        String url = Cache.getString(this,"selectedGroupIcon");
+        txt_group_title.setText(Cache.getString(this, "selectedGroupTitle"));
+        String url = Cache.getString(this, "selectedGroupIcon");
         Glide
                 .with(this)
                 .load(url)
@@ -127,13 +128,12 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     }
 
 
-
     private void initView() {
 
         linear_return_qrcode = findViewById(R.id.linear_return_qrcode);
         rl_home_qrcode = findViewById(R.id.rl_home_qrcode);
-        txt_group_title  = findViewById(R.id.txt_group_title);
-        img_icon  = findViewById(R.id.img_icon);
+        txt_group_title = findViewById(R.id.txt_group_title);
+        img_icon = findViewById(R.id.img_icon);
         ll_root = findViewById(R.id.root_qrcode_scanner);
         btn_1 = findViewById(R.id.btn1_register_barcode);
         btn_2 = findViewById(R.id.btn2_register_barcode);
@@ -148,8 +148,6 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         avi_unreadable = findViewById(R.id.avi_unreadable);
 
         btn_unreadable = findViewById(R.id.btn_unreadable);
-
-
 
 
 //        btn_1.setText(initMemberPrizeLists.data.categories.get(0).name);
@@ -182,8 +180,8 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         switch (view.getId()) {
 
             case R.id.linear_return_qrcode:
-                Intent intent = new Intent(QRcodeActivity.this,GroupGoodsActivity.class);
-                intent.putExtra("new_register","repeat");
+                Intent intent = new Intent(QRcodeActivity.this, GroupGoodsActivity.class);
+                intent.putExtra("new_register", "repeat");
                 startActivity(intent);
 
                 finish();
@@ -246,8 +244,8 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
 
             case R.id.btn_unreadable:
 //                getCategoryList();
-                Intent intent2 = new Intent(QRcodeActivity.this,PurchasedItemActivity.class);
-                intent2.putExtra("unreadable_barcode","unreadable_barcode");
+                Intent intent2 = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
+                intent2.putExtra("unreadable_barcode", "unreadable_barcode");
                 startActivity(intent2);
                 break;
 
@@ -268,7 +266,35 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     @Subscribe
     public void onEvent(Barcode barcode) {
 //        Toast.makeText(this, ""+barcode.getData().get(0).getDecription(), Toast.LENGTH_SHORT).show();
-        showBarcodeListDialog(barcode);
+
+        int size = barcode.getData().size();
+        if (size > 1) {
+            showBarcodeListDialog(barcode);
+        } else if (size == 1) {
+
+            if (barcode.getData().get(0).getWord()) {  // if() == true
+                Intent intent = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
+                intent.putExtra("barcodeList", barcode);
+                intent.putExtra("product_id", barcode.getData().get(0).getId());
+                intent.putExtra("suggested_price", barcode.getData().get(0).getPrice());
+                intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
+//                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
+//                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
+//                        intent.putExtra("max_amount",barcode.getData().get(0).getMaxAmount());
+
+                startActivity(intent);
+                this.overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                // added 99_07_12
+//                        mScannerView.stopCamera();
+               finish();
+            } else {
+                showConfirmProductDialog(barcode);
+            }
+
+        }
+
+
     }
 
     private void showInfoDialog(String description, String name) {
@@ -317,9 +343,9 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
         Intent intent = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
         intent.putExtra("position", position);
         intent.putExtra("barcodeList", barcode);
-        intent.putExtra("suggested_price",model.getPrice());
-        intent.putExtra("product_id",barcode.getData().get(position).getId());
-        intent.putExtra("mygroup",barcode.getData().get(position).getMygroup());
+        intent.putExtra("suggested_price", model.getPrice());
+        intent.putExtra("product_id", barcode.getData().get(position).getId());
+        intent.putExtra("mygroup", barcode.getData().get(position).getMygroup());
 //        intent.putExtra("min_price",barcode.getData().get(position).getMinPrice());
 //        intent.putExtra("max_price",barcode.getData().get(position).getMaxPrice());
 //        intent.putExtra("max_amount",barcode.getData().get(position).getMaxAmount());
@@ -362,7 +388,7 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
                     }
 
                     RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
-                    startActivity(new Intent(QRcodeActivity.this,GroupGoodsActivity.class));
+                    startActivity(new Intent(QRcodeActivity.this, GroupGoodsActivity.class));
 
 
                 } else {
@@ -387,10 +413,53 @@ public class QRcodeActivity extends CustomBaseActivity implements View.OnClickLi
     public void onBackPressed() {
 //        super.onBackPressed();
 
-        Intent intent = new Intent(QRcodeActivity.this,GroupGoodsActivity.class);
-        intent.putExtra("new_register","repeat");
+        Intent intent = new Intent(QRcodeActivity.this, GroupGoodsActivity.class);
+        intent.putExtra("new_register", "repeat");
         startActivity(intent);
 
         finish();
     }
+
+
+
+
+    private void showConfirmProductDialog(Barcode barcode) {
+
+        DialogFactory dialogFactory = new DialogFactory(this);
+        dialogFactory.createConfirmProductDialog(new DialogFactory.DialogFactoryInteraction() {
+            @Override
+            public void onAcceptButtonClicked(String... params) {
+            // btn continue
+
+                Intent intent = new Intent(QRcodeActivity.this, PurchasedItemActivity.class);
+                intent.putExtra("barcodeList", barcode);
+                intent.putExtra("product_id", barcode.getData().get(0).getId());
+                intent.putExtra("suggested_price", barcode.getData().get(0).getPrice());
+                intent.putExtra("mygroup", barcode.getData().get(0).getMygroup());
+//                        intent.putExtra("min_price",barcode.getData().get(0).getMinPrice());
+//                        intent.putExtra("max_price",barcode.getData().get(0).getMaxPrice());
+//                        intent.putExtra("max_amount",barcode.getData().get(0).getMaxAmount());
+
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+
+                // added 99_07_12
+//                        mScannerView.stopCamera();
+                finish();
+
+            }
+
+            @Override
+            public void onDeniedButtonClicked(boolean bool) {
+
+                Intent intent = new Intent(QRcodeActivity.this,GroupGoodsActivity.class);
+                intent.putExtra("new_register" ,"new_register");
+                startActivity(intent);
+
+                finish();
+            }
+        }, ll_root, barcode);
+    }
+
+
 }
