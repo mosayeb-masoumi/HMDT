@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +28,7 @@ import androidx.core.os.ConfigurationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -97,7 +99,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     AHBottomNavigation bottom_navigation;
     private GpsTracker gpsTracker;
 
-    ImageView image_drawer, image_instagram, image_linkdin, img_backbtmbar_left, img_backbtmbar_centerleft,
+    ImageView image_drawer, image_instagram, image_linkdin, image_telegram,img_backbtmbar_left, img_backbtmbar_centerleft,
             img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management, img_arrow_edu;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
@@ -105,7 +107,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             linear_edu, linear_submenu, linear_submenu_about, linear_submenu_edu, linear_submenu_account_management, linear_transaction_list_drawer,
             linear_papasi_to_rial_drawer, linear_my_wallet_drawer, linear_purchase_management, linear_submenu_purchase_management,
             linear_register_new_purchase, linear_all_purchased_list, linear_new_purchased_list, linear_expressions,
-            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer, linear_lottary_drawer ;
+            linear_introduction, linear_videos, linear_news, linear_profile_drawer, ll_drawer, linear_lottary_drawer;
     RelativeLayout ll_notify_count, ll_notify_count_drawer, rl_avi_drawer_new_register;
 
     TextView txt_exit, text_notify_count, text_notify_count_drawer, text_follow_us, txt_date;
@@ -185,7 +187,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         img_arrow_purchase_management.setImageResource(R.drawable.arrow_left);
 
 
-
 //        if (tools.checkPackageInstalled("org.telegram.messenger", this)) {
 //            image_linkdin.setVisibility(View.INVISIBLE);
 //        }
@@ -203,7 +204,6 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 //                text_follow_us.setVisibility(View.INVISIBLE);
 //            }
 //        }
-
 
 
         checkUpdate();
@@ -238,11 +238,11 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
     boolean updateAvailable = false;
+
     private void checkUpdate() {
         int device_version = BuildConfig.VERSION_CODE;
         int minVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "minVersionCode"));
         int currentVersionCode = Integer.parseInt(Cache.getString(MainActivity.this, "currentVersionCode"));
-
 
 
         // force update
@@ -300,6 +300,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         img_backbtmbar_right = findViewById(R.id.img_backbtmbar_right);
         image_instagram = findViewById(R.id.image_instagram);
         image_linkdin = findViewById(R.id.image_linkdin);
+        image_telegram = findViewById(R.id.image_telegram);
         img_arrow = findViewById(R.id.img_arrow);
         img_arrow_about = findViewById(R.id.img_arrow_about);
         img_arrow_account_management = findViewById(R.id.img_arrow_account_management);
@@ -362,6 +363,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
         image_linkdin.setOnClickListener(this);
+        image_telegram.setOnClickListener(this);
         rl_notification.setOnClickListener(this);
         linear_shopping.setOnClickListener(this);
         linear_exit.setOnClickListener(this);
@@ -490,6 +492,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
 
     Intent linkdinIntent;
+
     @SuppressLint("WrongConstant")
     @Override
     public void onClick(View view) {
@@ -607,7 +610,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
             case R.id.linear_videos:
 //                goToHtmlActivity(dashboardCreateData.data.video_content);
-                startActivity(new Intent(MainActivity.this,VideoListActivity.class));
+                startActivity(new Intent(MainActivity.this, VideoListActivity.class));
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
@@ -725,16 +728,33 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
 
                 try {
                     getPackageManager().getPackageInfo("com.linkedin.android", 0);
-                  linkdinIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/rahbarbazaar/mycompany/"));
-                }catch (Exception e) {
+                    linkdinIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/company/rahbarbazaar/mycompany/"));
+                } catch (Exception e) {
                     e.printStackTrace(); // handle exception
-                }finally {
+                } finally {
                     startActivity(linkdinIntent);
                 }
                 drawer_layout_home.closeDrawer(Gravity.END);
                 break;
 
+            case R.id.image_telegram:
+                drawer_layout_home.closeDrawers();
 
+                Uri uriTelegram = Uri.parse("https://t.me/HomAdit");
+                Intent intentTelegram = new Intent(Intent.ACTION_VIEW, uriTelegram);
+                intentTelegram.setPackage("org.telegram.messenger");
+
+                try {
+                    startActivity(intentTelegram);
+
+                } catch (ActivityNotFoundException e) {
+
+                    e.printStackTrace();
+                }
+
+
+                drawer_layout_home.closeDrawer(Gravity.END);
+                break;
 
 
         }

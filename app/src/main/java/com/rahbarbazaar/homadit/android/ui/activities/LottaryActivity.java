@@ -63,6 +63,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
     DialogFactory dialogFactory;
 
     String strAmount;
+    String maximum ="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
         registerReceiver(connectivityReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         String current = Cache.getString(this, "current");
-        String maximum =Cache.getString(this, "maximum");
+        maximum =Cache.getString(this, "maximum");
 
         if(current != null && maximum !=null){
             txt_current.setText("موجودی : " + ConvertEnDigitToFa.convert(current) + " " + "پاپاسی");
@@ -346,7 +347,7 @@ public class LottaryActivity extends CustomBaseActivity implements LottaryPastIt
             public void onDeniedButtonClicked(boolean cancel_dialog) {
 
             }
-        }, lottary_root);
+        }, lottary_root , maximum);
     }
 
     @SuppressLint("SetTextI18n")

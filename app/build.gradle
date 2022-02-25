@@ -26,8 +26,8 @@ android {
         applicationId "com.rahbarbazaar.homadit.android"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 19
-        versionName "3.2.1"
+        versionCode 20
+        versionName "3.2.2"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         vectorDrawables.useSupportLibrary = true
@@ -132,7 +132,6 @@ dependencies {
     //todo delete leakCanary
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
 //    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-
 
 
     // calligraphy

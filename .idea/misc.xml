@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_edit_products_detail.xml" value="0.19010416666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_lottary.xml" value="0.19010416666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_main.xml" value="0.17447916666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_new_register.xml" value="0.19010416666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_new_register_list.xml" value="0.19010416666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/activity_purchased_item.xml" value="0.20416666666666666" />
+        <entry key="..\:/Shooper/app/src/main/res/layout/fragment_transaction.xml" value="0.19010416666666666" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>

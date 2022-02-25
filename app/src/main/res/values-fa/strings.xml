@@ -39,7 +39,7 @@
     <string name="accept_terms_conditions"> را مطالعه کرده و قبول دارم</string>
     <string name="shop">فروشگاه</string>
     <string name="shop2">فروشگاه:</string>
-    <string name="tottal_amount">مبلغ کل خرید(ریال)</string>
+    <string name="tottal_amount">جمع کل مبلغ پرداختی(ریال)</string>
     <string name="discount">مبلغ تخفیف</string>
     <string name="paid_amount">مبلغ پرداخت شده واحد</string>
     <string name="register_new">ثبت خرید جدید</string>
@@ -94,7 +94,7 @@
     <string name="percent">درصد</string>
     <string name="amount2_">مبلغ</string>
     <string name="system_message">پیام سیستمی</string>
-    <string name="register_product_successfully">کالا با موفقیت ثبت شد</string>
+    <string name="register_product_successfully">کالا با موفقیت ثبت شد.در صورت وجود کالای دیگر محصول مربوطه را انتخاب کنید در غیر اینصورت پایان ثبت خرید را بزنید.</string>
     <string name="home">صفحه اصلی</string>
     <string name="deactive">غیرفعال</string>
     <string name="unallowable_registeration">ثبت کالا مجاز نمی باشد</string>
@@ -186,7 +186,7 @@
     <string name="factor_image">عکس فاکتور خرید</string>
     <string name="consumers">مصرف کنندگان</string>
     <string name="orderer">سفارش دهنده/ خریدار</string>
-    <string name="no_product">کالایی با این بارکد یافت نشد. لطفا مشخصات کالا و محصول را درج نمایید.</string>
+    <string name="no_product">بارکد فوق در بانک اطلاعات ما شناسایی نشد.لطفا اطلاعات محصول را مطابق موارد فوق ثبت نمایید.</string>
     <string name="goods_amount">تعداد کالا</string>
     <string name="goods_price">قیمت کالا</string>
     <string name="register_update">ثبت ویرایش</string>
@@ -225,5 +225,6 @@
     <string name="text_expressions">اصطلاحات</string>
     <string name="education">آموزش</string>
     <string name="no_video">ویدئویی برای نمایش وجود ندارد.</string>
+    <string name="product_image">عکس کالا</string>
 
 </resources>

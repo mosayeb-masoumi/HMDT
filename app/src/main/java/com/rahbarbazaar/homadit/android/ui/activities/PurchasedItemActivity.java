@@ -20,7 +20,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -60,6 +63,7 @@ import com.rahbarbazaar.homadit.android.utilities.ConvertEnDigitToFa;
 import com.rahbarbazaar.homadit.android.utilities.ConvertorBitmapToString;
 import com.rahbarbazaar.homadit.android.utilities.CustomBaseActivity;
 import com.rahbarbazaar.homadit.android.utilities.DialogFactory;
+import com.rahbarbazaar.homadit.android.utilities.EditTextWatcher;
 import com.rahbarbazaar.homadit.android.utilities.GeneralTools;
 import com.rahbarbazaar.homadit.android.utilities.RxBus;
 import com.vansuita.pickimage.bean.PickResult;
@@ -221,6 +225,44 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
 
         suggested_price = getIntent().getExtras().getString("suggested_price");
 
+
+
+        // event on done keyboard
+//        txt_register_barcode.setOnEditorActionListener { v, actionId, event ->
+//            if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                submitRequest()
+//
+//                return@setOnEditorActionListener true
+//            }
+//            false
+//        }
+//
+
+        edt_barcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // do your stuff here
+                    getListOfProducts();
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    assert imm != null;
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+
+//        edt_barcode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                return false;
+//            }
+//        });
+
+
+        // to add comma after 3 digits
+        edt_cost_purchase.addTextChangedListener(new EditTextWatcher(edt_cost_purchase));
 
     }
 
@@ -732,7 +774,14 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                 btn_register_purchased.setVisibility(View.VISIBLE);
 
                 if (response.code() == 200) {
-                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_LONG).show();
+
+                    Toast toast = Toast.makeText(context, R.string.register_product_successfully, Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toastTV.setTextSize(17);
+                    toast.show();
+
 //                    startActivity(new Intent(PurchasedItemActivity.this, QRcodeActivity.class));
 //                    overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 //                    finish();
@@ -1590,7 +1639,13 @@ public class PurchasedItemActivity extends CustomBaseActivity implements View.On
                     }
 
 
-                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PurchasedItemActivity.this, "" + getResources().getString(R.string.register_product_successfully), Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(context, R.string.register_product_successfully, Toast.LENGTH_LONG);
+                    LinearLayout toastLayout = (LinearLayout) toast.getView();
+                    TextView toastTV = (TextView) toastLayout.getChildAt(0);
+                    toastTV.setTextSize(17);
+                    toast.show();
+
                     RxBus.GroupGoodsList.publishGroupGoodsList(response.body());
 
                     Intent intent = new Intent(PurchasedItemActivity.this, GroupGoodsActivity.class);

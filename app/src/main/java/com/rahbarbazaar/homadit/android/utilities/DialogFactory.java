@@ -1563,11 +1563,12 @@ public class DialogFactory {
     }
 
 
-    public void createLottaryDialog(DialogFactoryInteraction listener, RelativeLayout view) {
+    public void createLottaryDialog(DialogFactoryInteraction listener, RelativeLayout view, String maximum) {
 
-        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog3, (ViewGroup) view, false);
+        View customLayout = LayoutInflater.from(context).inflate(R.layout.sample_dialog4, (ViewGroup) view, false);
         ImageView img_close = customLayout.findViewById(R.id.img_close);
         TextView txt_header = customLayout.findViewById(R.id.txt_header);
+        TextView txt_max = customLayout.findViewById(R.id.txt_max);
         EditText edt_description = customLayout.findViewById(R.id.edt_description);
         Button btn_register = customLayout.findViewById(R.id.btn);
 
@@ -1578,6 +1579,8 @@ public class DialogFactory {
         txt_header.setText("ثبت پاپاسی");
         btn_register.setText("ثبت");
         edt_description.setHint("مقدار پاپاسی مورد نظر را وارد کنید");
+        txt_max.setText("حداکثر مشارکت " +maximum+" پاپاسی");
+        edt_description.setHint("تعداد پاپاسی خود را وارد نمایید");
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setView(customLayout);

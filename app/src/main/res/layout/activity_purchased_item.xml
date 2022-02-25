@@ -53,7 +53,6 @@
                     android:gravity="center">
 
 
-
                     <TextView
                         android:id="@+id/txt_register_barcode"
                         android:layout_width="match_parent"
@@ -982,12 +981,12 @@
                                 android:layout_centerVertical="true"
                                 android:background="@android:color/transparent"
                                 android:gravity="start"
-                                android:layoutDirection="rtl"
-                                android:textDirection="ltr"
                                 android:hint="@string/unit_price"
                                 android:inputType="number"
+                                android:layoutDirection="rtl"
                                 android:textColor="@color/blue_dark"
                                 android:textColorHint="@color/blue"
+                                android:textDirection="ltr"
                                 android:textSize="13sp" />
 
 
@@ -1137,7 +1136,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="13dp"
-                            android:text="عکس محصول"
+                            android:text="@string/product_image"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold" />

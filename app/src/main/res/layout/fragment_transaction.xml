@@ -138,7 +138,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.2">
+            android:layout_weight="1.5">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -166,15 +166,27 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:gravity="center"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/papasi_to_rial"
+                        android:textColor="@color/white"
+                        android:id="@+id/txt1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="@string/papasi_to_rial"
+                        android:text="(هر پاپاسی معادل هزار تومان)"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:layout_below="@+id/txt1"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
