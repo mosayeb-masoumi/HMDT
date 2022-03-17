@@ -22,6 +22,7 @@ import com.rahbarbazaar.homadit.android.models.api_error403.ShowMessage403
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.DashboardCreateData
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_history.DashboardHistory
 import com.rahbarbazaar.homadit.android.models.history.HistoryData
+import com.rahbarbazaar.homadit.android.models.message.MessageUnread
 import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
 import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
 import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
@@ -84,6 +85,7 @@ class SplashActivity :CustomBaseActivity() {
                 Timer().schedule(object : TimerTask() {
                     override fun run() {
                         requestDashboardData()
+
                     }
                 }, 3000)
 
@@ -126,7 +128,9 @@ class SplashActivity :CustomBaseActivity() {
                     Cache.setString(this@SplashActivity, "Update_URL", dashboardCreateData.data.updateUrl)
                     Cache.setString(this@SplashActivity, "minVersionCode", dashboardCreateData.data.minVersionCode)
                     Cache.setString(this@SplashActivity, "currentVersionCode", dashboardCreateData.data.currentVersionCode)
+
                     requestInitMemberPrizeLists()
+//                    requestMessageUnread()
 
                 } else if (response.code() == 403) {
 
@@ -149,6 +153,30 @@ class SplashActivity :CustomBaseActivity() {
             }
         })
     }
+
+//    private fun requestMessageUnread(){
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.messageUnread
+//        call.enqueue(object : Callback<MessageUnread> {
+//
+//            override fun onResponse(call: Call<MessageUnread>, response: Response<MessageUnread>) {
+//
+//                if (response.code() == 200) {
+//
+//                    var unreadCount = response.body()?.data
+//                    Cache.setInt(this@SplashActivity,"unreadMessage",unreadCount)
+//
+//                } else {
+//                    Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MessageUnread>, t: Throwable) {
+//                Toast.makeText(this@SplashActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
+
 
     private fun requestInitMemberPrizeLists() {
         val service = ServiceProvider(this).getmService()

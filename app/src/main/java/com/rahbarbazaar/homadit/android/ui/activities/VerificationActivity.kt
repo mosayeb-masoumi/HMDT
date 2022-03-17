@@ -30,6 +30,7 @@ import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_create.Dashbo
 import com.rahbarbazaar.homadit.android.models.dashboard.dashboard_history.DashboardHistory
 import com.rahbarbazaar.homadit.android.models.history.HistoryData
 import com.rahbarbazaar.homadit.android.models.login.LoginModel
+import com.rahbarbazaar.homadit.android.models.message.MessageUnread
 import com.rahbarbazaar.homadit.android.models.search_goods.GroupsData
 import com.rahbarbazaar.homadit.android.models.searchable.SearchModel
 import com.rahbarbazaar.homadit.android.models.shopping_memberprize.MemberPrize
@@ -242,6 +243,7 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
                     Cache.setString(this@VerificationActivity,"currentVersionCode",dashboardCreateData.data.currentVersionCode)
 
                     requestInitMemberPrizeLists()
+//                    requestMessageUnread()
 
                 } else {
                     ll_av_verify.visibility = View.GONE
@@ -257,6 +259,29 @@ class VerificationActivity : CustomBaseActivity(), View.OnClickListener {
             }
         })
     }
+//
+//    private fun requestMessageUnread(){
+//        val service = ServiceProvider(this).getmService()
+//        val call = service.messageUnread
+//        call.enqueue(object : Callback<MessageUnread> {
+//
+//            override fun onResponse(call: Call<MessageUnread>, response: Response<MessageUnread>) {
+//
+//                if (response.code() == 200) {
+//
+//                    var unreadCount = response.body()?.data
+//                    Cache.setInt(this@VerificationActivity,"unreadMessage",unreadCount)
+//
+//                } else {
+//                    Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.serverFaield), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MessageUnread>, t: Throwable) {
+//                Toast.makeText(this@VerificationActivity, "" + resources.getString(R.string.connectionFaield), Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 
     private fun requestInitMemberPrizeLists() {
         val service = ServiceProvider(this).getmService()

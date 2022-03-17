@@ -12,4 +12,8 @@ public class DashboardUpdateModel {
     public Integer getUnread() {
         return unread;
     }
+
+    public void setUnread(Integer unread) {
+        this.unread = unread;
+    }
 }

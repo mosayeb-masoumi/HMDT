@@ -8,4 +8,5 @@ public class DashboardUpdateData {
     @SerializedName("data")
     @Expose
     public DashboardUpdateModel data;
+
 }

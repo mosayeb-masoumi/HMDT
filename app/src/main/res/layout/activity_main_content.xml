@@ -11,14 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
-        <ImageView
-            android:id="@+id/image_drawer"
+
+        <RelativeLayout
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            app:srcCompat="@drawable/drawer2" />
+            android:layout_marginEnd="10dp">
+
+
+            <ImageView
+                android:id="@+id/image_drawer"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                app:srcCompat="@drawable/drawer2" />
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:id="@+id/img_message_unread_count"
+                android:background="@drawable/red_circle_shape"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
 
 
         <LinearLayout

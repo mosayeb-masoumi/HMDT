@@ -100,7 +100,8 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
     private GpsTracker gpsTracker;
 
     ImageView image_drawer, image_instagram, image_linkdin, image_telegram,img_backbtmbar_left, img_backbtmbar_centerleft,
-            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management, img_arrow_purchase_management, img_arrow_edu;
+            img_backbtmbar_centerright, img_backbtmbar_right, img_arrow, img_arrow_about, img_arrow_account_management,
+            img_arrow_purchase_management, img_arrow_edu , img_message_unread_count;
 
     LinearLayout linear_invite_friend, linear_exit, linear_shopping, linear_message_drawer,
             linear_support, linear_about, linear_account_management, linear_report_issue, linear_faq,
@@ -209,7 +210,18 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         checkUpdate();
         getProfileInfo();
         setDrawerRecycler();
+//        checkUnreadMessage();
     }
+
+//    private void checkUnreadMessage() {
+//
+//        int unreadMessageCount = Cache.getInt(MainActivity.this,"unreadMessage");
+//        if(unreadMessageCount == 0){
+//            img_message_unread_count.setVisibility(View.GONE);
+//        }else{
+//            img_message_unread_count.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     private void getProfileInfo() {
 
@@ -359,6 +371,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         txt_exit = findViewById(R.id.txt_exit);
         text_follow_us = findViewById(R.id.text_follow_us);
         txt_date = findViewById(R.id.txt_date);
+        img_message_unread_count = findViewById(R.id.img_message_unread_count);
 
         image_drawer.setOnClickListener(this);
         image_instagram.setOnClickListener(this);
@@ -411,6 +424,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
                 if (response.code() == 200) {
 
                     DashboardUpdateData updateData = response.body();
+//                    updateData.data.setUnread(10);
                     setNotifyCount(updateData);
 
                 } else {
@@ -425,10 +439,12 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         });
     }
 
+
     private void setNotifyCount(DashboardUpdateData updateData) {
         if (updateData.data.getUnread() > 0) {
             ll_notify_count.setVisibility(View.VISIBLE);
             ll_notify_count_drawer.setVisibility(View.VISIBLE);
+            img_message_unread_count.setVisibility(View.VISIBLE);
             if (updateData.data.getUnread() > 999) {
                 text_notify_count.setText("...");
                 text_notify_count_drawer.setText("...");
@@ -440,6 +456,7 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
         } else if (updateData.data.getUnread() == 0) {
             ll_notify_count.setVisibility(View.GONE);
             ll_notify_count_drawer.setVisibility(View.GONE);
+            img_message_unread_count.setVisibility(View.GONE);
         }
 
         //  test

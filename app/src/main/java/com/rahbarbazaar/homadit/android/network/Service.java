@@ -21,6 +21,7 @@ import com.rahbarbazaar.homadit.android.models.latlng.LatLng;
 import com.rahbarbazaar.homadit.android.models.login.LoginModel;
 import com.rahbarbazaar.homadit.android.models.message.MessageList;
 import com.rahbarbazaar.homadit.android.models.message.MessageRead;
+import com.rahbarbazaar.homadit.android.models.message.MessageUnread;
 import com.rahbarbazaar.homadit.android.models.profile.ProfileChange;
 import com.rahbarbazaar.homadit.android.models.profile.ProfileData;
 import com.rahbarbazaar.homadit.android.models.purchased_item.PurchaseItemNewProductResult;
@@ -183,6 +184,9 @@ public interface Service {
     @GET("Video/Index")
     Call<VideoModel> getVideos();
 
+
+    @GET("Message/Unread")
+    Call<MessageUnread> getMessageUnread();
 
 
 
