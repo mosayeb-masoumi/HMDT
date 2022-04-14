@@ -1,6 +1,8 @@
 package com.rahbarbazaar.homadit.android.controllers.viewholders
 
 import android.content.Context
+import android.os.Build
+import android.text.Html
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import android.view.View
@@ -27,7 +29,14 @@ class MessageViewHolder(view: View, val context: Context) : RecyclerView.ViewHol
 
         txtDate.text = model.date
         txtTitle.text = model.title
-        txtBody.text = model.body
+
+//        txtBody.text = model.body
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            txtBody.text = Html.fromHtml(model.body, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            txtBody.text = Html.fromHtml(model.body)
+        }
+
 
             // Get the state
             val expanded = model.expanded

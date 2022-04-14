@@ -26,8 +26,8 @@ android {
         applicationId "com.rahbarbazaar.homadit.android"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode 21
-        versionName "3.3.2"
+        versionCode 23
+        versionName "3.3.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
         vectorDrawables.useSupportLibrary = true
@@ -145,6 +145,8 @@ dependencies {
 //    implementation 'com.google.android.exoplayer:exoplayer-ui:2.14.2'
 //    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.15'
     implementation 'com.danikula:videocache:2.7.1'
+
+    implementation "me.leolin:ShortcutBadger:1.1.22"
 }
 
 //apply plugin: 'com.google.gms.google-services'

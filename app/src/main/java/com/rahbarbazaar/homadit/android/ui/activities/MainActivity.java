@@ -85,6 +85,7 @@ import java.util.List;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import me.leolin.shortcutbadger.ShortcutBadger;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -448,16 +449,26 @@ public class MainActivity extends CustomBaseActivity implements View.OnClickList
             if (updateData.data.getUnread() > 999) {
                 text_notify_count.setText("...");
                 text_notify_count_drawer.setText("...");
+
+                //app icon badge
+                ShortcutBadger.applyCount(MainActivity.this, updateData.data.getUnread()); //for 1.1.4+
+
             } else {
                 String count = ConvertEnDigitToFa.convert(String.valueOf(updateData.data.getUnread()));
                 text_notify_count.setText(count);
                 text_notify_count_drawer.setText(count);
+                ShortcutBadger.applyCount(MainActivity.this, updateData.data.getUnread());
             }
         } else if (updateData.data.getUnread() == 0) {
             ll_notify_count.setVisibility(View.GONE);
             ll_notify_count_drawer.setVisibility(View.GONE);
             img_message_unread_count.setVisibility(View.GONE);
+
+            ShortcutBadger.removeCount(MainActivity.this);
         }
+
+
+
 
         //  test
 //        ll_notify_count_drawer.setVisibility(View.VISIBLE);
